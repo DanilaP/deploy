@@ -5,7 +5,7 @@ import './stylesheets/application.scss'
 import { useTranslation } from './translation/i18n'
 
 import routes from './routes';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link } from 'react-router-dom';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -33,21 +33,19 @@ function App() {
               i18n test 'loading' label text: { t('labels.loading') }
           </div>
           <div>
-              <Router>
-                  router test:<br/>
-                  <Link to='/'>{t('titles.homePage')}</Link><br/>
-                  <Link to='/about'>{t('titles.aboutPage')}</Link><br/>
-                  <Link to='/custom/1'>custom 1</Link><br/>
-                  <Link to='/custom/2'>custom 2</Link><br/>
-                  router view:
-                  <Routes>
-                      {
-                          routes.map(({ path, component: C }) => (
-                              <Route key={path} path={path} element={<C />} />
-                          ))
-                      }
-                  </Routes>
-              </Router>
+              router test:<br/>
+              <Link to='/'>{t('titles.homePage')}</Link><br/>
+              <Link to='/about'>{t('titles.aboutPage')}</Link><br/>
+              <Link to='/custom/1'>custom 1</Link><br/>
+              <Link to='/custom/2'>custom 2</Link><br/>
+              router view:
+              <Routes>
+                  {
+                      routes.map(({ path, component: C }) => (
+                          <Route key={path} path={path} element={<C />} />
+                      ))
+                  }
+              </Routes>
           </div>
         </div>
       </div>
