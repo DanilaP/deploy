@@ -1,0 +1,10 @@
+{
+    "titles": {
+        "error404": "Error 404. Page not found",
+        "homePage": "Home page",
+        "aboutPage": "About page"
+    },
+    "labels": {
+        "loading": "Loading..."
+    }
+}
