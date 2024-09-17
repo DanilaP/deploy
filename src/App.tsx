@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './stylesheets/application.scss'
 import { useTranslation } from './translation/i18n'
 
-import routes from './routes';
+import {adminRoutes, routes} from './routes';
 import { Route, Routes, Link } from 'react-router-dom';
 
 function App() {
@@ -42,6 +42,11 @@ function App() {
               <Routes>
                   {
                       routes.map(({ path, component: C }) => (
+                          <Route key={path} path={path} element={<C />} />
+                      ))
+                  }
+                  {
+                      adminRoutes.map(({ path, component: C }) => (
                           <Route key={path} path={path} element={<C />} />
                       ))
                   }

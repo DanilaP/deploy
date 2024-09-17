@@ -2,7 +2,8 @@
     "titles": {
         "error404": "Error 404. Page not found",
         "homePage": "Home page",
-        "aboutPage": "About page"
+        "aboutPage": "About page",
+        "adminPage": "Admin page"
     },
     "labels": {
         "loading": "Loading..."

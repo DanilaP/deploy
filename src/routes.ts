@@ -2,8 +2,9 @@ import HomePageComponent from "./components/pages/home";
 import AboutPageComponent from "./components/pages/about";
 import CustomPageComponent from "./components/pages/custom";
 import NotFoundComponent from "./components/pages/404";
+import AdminPage from "./components/pages/Admin";
 
-const routes = [
+export const routes = [
     {
         path: '/',
         component: HomePageComponent,
@@ -21,4 +22,10 @@ const routes = [
         component: NotFoundComponent,
     }
 ];
-export default routes
+
+export const adminRoutes = [
+    {
+        path: '/admin',
+        component: AdminPage,
+    },
+]
