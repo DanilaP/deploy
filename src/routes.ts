@@ -1,9 +1,10 @@
 import HomePageComponent from "./components/pages/home";
 import AboutPageComponent from "./components/pages/about";
-import CustomPageComponent from "./components/pages/custom";
 import NotFoundComponent from "./components/pages/404";
+import AdminPage from "./components/pages/Admin";
+import AuthPage from "./components/Auth";
 
-const routes = [
+export const routes = [
     {
         path: '/',
         component: HomePageComponent,
@@ -13,12 +14,18 @@ const routes = [
         component: AboutPageComponent,
     },
     {
-        path: '/custom/:num',
-        component: CustomPageComponent,
+        path: '/auth',
+        component: AuthPage,
     },
     {
         path: '*',
         component: NotFoundComponent,
     }
 ];
-export default routes
+
+export const adminRoutes = [
+    {
+        path: '/admin',
+        component: AdminPage,
+    },
+]
