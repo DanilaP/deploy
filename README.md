@@ -28,4 +28,5 @@ If you are developing a production application, we recommend updating the config
 - Install `@emotion/react, @emotion/styled, @mui/material`
 - Routes are devided into admin and general
 - Routes and components for auth pages `auth/signIn` and `auth/signUp` updated
+- Add templates for HomePage and Admin components
 
