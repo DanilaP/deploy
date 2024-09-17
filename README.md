@@ -27,4 +27,5 @@ If you are developing a production application, we recommend updating the config
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 - Install `@emotion/react, @emotion/styled, @mui/material`
 - Routes are devided into admin and general
+- Routes and components for auth pages `auth/signIn` and `auth/signUp` updated
 

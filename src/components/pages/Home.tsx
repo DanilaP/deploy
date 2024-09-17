@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { useTranslation } from "/src/translation/i18n";
+import { useTranslation } from '../../translation/i18n';
 
 export default function HomePage () {
     const { t } = useTranslation();
