@@ -12,16 +12,18 @@ function App() {
         <> 
           <div>
               <div>
-                    router test:<br/>
                     <Link to='/'>{t('titles.homePage')}</Link><br/>
                     <Link to='/about'>{t('titles.aboutPage')}</Link><br/>
-                    <Link to='/custom/1'>custom 1</Link><br/>
-                    <Link to='/custom/2'>custom 2</Link><br/>
-                    router view:
+                    <Link to='/auth/signIn'>{t('titles.signIn')}</Link><br/>
+                    <Link to='/auth/signUp'>{t('titles.signUp')}</Link><br/>
                     <Routes>
                         {
-                            routes.map(({ path, component: C }) => (
-                                <Route key={path} path={path} element={<C />} />
+                            routes.map(({ path, component: Component, children: Children }) => (
+                                <Route 
+                                    key={path} 
+                                    path={path} 
+                                    element={<Component>{Children && <Children />}</Component>}
+                                />
                             ))
                         }
                         { 

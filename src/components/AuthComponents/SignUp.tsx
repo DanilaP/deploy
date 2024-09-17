@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { useTranslation } from "/src/translation/i18n";
+import { useTranslation } from '../../translation/i18n';
 
-export default function AuthPage () {
+
+export default function SignUp () {
     const { t } = useTranslation();
     useEffect(() => {
-        document.title = t("titles.authPage");
+        document.title = t("titles.signUp");
     });
     return (
         <div>
-            { t("titles.authPage") }
+            { t("titles.signUp") }
         </div>
     );
 }

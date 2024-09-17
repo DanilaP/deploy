@@ -1,25 +1,36 @@
-import HomePageComponent from "./components/pages/home";
-import AboutPageComponent from "./components/pages/about";
 import NotFoundComponent from "./components/pages/404";
 import AdminPage from "./components/pages/Admin";
-import AuthPage from "./components/Auth";
+import AuthPage from "./components/AuthComponents/Auth";
+import SignIn from "./components/AuthComponents/SignIn";
+import SignUp from "./components/AuthComponents/SignUp";
+import AboutPage from "./components/pages/About";
+import HomePage from "./components/pages/Home";
 
 export const routes = [
     {
         path: '/',
-        component: HomePageComponent,
+        component: HomePage,
+        children: null
     },
     {
         path: '/about',
-        component: AboutPageComponent,
+        component: AboutPage,
+        children: null 
     },
     {
-        path: '/auth',
+        path: '/auth/signin',
         component: AuthPage,
+        children: SignIn
+    },
+    {
+        path: '/auth/signup',
+        component: AuthPage,
+        children: SignUp
     },
     {
         path: '*',
         component: NotFoundComponent,
+        children: null
     }
 ];
 
@@ -27,5 +38,6 @@ export const adminRoutes = [
     {
         path: '/admin',
         component: AdminPage,
+        children: null
     },
 ]

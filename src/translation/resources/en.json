@@ -4,7 +4,9 @@
         "homePage": "Home page",
         "aboutPage": "About page",
         "adminPage": "Admin page",
-        "authPage": "Auth page"
+        "authPage": "Auth page",
+        "signUp": "Registration page",
+        "signIn": "Authorization page"
     },
     "labels": {
         "loading": "Loading..."
