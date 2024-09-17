@@ -5,6 +5,7 @@ import SignIn from "./components/AuthComponents/SignIn";
 import SignUp from "./components/AuthComponents/SignUp";
 import AboutPage from "./components/pages/About";
 import HomePage from "./components/pages/Home";
+import ShopPage from "./components/ShopComponents/Shop";
 
 export const routes = [
     {
@@ -26,6 +27,11 @@ export const routes = [
         path: '/auth/signup',
         component: AuthPage,
         children: SignUp
+    },
+    {
+        path: '/shop',
+        component: ShopPage,
+        children: null
     },
     {
         path: '*',

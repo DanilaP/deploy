@@ -6,7 +6,8 @@
         "adminPage": "Admin page",
         "authPage": "Auth page",
         "signUp": "Registration page",
-        "signIn": "Authorization page"
+        "signIn": "Authorization page",
+        "shopPage": "Shop page"
     },
     "labels": {
         "loading": "Loading..."
