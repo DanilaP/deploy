@@ -1,4 +1,4 @@
-import NotFoundComponent from "./components/pages/404";
+import NotFoundComponent from "./components/pages/ServicePages/404";
 import AdminPage from "./components/pages/Admin";
 import AuthPage from "./components/AuthComponents/Auth";
 import SignIn from "./components/AuthComponents/SignIn";
