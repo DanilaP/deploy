@@ -21,22 +21,24 @@ function App() {
                     <Link to='/shop'>{t('titles.shopPage')}</Link><br/>
                     { isAdmin ? <Link to='/admin'>{t('titles.adminPage')}</Link> : null }<br/>
                 </div>
-                <Routes>
-                    {
-                        routes.map(({ path, component: Component, children: Children }) => (
-                            <Route 
-                                key={path} 
-                                path={path} 
-                                element={<Component>{Children && <Children />}</Component>}
-                            />
-                        ))
-                    }
-                    { isAdmin && 
-                        adminRoutes.map(({ path, component: C }) => (
-                            <Route key={path} path={path} element={authorized ? (<C/>) : <Navigate to={"/auth/signIn"} />} />
-                        ))
-                    }
-                </Routes>
+                <div className="content">
+                    <Routes>
+                        {
+                            routes.map(({ path, component: Component, children: Children }) => (
+                                <Route 
+                                    key={path} 
+                                    path={path} 
+                                    element={<Component>{Children && <Children />}</Component>}
+                                />
+                            ))
+                        }
+                        { isAdmin && 
+                            adminRoutes.map(({ path, component: C }) => (
+                                <Route key={path} path={path} element={authorized ? (<C/>) : <Navigate to={"/auth/signIn"} />} />
+                            ))
+                        }
+                    </Routes>
+                </div>
             </div>
         </>
     );

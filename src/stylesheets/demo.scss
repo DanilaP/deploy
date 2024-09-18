@@ -88,6 +88,11 @@ button:focus-visible {
             display: flex;
             gap: 10px;
         }
+
+        & .content {
+            display: flex;
+            flex-direction: column;
+        }
     }
 
     & .adminPage__main {
