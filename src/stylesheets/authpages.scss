@@ -1,0 +1,17 @@
+.auth__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+
+    & .MuiFormControl-root {
+        display: grid;
+        row-gap: 10px;
+    }
+    
+    & label {
+        text-align: center;
+    }
+    
+}
