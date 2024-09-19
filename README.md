@@ -32,5 +32,6 @@ If you are developing a production application, we recommend updating the config
 - Add template for service `404` page
 - Install `axios` and add base auth
 - Add authorization by tokens
+- Add black and white theme styles
 
 

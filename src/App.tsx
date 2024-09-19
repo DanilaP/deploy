@@ -1,15 +1,20 @@
-import { useState } from 'react';
-import './stylesheets/application.scss';
+import { useEffect, useState } from 'react';
 import { useTranslation } from './translation/i18n';
-
 import { adminRoutes, routes } from './routes';
 import { Route, Routes, Link, Navigate } from 'react-router-dom';
+import './stylesheets/application.scss';
+import './stylesheets/themes.scss';
 
 function App() {
     const [authorized, setAuthorized] = useState(true);
     const [isAdmin, setIsAdmin] = useState(true);
 
     const { t } = useTranslation();
+
+    useEffect(() => {
+        document.documentElement.setAttribute("data-theme", "white");
+    }, []);
+
     return (
         <> 
             <div className='homePage__main'>
