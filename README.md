@@ -30,4 +30,6 @@ If you are developing a production application, we recommend updating the config
 - Routes and components for auth pages `auth/signIn` and `auth/signUp` updated
 - Add templates for HomePage and Admin components
 - Add template for service `404` page
+- Install `axios` and add base auth
+
 

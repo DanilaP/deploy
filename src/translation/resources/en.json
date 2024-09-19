@@ -7,7 +7,10 @@
         "authPage": "Auth page",
         "signUp": "Registration page",
         "signIn": "Authorization page",
-        "shopPage": "Shop page"
+        "shopPage": "Shop page",
+        "signUpButton": "Registration",
+        "signInButton": "Enter",
+        "forgetPasswordButton": "Forget password?"
     },
     "labels": {
         "loading": "Loading..."
