@@ -16,7 +16,6 @@ const generateAccessToken = (id) => {
 };
 
 const PORT = 5000;
-const BD_URL = `mongodb+srv://danila:355473288@cluster0.ag5ij.mongodb.net/prisonDataBase?retryWrites=true&w=majority`;
 const app = express();
 const server = http.createServer(app);
 
@@ -33,7 +32,7 @@ app.post("/auth/signin", async function(req, res) {
     try {
         const { login, password } = req.body;
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
-        let findedUser = currentUsers.filter((user) => user.login === login && user.password === password);
+        let findedUser = currentUsers.filter((user) => user.login === login && bcrypt.compareSync(password, user.password));
         if (findedUser.length > 0) {
             let token = generateAccessToken(findedUser[0].id);
             res.status(200).json({ message: "Успешный вход", user: findedUser[0], token });
@@ -56,7 +55,7 @@ app.post("/auth/signup", async function(req, res) {
             let newUser = {
                 id: newUserId,
                 login,
-                password,
+                password: bcrypt.hashSync(password, 7),
                 isAdmin: false,
             };
             let updatedUsers = JSON.stringify([...currentUsers, newUser]);
@@ -72,7 +71,6 @@ app.post("/auth/signup", async function(req, res) {
 
 async function startApp() {
     try {
-        await mongoose.connect(BD_URL);
         server.listen(PORT, () => console.log('Server started at PORT' + " " + PORT));
     } catch (error) {
         console.log(error);
