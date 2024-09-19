@@ -21,7 +21,7 @@ export default function AuthPage (props: AuthPageProps) {
             <div className="header"></div>
             <div className="content">{children}</div>
             <div className="footer">
-                <Button>Забыли пароль?</Button>
+                <Button>{t("titles.forgetPasswordButton")}</Button>
             </div>
         </div>
     );

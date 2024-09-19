@@ -7,7 +7,10 @@
         "authPage": "Страница авторизации",
         "signUp": "Страница регистрации",
         "signIn": "Страница авторизации",
-        "shopPage": "Страница магазина"
+        "shopPage": "Страница магазина",
+        "signUpButton": "Зарегестрироваться",
+        "signInButton": "Войти",
+        "forgetPasswordButton": "Забыли пароль?"
 },
     "labels": {
         "loading": "Загрузка..."

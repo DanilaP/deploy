@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from '../../translation/i18n';
 import { Button, FormControl, FormLabel, TextField } from '@mui/material';
-import { validateForm } from '../../helpers/authHelpers';
+import { validator } from '../../helpers/authHelpers';
 import { IUser } from '../../interfaces/interfaces';
 import axios from 'axios';
 
@@ -12,8 +12,8 @@ export default function SignIn () {
     const [userData, setUserData] = useState<IUser>();
 
     const signIn = async () => {
-        if (validateForm(userData)) {
-            axios.get(`http://localhost:3000/users?login_eq=${userData?.login}&password_eq=${userData?.password}`)
+        if (validator.validateForm(userData)) {
+            axios.post("http://localhost:5000/auth/signin", userData)
             .then((res) => {
                 console.log(res);
             })
@@ -31,13 +31,13 @@ export default function SignIn () {
             <FormControl>
                 <FormLabel>{t("titles.signIn")}</FormLabel>
                 <TextField onChange={(e) => setUserData({ ...userData, login: e.target.value })} 
-                        placeholder='Логин'
+                        placeholder='example@gmail.com'
                 />
                 <TextField onChange={(e) => setUserData({ ...userData, password: e.target.value })} 
                         type='password' 
-                        placeholder='Пароль'
+                        placeholder='password123'
                 />
-                <Button onClick={signIn}>Войти</Button>
+                <Button onClick={signIn}>{t("titles.signInButton")}</Button>
             </FormControl>
         </div>
     );
