@@ -15,6 +15,7 @@ export default function SignIn () {
         if (validator.validateForm(userData)) {
             axios.post("http://localhost:5000/auth/signin", userData)
             .then((res) => {
+                sessionStorage.setItem("token", res.data.token);
                 console.log(res);
             })
             .catch((error) => {
