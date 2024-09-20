@@ -6,6 +6,7 @@ import SignUp from "./components/AuthComponents/SignUp";
 import AboutPage from "./components/pages/About";
 import HomePage from "./components/pages/Home";
 import ShopPage from "./components/ShopComponents/Shop";
+import UsersList from "./components/Pages/UsersPage/UsersList/UsersList";
 
 export const routes = [
     {
@@ -46,4 +47,9 @@ export const adminRoutes = [
         component: AdminPage,
         children: null
     },
+    {
+        path: '/admin/users',
+        component: AdminPage,
+        children: UsersList
+    }
 ];

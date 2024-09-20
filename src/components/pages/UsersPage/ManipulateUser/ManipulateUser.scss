@@ -1,0 +1,19 @@
+.manipulateUser {
+
+    & .data {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        & input, select {
+            width: 200px;
+            height: 30px;
+        }
+    }
+    & .settings {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+    }
+}

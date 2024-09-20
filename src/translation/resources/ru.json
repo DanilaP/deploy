@@ -10,9 +10,22 @@
         "shopPage": "Страница магазина",
         "signUpButton": "Зарегестрироваться",
         "signInButton": "Войти",
-        "forgetPasswordButton": "Забыли пароль?"
+        "forgetPasswordButton": "Забыли пароль?",
+        "usersPage": "Страница пользователей",
+        "manipulateUser": "Управление пользователем"
 },
     "labels": {
         "loading": "Загрузка..."
+    },
+    "text": {
+        "user": "Пользователь",
+        "login": "Логин",
+        "password": "Пароль",
+        "delete": "Удалить",
+        "edit": "Редактировать",
+        "createUser": "Создать пользователя",
+        "role": "Роль",
+        "confirm": "Подтвердить",
+        "close": "Закрыть"
     }
 }

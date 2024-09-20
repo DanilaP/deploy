@@ -56,7 +56,7 @@ app.post("/auth/signup", async function(req, res) {
                 id: newUserId,
                 login,
                 password: bcrypt.hashSync(password, 7),
-                isAdmin: false,
+                role: "Пользователь",
             };
             let updatedUsers = JSON.stringify([...currentUsers, newUser]);
             fs.writeFileSync('DB/Users.json', updatedUsers);
@@ -66,6 +66,77 @@ app.post("/auth/signup", async function(req, res) {
     } catch (error) {
         console.log(error);
         res.status(400).json({ message: "Ошибка регистрации!" });
+    }
+});
+
+//Users routes
+app.post("/users", async function(req, res) {
+    try {
+        const { login, password, role } = req.body;
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        if (currentUsers.filter((user) => user.login === login).length > 0) {
+            res.status(200).json({ message: "Данный  пользователь уже существует!" });
+        } else {
+            let newUserId = Date.now();
+            let newUser = {
+                id: newUserId,
+                login,
+                password: bcrypt.hashSync(password, 7),
+                role
+            };
+            let updatedUsers = JSON.stringify([...currentUsers, newUser]);
+            fs.writeFileSync('DB/Users.json', updatedUsers);
+            res.status(200).json({ message: "Успешная регистрация", user: newUser });
+        }
+    }
+    catch(error) {
+        console.log(error);
+    }
+});
+app.delete("/users", async function(req, res) {
+    try {
+        const userId  = req.query.id;
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        if (currentUsers.length !== 0) {
+            let newUsersArray = currentUsers.filter((user) => user.id !== +userId);
+            fs.writeFileSync('DB/Users.json', JSON.stringify(newUsersArray));
+            res.status(200).json({ message: "Успешное удаление пользователя!", users: newUsersArray });
+        }
+    }
+    catch(error) {
+        console.log(error);
+        res.status(400).json({ message: "Ошибка при удалении пользователя!" });
+    }
+});
+app.get("/users", async function(req, res) {
+    try {
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        res.status(200).json({ message: "Успешное получение списка пользователей", users: currentUsers });
+    }
+    catch(error) {
+        console.log(error);
+        res.status(400).json({ message: "Ошибка при получении списка пользователей!" });
+    }
+});
+app.put("/users", async function(req, res) {
+    try {
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        let updatedUsers = currentUsers.map((user) => {
+            if (user.id === req.body.id) {
+                return { 
+                    id: user.id,
+                    login: req.body.login,
+                    password: req.body.password ? bcrypt.hashSync(req.body.password, 7) : user.password,
+                    role: req.body.role
+                };
+            } 
+            return user;
+        });
+        fs.writeFileSync('DB/Users.json', JSON.stringify(updatedUsers));
+        res.status(200).json({ message: "Успешное обновление данных пользователя", user: updatedUsers });
+    }
+    catch(error) {
+        console.log(error);
     }
 });
 

@@ -1,0 +1,32 @@
+.usersList {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 10px;
+    
+    & .createUser__button {
+        width: 200px;
+    }
+    & .user {
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 10px;
+        width: 50%;
+        border-radius: 5px;
+        background-color: var(--bg-color-block);
+        gap: 20px;
+
+        & .user__settings {
+            display: flex;
+            justify-content: end;
+            gap: 5px;
+
+            & button {
+                font-size: 15px;
+                padding: 5px;
+            }
+        }
+    }
+}

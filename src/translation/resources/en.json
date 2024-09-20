@@ -10,9 +10,22 @@
         "shopPage": "Shop page",
         "signUpButton": "Registration",
         "signInButton": "Enter",
-        "forgetPasswordButton": "Forget password?"
+        "forgetPasswordButton": "Forget password?",
+        "usersPage": "Users page",
+        "manipulateUser": "User manipulation"
     },
     "labels": {
         "loading": "Loading..."
+    },
+    "text": {
+        "user": "User",
+        "login": "Login",
+        "password": "Password",
+        "delete": "Delete",
+        "edit": "Edit",
+        "createUser": "Create user",
+        "role": "Role",
+        "confirm": "Confirm",
+        "close": "Close"
     }
 }
