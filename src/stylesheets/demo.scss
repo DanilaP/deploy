@@ -1,10 +1,4 @@
-/*test scss*/
-$demo-color: green;
-.test-block {
-    b {
-        color: $demo-color;
-    }
-}
+* {padding: 0; margin: 0;}
 
 /*index.css*/
 :root {
@@ -26,15 +20,18 @@ a {
     color: #646cff;
     text-decoration: inherit;
 }
+
 a:hover {
     color: #535bf2;
 }
 
 body {
-    margin: 0;
     display: flex;
     min-width: 320px;
     min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--text-color);
 }
 
 /*App.css*/
@@ -46,6 +43,7 @@ body {
 
         & .header {
             display: flex;
+            align-items: center;
             gap: 10px;
         }
 
@@ -81,6 +79,11 @@ body {
     & .shop__wrapper {
         display: flex;
         flex-direction: column;
+        align-items: center;
+    }
+
+    & .changeTheme {
+        display: flex;
         align-items: center;
     }
 }

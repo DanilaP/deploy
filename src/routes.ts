@@ -46,4 +46,4 @@ export const adminRoutes = [
         component: AdminPage,
         children: null
     },
-]
+];

@@ -17,7 +17,7 @@ export default function AdminPage (props: AdminPageProps) {
 
     return (
         <div className='adminPage__main'>
-            <div className="admin__menu">
+            <div className="admin__menu"> 
                 <div className="item">Пунк меню 1</div>
                 <div className="item">Пунк меню 2</div>
                 <div className="item">Пунк меню 3</div>
