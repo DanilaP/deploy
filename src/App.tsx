@@ -35,7 +35,7 @@ function App() {
                     <Link to='/shop'>{t('titles.shopPage')}</Link><br/>
                     { isAdmin ? <Link to='/admin'>{t('titles.adminPage')}</Link> : null }<br/>
                     <div className="changeTheme">
-                        <p>Светлая тема</p>
+                        <p>{theme === "white_theme" ? "Светлая тема" : "Темная тема"}</p>
                         <Switch onChange = {changeTheme} defaultChecked/>
                     </div>
                 </div>
@@ -51,8 +51,12 @@ function App() {
                             ))
                         }
                         { isAdmin && 
-                            adminRoutes.map(({ path, component: C }) => (
-                                <Route key={path} path={path} element={authorized ? (<C/>) : <Navigate to={"/auth/signIn"} />} />
+                            adminRoutes.map(({ path,  component: Component, children: Children }) => (
+                                <Route 
+                                    key={path} 
+                                    path={path}
+                                    element={authorized ? <Component>{Children && <Children />}</Component> : <Navigate to={"/auth/signIn"} />} 
+                                />
                             ))
                         }
                     </Routes>
