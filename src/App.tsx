@@ -4,15 +4,24 @@ import { adminRoutes, routes } from './routes';
 import { Route, Routes, Link, Navigate } from 'react-router-dom';
 import './stylesheets/application.scss';
 import './stylesheets/themes.scss';
+import { Switch } from '@mui/material';
 
 function App() {
     const [authorized, setAuthorized] = useState(true);
     const [isAdmin, setIsAdmin] = useState(true);
+    const [theme, setTheme] = useState("white_theme");
 
     const { t } = useTranslation();
 
+    const changeTheme = () => {
+        const newTheme = theme === "white_theme" ? "dark_theme" : "white_theme";
+        document.body.className = newTheme;
+        setTheme(newTheme);
+    };
+
     useEffect(() => {
-        document.documentElement.setAttribute("data-theme", "white");
+        const theme = localStorage.getItem("theme");
+        document.body.className = theme ? theme : "white_theme";
     }, []);
 
     return (
@@ -25,6 +34,10 @@ function App() {
                     <Link to='/auth/signUp'>{t('titles.signUp')}</Link><br/>
                     <Link to='/shop'>{t('titles.shopPage')}</Link><br/>
                     { isAdmin ? <Link to='/admin'>{t('titles.adminPage')}</Link> : null }<br/>
+                    <div className="changeTheme">
+                        <p>Светлая тема</p>
+                        <Switch onChange = {changeTheme} defaultChecked/>
+                    </div>
                 </div>
                 <div className="content">
                     <Routes>
