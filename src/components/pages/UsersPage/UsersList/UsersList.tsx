@@ -22,10 +22,9 @@ export default function UsersList () {
         .then((res) => {
             setUsers(res.data.users);
             setModalState({ ...modalState, deleteModal: false });
-            console.log(res);
         })
         .catch((error) => {
-            console.log(error);
+            console.error("aproveDeleteUser method", error);
         });
     };
 
@@ -38,10 +37,9 @@ export default function UsersList () {
         $api.get("/users")
         .then((res) => {
             setUsers(res.data.users);
-            console.log(res);
         })
         .catch((error) => {
-            console.log(error);
+            console.error("getting users method", error);
         });
     }, []);
 
@@ -51,19 +49,19 @@ export default function UsersList () {
 
     return (
         <div className='usersList'>
-            <button onClick={() => startManipulating(null)} className='createUser__button'>{t("text.createUser")}</button>
+            <button onClick={() => startManipulating(null)} className='createUser__button'>{ t("text.createUser") }</button>
             {
                 users?.map((user: IUser) => {
                     return (
-                        <div key={user.id} className='user'>
+                        <div key={ user.id } className='user'>
                             <div className="user__info">
-                                <div className="user__id">{t("text.user")}:{user.id}</div>
-                                <div className="user__login">{t("text.login")}:{user.login}</div>
-                                <div className="user__role">{t("text.role")}:{user.role}</div>
+                                <div className="user__id">{ t("text.user") }:{ user.id }</div>
+                                <div className="user__login">{ t("text.login") }:{ user.login }</div>
+                                <div className="user__role">{ t("text.role") }:{ user.role }</div>
                             </div>
                             <div className="user__settings">
-                                <button onClick={() => startManipulating(user)}>{t("text.edit")}</button>
-                                <button onClick={() => startDeleteUser(user)}>{t("text.delete")}</button>
+                                <button onClick={ () => startManipulating(user) }>{ t("text.edit") }</button>
+                                <button onClick={ () => startDeleteUser(user) }>{ t("text.delete") }</button>
                             </div>
                         </div>
                     );

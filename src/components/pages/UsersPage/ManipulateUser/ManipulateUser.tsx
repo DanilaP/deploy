@@ -13,21 +13,19 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
         if (props.user) {
             $api.put("/users", { ...newUserData, role: selectref.current.value })
             .then((res) => {
-                console.log(res);
                 props.cancel();
             })
             .catch((error) => {
-                console.log(error);
+                console.error("modify user method", error);
             });
         } else {
             if (newUserData?.login && newUserData.password) {
                 $api.post("/users", { ...newUserData, role: selectref.current.value })
                 .then((res) => {
-                    console.log(res);
                     props.cancel();
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error("create user method", error);
                 });
             }
             props.cancel();
@@ -39,8 +37,8 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
             <div className="data">
                 <label>Роль</label>
                 <select ref={selectref}>
-                    <option value={"Администратор"}>Администратор</option>
-                    <option value={"Пользователь"}>Пользователь</option>
+                    <option value={"Администратор"}>{ t("text.admin") }</option>
+                    <option value={"Пользователь"}>{ t("text.user") }</option>
                 </select>
                 <label>Логин</label>
                 <input 
@@ -51,8 +49,8 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
                 <input onChange={(e) => setNewUserData({ ...newUserData, password: e.target.value })} />
             </div>
             <div className="settings">
-                <button onClick={confirm}>{t("text.confirm")}</button>
-                <button onClick={props.cancel}>{t("text.close")}</button>
+                <button onClick={ confirm }>{ t("text.confirm") }</button>
+                <button onClick={ props.cancel }>{ t("text.close") }</button>
             </div>
         </div>
     );
