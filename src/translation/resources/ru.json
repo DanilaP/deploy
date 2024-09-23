@@ -27,6 +27,16 @@
         "role": "Роль",
         "confirm": "Подтвердить",
         "close": "Закрыть",
-        "admin": "Администратор"
+        "admin": "Администратор",
+        "deletingUser": "Удаление пользователя",
+        "deletingUserConfirmation": "Хотите удалить пользователя?",
+        "manipulateUser": "Управление пользователем",
+        "creating": "(Создание)"
+    },
+    "methods": {
+        "modifyUserMethod": "Метод редактирования пользователя",
+        "createUserMethod": "Метод создания пользователя",
+        "deleteUserMethod": "Метод удаления пользователя",
+        "getUsersMethod": "Метод получения  пользователей"
     }
 }

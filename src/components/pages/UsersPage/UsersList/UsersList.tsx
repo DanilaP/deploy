@@ -24,7 +24,7 @@ export default function UsersList () {
             setModalState({ ...modalState, deleteModal: false });
         })
         .catch((error) => {
-            console.error("aproveDeleteUser method", error);
+            console.error(t("methods.deleteUserMethod"), error);
         });
     };
 
@@ -33,13 +33,17 @@ export default function UsersList () {
         setModalState({ ...modalState, manipulateModal: true });
     };
     
+    const updateUsersList = (newUsers: IUser[]) => {
+        setUsers(newUsers);
+    };
+
     useEffect(() => {
         $api.get("/users")
         .then((res) => {
             setUsers(res.data.users);
         })
         .catch((error) => {
-            console.error("getting users method", error);
+            console.error(t("methods.getUsersMethod"), error);
         });
     }, []);
 
@@ -69,21 +73,22 @@ export default function UsersList () {
             }
             <CustomModal 
                 isDisplay={modalState.deleteModal}
-                title = "Удаление пользователя"
+                title = { t("text.deletingUser") }
                 typeOfActions='default'
                 actionConfirmed={aproveDeleteUser}
                 closeModal={() => setModalState({ ...modalState, deleteModal: false })}
             >
-                <div>Хотите удалить пользователя?</div>
+                <div>{ t("text.deletingUserConfirmation") }</div>
             </CustomModal>
             <CustomModal 
                 isDisplay={modalState.manipulateModal}
-                title = {`Управление пользователем ${choosenUser ? choosenUser?.id : "(создание)"}`}
+                title = {`${ t("text.manipulateUser") } ${choosenUser ? choosenUser?.id : t("text.creating") }`}
                 typeOfActions='none'
                 actionConfirmed={aproveDeleteUser}
                 closeModal={() => setModalState({ ...modalState, manipulateModal: false })}
             >
                 <ManipulateUser 
+                    handleUpdateUsers = {updateUsersList}
                     cancel = {() => setModalState({ ...modalState, manipulateModal: false })} 
                     user={choosenUser}>
                 </ManipulateUser>

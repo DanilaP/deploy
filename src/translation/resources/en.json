@@ -27,6 +27,16 @@
         "role": "Role",
         "confirm": "Confirm",
         "close": "Close",
-        "admin": "Admin"
+        "admin": "Admin",
+        "deletingUser": "Deleting user",
+        "deletingUserConfirmation": "Do you want to delete the user?",
+        "manipulateUser": "User manipulating",
+        "creating": "(Creation)"
+    },
+    "method": {
+        "modifyUserMethod": "Modify user method",
+        "createUserMethod": "Create user method",
+        "deleteUserMethod": "Delete user method",
+        "getUsersMethod": "Get users method"
     }
 }

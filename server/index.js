@@ -40,7 +40,7 @@ app.post("/auth/signin", async function(req, res) {
             res.status(200).json({ message: "Неверные данные" });
         }
     } catch (error) {
-        console.log(error);
+        console.error("/auth/sigin method", error);
         res.status(400).json({ message: "Ошибка входа в аккаунт!" });
     }
 });
@@ -64,7 +64,7 @@ app.post("/auth/signup", async function(req, res) {
         }
         
     } catch (error) {
-        console.log(error);
+        console.error("/auth/sigup method", error);
         res.status(400).json({ message: "Ошибка регистрации!" });
     }
 });
@@ -86,11 +86,12 @@ app.post("/users", async function(req, res) {
             };
             let updatedUsers = JSON.stringify([...currentUsers, newUser]);
             fs.writeFileSync('DB/Users.json', updatedUsers);
-            res.status(200).json({ message: "Успешная регистрация", user: newUser });
+            res.status(200).json({ message: "Успешная регистрация", user: newUser, users: JSON.parse(updatedUsers) });
         }
     }
     catch(error) {
-        console.log(error);
+        console.error("post /users", error);
+        res.status(400).json({ message: "Ошибка получения пользователей!" });
     }
 });
 app.delete("/users", async function(req, res) {
@@ -104,7 +105,7 @@ app.delete("/users", async function(req, res) {
         }
     }
     catch(error) {
-        console.log(error);
+        console.error("delete /users", error);
         res.status(400).json({ message: "Ошибка при удалении пользователя!" });
     }
 });
@@ -114,7 +115,7 @@ app.get("/users", async function(req, res) {
         res.status(200).json({ message: "Успешное получение списка пользователей", users: currentUsers });
     }
     catch(error) {
-        console.log(error);
+        console.error("get /users", error);
         res.status(400).json({ message: "Ошибка при получении списка пользователей!" });
     }
 });
@@ -136,7 +137,8 @@ app.put("/users", async function(req, res) {
         res.status(200).json({ message: "Успешное обновление данных пользователя", user: updatedUsers });
     }
     catch(error) {
-        console.log(error);
+        console.error("put /users", error);
+        res.status(400).json({ message: "Ошибка редактирования пользователя!" });
     }
 });
 
