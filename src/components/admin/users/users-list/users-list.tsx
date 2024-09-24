@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import $api from '../../../../axiosconfig/axios.js';
+import $api from '../../../../configs/axiosconfig/axios.js';
 import { IUser } from '../../../../interfaces/interfaces.js';
-import './UsersList.scss';
-import CustomModal from '../../../../components-ui/CustomModal/CustomModal.js';
-import ManipulateUser from '../ManipulateUser/ManipulateUser.js';
+import './users-list.scss';
+import CustomModal from '../../../../components-ui/CustomModal/custom-modal.js';
+import ManipulateUser from '../manipulate-user/manipulate-user.js';
+import { Button } from '@mui/material';
 
 export default function UsersList () {
     const { t } = useTranslation();
@@ -53,19 +54,19 @@ export default function UsersList () {
 
     return (
         <div className='usersList'>
-            <button onClick={() => startManipulating(null)} className='createUser__button'>{ t("text.createUser") }</button>
+            <Button className='createButton' onClick={() => startManipulating(null)} variant="contained">{ t("text.createUser") }</Button>
             {
                 users?.map((user: IUser) => {
                     return (
                         <div key={ user.id } className='user'>
                             <div className="user__info">
-                                <div className="user__id">{ t("text.user") }:{ user.id }</div>
-                                <div className="user__login">{ t("text.login") }:{ user.login }</div>
-                                <div className="user__role">{ t("text.role") }:{ user.role }</div>
+                                <div className="user__id">{ t("text.user") }: { user.id }</div>
+                                <div className="user__login">{ t("text.login") }: { user.login }</div>
+                                <div className="user__role">{ t("text.role") }: { user.role }</div>
                             </div>
                             <div className="user__settings">
-                                <button onClick={ () => startManipulating(user) }>{ t("text.edit") }</button>
-                                <button onClick={ () => startDeleteUser(user) }>{ t("text.delete") }</button>
+                                <Button onClick={ () => startManipulating(user) } variant="contained">{ t("text.edit") }</Button>
+                                <Button onClick={ () => startDeleteUser(user) } variant="contained">{ t("text.delete") }</Button>
                             </div>
                         </div>
                     );

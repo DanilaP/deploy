@@ -1,6 +1,7 @@
 import { ReactChild } from "react";
-import "./CustomModal.scss";
+import "./custom-modal.scss";
 import { useTranslation } from "react-i18next";
+import { Button } from "@mui/material";
 
 const CustomModal = (props: {
     children: ReactChild, 
@@ -31,8 +32,8 @@ const CustomModal = (props: {
                         props.typeOfActions === "default" 
                         &&
                         <>
-                            <button className={ "confirmBtn" } onClick={() => props.actionConfirmed(true)}>{ t("Подтвердить") }</button>
-                            <button className={ "cancelBtn" } onClick={() => props.closeModal(false)}>{ t("Закрыть") }</button>
+                            <Button onClick={() => props.actionConfirmed(true)} variant="contained">{ t("Подтвердить") }</Button>
+                            <Button onClick={() => props.closeModal(false)} variant="contained">{ t("Закрыть") }</Button>
                         </>
                     }
                     {

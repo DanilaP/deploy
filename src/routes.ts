@@ -1,12 +1,13 @@
-import NotFoundComponent from "./components/pages/ServicePages/404";
-import AdminPage from "./components/pages/Admin";
-import AuthPage from "./components/AuthComponents/Auth";
-import SignIn from "./components/AuthComponents/SignIn";
-import SignUp from "./components/AuthComponents/SignUp";
-import AboutPage from "./components/pages/About";
-import HomePage from "./components/pages/Home";
-import ShopPage from "./components/ShopComponents/Shop";
-import UsersList from "./components/Pages/UsersPage/UsersList/UsersList";
+import NotFoundComponent from "./components/service/404";
+import AdminPage from "./components/admin/admin";
+import AuthPage from "./components/auth/auth";
+import SignIn from "./components/auth/sign-in";
+import SignUp from "./components/auth/sign-up";
+import AboutPage from "./components/about/about";
+import HomePage from "./components/home/home";
+import ShopPage from "./components/shop/shop";
+import UsersList from "./components/admin/users/users-list/users-list";
+import ProfilePage from "./components/profile/profile";
 
 export const routes = [
     {
@@ -37,6 +38,11 @@ export const routes = [
     {
         path: '*',
         component: NotFoundComponent,
+        children: null
+    },
+    {
+        path: '/profile',
+        component: ProfilePage,
         children: null
     }
 ];

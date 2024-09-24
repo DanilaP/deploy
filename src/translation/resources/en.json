@@ -12,7 +12,8 @@
         "signInButton": "Enter",
         "forgetPasswordButton": "Forget password?",
         "usersPage": "Users page",
-        "manipulateUser": "User manipulation"
+        "manipulateUser": "User manipulation",
+        "profilePage": "Profile page"
     },
     "labels": {
         "loading": "Loading..."
@@ -31,12 +32,22 @@
         "deletingUser": "Deleting user",
         "deletingUserConfirmation": "Do you want to delete the user?",
         "manipulateUser": "User manipulating",
-        "creating": "(Creation)"
+        "creating": "(Creation)",
+        "usersAdmin": "Users administrating",
+        "rolesAdmin": "Roles administrating",
+        "permitionsRules": "Permition/rules",
+        "buy": "Buy",
+        "details": "Details",
+        "products": "Products",
+        "logout": "Logout",
+        "adminPanel": "Admin panel"
     },
     "method": {
         "modifyUserMethod": "Modify user method",
         "createUserMethod": "Create user method",
         "deleteUserMethod": "Delete user method",
-        "getUsersMethod": "Get users method"
+        "getUsersMethod": "Get users method",
+        "signInMethod": "Sign in method",
+        "signUpMethod": "Sign up method"
     }
 }

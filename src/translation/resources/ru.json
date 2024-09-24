@@ -12,7 +12,8 @@
         "signInButton": "Войти",
         "forgetPasswordButton": "Забыли пароль?",
         "usersPage": "Страница пользователей",
-        "manipulateUser": "Управление пользователем"
+        "manipulateUser": "Управление пользователем",
+        "profilePage": "Страница профиля"
 },
     "labels": {
         "loading": "Загрузка..."
@@ -31,12 +32,22 @@
         "deletingUser": "Удаление пользователя",
         "deletingUserConfirmation": "Хотите удалить пользователя?",
         "manipulateUser": "Управление пользователем",
-        "creating": "(Создание)"
+        "creating": "(Создание)",
+        "usersAdmin": "Администрирование пользователей",
+        "rolesAdmin": "Администрирование ролей",
+        "permitionsRules": "Разрешения/права",
+        "buy": "Купить",
+        "details": "Детали",
+        "products": "Товары",
+        "logout": "Выйти из аккаунта",
+        "adminPanel": "Панель администратора"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",
         "createUserMethod": "Метод создания пользователя",
         "deleteUserMethod": "Метод удаления пользователя",
-        "getUsersMethod": "Метод получения  пользователей"
+        "getUsersMethod": "Метод получения  пользователей",
+        "signInMethod": "Метод авторизации",
+        "signUpMethod": "Метод регистрации"
     }
 }
