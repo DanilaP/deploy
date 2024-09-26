@@ -31,7 +31,7 @@ body {
     box-sizing: border-box;
     width: 100vw;
     
-    & .homePage__main {
+    & .home-page-main {
         display: flex;
         flex-direction: column;
 
@@ -53,17 +53,17 @@ body {
         }
     }
 
-    & .adminPage__main {
+    & .admin-page-main {
         display: flex;
         flex-direction: column;
         gap: 20px;
 
-        & .admin__wrapper {
+        & .admin-wrapper {
             display: grid;
             grid-template-columns: 30% 70%;
         }
 
-        & .admin__menu {
+        & .admin-menu {
             display: flex;
             flex-direction: column;
             gap: 5px;
@@ -83,16 +83,16 @@ body {
         }
     }
 
-    & .shop__wrapper {
+    & .shop-wrapper {
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        & .shop__header {
+        & .shop-header {
             margin-bottom: 50px;
         }
 
-        & .shop__content {
+        & .shop-content {
             display: grid;
             justify-content: space-between;
             grid-template-columns: repeat(3, 1fr);
@@ -102,7 +102,7 @@ body {
 
     }
 
-    & .changeTheme {
+    & .change-theme {
         display: flex;
         align-items: center;
     }

@@ -19,10 +19,10 @@ export default function AdminPage (props: AdminPageProps) {
     });
 
     return (
-        <div className='adminPage__main'>
+        <div className='admin-page-main'>
             <h1>{ t("text.adminPanel") }</h1>
-            <div className='admin__wrapper'>
-                <div className="admin__menu">
+            <div className='admin-wrapper'>
+                <div className="admin-menu">
                     <MenuItem onClick={ () => navigate("/admin/users")}>{ t("text.usersAdmin") }</MenuItem>
                     <MenuItem onClick={ () => navigate("/admin")}>{ t("text.rolesAdmin") }</MenuItem>
                     <MenuItem onClick={ () => navigate("/admin")}>{ t("text.permitionsRules") }</MenuItem> 

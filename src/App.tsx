@@ -44,7 +44,7 @@ function App() {
 
     return (
         <> 
-            <div className='homePage__main'>
+            <div className='home-page-main'>
                 <div className="header">
                     { currentStore.user ? (
                         <>
@@ -52,7 +52,7 @@ function App() {
                             <Link to='/profile'><PersonPin />{ t('titles.profilePage') }</Link><br/>
                             { currentStore.user?.role === "Администратор" ? 
                             (<Link to='/admin'><SupervisorAccount/>{ t('titles.adminPage') }</Link>) : null }<br/>
-                            <div className="changeTheme">
+                            <div className="change-theme">
                                 <p>{ theme === "white_theme" ? "Светлая тема" : "Темная тема" }</p>
                                 <Switch onChange = { changeTheme } defaultChecked/>
                             </div>
