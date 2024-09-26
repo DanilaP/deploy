@@ -214,18 +214,9 @@ app.post("/roles", async function(req, res) {
 });
 app.put("/roles", async function(req, res) {
     try {
-        let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
-        const newRoles = currentRoles.map((role) => {
-            if (role.name === req.body.name) {
-                return ({
-                    name: role.name, 
-                    permitions: req.body.permitions
-                });
-            } else return role;
-        });
-        fs.writeFileSync('DB/Roles.json', JSON.stringify(newRoles));
+        fs.writeFileSync('DB/Roles.json', JSON.stringify(req.body.roles));
 
-        res.status(200).json({ message: "Роль успешно изменена", roles: newRoles });
+        res.status(200).json({ message: "Роль успешно изменена", roles: req.body.roles });
     }
     catch(error) {
         console.error("put /roles", error);

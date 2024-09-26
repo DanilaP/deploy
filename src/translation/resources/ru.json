@@ -42,7 +42,8 @@
         "products": "Товары",
         "logout": "Выйти из аккаунта",
         "adminPanel": "Панель администратора",
-        "name": "Наименование"
+        "name": "Наименование",
+        "roles": "Роли"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",
@@ -51,6 +52,7 @@
         "getUsersMethod": "Метод получения  пользователей",
         "signInMethod": "Метод авторизации",
         "signUpMethod": "Метод регистрации",
-        "getPermitionsMethod": "Метод получения разрешений/прав"
+        "getPermitionsMethod": "Метод получения разрешений/прав",
+        "updateRolesMethod": "Метод обновления ролей"
     }
 }

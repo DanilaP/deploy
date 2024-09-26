@@ -11,5 +11,5 @@ export interface IPermition {
 }
 export interface IRole {
     name: string,
-    permitions: IPermition[]
+    permitions: string[]
 }

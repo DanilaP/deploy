@@ -42,7 +42,8 @@
         "products": "Products",
         "logout": "Logout",
         "adminPanel": "Admin panel",
-        "name": "Name"
+        "name": "Name",
+        "roles": "Roles"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
@@ -51,6 +52,7 @@
         "getUsersMethod": "Get users method",
         "signInMethod": "Sign in method",
         "signUpMethod": "Sign up method",
-        "getPermitionsMethod": "Get permitions method"
+        "getPermitionsMethod": "Get permitions method",
+        "updateRolesMethod": "Update roles method"
     }
 }
