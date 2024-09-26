@@ -48,19 +48,19 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
             <div className="data">
                 <label>{ t("text.role") }</label>
                 <Select
-                    defaultValue={props.user?.role}
-                    onChange={(e) => setNewUserData({ ...newUserData, role: e.target.value })}
+                    defaultValue={ props.user?.role }
+                    onChange={ (e) => setNewUserData({ ...newUserData, role: e.target.value }) }
                 >
                     <MenuItem value="Администратор">{ t("text.admin") }</MenuItem>
                     <MenuItem value="Пользователь">{ t("text.user") }</MenuItem>
                 </Select>
                 <label>{ t("text.login") }</label>
                 <TextField 
-                    onChange={(e) => setNewUserData({ ...newUserData, login: e.target.value })} 
-                    defaultValue={props.user ? props.user.login : ""}
+                    onChange={ (e) => setNewUserData({ ...newUserData, login: e.target.value }) } 
+                    defaultValue={ props.user ? props.user.login : "" }
                 />
                 <label>{ t("text.password") }</label>
-                <TextField onChange={(e) => setNewUserData({ ...newUserData, password: e.target.value })} />
+                <TextField onChange={ (e) => setNewUserData({ ...newUserData, password: e.target.value }) } />
                 
             </div>
             <div className="settings">

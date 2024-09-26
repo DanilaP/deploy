@@ -53,8 +53,8 @@ function App() {
                             { currentStore.user?.role === "Администратор" ? 
                             (<Link to='/admin'><SupervisorAccount/>{ t('titles.adminPage') }</Link>) : null }<br/>
                             <div className="changeTheme">
-                                <p>{theme === "white_theme" ? "Светлая тема" : "Темная тема"}</p>
-                                <Switch onChange = {changeTheme} defaultChecked/>
+                                <p>{ theme === "white_theme" ? "Светлая тема" : "Темная тема" }</p>
+                                <Switch onChange = { changeTheme } defaultChecked/>
                             </div>
                         </> ) : null
                     }
@@ -64,18 +64,18 @@ function App() {
                         {
                             routes.map(({ path, component: Component, children: Children }) => (
                                 <Route 
-                                    key={path} 
-                                    path={path} 
-                                    element={<Component>{Children && <Children />}</Component>}
+                                    key={ path } 
+                                    path={ path } 
+                                    element={ <Component>{Children && <Children />}</Component> }
                                 />
                             ))
                         }
                         { currentStore.user?.role === "Администратор" && 
                             adminRoutes.map(({ path,  component: Component, children: Children }) => (
                                 <Route 
-                                    key={path} 
-                                    path={path}
-                                    element={currentStore.user ? <Component>{Children && <Children />}</Component> : <Navigate to={"/auth/signIn"} />} 
+                                    key={ path } 
+                                    path={ path }
+                                    element={ currentStore.user ? <Component>{Children && <Children />}</Component> : <Navigate to={"/auth/signIn"} /> } 
                                 />
                             ))
                         }

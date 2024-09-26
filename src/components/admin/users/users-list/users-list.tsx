@@ -54,7 +54,7 @@ export default function UsersList () {
 
     return (
         <div className='usersList'>
-            <Button className='createButton' onClick={() => startManipulating(null)} variant="contained">{ t("text.createUser") }</Button>
+            <Button className='createButton' onClick={ () => startManipulating(null) } variant="contained">{ t("text.createUser") }</Button>
             {
                 users?.map((user: IUser) => {
                     return (
@@ -73,25 +73,25 @@ export default function UsersList () {
                 })
             }
             <CustomModal 
-                isDisplay={modalState.deleteModal}
+                isDisplay={ modalState.deleteModal }
                 title = { t("text.deletingUser") }
                 typeOfActions='default'
-                actionConfirmed={aproveDeleteUser}
-                closeModal={() => setModalState({ ...modalState, deleteModal: false })}
+                actionConfirmed={ aproveDeleteUser }
+                closeModal={ () => setModalState({ ...modalState, deleteModal: false }) }
             >
                 <div>{ t("text.deletingUserConfirmation") }</div>
             </CustomModal>
             <CustomModal 
-                isDisplay={modalState.manipulateModal}
-                title = {`${ t("text.manipulateUser") } ${choosenUser ? choosenUser?.id : t("text.creating") }`}
+                isDisplay={ modalState.manipulateModal }
+                title = { `${ t("text.manipulateUser") } ${ choosenUser ? choosenUser?.id : t("text.creating") }` }
                 typeOfActions='none'
-                actionConfirmed={aproveDeleteUser}
-                closeModal={() => setModalState({ ...modalState, manipulateModal: false })}
+                actionConfirmed={ aproveDeleteUser }
+                closeModal={ () => setModalState({ ...modalState, manipulateModal: false }) }
             >
                 <ManipulateUser 
-                    handleUpdateUsers = {updateUsersList}
-                    cancel = {() => setModalState({ ...modalState, manipulateModal: false })} 
-                    user={choosenUser}>
+                    handleUpdateUsers = { updateUsersList }
+                    cancel = { () => setModalState({ ...modalState, manipulateModal: false }) } 
+                    user={ choosenUser }>
                 </ManipulateUser>
             </CustomModal>
         </div>

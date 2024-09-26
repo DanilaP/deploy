@@ -22,7 +22,6 @@ export default function ProfilePage () {
         $api.get("/profile")
         .then((res) => {
             store.dispatch({ type: "USER", payload: res.data.user[0] });
-            console.log(res.data.user[0]);
         })
         .catch((error) => {
             console.log(error);
@@ -42,7 +41,7 @@ export default function ProfilePage () {
                 </div>
                 <div className="user__login"><h3>{ t("text.login") }: {user?.login}</h3></div>
                 <div className="user__role"><h3>{ t("text.role") }: {user?.role}</h3></div>
-                <Button variant="contained" onClick={logout}>{ t("text.logout") }</Button>
+                <Button variant="contained" onClick={ logout }>{ t("text.logout") }</Button>
             </div>
         </div>
     );

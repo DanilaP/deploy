@@ -10,9 +10,9 @@ import { useTranslation } from 'react-i18next';
 export default function MediaCard() {
     const { t } = useTranslation();
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={ { maxWidth: 345 } }>
             <CardMedia
-                sx={{ height: 140 }}
+                sx={ { height: 140 } }
                 image="/static/images/cards/contemplative-reptile.jpg"
                 title="green iguana"
             />
@@ -20,7 +20,7 @@ export default function MediaCard() {
                 <Typography gutterBottom variant="h5" component="div">
                 Lizard
                 </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                <Typography variant="body2" sx={ { color: 'text.secondary' } }>
                 Lizards are a widespread group of squamate reptiles, with over 6,000
                 species, ranging across all continents except Antarctica
                 </Typography>
