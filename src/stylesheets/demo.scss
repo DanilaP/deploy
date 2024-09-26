@@ -87,6 +87,7 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
+        flex-wrap: wrap;
 
         & .shop__header {
             margin-bottom: 50px;
@@ -126,6 +127,18 @@ body {
                 & .admin__menu {
                     align-items: center;
                 }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 570px) {
+    #root {
+        & .shop__wrapper {
+            
+            & .shop__content {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     }

@@ -162,6 +162,77 @@ app.get("/profile", async function(req, res) {
     }
 });
 
+//Permitions
+app.get("/permitions", async function(req, res) {
+    try {
+        let currentPermitions = JSON.parse(fs.readFileSync('DB/Permitions.json', 'utf8'));
+        let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
+        res.status(200).json({ message: "Данные о разрешениях пользователей успешно получены", permitions: currentPermitions, roles: currentRoles });
+    }
+    catch(error) {
+        console.error("get /permitions", error);
+        res.status(400).json({ message: "Ошибка получения данных о разрешениях пользователей!" });
+    }
+});
+
+//Roles
+app.get("/roles", async function(req, res) {
+    try {
+        let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
+        res.status(200).json({ message: "Данные о ролях успешно получены", roles: currentRoles });
+    }
+    catch(error) {
+        console.error("get /roles", error);
+        res.status(400).json({ message: "Ошибка получения данных о ролях!" });
+    }
+});
+app.delete("/roles", async function(req, res) {
+    try {
+        let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
+        const newRoles = currentRoles.filter((role) => role.name !== req.query.name);
+        fs.writeFileSync('DB/Roles.json', JSON.stringify(newRoles));
+
+        res.status(200).json({ message: "Роль успешно удалена", roles: newRoles });
+    }
+    catch(error) {
+        console.error("delete /roles", error);
+        res.status(400).json({ message: "Ошибка при удалении роли!" });
+    }
+});
+app.post("/roles", async function(req, res) {
+    try {
+        let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
+        const newRoles = [...currentRoles, { name: req.body.name, permitions: req.body.permitions }];
+        fs.writeFileSync('DB/Roles.json', JSON.stringify(newRoles));
+
+        res.status(200).json({ message: "Роль успешно добавлена", roles: newRoles });
+    }
+    catch(error) {
+        console.error("post /roles", error);
+        res.status(400).json({ message: "Ошибка при добавлении роли!" });
+    }
+});
+app.put("/roles", async function(req, res) {
+    try {
+        let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
+        const newRoles = currentRoles.map((role) => {
+            if (role.name === req.body.name) {
+                return ({
+                    name: role.name, 
+                    permitions: req.body.permitions
+                });
+            } else return role;
+        });
+        fs.writeFileSync('DB/Roles.json', JSON.stringify(newRoles));
+
+        res.status(200).json({ message: "Роль успешно изменена", roles: newRoles });
+    }
+    catch(error) {
+        console.error("put /roles", error);
+        res.status(400).json({ message: "Ошибка при изменении роли!" });
+    }
+});
+
 async function startApp() {
     try {
         server.listen(PORT, () => console.log('Server started at PORT' + " " + PORT));

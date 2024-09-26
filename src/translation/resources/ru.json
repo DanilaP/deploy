@@ -13,7 +13,8 @@
         "forgetPasswordButton": "Забыли пароль?",
         "usersPage": "Страница пользователей",
         "manipulateUser": "Управление пользователем",
-        "profilePage": "Страница профиля"
+        "profilePage": "Страница профиля",
+        "permitionsPage": "Разрешения/права"
 },
     "labels": {
         "loading": "Загрузка..."
@@ -40,7 +41,8 @@
         "details": "Детали",
         "products": "Товары",
         "logout": "Выйти из аккаунта",
-        "adminPanel": "Панель администратора"
+        "adminPanel": "Панель администратора",
+        "name": "Наименование"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",
@@ -48,6 +50,7 @@
         "deleteUserMethod": "Метод удаления пользователя",
         "getUsersMethod": "Метод получения  пользователей",
         "signInMethod": "Метод авторизации",
-        "signUpMethod": "Метод регистрации"
+        "signUpMethod": "Метод регистрации",
+        "getPermitionsMethod": "Метод получения разрешений/прав"
     }
 }

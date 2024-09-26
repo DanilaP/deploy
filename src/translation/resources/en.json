@@ -13,7 +13,8 @@
         "forgetPasswordButton": "Forget password?",
         "usersPage": "Users page",
         "manipulateUser": "User manipulation",
-        "profilePage": "Profile page"
+        "profilePage": "Profile page",
+        "permitionsPage": "Permitions page"
     },
     "labels": {
         "loading": "Loading..."
@@ -40,14 +41,16 @@
         "details": "Details",
         "products": "Products",
         "logout": "Logout",
-        "adminPanel": "Admin panel"
+        "adminPanel": "Admin panel",
+        "name": "Name"
     },
-    "method": {
+    "methods": {
         "modifyUserMethod": "Modify user method",
         "createUserMethod": "Create user method",
         "deleteUserMethod": "Delete user method",
         "getUsersMethod": "Get users method",
         "signInMethod": "Sign in method",
-        "signUpMethod": "Sign up method"
+        "signUpMethod": "Sign up method",
+        "getPermitionsMethod": "Get permitions method"
     }
 }
