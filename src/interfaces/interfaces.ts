@@ -1,5 +1,7 @@
 export interface IUser {
     id?: string,
     login?: string,
-    password?: string
+    password?: string,
+    role?: string,
+    avatar?: string
 }

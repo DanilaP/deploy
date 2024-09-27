@@ -1,0 +1,43 @@
+.users-list {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 10px;
+    
+    & .create-button {
+        width: 300px;
+    }
+    & .user {
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 10px;
+        width: 600px;
+        border-radius: 5px;
+        background-color: var(--bg-color-block);
+        gap: 100px;
+
+        & .user-settings {
+            display: flex;
+            justify-content: end;
+            gap: 5px;
+
+            & button {
+                font-size: 15px;
+                padding: 5px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .usersList {
+
+        & .user {
+            width: 400px;
+            gap: 20px;
+            font-size: 11px;
+        }
+    }
+}

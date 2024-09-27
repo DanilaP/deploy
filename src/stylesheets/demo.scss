@@ -3,16 +3,6 @@
 /*index.css*/
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-
-    color-scheme: light dark;
-
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
 }
 
 a {
@@ -36,15 +26,25 @@ body {
 
 /*App.css*/
 #root {
-    & .homePage__main {
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    width: 100vw;
+    
+    & .home-page-main {
         display: flex;
         flex-direction: column;
-        width: 100vw;
 
         & .header {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             gap: 10px;
+
+            & a {
+                display: flex;
+                align-items: center;
+            }
         }
 
         & .content {
@@ -53,21 +53,28 @@ body {
         }
     }
 
-    & .adminPage__main {
-        display: grid;
-        grid-template-columns: 30% 70%;
+    & .admin-page-main {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
 
-        & .admin__menu {
+        & .admin-wrapper {
+            display: grid;
+            grid-template-columns: 30% 70%;
+        }
+
+        & .admin-menu {
             display: flex;
             flex-direction: column;
             gap: 5px;
 
             & .item {
+                box-sizing: border-box;
+                padding: 10px;
+                text-align: center;
+                background-color: var(--bg-color-block);
+                color: var(--text-color);
                 cursor: pointer;
-
-                &:hover {
-                    color: green;    
-                }
             }
         }
 
@@ -76,14 +83,50 @@ body {
         }
     }
 
-    & .shop__wrapper {
+    & .shop-wrapper {
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        & .shop-header {
+            margin-bottom: 50px;
+        }
+
+        & .shop-content {
+            display: grid;
+            justify-content: space-between;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 50px;
+        }
+
     }
 
-    & .changeTheme {
+    & .change-theme {
         display: flex;
         align-items: center;
+    }
+}
+
+//media
+
+@media screen and (max-width: 1060px) {
+    #root {
+        & .admin-page-main {
+            
+            & h1 {
+                text-align: center;
+            }
+
+            & .admin-wrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                & .admin-menu {
+                    align-items: center;
+                }
+            }
+        }
     }
 }

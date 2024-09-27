@@ -1,4 +1,4 @@
-.auth__wrapper {
+.auth-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,6 +10,10 @@
         row-gap: 10px;
     }
     
+    & .header {
+        margin-bottom: 20px;
+    }
+
     & label {
         text-align: center;
         color: var(--text-color);
