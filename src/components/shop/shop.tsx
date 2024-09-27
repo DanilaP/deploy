@@ -12,14 +12,14 @@ export default function ShopPage () {
     });
 
     return (
-        <div className='shop__wrapper'>
-            <div className="shop__header">
+        <div className='shop-wrapper'>
+            <div className="shop-header">
                 <h1>{ t("text.products") }</h1>
-                <div className="shop__header_filters">
+                <div className="shop-header-filters">
                     
                 </div>
             </div>
-            <div className="shop__content">
+            <div className="shop-content">
                 <MediaCard />
                 <MediaCard />
                 <MediaCard />
@@ -29,7 +29,7 @@ export default function ShopPage () {
                 <MediaCard />
                 <MediaCard />
             </div>
-            <div className="shop__footer"></div>
+            <div className="shop-footer"></div>
         </div>
     );
 }

@@ -14,21 +14,21 @@ import { ShoppingCart } from '@material-ui/icons';
 import { SupervisorAccount } from '@material-ui/icons';
 
 function App() {
-    const [theme, setTheme] = useState("white_theme");
+    const [theme, setTheme] = useState("white-theme");
     const currentStore = useSelector((store: any) => store);
     const navigate = useNavigate();
 
     const { t } = useTranslation();
 
     const changeTheme = () => {
-        const newTheme = theme === "white_theme" ? "dark_theme" : "white_theme";
+        const newTheme = theme === "white-theme" ? "dark-theme" : "white-theme";
         document.body.className = newTheme;
         setTheme(newTheme);
     };
 
     useEffect(() => {
         const theme = localStorage.getItem("theme");
-        document.body.className = theme ? theme : "white_theme";
+        document.body.className = theme ? theme : "white-theme";
     }, []);
 
     useEffect(() => {
@@ -44,7 +44,7 @@ function App() {
 
     return (
         <> 
-            <div className='homePage__main'>
+            <div className='home-page-main'>
                 <div className="header">
                     { currentStore.user ? (
                         <>
@@ -52,9 +52,9 @@ function App() {
                             <Link to='/profile'><PersonPin />{ t('titles.profilePage') }</Link><br/>
                             { currentStore.user?.role === "Администратор" ? 
                             (<Link to='/admin'><SupervisorAccount/>{ t('titles.adminPage') }</Link>) : null }<br/>
-                            <div className="changeTheme">
-                                <p>{theme === "white_theme" ? "Светлая тема" : "Темная тема"}</p>
-                                <Switch onChange = {changeTheme} defaultChecked/>
+                            <div className="change-theme">
+                                <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
+                                <Switch onChange = { changeTheme } defaultChecked/>
                             </div>
                         </> ) : null
                     }
@@ -64,18 +64,18 @@ function App() {
                         {
                             routes.map(({ path, component: Component, children: Children }) => (
                                 <Route 
-                                    key={path} 
-                                    path={path} 
-                                    element={<Component>{Children && <Children />}</Component>}
+                                    key={ path } 
+                                    path={ path } 
+                                    element={ <Component>{ Children && <Children /> }</Component> }
                                 />
                             ))
                         }
                         { currentStore.user?.role === "Администратор" && 
                             adminRoutes.map(({ path,  component: Component, children: Children }) => (
                                 <Route 
-                                    key={path} 
-                                    path={path}
-                                    element={currentStore.user ? <Component>{Children && <Children />}</Component> : <Navigate to={"/auth/signIn"} />} 
+                                    key={ path } 
+                                    path={ path }
+                                    element={ currentStore.user ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> } 
                                 />
                             ))
                         }

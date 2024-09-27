@@ -18,7 +18,7 @@ export default function AuthPage (props: AuthPageProps) {
     });
 
     return (
-        <div className='auth__wrapper'>
+        <div className='auth-wrapper'>
             <div className="header">
                 <Link to='/auth/signIn'>{ t('titles.signIn') }</Link>
                 <Link to='/auth/signUp'>{ t('titles.signUp') }</Link>

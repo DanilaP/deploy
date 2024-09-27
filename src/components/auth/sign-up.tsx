@@ -33,7 +33,7 @@ export default function SignUp () {
     });
 
     return (
-        <div className='signUp__main'>
+        <div className='sign-up-main'>
             <FormControl>
                 <FormLabel>{ t("titles.signUp") }</FormLabel>
                 <TextField onChange={(e) => setUserData({ ...userData, login: e.target.value })} 

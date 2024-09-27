@@ -32,7 +32,7 @@ export default function SignIn () {
         document.title = t("titles.signIn");
     });
     return (
-        <div className='signIn__main'>
+        <div className='sign-in-main'>
             <FormControl>
                 <FormLabel>{ t("titles.signIn") }</FormLabel>
                 <TextField onChange={(e) => setUserData({ ...userData, login: e.target.value })} 
