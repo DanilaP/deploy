@@ -51,6 +51,7 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
                     defaultValue={ props.user?.role }
                     onChange={ (e) => setNewUserData({ ...newUserData, role: e.target.value }) }
                 >
+                    { /*Todo: send id instead of name */ }
                     <MenuItem value="Администратор">{ t("text.admin") }</MenuItem>
                     <MenuItem value="Пользователь">{ t("text.user") }</MenuItem>
                 </Select>
