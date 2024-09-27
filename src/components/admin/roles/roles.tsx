@@ -50,7 +50,7 @@ export default function PermitionsPage () {
     return (
         <div className="roles">
             <div className="roles-add-role">
-                <TextField onChange={(e) => setNewRole({ ...newRole, name: e.target.value })} placeholder="Роль" />
+                <TextField onChange={ (e) => setNewRole({ ...newRole, name: e.target.value }) } placeholder="Роль" />
                 <Button onClick={ addNewRole } variant="contained">{ t("text.addRole") }</Button>
             </div>
             <div className="roles-content">
