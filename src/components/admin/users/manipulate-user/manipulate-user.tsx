@@ -44,7 +44,7 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
     };
 
     return (
-        <div className='manipulateUser'>
+        <div className='manipulate-user'>
             <div className="data">
                 <label>{ t("text.role") }</label>
                 <Select

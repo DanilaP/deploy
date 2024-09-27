@@ -14,21 +14,21 @@ import { ShoppingCart } from '@material-ui/icons';
 import { SupervisorAccount } from '@material-ui/icons';
 
 function App() {
-    const [theme, setTheme] = useState("white_theme");
+    const [theme, setTheme] = useState("white-theme");
     const currentStore = useSelector((store: any) => store);
     const navigate = useNavigate();
 
     const { t } = useTranslation();
 
     const changeTheme = () => {
-        const newTheme = theme === "white_theme" ? "dark_theme" : "white_theme";
+        const newTheme = theme === "white-theme" ? "dark-theme" : "white-theme";
         document.body.className = newTheme;
         setTheme(newTheme);
     };
 
     useEffect(() => {
         const theme = localStorage.getItem("theme");
-        document.body.className = theme ? theme : "white_theme";
+        document.body.className = theme ? theme : "white-theme";
     }, []);
 
     useEffect(() => {
@@ -53,7 +53,7 @@ function App() {
                             { currentStore.user?.role === "Администратор" ? 
                             (<Link to='/admin'><SupervisorAccount/>{ t('titles.adminPage') }</Link>) : null }<br/>
                             <div className="change-theme">
-                                <p>{ theme === "white_theme" ? "Светлая тема" : "Темная тема" }</p>
+                                <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
                                 <Switch onChange = { changeTheme } defaultChecked/>
                             </div>
                         </> ) : null
@@ -66,7 +66,7 @@ function App() {
                                 <Route 
                                     key={ path } 
                                     path={ path } 
-                                    element={ <Component>{Children && <Children />}</Component> }
+                                    element={ <Component>{ Children && <Children /> }</Component> }
                                 />
                             ))
                         }
@@ -75,7 +75,7 @@ function App() {
                                 <Route 
                                     key={ path } 
                                     path={ path }
-                                    element={ currentStore.user ? <Component>{Children && <Children />}</Component> : <Navigate to={"/auth/signIn"} /> } 
+                                    element={ currentStore.user ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> } 
                                 />
                             ))
                         }

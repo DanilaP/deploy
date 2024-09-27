@@ -112,18 +112,18 @@ body {
 
 @media screen and (max-width: 1060px) {
     #root {
-        & .adminPage__main {
+        & .admin-page-main {
             
             & h1 {
                 text-align: center;
             }
 
-            & .admin__wrapper {
+            & .admin-wrapper {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
 
-                & .admin__menu {
+                & .admin-menu {
                     align-items: center;
                 }
             }

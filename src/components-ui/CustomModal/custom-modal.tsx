@@ -19,15 +19,15 @@ const CustomModal = (props: {
         return null;
     }
     return(
-        <div className={ "customModal" }>
-            <div className={`${ "customModalContent" }`}>
-                <div className={ "customModalTitle" }>
+        <div className={ "custom-modal" }>
+            <div className={ `${ "custom-modal-content" }` }>
+                <div className={ "custom-modal-title" }>
                     <p>{ t(props.title) }</p>
                 </div>
-                <div className={ "customModalChildrenContent" }>
+                <div className={ "custom-modal-children-content" }>
                     { props.children }
                 </div>
-                <div className={ "manageCustomModal" }>
+                <div className={ "manage-custom-modal" }>
                     { 
                         props.typeOfActions === "default" 
                         &&

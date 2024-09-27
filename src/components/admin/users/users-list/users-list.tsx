@@ -53,18 +53,18 @@ export default function UsersList () {
     });
 
     return (
-        <div className='usersList'>
-            <Button className='createButton' onClick={ () => startManipulating(null) } variant="contained">{ t("text.createUser") }</Button>
+        <div className='users-list'>
+            <Button className='create-button' onClick={ () => startManipulating(null) } variant="contained">{ t("text.createUser") }</Button>
             {
                 users?.map((user: IUser) => {
                     return (
                         <div key={ user.id } className='user'>
-                            <div className="user__info">
+                            <div className="user-info">
                                 <div className="user__id">{ t("text.user") }: { user.id }</div>
                                 <div className="user__login">{ t("text.login") }: { user.login }</div>
                                 <div className="user__role">{ t("text.role") }: { user.role }</div>
                             </div>
-                            <div className="user__settings">
+                            <div className="user-settings">
                                 <Button onClick={ () => startManipulating(user) } variant="contained">{ t("text.edit") }</Button>
                                 <Button onClick={ () => startDeleteUser(user) } variant="contained">{ t("text.delete") }</Button>
                             </div>

@@ -1,11 +1,11 @@
-.usersList {
+.users-list {
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 10px;
     padding-left: 10px;
     
-    & .createButton {
+    & .create-button {
         width: 300px;
     }
     & .user {
@@ -18,7 +18,7 @@
         background-color: var(--bg-color-block);
         gap: 100px;
 
-        & .user__settings {
+        & .user-settings {
             display: flex;
             justify-content: end;
             gap: 5px;
