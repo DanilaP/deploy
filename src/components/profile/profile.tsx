@@ -34,13 +34,13 @@ export default function ProfilePage () {
 
     return (
         <div className='profile'>
-            <div className="profile-header"><h1>{ t("titles.profilePage") }</h1></div>
+            <div className="profile-header">{ t("titles.profilePage") }</div>
             <div className="profile-content">
                 <div className="user-avatar">
-                    <img src={user?.avatar}></img>
+                    <img src={ user?.avatar }></img>
                 </div>
-                <div className="user-login"><h3>{ t("text.login") }: {user?.login}</h3></div>
-                <div className="user-role"><h3>{ t("text.role") }: {user?.role}</h3></div>
+                <div className="user-login">{ t("text.login") }: { user?.login }</div>
+                <div className="user-role">{ t("text.role") }: { user?.role }</div>
                 <Button variant="contained" onClick={ logout }>{ t("text.logout") }</Button>
             </div>
         </div>
