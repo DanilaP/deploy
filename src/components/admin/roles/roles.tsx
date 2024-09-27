@@ -28,7 +28,7 @@ export default function PermitionsPage () {
             setRoles(res.data.roles);
         })
         .catch((error) => {
-            console.error(error);
+            console.error(t("methods.addRoleMethod"), error);
         });
     };
 
@@ -51,13 +51,13 @@ export default function PermitionsPage () {
         <div className="roles">
             <div className="roles-add-role">
                 <TextField onChange={(e) => setNewRole({ ...newRole, name: e.target.value })} placeholder="Роль" />
-                <Button onClick={ addNewRole } variant="contained">Добавить роль</Button>
+                <Button onClick={ addNewRole } variant="contained">{ t("text.addRole") }</Button>
             </div>
             <div className="roles-content">
                 <TableComponent update = { setRoles } roles={ roles } permitions={ permitions } />
             </div>
             <div className="save-button">
-                <Button onClick={ updateRolesInfo } variant="contained">Сохранить изменения</Button>
+                <Button onClick={ updateRolesInfo } variant="contained">{ t("text.saveChanges") }</Button>
             </div>
         </div>
     );

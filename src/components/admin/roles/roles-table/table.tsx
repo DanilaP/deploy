@@ -46,7 +46,7 @@ export default function TableComponent(props: { update: (data: IRole[]) => void,
             props.update(res.data.roles);
         })
         .catch((error) => {
-            console.error(error);
+            console.error(t("methods.deleteRoleMethod"), error);
         });
         setIsModalShown(false);
     };
@@ -58,7 +58,7 @@ export default function TableComponent(props: { update: (data: IRole[]) => void,
     return (
         <>
         <TableContainer component={ Paper }>
-            <Table sx={{ minWidth: 350 }} size="small" aria-label="a dense table">
+            <Table sx={ { minWidth: 350 } } size="small" aria-label="a dense table">
                 <TableHead>
                 <TableRow>
                     <TableCell>{ t("text.permitionsRules") }</TableCell>
@@ -69,7 +69,7 @@ export default function TableComponent(props: { update: (data: IRole[]) => void,
                                 <div className='role'>
                                     { role.name }
                                 </div>
-                                <div onClick={() => openModal(role)} className="delete-button">Удалить роль</div>
+                                <div onClick={ () => openModal(role) } className="delete-button">{ t("text.deleteRole") }</div>
                             </TableCell>);
                         })
                     }
@@ -103,13 +103,13 @@ export default function TableComponent(props: { update: (data: IRole[]) => void,
             </Table>
         </TableContainer>
         <CustomModal 
-            isDisplay={isModalShown}
-            title = {`Подтверждение действия`}
+            isDisplay={ isModalShown }
+            title = { t("text.confirm") }
             typeOfActions='default'
-            actionConfirmed={deleteRole}
-            closeModal={() => setIsModalShown(false)}
+            actionConfirmed={ deleteRole }
+            closeModal={ () => setIsModalShown(false) }
         >
-            <div>{`Удалить роль ${choosenRole?.name}`}</div>
+            <div>{ `${ t("text.deleteRole") } ${ choosenRole?.name }` }</div>
         </CustomModal>
         </>
     );

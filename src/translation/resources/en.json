@@ -43,7 +43,10 @@
         "logout": "Logout",
         "adminPanel": "Admin panel",
         "name": "Name",
-        "roles": "Roles"
+        "roles": "Roles",
+        "saveChanges": "Save changes",
+        "addRole": "Add role",
+        "deleteRole": "Delete role"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
@@ -53,6 +56,8 @@
         "signInMethod": "Sign in method",
         "signUpMethod": "Sign up method",
         "getPermitionsMethod": "Get permitions method",
-        "updateRolesMethod": "Update roles method"
+        "updateRolesMethod": "Update roles method",
+        "deleteRoleMethod": "Delete role method",
+        "addRoleMethod": "Add role method"
     }
 }
