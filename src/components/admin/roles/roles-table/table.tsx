@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,10 +9,15 @@ import { IPermition, IRole } from '../../../../interfaces/interfaces';
 import { Checkbox } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import $api from '../../../../configs/axiosconfig/axios';
+import CustomModal from '../../../../components-ui/CustomModal/custom-modal';
 
 export default function TableComponent(props: { update: (data: IRole[]) => void, roles: IRole[], permitions: IPermition[] }) {
 
     const [updatedRoles, setUpdatedRoles] = useState<IRole[]>(props.roles);
+    const [isModalShown, setIsModalShown] = useState<boolean>(false);
+    const [choosenRole, setChoosenRole] = useState<IRole>();
+
     const { t } = useTranslation();
     
     const updateRole = (roleName: string, permitionName: string, isChecked: boolean) => {
@@ -31,35 +35,58 @@ export default function TableComponent(props: { update: (data: IRole[]) => void,
         props.update(newRoles);
     };
 
+    const openModal = (role: IRole) => {
+        setChoosenRole(role);
+        setIsModalShown(true);
+    };
+
+    const deleteRole = () => {
+        $api.delete(`/roles?name=${choosenRole?.name}`)
+        .then((res) => {
+            props.update(res.data.roles);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+        setIsModalShown(false);
+    };
+
     useEffect(() => {
         setUpdatedRoles(props.roles);
     }, [props.roles]);
 
     return (
+        <>
         <TableContainer component={ Paper }>
             <Table sx={{ minWidth: 350 }} size="small" aria-label="a dense table">
                 <TableHead>
                 <TableRow>
-                    <TableCell>{ t("text.roles") }</TableCell>
+                    <TableCell>{ t("text.permitionsRules") }</TableCell>
                     {
-                        props.permitions.map((permition: IPermition) => {
-                            return <TableCell key={ permition.name }>{ permition.name }</TableCell>;
+                        props.roles.map((role: IRole) => {
+                            return (
+                            <TableCell key={ role.name }>
+                                <div className='role'>
+                                    { role.name }
+                                </div>
+                                <div onClick={() => openModal(role)} className="delete-button">Удалить роль</div>
+                            </TableCell>);
                         })
                     }
                 </TableRow>
                 </TableHead>
                 <TableBody>
                     {
-                        props.roles.map((role: IRole) => {
+                        props.permitions.map((permition: IPermition) => {
                             return (
-                                <TableRow key={ role.name }>
+                                <TableRow key={ permition.name }>
                                     <TableCell>
-                                        { role.name }
+                                        { permition.name }
                                     </TableCell>
                                     {
-                                        props.permitions.map((permition: IPermition) => {
+                                        props.roles.map((role: IRole) => {
                                             return (
-                                                <TableCell key={ permition.name }>
+                                                <TableCell key={ role.name }>
                                                     <Checkbox
                                                         onChange={ (e) => updateRole(role.name, permition.name, e.target.checked) } 
                                                         defaultChecked = { role.permitions.includes(permition.name) ? true : false }>
@@ -75,5 +102,15 @@ export default function TableComponent(props: { update: (data: IRole[]) => void,
                 </TableBody>
             </Table>
         </TableContainer>
+        <CustomModal 
+            isDisplay={isModalShown}
+            title = {`Подтверждение действия`}
+            typeOfActions='default'
+            actionConfirmed={deleteRole}
+            closeModal={() => setIsModalShown(false)}
+        >
+            <div>{`Удалить роль ${choosenRole?.name}`}</div>
+        </CustomModal>
+        </>
     );
 }

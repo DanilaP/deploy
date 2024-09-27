@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import $api from '../../../configs/axiosconfig/axios';
 import { IPermition, IRole } from "../../../interfaces/interfaces";
-import './permitions.scss';
-import TableComponent from "./permitions-table/table";
-import { Button } from "@mui/material";
+import './roles.scss';
+import TableComponent from "./roles-table/table";
+import { Button, TextField } from "@mui/material";
 
 export default function PermitionsPage () {
     const { t } = useTranslation();
     const [roles, setRoles] = useState<IRole[]>([]);
     const [permitions, setPermitions] = useState<IPermition[]>([]);
-
+    const [newRole, setNewRole] = useState<IRole>({ name: "", permitions: [] });
 
     const updateRolesInfo = () => {
         $api.put("/roles", { roles })
@@ -19,6 +19,16 @@ export default function PermitionsPage () {
         })
         .catch((error) => {
             console.error(t("methods.updateRolesMethod"), error);
+        });
+    };
+
+    const addNewRole = () => {
+        $api.post("/roles", newRole)
+        .then((res) => {
+            setRoles(res.data.roles);
+        })
+        .catch((error) => {
+            console.error(error);
         });
     };
 
@@ -38,14 +48,15 @@ export default function PermitionsPage () {
     }, []);
     
     return (
-        <div className="permitions">
-            <div className="permitions__header">
-                <h3>{ t("titles.permitionsPage") }</h3>
+        <div className="roles">
+            <div className="roles-add-role">
+                <TextField onChange={(e) => setNewRole({ ...newRole, name: e.target.value })} placeholder="Роль" />
+                <Button onClick={ addNewRole } variant="contained">Добавить роль</Button>
             </div>
-            <div className="permitions__content">
+            <div className="roles-content">
                 <TableComponent update = { setRoles } roles={ roles } permitions={ permitions } />
             </div>
-            <div className="saveButton">
+            <div className="save-button">
                 <Button onClick={ updateRolesInfo } variant="contained">Сохранить изменения</Button>
             </div>
         </div>

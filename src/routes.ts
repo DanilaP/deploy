@@ -8,7 +8,7 @@ import HomePage from "./components/home/home";
 import ShopPage from "./components/shop/shop";
 import UsersList from "./components/admin/users/users-list/users-list";
 import ProfilePage from "./components/profile/profile";
-import PermitionsPage from "./components/admin/permitions/permitions";
+import PermitionsPage from "./components/admin/roles/roles";
 
 export const routes = [
     {
@@ -60,7 +60,7 @@ export const adminRoutes = [
         children: UsersList
     },
     {
-        path: '/admin/permitions',
+        path: '/admin/roles',
         component: AdminPage,
         children: PermitionsPage
     },

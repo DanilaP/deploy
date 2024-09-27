@@ -1,0 +1,29 @@
+.roles {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    & .roles-content {
+        display: flex;
+        box-sizing: border-box;
+        padding: 10px;
+        border-radius: 5px;
+        gap: 5px;
+        background-color: var(--bg-color-block);
+
+        .delete-button {
+            font-size: 12px;
+            cursor: pointer;
+            
+            &:hover {
+                color: red;
+            }
+        }
+    }
+
+    & .roles-add-role {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+}
