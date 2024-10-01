@@ -10,7 +10,7 @@ import { Checkbox } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import $api from '../../../../configs/axiosconfig/axios';
-import CustomModal from '../../../../components-ui/CustomModal/custom-modal';
+import CustomModal from '../../../../components-ui/custom-modal/custom-modal';
 
 export default function TableComponent(props: { update: (data: IRole[]) => void, roles: IRole[], permitions: IPermition[] }) {
 

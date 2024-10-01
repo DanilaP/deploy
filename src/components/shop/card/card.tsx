@@ -6,16 +6,15 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTranslation } from 'react-i18next';
+import { ShoppingBasket } from '@material-ui/icons';
 
 export default function MediaCard() {
     const { t } = useTranslation();
     return (
         <Card sx={ { maxWidth: 345 } }>
-            <CardMedia
-                sx={ { height: 140 } }
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="green iguana"
-            />
+           <CardMedia style={ { display: "flex", justifyContent: "center" } } >
+                <ShoppingBasket color="primary" style={ { width: "200px", height: "100px" } } />
+           </CardMedia>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                 Lizard

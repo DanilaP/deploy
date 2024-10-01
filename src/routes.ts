@@ -37,13 +37,13 @@ export const routes = [
         children: null
     },
     {
-        path: '*',
-        component: NotFoundComponent,
+        path: '/profile',
+        component: ProfilePage,
         children: null
     },
     {
-        path: '/profile',
-        component: ProfilePage,
+        path: '*',
+        component: NotFoundComponent,
         children: null
     }
 ];

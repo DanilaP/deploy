@@ -49,15 +49,15 @@ export default function PermitionsPage () {
     
     return (
         <div className="roles">
-            <div className="roles-add-role">
-                <TextField onChange={ (e) => setNewRole({ ...newRole, name: e.target.value }) } placeholder="Роль" />
-                <Button onClick={ addNewRole } variant="contained">{ t("text.addRole") }</Button>
-            </div>
             <div className="roles-content">
                 <TableComponent update = { setRoles } roles={ roles } permitions={ permitions } />
             </div>
-            <div className="save-button">
+            <div className="roles-add-role">
+                <TextField onChange={ (e) => setNewRole({ ...newRole, name: e.target.value }) } placeholder="Роль" />
+                <Button onClick={ addNewRole } variant="contained">{ t("text.addRole") }</Button>
+                <div className="save-button">
                 <Button onClick={ updateRolesInfo } variant="contained">{ t("text.saveChanges") }</Button>
+            </div>
             </div>
         </div>
     );

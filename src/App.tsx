@@ -16,6 +16,7 @@ import { SupervisorAccount } from '@material-ui/icons';
 function App() {
     const [theme, setTheme] = useState("white-theme");
     const currentStore = useSelector((store: any) => store);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const { t } = useTranslation();
@@ -42,23 +43,31 @@ function App() {
         });
     }, []);
 
+    useEffect(() => {
+        window.addEventListener("resize", () => {
+            if (window.innerWidth <= 820) {
+                setIsMobile(true);
+            } else {
+                setIsMobile(false);
+            }
+        });
+    }, []);
     return (
         <> 
             <div className='home-page-main'>
-                <div className="header">
                     { currentStore.user ? (
-                        <>
-                            <Link to='/shop'><ShoppingCart/>{ t('titles.shopPage') }</Link><br/>
-                            <Link to='/profile'><PersonPin />{ t('titles.profilePage') }</Link><br/>
+                        <div className="header">
+                            <Link to='/shop'><ShoppingCart/>{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
+                            <Link to='/profile'><PersonPin />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
                             { currentStore.user?.role === "Администратор" ? 
-                            (<Link to='/admin'><SupervisorAccount/>{ t('titles.adminPage') }</Link>) : null }<br/>
+                            (<Link to='/admin'><SupervisorAccount/>{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">
                                 <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
                                 <Switch onChange = { changeTheme } defaultChecked/>
                             </div>
-                        </> ) : null
+                        </div> ) : null
                     }
-                </div>
+                
                 <div className="content">
                     <Routes>
                         {
@@ -70,12 +79,13 @@ function App() {
                                 />
                             ))
                         }
-                        { currentStore.user?.role === "Администратор" && 
+                        { currentStore.user?.role === "Администратор" &&
                             adminRoutes.map(({ path,  component: Component, children: Children }) => (
                                 <Route 
                                     key={ path } 
                                     path={ path }
-                                    element={ currentStore.user ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> } 
+                                    element={ currentStore.user 
+                                        ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> } 
                                 />
                             ))
                         }

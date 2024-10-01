@@ -10,6 +10,20 @@
         border-radius: 5px;
         gap: 5px;
         background-color: var(--bg-color-block);
+        border: 1px solid rgba(128, 128, 128, 0.247);
+
+        & .MuiPaper-root {
+            background-color: var(--bg-color-block);
+            
+            & th, td {
+                color: var(--text-color);
+            }
+
+            & span, input, svg {
+                color: var(--text-color);
+                border-color: var(--text-color);
+            }
+        }
 
         .delete-button {
             font-size: 12px;
@@ -23,7 +37,12 @@
 
     & .roles-add-role {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: 10px;
+
+        & input {
+            height: 3.5px;
+        }
     }
 }

@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import $api from '../../../../configs/axiosconfig/axios.js';
 import { IUser } from '../../../../interfaces/interfaces.js';
 import './users-list.scss';
-import CustomModal from '../../../../components-ui/CustomModal/custom-modal.js';
+import CustomModal from '../../../../components-ui/custom-modal/custom-modal.js';
 import ManipulateUser from '../manipulate-user/manipulate-user.js';
-import { Button } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 
 export default function UsersList () {
     const { t } = useTranslation();
@@ -54,15 +54,28 @@ export default function UsersList () {
 
     return (
         <div className='users-list'>
-            <Button className='create-button' onClick={ () => startManipulating(null) } variant="contained">{ t("text.createUser") }</Button>
+            <div className="users-list-header">
+                <TextField placeholder='id пользователя'></TextField>
+                <Button variant="contained">{ t("text.find") }</Button>
+                <Button className='create-button' onClick={ () => startManipulating(null) } variant="contained">{ t("text.createUser") }</Button>
+            </div>
             {
                 users?.map((user: IUser) => {
                     return (
                         <div key={ user.id } className='user'>
+                            <div className="user-avatar">
+                                <img src = { user.avatar } />
+                            </div>
                             <div className="user-info">
-                                <div className="user__id">{ t("text.user") }: { user.id }</div>
-                                <div className="user__login">{ t("text.login") }: { user.login }</div>
-                                <div className="user__role">{ t("text.role") }: { user.role }</div>
+                                <div className="user-id">
+                                    <strong>id</strong>: { user.id }
+                                </div>
+                                <div className="user-login">
+                                    <strong>{ t("text.login") }</strong>: { user.login }
+                                </div>
+                                <div className="user-role">
+                                    <strong>{ t("text.role") }</strong>: { user.role }
+                                </div>
                             </div>
                             <div className="user-settings">
                                 <Button onClick={ () => startManipulating(user) } variant="contained">{ t("text.edit") }</Button>

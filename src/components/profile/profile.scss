@@ -1,24 +1,91 @@
 .profile {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 50px;
-
-    & .profile-header {
-        display: flex;
-        justify-content: center;
-    }
+    padding: 20px;
 
     & .profile-content {
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: var(--bg-color-block);
+        border-radius: 5px;
+        border: 1px solid rgba(128, 128, 128, 0.247);
+        width: 800px;
+        height: 500px;
+        gap: 30px;
 
-        & img {
+        & .form-group {
+            position: absolute;
+            margin-top: 160px;
+            margin-left: 160px;
+        }
+
+        button {
             width: 200px;
-            height: 200px;
-            border-radius: 50%;
+            height: 36.5px;
+        }
+
+        & .user-avatar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            & .user-login {
+                width: max-content;
+                font-weight: 600;
+            }
+
+            & img {
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                margin-bottom: 20px;
+            }
+        }
+
+        & .user-settings {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+    }
+}
+
+@media screen and (max-width: 820px) {
+    .profile {
+
+        & .profile-content {
+            width: 600px;
+
+            & .user-settings {
+                flex-wrap: wrap;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .profile {
+        
+
+        & .profile-content {
+            flex-direction: column;
+            width: 400px;
+        }
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .profile {
+
+        & .profile-content {
+            width: 300px;
         }
     }
 }
