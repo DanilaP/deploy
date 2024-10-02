@@ -162,12 +162,12 @@ app.get("/profile", async function(req, res) {
     }
 });
 
-//Permitions
-app.get("/permitions", async function(req, res) {
+//Permissions
+app.get("/permissions", async function(req, res) {
     try {
-        let currentPermitions = JSON.parse(fs.readFileSync('DB/Permitions.json', 'utf8'));
+        let currentPermissions = JSON.parse(fs.readFileSync('DB/Permissions.json', 'utf8'));
         let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
-        res.status(200).json({ message: "Данные о разрешениях пользователей успешно получены", permitions: currentPermitions, roles: currentRoles });
+        res.status(200).json({ message: "Данные о разрешениях пользователей успешно получены", permissions: currentPermissions, roles: currentRoles });
     }
     catch(error) {
         console.error("get /permitions", error);

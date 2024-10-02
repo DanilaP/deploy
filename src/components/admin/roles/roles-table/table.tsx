@@ -5,14 +5,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { IPermition, IRole } from '../../../../interfaces/interfaces';
+import { IPermission, IRole } from '../../../../interfaces/interfaces';
 import { Checkbox } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import $api from '../../../../configs/axiosconfig/axios';
 import CustomModal from '../../../../components-ui/custom-modal/custom-modal';
 
-export default function TableComponent(props: { update: (data: IRole[]) => void, roles: IRole[], permitions: IPermition[] }) {
+export default function TableComponent(props: { update: (data: IRole[]) => void, roles: IRole[], permissions: IPermission[] }) {
 
     const [updatedRoles, setUpdatedRoles] = useState<IRole[]>(props.roles);
     const [isModalShown, setIsModalShown] = useState<boolean>(false);
@@ -20,15 +20,15 @@ export default function TableComponent(props: { update: (data: IRole[]) => void,
 
     const { t } = useTranslation();
     
-    const updateRole = (roleName: string, permitionName: string, isChecked: boolean) => {
+    const updateRole = (roleName: string, permissionName: string, isChecked: boolean) => {
         const newRoles = updatedRoles.map((role: IRole) => {
             if (role.name === roleName) {
                 if (isChecked) {
-                    return { name: role.name, permitions: [...role.permitions, permitionName] };
+                    return { name: role.name, permissions: [...role.permissions, permissionName] };
                 }
                 else {
-                    const filteredPermitions = role.permitions.filter((currPerm: string) => currPerm !== permitionName);
-                    return { name: role.name, permitions: filteredPermitions };
+                    const filteredPermissions = role.permissions.filter((currPerm: string) => currPerm !== permissionName);
+                    return { name: role.name, permissions: filteredPermissions };
                 }
             } else return role;
         });
@@ -77,19 +77,19 @@ export default function TableComponent(props: { update: (data: IRole[]) => void,
                 </TableHead>
                 <TableBody>
                     {
-                        props.permitions.map((permition: IPermition) => {
+                        props.permissions.map((permission: IPermission) => {
                             return (
-                                <TableRow key={ permition.name }>
+                                <TableRow key={ permission.name }>
                                     <TableCell>
-                                        { permition.name }
+                                        { t("permissions." + permission.name) }
                                     </TableCell>
                                     {
                                         props.roles.map((role: IRole) => {
                                             return (
                                                 <TableCell key={ role.name }>
                                                     <Checkbox
-                                                        onChange={ (e) => updateRole(role.name, permition.name, e.target.checked) } 
-                                                        defaultChecked = { role.permitions.includes(permition.name) ? true : false }>
+                                                        onChange={ (e) => updateRole(role.name, permission.name, e.target.checked) } 
+                                                        defaultChecked = { role.permissions?.includes(permission.name) ? true : false }>
                                                     </Checkbox>
                                                 </TableCell>
                                             );

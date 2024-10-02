@@ -66,5 +66,11 @@
         "updateRolesMethod": "Метод обновления ролей",
         "deleteRoleMethod": "Метод удаления роли",
         "addRoleMethod": "Метод добавления роли"
+    },
+    "permissions": {
+        "ModifyUsers": "Модификация пользователей",
+        "ModifyProducts": "Модификация товаров",
+        "ViewOrderListOfUser": "Просмотр заказов пользователей",
+        "OrderManagement": "Управление заказами"
     }
 }

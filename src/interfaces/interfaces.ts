@@ -5,11 +5,11 @@ export interface IUser {
     role?: string,
     avatar?: string
 }
-export interface IPermition {
+export interface IPermission {
     name: string,
     description: string
 }
 export interface IRole {
     name: string,
-    permitions: string[]
+    permissions: string[]
 }

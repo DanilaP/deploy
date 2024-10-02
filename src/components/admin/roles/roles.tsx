@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import $api from '../../../configs/axiosconfig/axios';
-import { IPermition, IRole } from "../../../interfaces/interfaces";
+import { IPermission, IRole } from "../../../interfaces/interfaces";
 import './roles.scss';
 import TableComponent from "./roles-table/table";
 import { Button, TextField } from "@mui/material";
@@ -9,8 +9,8 @@ import { Button, TextField } from "@mui/material";
 export default function PermitionsPage () {
     const { t } = useTranslation();
     const [roles, setRoles] = useState<IRole[]>([]);
-    const [permitions, setPermitions] = useState<IPermition[]>([]);
-    const [newRole, setNewRole] = useState<IRole>({ name: "", permitions: [] });
+    const [permissions, setPermissions] = useState<IPermission[]>([]);
+    const [newRole, setNewRole] = useState<IRole>({ name: "", permissions: [] });
 
     const updateRolesInfo = () => {
         $api.put("/roles", { roles })
@@ -37,10 +37,10 @@ export default function PermitionsPage () {
     });
     
     useEffect(() => {
-        $api.get("/permitions")
+        $api.get("/permissions")
         .then((res) => {
             setRoles(res.data.roles);
-            setPermitions(res.data.permitions);
+            setPermissions(res.data.permissions);
         })
         .catch((error) => {
             console.error(t("methods.getPermitionsMethod"), error);
@@ -50,7 +50,7 @@ export default function PermitionsPage () {
     return (
         <div className="roles">
             <div className="roles-content">
-                <TableComponent update = { setRoles } roles={ roles } permitions={ permitions } />
+                <TableComponent update = { setRoles } roles={ roles } permissions={ permissions } />
             </div>
             <div className="roles-add-role">
                 <TextField onChange={ (e) => setNewRole({ ...newRole, name: e.target.value }) } placeholder="Роль" />

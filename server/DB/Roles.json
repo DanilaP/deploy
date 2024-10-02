@@ -1,1 +1,1 @@
-[{"name":"Администратор","permitions":["Модификация пользователей","Управление заказами","Модификация товаров","Просмотр заказов пользователей"]},{"name":"Пользователь","permitions":[]},{"name":"Модератор","permitions":["Модификация пользователей"]}]
+[{"name":"Администратор","permissions":["ViewOrderListOfUser","OrderManagement","ModifyUsers","ModifyProducts"]},{"name":"Пользователь","permissions":[]},{"name":"Модератор","permissions":["ModifyUsers"]}]

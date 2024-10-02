@@ -66,5 +66,11 @@
         "updateRolesMethod": "Update roles method",
         "deleteRoleMethod": "Delete role method",
         "addRoleMethod": "Add role method"
+    },
+    "permissions": {
+        "ModifyUsers": "Modify users",
+        "ModifyProducts": "Modify products",
+        "ViewOrderListOfUser": "View orders list",
+        "OrderManagement": "Orders management"
     }
 }
