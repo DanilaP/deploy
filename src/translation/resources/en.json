@@ -5,15 +5,16 @@
         "aboutPage": "About page",
         "adminPage": "Admin page",
         "authPage": "Auth page",
-        "signUp": "Registration page",
-        "signIn": "Authorization page",
+        "signUp": "Sign up",
+        "signIn": "Sign in",
         "shopPage": "Shop page",
         "signUpButton": "Registration",
         "signInButton": "Enter",
         "forgetPasswordButton": "Forget password?",
         "usersPage": "Users page",
         "manipulateUser": "User manipulation",
-        "profilePage": "Profile page"
+        "profilePage": "Profile page",
+        "permitionsPage": "Permitions page"
     },
     "labels": {
         "loading": "Loading..."
@@ -33,21 +34,43 @@
         "deletingUserConfirmation": "Do you want to delete the user?",
         "manipulateUser": "User manipulating",
         "creating": "(Creation)",
-        "usersAdmin": "Users administrating",
-        "rolesAdmin": "Roles administrating",
+        "usersAdmin": "Users",
+        "rolesAdmin": "Roles",
         "permitionsRules": "Permition/rules",
         "buy": "Buy",
         "details": "Details",
         "products": "Products",
         "logout": "Logout",
-        "adminPanel": "Admin panel"
+        "adminPanel": "Admin panel",
+        "name": "Name",
+        "roles": "Roles",
+        "saveChanges": "Save changes",
+        "addRole": "Add role",
+        "deleteRole": "Delete",
+        "alreadyHaveAcc": "Already have an account?",
+        "stillNotReg": "Not registered yet?",
+        "filters": "Filters",
+        "find": "Find",
+        "categories": "Categories",
+        "changePassword": "Change password",
+        "myOrders": "My orders"
     },
-    "method": {
+    "methods": {
         "modifyUserMethod": "Modify user method",
         "createUserMethod": "Create user method",
         "deleteUserMethod": "Delete user method",
         "getUsersMethod": "Get users method",
         "signInMethod": "Sign in method",
-        "signUpMethod": "Sign up method"
+        "signUpMethod": "Sign up method",
+        "getPermitionsMethod": "Get permitions method",
+        "updateRolesMethod": "Update roles method",
+        "deleteRoleMethod": "Delete role method",
+        "addRoleMethod": "Add role method"
+    },
+    "permissions": {
+        "ModifyUsers": "Modify users",
+        "ModifyProducts": "Modify products",
+        "ViewOrderListOfUser": "View orders list",
+        "OrderManagement": "Orders management"
     }
 }

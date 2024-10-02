@@ -4,8 +4,9 @@ import $api from '../../configs/axiosconfig/axios';
 import { useNavigate } from 'react-router';
 import { store } from '../../store';
 import { useSelector } from 'react-redux';
-import { Button } from '@mui/material';
+import { Button, Input } from '@mui/material';
 import './profile.scss';
+import InputFile from '../../components-ui/custom-file-nput/file-input';
 
 export default function ProfilePage () {
     const { t } = useTranslation();
@@ -34,14 +35,18 @@ export default function ProfilePage () {
 
     return (
         <div className='profile'>
-            <div className="profile-header">{ t("titles.profilePage") }</div>
             <div className="profile-content">
                 <div className="user-avatar">
                     <img src={ user?.avatar }></img>
+                    <div className="user-login">{ user?.login }</div>
+                    <div className="user-role">{ user?.role }</div>
+                    <InputFile />
                 </div>
-                <div className="user-login">{ t("text.login") }: { user?.login }</div>
-                <div className="user-role">{ t("text.role") }: { user?.role }</div>
-                <Button variant="contained" onClick={ logout }>{ t("text.logout") }</Button>
+                <div className="user-settings">
+                    <Button variant="contained">{ t("text.myOrders") }</Button>
+                    <Button variant="contained" onClick={ logout }>{ t("text.logout") }</Button>
+                    <Button variant="contained">{ t("text.changePassword") }</Button>
+                </div>
             </div>
         </div>
     );

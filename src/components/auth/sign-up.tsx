@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from '../../translation/i18n';
-import { Button, FormControl, FormLabel, TextField } from '@mui/material';
+import { Button, FormControl, FormLabel, Link, TextField } from '@mui/material';
 import { IUser } from '../../interfaces/interfaces';
 import { validator } from '../../helpers/auth-helpers';
 import axios from 'axios';
@@ -35,16 +35,19 @@ export default function SignUp () {
     return (
         <div className='sign-up-main'>
             <FormControl>
-                <FormLabel>{ t("titles.signUp") }</FormLabel>
-                <TextField onChange={(e) => setUserData({ ...userData, login: e.target.value })} 
+                <FormLabel><h1>{ t("titles.signUp") }</h1></FormLabel>
+                <FormLabel>{ t("text.login") }</FormLabel>
+                <TextField onChange={ (e) => setUserData({ ...userData, login: e.target.value }) } 
                         placeholder='example@gmail.com'
                 />
-                <TextField onChange={(e) => setUserData({ ...userData, password: e.target.value })} 
+                <FormLabel>{ t("text.password") }</FormLabel>
+                <TextField onChange={ (e) => setUserData({ ...userData, password: e.target.value }) } 
                         type='password' 
                         placeholder='password123'
                 />
-                <Button onClick={signUp}>{ t("titles.signUpButton") }</Button>
+                <Button variant='contained' onClick={ signUp }>{ t("titles.signUpButton") }</Button>
             </FormControl>
+            <Link onClick={ () => navigate("/auth/signIn") } className="footer-links">{ t("text.alreadyHaveAcc") }</Link>
         </div>
     );
 }

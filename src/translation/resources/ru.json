@@ -5,15 +5,16 @@
         "aboutPage": "Страница о проекте",
         "adminPage": "Страница администрации",
         "authPage": "Страница авторизации",
-        "signUp": "Страница регистрации",
-        "signIn": "Страница авторизации",
+        "signUp": "Регистрация",
+        "signIn": "Авторизация",
         "shopPage": "Страница магазина",
         "signUpButton": "Зарегестрироваться",
         "signInButton": "Войти",
         "forgetPasswordButton": "Забыли пароль?",
         "usersPage": "Страница пользователей",
         "manipulateUser": "Управление пользователем",
-        "profilePage": "Страница профиля"
+        "profilePage": "Страница профиля",
+        "permitionsPage": "Разрешения/права"
 },
     "labels": {
         "loading": "Загрузка..."
@@ -33,14 +34,26 @@
         "deletingUserConfirmation": "Хотите удалить пользователя?",
         "manipulateUser": "Управление пользователем",
         "creating": "(Создание)",
-        "usersAdmin": "Администрирование пользователей",
-        "rolesAdmin": "Администрирование ролей",
+        "usersAdmin": "Пользователи",
+        "rolesAdmin": "Роли",
         "permitionsRules": "Разрешения/права",
         "buy": "Купить",
         "details": "Детали",
         "products": "Товары",
         "logout": "Выйти из аккаунта",
-        "adminPanel": "Панель администратора"
+        "adminPanel": "Панель администратора",
+        "name": "Наименование",
+        "roles": "Роли",
+        "saveChanges": "Сохранить изменения",
+        "addRole": "Добавить роль",
+        "deleteRole": "Удалить",
+        "alreadyHaveAcc": "Уже есть аккаунт?",
+        "stillNotReg": "Еще не зарегестрированы?",
+        "filters": "Настроить фильтры",
+        "find": "Найти",
+        "categories": "Категории",
+        "changePassword": "Сменить пароль",
+        "myOrders": "Мои заказы"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",
@@ -48,6 +61,16 @@
         "deleteUserMethod": "Метод удаления пользователя",
         "getUsersMethod": "Метод получения  пользователей",
         "signInMethod": "Метод авторизации",
-        "signUpMethod": "Метод регистрации"
+        "signUpMethod": "Метод регистрации",
+        "getPermitionsMethod": "Метод получения разрешений/прав",
+        "updateRolesMethod": "Метод обновления ролей",
+        "deleteRoleMethod": "Метод удаления роли",
+        "addRoleMethod": "Метод добавления роли"
+    },
+    "permissions": {
+        "ModifyUsers": "Модификация пользователей",
+        "ModifyProducts": "Модификация товаров",
+        "ViewOrderListOfUser": "Просмотр заказов пользователей",
+        "OrderManagement": "Управление заказами"
     }
 }

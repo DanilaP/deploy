@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useTranslation } from '../../translation/i18n';
 import '../../stylesheets/authpages.scss';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { ExitToApp } from '@material-ui/icons';
 
 interface AuthPageProps {
     children: React.ReactElement | null
@@ -19,13 +19,14 @@ export default function AuthPage (props: AuthPageProps) {
 
     return (
         <div className='auth-wrapper'>
-            <div className="header">
-                <Link to='/auth/signIn'>{ t('titles.signIn') }</Link>
-                <Link to='/auth/signUp'>{ t('titles.signUp') }</Link>
-            </div>
-            <div className="content">{children}</div>
-            <div className="footer">
-                <Button>{ t("titles.forgetPasswordButton") }</Button>
+            <div className="auth-form">
+                <div className="auth-form-header">
+                    <ExitToApp style={ { width: "50px", height: "50px" } } color='primary' />
+                </div>
+                <div className="auth-form-content">{ children }</div>
+                <div className="auth-form-footer">
+                    <Button>{ t("titles.forgetPasswordButton") }</Button>
+                </div>
             </div>
         </div>
     );

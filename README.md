@@ -33,5 +33,6 @@ If you are developing a production application, we recommend updating the config
 - Install `axios` and add base auth
 - Add authorization by tokens
 - Add black and white theme styles
+- Add roles page `/admin/roles`
 
 
