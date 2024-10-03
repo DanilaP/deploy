@@ -1,0 +1,28 @@
+.permissions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--bg-color-block);
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.247);
+    height: calc(100vh - 150px);
+
+    & .permissions-settings {
+        display: flex;
+        gap: 10px;
+
+        & button {
+            min-width: 205px;
+        }
+    }
+
+    & .permissions-content {
+        display: flex;
+        gap: 10px;
+    }
+
+    & input {
+        height: 3.5px;
+    }
+}

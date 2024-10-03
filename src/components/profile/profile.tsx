@@ -36,16 +36,24 @@ export default function ProfilePage () {
     return (
         <div className='profile'>
             <div className="profile-content">
-                <div className="user-avatar">
-                    <img src={ user?.avatar }></img>
-                    <div className="user-login">{ user?.login }</div>
-                    <div className="user-role">{ user?.role }</div>
-                    <InputFile />
+                <div className="profile-content-main">
+                    <div className="user-avatar">
+                        <img src={ user?.avatar }></img>
+                        <div className="user-login">{ user?.login }</div>
+                        <div className="user-role">{ user?.role }</div>
+                        <InputFile />
+                    </div>
+                    <div className="user-settings">
+                        <Button variant="contained">{ t("text.myOrders") }</Button>
+                        <Button variant="contained" onClick={ logout }>{ t("text.logout") }</Button>
+                        <Button variant="contained">{ t("text.changePassword") }</Button>
+                    </div>
                 </div>
-                <div className="user-settings">
-                    <Button variant="contained">{ t("text.myOrders") }</Button>
-                    <Button variant="contained" onClick={ logout }>{ t("text.logout") }</Button>
-                    <Button variant="contained">{ t("text.changePassword") }</Button>
+                <div className="profile-content-info">
+                    <div className="name">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, sapiente!</div>
+                    <div className="surname">Lorem ipsum dolor sit amet.</div>
+                    <div className="phone-number">Lorem ipsum dolor sit amet consectetur adipisicing.</div>
+                    <div className="town">Lorem, ipsum dolor.</div>
                 </div>
             </div>
         </div>

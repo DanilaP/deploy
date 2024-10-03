@@ -8,7 +8,8 @@ import HomePage from "./components/home/home";
 import ShopPage from "./components/shop/shop";
 import UsersList from "./components/admin/users/users-list/users-list";
 import ProfilePage from "./components/profile/profile";
-import PermitionsPage from "./components/admin/roles/roles";
+import RolesPage from "./components/admin/roles/roles";
+import PermissionsPage from "./components/admin/permissions/permissions";
 
 export const routes = [
     {
@@ -62,6 +63,11 @@ export const adminRoutes = [
     {
         path: '/admin/roles',
         component: AdminPage,
-        children: PermitionsPage
+        children: RolesPage
+    },
+    {
+        path: '/admin/permissions',
+        component: AdminPage,
+        children: PermissionsPage
     },
 ];

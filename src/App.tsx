@@ -17,6 +17,7 @@ function App() {
     const [theme, setTheme] = useState("white-theme");
     const currentStore = useSelector((store: any) => store);
     const [isMobile, setIsMobile] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const { t } = useTranslation();
@@ -36,10 +37,12 @@ function App() {
         $api.get("/profile")
         .then((res) => {
             store.dispatch({ type: "USER", payload: res.data.user[0] });
+            setIsLoading(true);
         })
         .catch((error) => {
             console.log(error);
             navigate("/auth/signin");
+            setIsLoading(true);
         });
     }, []);
 
@@ -70,7 +73,7 @@ function App() {
                 
                 <div className="content">
                     <Routes>
-                        {
+                        { isLoading && 
                             routes.map(({ path, component: Component, children: Children }) => (
                                 <Route 
                                     key={ path } 
@@ -79,7 +82,7 @@ function App() {
                                 />
                             ))
                         }
-                        { currentStore.user?.role === "Администратор" &&
+                        { currentStore.user?.role === "Администратор"  &&
                             adminRoutes.map(({ path,  component: Component, children: Children }) => (
                                 <Route 
                                     key={ path } 
