@@ -82,6 +82,12 @@
         "ViewOrderListOfUser": "View orders list",
         "OrderManagement": "Orders management",
         "CreateProducts": "Create products",
-        "DeleteProducts": "Delete products"
+        "DeleteProducts": "Delete products",
+        "CreateRoles": "Create roles",
+        "DeleteRoles": "Delete roles",
+        "ModifyRoles": "Modify roles",
+        "CreateGroupOfPermissions": "Create group of permissions",
+        "DeleteGroupOfPermissions": "Delete group of permissions",
+        "ModifyGroupOfPermissions": "Modify group of permissions"
     }
 }

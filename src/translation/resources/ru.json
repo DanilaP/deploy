@@ -82,6 +82,12 @@
         "ViewOrderListOfUser": "Просмотр заказов пользователей",
         "OrderManagement": "Управление заказами",
         "CreateProducts": "Создание товаров",
-        "DeleteProducts": "Удаление товаров"
+        "DeleteProducts": "Удаление товаров",
+        "CreateRoles": "Создание ролей",
+        "DeleteRoles": "Удаление ролей",
+        "ModifyRoles": "Модификация ролей",
+        "CreateGroupOfPermissions": "Создание группы пермишнов",
+        "DeleteGroupOfPermissions": "Удаление группы пермишнов",
+        "ModifyGroupOfPermissions": "Модификация группы пермишнов"
     }
 }

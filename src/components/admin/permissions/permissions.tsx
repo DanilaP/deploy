@@ -6,6 +6,7 @@ import { IPermission, IPermissionGroup } from '../../../interfaces/interfaces';
 import $api from '../../../configs/axiosconfig/axios';
 import PermissionsList from './permissions-list/permissions-list';
 import PermissionsGroupList from './permissions-group-list/permissions-group-list';
+import { checkConcretePermissions } from '../../../helpers/permissions-helpers';
 
 export default function PermissionsPage () {
     const { t } = useTranslation();
@@ -15,7 +16,7 @@ export default function PermissionsPage () {
     const [currentDragOverGroup, setCurrentDragOverGroup] = useState<IPermissionGroup | null>();
     const [choosenPermition, setChoosenPermition] = useState<string>("");
     const [isDraggingFromGroupToGroup, setIsDraggingFromGroupToGroup] = useState<{ from: string } | null>(null);
-        
+    const permissionsExists = checkConcretePermissions();
 
     const createGroupOfPermissions = () => {
         if (newGroup !== "") {
@@ -109,9 +110,19 @@ export default function PermissionsPage () {
     return (
         <div className='permissions'>
             <div className="permissions-settings">
-                <TextField onChange={ (e) => setNewGroup(e.target.value) } placeholder={ t("text.groupName") }></TextField>
-                <Button onClick={ createGroupOfPermissions } variant='contained'>{ t("text.createGroup") }</Button>
-                <Button onClick={ saveChanges } variant='contained'>{ t("text.saveChanges") }</Button>
+                {
+                    permissionsExists.CreateGroupOfPermissions ? 
+                    <>
+                        <TextField onChange={ (e) => setNewGroup(e.target.value) } placeholder={ t("text.groupName") }></TextField>
+                        <Button onClick={ createGroupOfPermissions } variant='contained'>{ t("text.createGroup") }</Button>
+                    </> : null
+                }
+                {
+                    permissionsExists.ModifyGroupOfPermissions ? 
+                    <Button onClick={ saveChanges } variant='contained'>
+                        { t("text.saveChanges") }
+                    </Button> : null
+                }
             </div>
             <div className="permissions-content">
                 <div className="permissions-list">

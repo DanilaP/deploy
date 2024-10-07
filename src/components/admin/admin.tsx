@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { MenuItem } from '@mui/material';
 import { SupervisedUserCircle, SupervisorAccount, Security } from '@material-ui/icons';
 import './admin.scss';
+import { checkConcretePermissions } from '../../helpers/permissions-helpers';
 
 interface AdminPageProps {
     children: React.ReactElement | null
@@ -15,6 +16,7 @@ export default function AdminPage (props: AdminPageProps) {
     const { children } = props;
     const navigate = useNavigate();
     const [isMenuTextExists, setIsMenuTextExists] = useState(false);
+    const permissionsExists = checkConcretePermissions();
 
     useEffect(() => {
         document.title = t("titles.adminPage");
@@ -34,15 +36,25 @@ export default function AdminPage (props: AdminPageProps) {
         <div className='admin-page-main'>
             <div className='admin-wrapper'>
                 <div className="admin-menu">
-                    <MenuItem onClick={ () => navigate("/admin/users")}>
-                        <SupervisedUserCircle />{ !isMenuTextExists ? t("text.usersAdmin") : null }
-                    </MenuItem>
-                    <MenuItem onClick={ () => navigate("/admin/roles")}>
-                        <SupervisorAccount />{ !isMenuTextExists ?  t("text.rolesAdmin") : null }
-                    </MenuItem>
-                    <MenuItem onClick={ () => navigate("/admin/permissions")}>
-                        <Security />{ !isMenuTextExists ? t("titles.permissionsPage") : null }
-                    </MenuItem> 
+                    {
+                        permissionsExists.CreateUsers || permissionsExists.DeleteUsers || permissionsExists.ModifyUsers ? 
+                        <MenuItem onClick={ () => navigate("/admin/users")}>
+                            <SupervisedUserCircle />{ !isMenuTextExists ? t("text.usersAdmin") : null }
+                        </MenuItem> : null
+                    }
+                    {
+                        permissionsExists.CreateRoles || permissionsExists.DeleteRoles || permissionsExists.ModifyRoles ? 
+                        <MenuItem onClick={ () => navigate("/admin/roles")}>
+                            <SupervisorAccount />{ !isMenuTextExists ?  t("text.rolesAdmin") : null }
+                        </MenuItem> : null
+                    }
+                    {
+                        permissionsExists.CreateGroupOfPermissions || permissionsExists.DeleteGroupOfPermissions || permissionsExists.ModifyGroupOfPermissions ? 
+                        <MenuItem onClick={ () => navigate("/admin/permissions")}>
+                            <Security />{ !isMenuTextExists ? t("titles.permissionsPage") : null }
+                        </MenuItem>  : null
+                    }
+                    
                 </div>
                 <div className="content">{ children }</div>
             </div>

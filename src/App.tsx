@@ -12,6 +12,7 @@ import { store } from './store';
 import { PersonPin } from '@material-ui/icons';
 import { ShoppingCart } from '@material-ui/icons';
 import { SupervisorAccount } from '@material-ui/icons';
+import { checkPermissions } from './helpers/permissions-helpers';
 
 function App() {
     const [theme, setTheme] = useState("white-theme");
@@ -37,12 +38,23 @@ function App() {
         $api.get("/profile")
         .then((res) => {
             store.dispatch({ type: "USER", payload: res.data.user[0] });
+            store.dispatch({ type: "USERPERMISSIONS", payload: res.data.permissions });
             setIsLoading(true);
         })
         .catch((error) => {
             console.log(error);
             navigate("/auth/signin");
             setIsLoading(true);
+        });
+    }, []);
+
+    useEffect(() => {
+        $api.get("/permissions")
+        .then((res) => {
+            store.dispatch({ type: "ALLPERMISSIONS", payload: res.data.permissions });
+        })
+        .catch((error) => {
+            console.error(error);
         });
     }, []);
 
@@ -55,6 +67,7 @@ function App() {
             }
         });
     }, []);
+
     return (
         <> 
             <div className='home-page-main'>
@@ -62,15 +75,14 @@ function App() {
                         <div className="header">
                             <Link to='/shop'><ShoppingCart/>{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
                             <Link to='/profile'><PersonPin />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
-                            { currentStore.user?.role === "Администратор" ? 
+                            { checkPermissions() ? 
                             (<Link to='/admin'><SupervisorAccount/>{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">
                                 <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
                                 <Switch onChange = { changeTheme } defaultChecked/>
                             </div>
                         </div> ) : null
-                    }
-                
+                    }  
                 <div className="content">
                     <Routes>
                         { isLoading && 
@@ -82,7 +94,7 @@ function App() {
                                 />
                             ))
                         }
-                        { currentStore.user?.role === "Администратор"  &&
+                        { checkPermissions() &&
                             adminRoutes.map(({ path,  component: Component, children: Children }) => (
                                 <Route 
                                     key={ path } 

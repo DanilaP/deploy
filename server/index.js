@@ -152,9 +152,12 @@ app.get("/profile", async function(req, res) {
         const token = req.headers.authorization;     
         const userId = jwt_decode(token);
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
-
         let user = currentUsers.filter((user) => user.id === userId.id);
-        res.status(200).json({ message: "Данные о пользователе успешно получены", user: user });
+
+        let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
+        let currentUserPermissions = currentRoles.filter((role) => role.name === user[0].role)[0].permissions;
+
+        res.status(200).json({ message: "Данные о пользователе успешно получены", user: user, permissions: currentUserPermissions });
     }
     catch(error) {
         console.error("get /profile", error);
@@ -167,7 +170,8 @@ app.get("/permissions", async function(req, res) {
     try {
         let currentPermissions = JSON.parse(fs.readFileSync('DB/Permissions.json', 'utf8'));
         let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
-        res.status(200).json({ message: "Данные о разрешениях пользователей успешно получены", permissions: currentPermissions, roles: currentRoles });
+        let currentPermissionsGroups = JSON.parse(fs.readFileSync('DB/PermissionGroups.json', 'utf8'));
+        res.status(200).json({ message: "Данные о разрешениях пользователей успешно получены", permissions: currentPermissions, roles: currentRoles, permissionsGroups: currentPermissionsGroups });
     }
     catch(error) {
         console.error("get /permitions", error);
@@ -215,6 +219,18 @@ app.delete("/permissions/groups", async function(req, res) {
 app.put("/permissions/groups", async function(req, res) {
     try {
         const newGroups = req.body.permissionsGroups;
+        const allPermissionsFromGroups = newGroups.reduce((prev, group) => {
+            return [...prev, ...group.permissions];
+        }, []);
+        const currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
+
+        let updatedRoles = currentRoles.map(role => {
+            return {
+                ...role,
+                permissions: role.permissions.filter(el => allPermissionsFromGroups.includes(el))
+            };
+        });
+        fs.writeFileSync('DB/Roles.json', JSON.stringify(updatedRoles));
         fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups));
         
         res.status(200).json({ message: "Группа разрешений успешно обновлена", permissionsGroups: newGroups });
