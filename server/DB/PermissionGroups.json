@@ -1,1 +1,22 @@
-[{"name":"Администрирование товаров","permissions":["ModifyProducts","CreateProducts","DeleteProducts"]},{"name":"Администрирование заказов","permissions":["OrderManagement","ViewOrderListOfUser"]},{"name":"Администрирование ролей","permissions":["CreateRoles","DeleteRoles","ModifyRoles"]},{"name":"Администрирование разрешений/прав","permissions":["CreateGroupOfPermissions","DeleteGroupOfPermissions","ModifyGroupOfPermissions"]},{"name":"Администрирование пользователей","permissions":["CreateUsers","DeleteUsers","ModifyUsers"]}]
+[
+    {
+        "name":"Администрирование товаров",
+        "permissions":["ModifyProducts","CreateProducts","DeleteProducts"]
+    },
+    {
+        "name":"Администрирование заказов",
+        "permissions":["OrderManagement","ViewOrderListOfUser"]
+    },
+    {
+        "name":"Администрирование ролей",
+        "permissions":["CreateRoles","DeleteRoles","ModifyRoles"]
+    },
+    {
+        "name":"Администрирование разрешений/прав",
+        "permissions":["CreateGroupOfPermissions","DeleteGroupOfPermissions","ModifyGroupOfPermissions"]
+    },
+    {
+        "name":"Администрирование пользователей",
+        "permissions":["CreateUsers","DeleteUsers","ModifyUsers"]
+    }
+]
