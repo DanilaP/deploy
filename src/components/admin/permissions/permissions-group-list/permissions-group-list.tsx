@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import './permissions-group-list.scss';
 import { IPermissionGroup } from '../../../../interfaces/interfaces';
+import Permission from '../permission-component/permission';
 
 export default function PermissionsGroupList (props: { permissionsGroups: IPermissionGroup[], 
     deleteGroup: (group: IPermissionGroup) => void, dragStart: (element: any, from: IPermissionGroup | null) => void, 
@@ -27,7 +28,7 @@ export default function PermissionsGroupList (props: { permissionsGroups: IPermi
                                     permissionGroup.permissions.map((permission: string) => {
                                         return (
                                             <div onDragEnd={ () => props.dragEnd() } onDragStart={ () => props.dragStart(permission, permissionGroup) } draggable key={ permission } className='permission'>
-                                                <div className="permission-name">{ t("permissions." + permission) }</div>
+                                                <Permission name = { t("permissions." + permission) } />
                                                 <div onClick={ () => props.deletePermission(permission, permissionGroup.name) } className="delete-button">x</div>
                                             </div>
                                         );
