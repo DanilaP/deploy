@@ -1,1 +1,25 @@
-[{"name":"Администрирование товаров","permissions":["ModifyProducts","CreateProducts","DeleteProducts"]},{"name":"Администрирование пользователей","permissions":["CreateUsers","DeleteUsers","ModifyUsers"]},{"name":"Администрирование заказов","permissions":["ViewOrderListOfUser","OrderManagement"]}]
+[
+    {
+        "name": "Администрирование товаров",
+        "permissions": [
+            "ModifyProducts",
+            "CreateProducts",
+            "DeleteProducts"
+        ]
+    },
+    {
+        "name": "Администрирование пользователей",
+        "permissions": [
+            "CreateUsers",
+            "DeleteUsers",
+            "ModifyUsers"
+        ]
+    },
+    {
+        "name": "Администрирование заказов",
+        "permissions": [
+            "ViewOrderListOfUser",
+            "OrderManagement"
+        ]
+    }
+]
