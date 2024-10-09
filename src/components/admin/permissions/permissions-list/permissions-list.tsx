@@ -12,10 +12,14 @@ export default function PermissionsList (props: { permissions: IPermission[], dr
         <div onDragOver={ () => props.dragOver(null) } className='permissions-list-main'>
             {
                 props.permissions.map((permission: IPermission) => {
+                    const translate = t(`permissions.${permission.name}`);
                     return (
-                        <div onDragEnd={ () => props.dragEnd() } onDragStart={ () => props.dragStart(permission.name, null) } draggable key={ permission.name } className='permission'>
-                            <Permission name = { t("permissions." + permission.name) } />
-                        </div>
+                        <Permission 
+                            name = { translate }
+                            dragEnd={ () => props.dragEnd() } 
+                            dragStart={ () => props.dragStart(permission.name, null) }
+                            key={ permission.name }
+                        />
                     );
                 })
             }

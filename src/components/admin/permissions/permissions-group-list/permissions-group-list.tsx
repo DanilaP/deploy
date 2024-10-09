@@ -26,11 +26,15 @@ export default function PermissionsGroupList (props: { permissionsGroups: IPermi
                             <div className="permission-group-permissions">
                                 {
                                     permissionGroup.permissions.map((permission: string) => {
+                                        const translate = t(`permissions.${permission}`);
                                         return (
-                                            <div onDragEnd={ () => props.dragEnd() } onDragStart={ () => props.dragStart(permission, permissionGroup) } draggable key={ permission } className='permission'>
-                                                <Permission name = { t("permissions." + permission) } />
-                                                <div onClick={ () => props.deletePermission(permission, permissionGroup.name) } className="delete-button">x</div>
-                                            </div>
+                                            <Permission 
+                                                name = { translate }
+                                                dragEnd={ () => props.dragEnd() } 
+                                                dragStart={ () => props.dragStart(permission, permissionGroup) }
+                                                key={ permission }
+                                                isDelete = { () => props.deletePermission(permission, permissionGroup.name) }
+                                            />
                                         );
                                     })
                                 }

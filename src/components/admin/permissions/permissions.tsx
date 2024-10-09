@@ -45,7 +45,7 @@ export default function PermissionsPage () {
         }
         setChoosenPermition(permission);
     };
-
+    
     const dragEnd = () => {
         if (!currentDragOverGroup?.permissions.includes(choosenPermition)) {
             if (isDraggingFromGroupToGroup === null) {
