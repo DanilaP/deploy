@@ -8,8 +8,6 @@
 
     & .profile-content {
         display: flex;
-        align-items: center;
-        justify-content: center;
         padding: 20px;
         box-sizing: border-box;
         background-color: var(--bg-color-block);
@@ -19,13 +17,36 @@
         height: 500px;
         gap: 30px;
 
+        & .profile-content-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        & .profile-content-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+
+            & > div {
+                padding: 10px;
+                background-color: var(--bg-color);
+                border: 1px solid rgba(128, 128, 128, 0.247);
+                border-radius: 5px;
+                min-height: 100px;
+                box-sizing: border-box;
+            }
+        }
+
         & .form-group {
             position: absolute;
             margin-top: 160px;
             margin-left: 160px;
         }
 
-        button {
+        .MuiButton-root  {
             width: 200px;
             height: 36.5px;
         }
@@ -73,10 +94,14 @@
 @media screen and (max-width: 620px) {
     .profile {
         
-
         & .profile-content {
             flex-direction: column;
             width: 400px;
+            height: max-content;
+
+            & .profile-content-main {
+                align-items: center;
+            }
         }
     }
 }

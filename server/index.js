@@ -175,6 +175,56 @@ app.get("/permissions", async function(req, res) {
     }
 });
 
+//PermissionGroups
+app.get("/permissions/groups", async function(req, res) {
+    try {
+        let currentPermissions = JSON.parse(fs.readFileSync('DB/Permissions.json', 'utf8'));
+        let currentPermissionsGroups = JSON.parse(fs.readFileSync('DB/PermissionGroups.json', 'utf8'));
+        res.status(200).json({ message: "Данные о группах разрешений успешно получены", permissionsGroups: currentPermissionsGroups, permissions: currentPermissions });
+    }
+    catch(error) {
+        console.error("get /permissions/groups", error);
+        res.status(400).json({ message: "Ошибка получения данных о группах разрешений!" });
+    }
+});
+app.post("/permissions/groups", async function(req, res) {
+    try {
+        let currentGroups = JSON.parse(fs.readFileSync('DB/PermissionGroups.json', 'utf8'));
+        const newGroups = [...currentGroups, { name: req.body.name, permissions: [] }];
+        fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups));
+        res.status(200).json({ message: "Группа разрешений успешно добавлена", permissionsGroups: newGroups });
+    }
+    catch(error) {
+        console.error("post /permissions/groups", error);
+        res.status(400).json({ message: "Ошибка при создании группы разрешений!" });
+    }
+});
+app.delete("/permissions/groups", async function(req, res) {
+    try {
+        let currentGroups = JSON.parse(fs.readFileSync('DB/PermissionGroups.json', 'utf8'));
+        const newGroups = currentGroups.filter((group) => group.name !== req.query.name);
+        fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups));
+        
+        res.status(200).json({ message: "Группа разрешений успешно удалена", permissionsGroups: newGroups });
+    }
+    catch(error) {
+        console.error("delete /permissions/groups", error);
+        res.status(400).json({ message: "Ошибка при удалении группы разрешений!" });
+    }
+});
+app.put("/permissions/groups", async function(req, res) {
+    try {
+        const newGroups = req.body.permissionsGroups;
+        fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups));
+        
+        res.status(200).json({ message: "Группа разрешений успешно обновлена", permissionsGroups: newGroups });
+    }
+    catch(error) {
+        console.error("put /permissions/groups", error);
+        res.status(400).json({ message: "Ошибка при обновлении группы разрешений!" });
+    }
+});
+
 //Roles
 app.get("/roles", async function(req, res) {
     try {
@@ -202,7 +252,7 @@ app.delete("/roles", async function(req, res) {
 app.post("/roles", async function(req, res) {
     try {
         let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
-        const newRoles = [...currentRoles, { name: req.body.name, permitions: req.body.permitions }];
+        const newRoles = [...currentRoles, { name: req.body.name, permissions: req.body.permissions }];
         fs.writeFileSync('DB/Roles.json', JSON.stringify(newRoles));
 
         res.status(200).json({ message: "Роль успешно добавлена", roles: newRoles });

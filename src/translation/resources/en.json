@@ -14,7 +14,8 @@
         "usersPage": "Users page",
         "manipulateUser": "User manipulation",
         "profilePage": "Profile page",
-        "permitionsPage": "Permitions page"
+        "permissionsPage": "Permissions page",
+        "rolesPage": "Roles page"
     },
     "labels": {
         "loading": "Loading..."
@@ -53,7 +54,10 @@
         "find": "Find",
         "categories": "Categories",
         "changePassword": "Change password",
-        "myOrders": "My orders"
+        "myOrders": "My orders",
+        "createGroup": "Create group",
+        "deleteGroup": "Delete group",
+        "groupName": "Group name"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
@@ -65,12 +69,19 @@
         "getPermitionsMethod": "Get permitions method",
         "updateRolesMethod": "Update roles method",
         "deleteRoleMethod": "Delete role method",
-        "addRoleMethod": "Add role method"
+        "addRoleMethod": "Add role method",
+        "createGroupOfPermissions": "Create group of permissions",
+        "deleteGroupOfPermissions": "Delete group of permissions",
+        "changeGroupsOfPermissions": "Change group of permissions"
     },
     "permissions": {
+        "CreateUsers": "Create users",
+        "DeleteUsers": "Delete users",
         "ModifyUsers": "Modify users",
         "ModifyProducts": "Modify products",
         "ViewOrderListOfUser": "View orders list",
-        "OrderManagement": "Orders management"
+        "OrderManagement": "Orders management",
+        "CreateProducts": "Create products",
+        "DeleteProducts": "Delete products"
     }
 }

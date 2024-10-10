@@ -6,7 +6,7 @@ import './roles.scss';
 import TableComponent from "./roles-table/table";
 import { Button, TextField } from "@mui/material";
 
-export default function PermitionsPage () {
+export default function RolesPage () {
     const { t } = useTranslation();
     const [roles, setRoles] = useState<IRole[]>([]);
     const [permissions, setPermissions] = useState<IPermission[]>([]);
@@ -33,7 +33,7 @@ export default function PermitionsPage () {
     };
 
     useEffect(() => {
-        document.title = t("titles.permitionsPage");
+        document.title = t("titles.rolesPage");
     });
     
     useEffect(() => {

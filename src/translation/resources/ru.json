@@ -14,7 +14,8 @@
         "usersPage": "Страница пользователей",
         "manipulateUser": "Управление пользователем",
         "profilePage": "Страница профиля",
-        "permitionsPage": "Разрешения/права"
+        "permissionsPage": "Разрешения/права",
+        "rolesPage": "Роли"
 },
     "labels": {
         "loading": "Загрузка..."
@@ -53,7 +54,10 @@
         "find": "Найти",
         "categories": "Категории",
         "changePassword": "Сменить пароль",
-        "myOrders": "Мои заказы"
+        "myOrders": "Мои заказы",
+        "createGroup": "Создать группу",
+        "deleteGroup": "Удалить группу",
+        "groupName": "Наименование группы"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",
@@ -65,12 +69,19 @@
         "getPermitionsMethod": "Метод получения разрешений/прав",
         "updateRolesMethod": "Метод обновления ролей",
         "deleteRoleMethod": "Метод удаления роли",
-        "addRoleMethod": "Метод добавления роли"
+        "addRoleMethod": "Метод добавления роли",
+        "createGroupOfPermissions": "Метод создания группы пермишнов",
+        "deleteGroupOfPermissions": "Метод удаления группы пермишнов",
+        "changeGroupsOfPermissions": "Метод изменения группы пермишнов"
     },
     "permissions": {
+        "CreateUsers": "Создание пользователей",
+        "DeleteUsers": "Удаление пользователей",
         "ModifyUsers": "Модификация пользователей",
         "ModifyProducts": "Модификация товаров",
         "ViewOrderListOfUser": "Просмотр заказов пользователей",
-        "OrderManagement": "Управление заказами"
+        "OrderManagement": "Управление заказами",
+        "CreateProducts": "Создание товаров",
+        "DeleteProducts": "Удаление товаров"
     }
 }

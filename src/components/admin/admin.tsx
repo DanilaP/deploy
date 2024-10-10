@@ -40,8 +40,8 @@ export default function AdminPage (props: AdminPageProps) {
                     <MenuItem onClick={ () => navigate("/admin/roles")}>
                         <SupervisorAccount />{ !isMenuTextExists ?  t("text.rolesAdmin") : null }
                     </MenuItem>
-                    <MenuItem onClick={ () => navigate("/admin")}>
-                        <Security />{ !isMenuTextExists ? t("text.permitionsRules") : null }
+                    <MenuItem onClick={ () => navigate("/admin/permissions")}>
+                        <Security />{ !isMenuTextExists ? t("titles.permissionsPage") : null }
                     </MenuItem> 
                 </div>
                 <div className="content">{ children }</div>
