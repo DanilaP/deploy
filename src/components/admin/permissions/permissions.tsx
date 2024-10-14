@@ -48,17 +48,11 @@ export default function PermissionsPage () {
     const dragEnd = () => {
         //Если перемещаем из одной группы в другую
         if (currentDragOverGroup?.name !== isDraggingFromGroupToGroup?.name) {
-            if (currentDragOverGroup?.permissions.includes(changedPermission)) {
-                const newGroups = permissionsGroups.map((group: IPermissionGroup) => {
-                    //Удаляем из старой группы перетаскиваемый пермишн
-                    if (group.name === isDraggingFromGroupToGroup?.name) {
-                        return { 
-                            ...group, 
-                            permissions: group.permissions.filter((permission: string) => permission !== choosenPermition) 
-                        };
-                    }
-                    //Добавляем перетаскиваемый пермишн в группу на определенное место
-                    if (group.name === currentDragOverGroup?.name) {
+            const newGroups = permissionsGroups.map((group: IPermissionGroup) => {
+                //Добавляем перетаскиваемый пермишн в группу на определенное место
+                if (group.name === currentDragOverGroup?.name) {
+                    //Если группа не пустая
+                    if (group.permissions.length !== 0) {
                         const newPermissions = group.permissions.map((permission: string) => {
                             if (permission === changedPermission) {
                                 return [choosenPermition, permission];
@@ -69,12 +63,26 @@ export default function PermissionsPage () {
                             ...group,
                             permissions: newPermissions.flat()
                         };
-                    } 
-                    else return group;
-                });
-                setPermissionsGroups(newGroups);
-                setIsDraggingFromGroupToGroup(null);
-            }
+                    }
+                    //Если группа пустая
+                    else {
+                        return {
+                            ...group,
+                            permissions: [...group.permissions, choosenPermition]
+                        };
+                    }
+                } 
+                //Удаляем из старой группы перетаскиваемый пермишн
+                if (group.name === isDraggingFromGroupToGroup?.name) {
+                    return { 
+                        ...group, 
+                        permissions: group.permissions.filter((permission: string) => permission !== choosenPermition) 
+                    };
+                }
+                else return group;
+            });
+            setPermissionsGroups(newGroups);
+            setIsDraggingFromGroupToGroup(null);
         }
         //Если меняем местами пермишны внутри одной группы
         else if (currentDragOverGroup?.name === isDraggingFromGroupToGroup?.name && isDraggingFromGroupToGroup) {

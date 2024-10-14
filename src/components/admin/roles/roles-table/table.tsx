@@ -150,9 +150,7 @@ export default function TableComponent(props: {
                                                     {
                                                         props.roles.map((role: IRole) => {
                                                             return (
-                                                                <TableCell 
-                                                                    key={ permission + role.name } 
-                                                                >
+                                                                <TableCell key={ permission + role.name } >
                                                                     <Checkbox
                                                                         disabled = { !permissionsExists.ModifyRoles }
                                                                         onChange={ (e) => updateRole(role.name, permission, e.target.checked) } 
@@ -197,7 +195,6 @@ export default function TableComponent(props: {
                             }
                         })
                     }
-                    
                 </TableBody>
             </Table>
         </TableContainer>
