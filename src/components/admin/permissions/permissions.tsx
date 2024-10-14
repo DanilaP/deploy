@@ -15,65 +15,86 @@ export default function PermissionsPage () {
     const [newGroup, setNewGroup] = useState<string>("");
     const [currentDragOverGroup, setCurrentDragOverGroup] = useState<IPermissionGroup | null>();
     const [choosenPermition, setChoosenPermition] = useState<string>("");
-    const [isDraggingFromGroupToGroup, setIsDraggingFromGroupToGroup] = useState<{ from: string } | null>(null);
+    const [isDraggingFromGroupToGroup, setIsDraggingFromGroupToGroup] = useState<IPermissionGroup | null>(null);
+    const [changedPermission, setChangedPermission] = useState<string>("");
     const permissionsExists = checkConcretePermissions();
 
     const createGroupOfPermissions = () => {
         if (newGroup !== "") {
-            $api.post("/permissions/groups", { name: newGroup })
-            .then((res) => {
-                setPermissionsGroups(res.data.permissionsGroups);
-            })
-            .catch((error) => {
-                console.error(t("methods.createGroupOfPermissions"), error);
-            });
+            setPermissionsGroups([...permissionsGroups, { name: newGroup, permissions: [] }]);
         }
     };
 
-    const deleteGroupOfPermissions = (group: IPermissionGroup) => {
-        $api.delete(`/permissions/groups?name=${ group.name }`)
-        .then((res) => {
-            setPermissionsGroups(res.data.permissionsGroups);
-        })
-        .catch((error) => {
-            console.error(t("methods.deleteGroupOfPermissions"), error);
-        });
+    const deleteGroupOfPermissions = (deletedGroup: IPermissionGroup) => {
+        const newPermissionsGroups = permissionsGroups;
+        setPermissionsGroups(newPermissionsGroups.filter((group: IPermissionGroup) => group.name !== deletedGroup.name));
     };
 
     const dragStart = (permission: string, from: IPermissionGroup | null) => {
         if (from !== null) {
-            setIsDraggingFromGroupToGroup({ from: from.name });
+            setIsDraggingFromGroupToGroup(from);
         }
         setChoosenPermition(permission);
     };
 
+    const dragOver = (group: IPermissionGroup | null) => {
+        setCurrentDragOverGroup(group);
+    };
+
+    const dragOverPermission = (permission: string) => {
+        setChangedPermission(permission);
+    };
+
     const dragEnd = () => {
-        if (!currentDragOverGroup?.permissions.includes(choosenPermition)) {
-            if (isDraggingFromGroupToGroup === null) {
-                const newGroupInfo = permissionsGroups.map((group: IPermissionGroup) => {
-                    if (group.name === currentDragOverGroup?.name) {
-                        return { ...group, permissions: [...group.permissions, choosenPermition] };
-                    } else return group;
-                });
-                setPermissionsGroups(newGroupInfo);
-                setCurrentDragOverGroup(null);
-            } else {
-                const newGroupInfo = permissionsGroups.map((group: IPermissionGroup) => {
-                    if (group.name === isDraggingFromGroupToGroup.from) {
-                        return { ...group, permissions: group.permissions.filter((permission: string) => permission !== choosenPermition) };
+        //Если перемещаем из одной группы в другую
+        if (currentDragOverGroup?.name !== isDraggingFromGroupToGroup?.name) {
+            if (currentDragOverGroup?.permissions.includes(changedPermission)) {
+                const newGroups = permissionsGroups.map((group: IPermissionGroup) => {
+                    //Удаляем из старой группы перетаскиваемый пермишн
+                    if (group.name === isDraggingFromGroupToGroup?.name) {
+                        return { 
+                            ...group, 
+                            permissions: group.permissions.filter((permission: string) => permission !== choosenPermition) 
+                        };
                     }
-                    else if (group.name === currentDragOverGroup?.name) {
-                        return { ...group, permissions: [...group.permissions, choosenPermition] };
-                    } else return group;
+                    //Добавляем перетаскиваемый пермишн в группу на определенное место
+                    if (group.name === currentDragOverGroup?.name) {
+                        const newPermissions = group.permissions.map((permission: string) => {
+                            if (permission === changedPermission) {
+                                return [choosenPermition, permission];
+                            } 
+                            else return permission;
+                        });
+                        return {
+                            ...group,
+                            permissions: newPermissions.flat()
+                        };
+                    } 
+                    else return group;
                 });
-                setPermissionsGroups(newGroupInfo);
+                setPermissionsGroups(newGroups);
                 setIsDraggingFromGroupToGroup(null);
             }
         }
-    };
-    
-    const dragOver = (group: IPermissionGroup | null) => {
-        setCurrentDragOverGroup(group);
+        //Если меняем местами пермишны внутри одной группы
+        else if (currentDragOverGroup?.name === isDraggingFromGroupToGroup?.name && isDraggingFromGroupToGroup) {
+            const newGroups = permissionsGroups.map((group: IPermissionGroup) => {
+                if (group.name === currentDragOverGroup?.name) {
+                        const oldIndex = group.permissions.indexOf(choosenPermition);
+                        const newIndex = group.permissions.indexOf(changedPermission);
+                        const newPermissions = [...group.permissions];
+
+                        newPermissions.splice(oldIndex, 1, changedPermission);
+                        newPermissions.splice(newIndex, 1, choosenPermition);
+                        return {
+                            ...group,
+                            permissions: newPermissions
+                        };
+                } else return group;
+            });
+            setPermissionsGroups(newGroups);
+            setIsDraggingFromGroupToGroup(null);
+        }
     };
 
     const deletePermissionFromGroup = (permissionName: string, groupName: string) => {
@@ -106,14 +127,17 @@ export default function PermissionsPage () {
             console.error(error);
         });
     }, []);
-
+    
     return (
         <div className='permissions'>
             <div className="permissions-settings">
                 {
                     permissionsExists.CreateGroupOfPermissions ? 
                     <>
-                        <TextField onChange={ (e) => setNewGroup(e.target.value) } placeholder={ t("text.groupName") }></TextField>
+                        <TextField 
+                            onChange={ (e) => setNewGroup(e.target.value) } 
+                            placeholder={ t("text.groupName") }>
+                        </TextField>
                         <Button onClick={ createGroupOfPermissions } variant='contained'>{ t("text.createGroup") }</Button>
                     </> : null
                 }
@@ -126,12 +150,24 @@ export default function PermissionsPage () {
             </div>
             <div className="permissions-content">
                 <div className="permissions-list">
-                    <PermissionsList dragOver = { dragOver } dragEnd = { dragEnd } dragStart = { dragStart } permissions={ permissions } />
+                    <PermissionsList 
+                        dragOverPermission = { dragOverPermission }
+                        permissionsGroups = { permissionsGroups } 
+                        dragOver = { dragOver } 
+                        dragEnd = { dragEnd } 
+                        dragStart = { dragStart } 
+                        permissions={ permissions } />
                 </div>
                 <div className="groups-list">
-                    <PermissionsGroupList deletePermission = { deletePermissionFromGroup } 
-                    dragOver = { dragOver } dragEnd = { dragEnd } dragStart = { dragStart }  
-                    deleteGroup={ deleteGroupOfPermissions } permissionsGroups={ permissionsGroups } />
+                    <PermissionsGroupList 
+                        dragOverPermission = { dragOverPermission }
+                        deletePermission = { deletePermissionFromGroup } 
+                        dragOver = { dragOver } 
+                        dragEnd = { dragEnd } 
+                        dragStart = { dragStart }  
+                        deleteGroup={ deleteGroupOfPermissions }
+                        permissionsGroups={ permissionsGroups } 
+                    />
                 </div>
             </div>
         </div>

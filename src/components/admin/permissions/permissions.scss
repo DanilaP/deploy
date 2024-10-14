@@ -12,7 +12,7 @@
         display: flex;
         gap: 10px;
 
-        & button {
+        & .MuiButton-root {
             min-width: 205px;
         }
     }
@@ -20,9 +20,23 @@
     & .permissions-content {
         display: flex;
         gap: 10px;
+        height: calc(100vh - 190px);
+
+        & .permissions-list {
+            background-color: var(--bg-color);
+            border-radius: 5px;
+            border: 1px solid rgba(128, 128, 128, 0.247);
+        }
+
+        & .groups-list {
+            width: calc(100% - 350px);
+            background-color: var(--bg-color);
+            border-radius: 5px;
+            border: 1px solid rgba(128, 128, 128, 0.247);
+        }
     }
 
-    & input {
+    & .MuiInputBase-input {
         height: 3.5px;
     }
 }

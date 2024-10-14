@@ -1,28 +1,10 @@
-.permissions-group-list-main {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background-color: var(--bg-color);
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid rgba(128, 128, 128, 0.247);
-    height: 515px;
+.permisisons-groups-list-main {
     overflow-y: scroll;
-    
-    &::-webkit-scrollbar {
-        width: 6px;  
-        border-radius: 5px;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: var(--bg-color-block);  
-        border-radius: 5px;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-        background-color: #1976d2;
-        border-radius: 20px;
-    }
+    background-color: var(--bg-color);
+    border-radius: 5px;
+    padding: 10px;
+    overflow-x: hidden;
+    height: calc(100% - 20px);
 
     & .permission-group {
         display: flex;
@@ -35,14 +17,26 @@
         border: 1px solid rgba(128, 128, 128, 0.247);
 
         & .permission-group-name {
+            display: flex;
+            align-items: center;
             font-weight: 700;
             color: #1976d2;
+            position: relative;
 
             & .delete-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                right: 0px;
                 color: var(--text-color);
                 cursor: pointer;
                 font-weight: normal;
-                
+                font-size: 20px;
+                transform: scaleY(0.8);
+                width: 30px;
+                height: 30px;
+
                 &:hover {
                     color: red;
                 }

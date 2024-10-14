@@ -70,7 +70,7 @@ export default function UsersList () {
                     return (
                         <div key={ user.id } className='user'>
                             <div className="user-avatar">
-                                <img src = { user.avatar } />
+                                <img className='avatar' src = { user.avatar } />
                             </div>
                             <div className="user-info">
                                 <div className="user-id">

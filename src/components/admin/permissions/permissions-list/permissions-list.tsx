@@ -2,28 +2,40 @@ import { useTranslation } from 'react-i18next';
 import './permissions-list.scss';
 import { IPermission, IPermissionGroup } from '../../../../interfaces/interfaces';
 import { checkConcretePermissions } from '../../../../helpers/permissions-helpers';
+import Permission from '../permission-component/permission';
 
-export default function PermissionsList (props: { permissions: IPermission[], dragStart: (element: any, from: IPermissionGroup | null) => void, 
-    dragEnd: () => void, dragOver: (element: any) => void }) {
+export default function PermissionsList (props: { 
+    permissions: IPermission[], 
+    dragStart: (element: any, from: IPermissionGroup | null) => void, 
+    dragEnd: () => void, 
+    dragOver: (element: any) => void, 
+    dragOverPermission: (permission: string) => void,
+    permissionsGroups: IPermissionGroup[],
+}) {
 
     const { t } = useTranslation();
     const permissionsExists = checkConcretePermissions();
+    const upwrappedPermissions = props.permissionsGroups.reduce((prev: string[], group: IPermissionGroup) => {
+        return [...prev, ...group.permissions];
+    }, []);
     
     return (
         <div onDragOver={ () => props.dragOver(null) } className='permissions-list-main'>
             {
                 props.permissions.map((permission: IPermission) => {
-                    return (
-                        <div onDragEnd={ () => props.dragEnd() } 
-                            onDragStart={ () => props.dragStart(permission.name, null) } 
-                            draggable = { permissionsExists.ModifyGroupOfPermissions }
-                            key={ permission.name } 
-                            className='permission'>
-                            <div className="permission-name">
-                                { t("permissions." + permission.name) }
-                            </div>
-                        </div>
-                    );
+                    const translate = t(`permissions.${permission.name}`);
+                    if (!upwrappedPermissions.includes(permission.name)) {
+                        return (
+                            <Permission 
+                                dragOverPermission = { () => props.dragOverPermission(permission.name) }
+                                permissionsExists = { permissionsExists }
+                                name = { translate }
+                                dragEnd={ () => props.dragEnd() } 
+                                dragStart={ () => props.dragStart(permission.name, null) }
+                                key={ permission.name }
+                            />
+                        );
+                    }
                 })
             }
         </div>
