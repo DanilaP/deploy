@@ -57,7 +57,13 @@
         "myOrders": "Мои заказы",
         "createGroup": "Создать группу",
         "deleteGroup": "Удалить группу",
-        "groupName": "Наименование группы"
+        "groupName": "Наименование группы",
+        "cost": "Стоимость",
+        "description": "Описание",
+        "stock": "В наличии",
+        "rub": "руб.",
+        "pcs": "шт.",
+        "toBacket": "В корзину"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

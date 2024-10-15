@@ -17,3 +17,10 @@ export interface IPermissionGroup {
     name: string,
     permissions: string[]
 }
+export interface IProduct {
+    id: number,
+    name: string,
+    description: string,
+    images: string[],
+    variations: object[],
+}

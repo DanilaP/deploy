@@ -290,6 +290,30 @@ app.put("/roles", async function(req, res) {
     }
 });
 
+
+//Products
+app.get("/products", async function(req, res) {
+    try {
+        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+        res.status(200).json({ message: "Данные о товарах успешно получены", products: currentProducts });
+    }
+    catch(error) {
+        console.error("get /products", error);
+        res.status(400).json({ message: "Ошибка получения данных о товарах!" });
+    }
+});
+app.get("/product", async function(req, res) {
+    try {
+        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+        const choosenProduct = currentProducts.filter((product) => product.id === +req.query.id);
+        res.status(200).json({ message: "Данные о товаре успешно получены", product: choosenProduct[0] });
+    }
+    catch(error) {
+        console.error("get /product", error);
+        res.status(400).json({ message: "Ошибка получения данных о товаре!" });
+    }
+});
+
 async function startApp() {
     try {
         server.listen(PORT, () => console.log('Server started at PORT' + " " + PORT));

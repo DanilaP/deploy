@@ -10,6 +10,7 @@ import UsersList from "./components/admin/users/users-list/users-list";
 import ProfilePage from "./components/profile/profile";
 import RolesPage from "./components/admin/roles/roles";
 import PermissionsPage from "./components/admin/permissions/permissions";
+import ProductPage from "./components/shop/product-page/product-page";
 
 export const routes = [
     {
@@ -40,6 +41,11 @@ export const routes = [
     {
         path: '/profile',
         component: ProfilePage,
+        children: null
+    },
+    {
+        path: "/product/:id",
+        component: ProductPage,
         children: null
     },
     {

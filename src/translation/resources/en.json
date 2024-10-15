@@ -57,7 +57,13 @@
         "myOrders": "My orders",
         "createGroup": "Create group",
         "deleteGroup": "Delete group",
-        "groupName": "Group name"
+        "groupName": "Group name",
+        "cost": "Cost",
+        "description": "Description",
+        "stock": "In stock",
+        "rub": "rub.",
+        "pcs": "pcs.",
+        "toBacket": "To backet"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",

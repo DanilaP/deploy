@@ -1,17 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from '../../translation/i18n';
 import MediaCard from './card/card';
 import './shop.scss';
-import { Button, Menu, MenuItem, Select, TextField } from '@mui/material';
-
+import { Button, MenuItem, Select, TextField } from '@mui/material';
+import $api from '../../configs/axiosconfig/axios';
+import { IProduct } from '../../interfaces/interfaces';
 
 export default function ShopPage () {
 
     const { t } = useTranslation();
+    const [products, setProducts] = useState<IProduct[]>([]);
 
     useEffect(() => {
         document.title = t("titles.shopPage");
     });
+
+    useEffect(() => {
+        $api.get("/products")
+        .then((res) => {
+            setProducts(res.data.products);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }, []);
 
     return (
         <div className='shop-wrapper'>
@@ -28,14 +40,11 @@ export default function ShopPage () {
                     </Select>
                 </div>
                 <div className="shop-content">
-                    <MediaCard />
-                    <MediaCard />
-                    <MediaCard />
-                    <MediaCard />
-                    <MediaCard />
-                    <MediaCard />
-                    <MediaCard />
-                    <MediaCard />
+                    {
+                        products!.map((product: IProduct) => {
+                            return <MediaCard key={ product.id } product = { product } />;
+                        })
+                    }
                 </div>
             </div>
             <div className="shop-footer"></div>
