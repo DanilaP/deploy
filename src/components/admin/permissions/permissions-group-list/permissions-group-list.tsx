@@ -9,10 +9,9 @@ export default function PermissionsGroupList (props: {
     permissionsGroups: IPermissionGroup[], 
     deleteGroup: (group: IPermissionGroup) => void, 
     dragStart: (element: any, from: IPermissionGroup | null) => void, 
-    dragEnd: () => void, 
-    dragOver: (element: any) => void, 
+    dragEnter: (element: any) => void, 
     deletePermission: (permissionName: string, groupName: string) => void,
-    dragOverPermission: (permission: string) => void,
+    dragEnterPermission: (permission: string) => void,
 }) {
 
     const { t } = useTranslation();
@@ -24,11 +23,11 @@ export default function PermissionsGroupList (props: {
     
     return (
         <div className='permisisons-groups-list-main'>
-            <Masonry columns={2}>
+            <Masonry sequential={ true } columns={2}>
                 {
                     props.permissionsGroups.map((permissionGroup: IPermissionGroup) => {
                         return (
-                            <div onDragOver={ () => props.dragOver(permissionGroup) } key={ permissionGroup.name } className='permission-group'>
+                            <div onDragEnter={ () => props.dragEnter(permissionGroup) } key={ permissionGroup.name } className='permission-group'>
                                 <div className="permission-group-name">
                                     { permissionGroup.name }
                                     {
@@ -44,9 +43,8 @@ export default function PermissionsGroupList (props: {
                                             const translate = t(`permissions.${permission}`);
                                             return (
                                                 <Permission
-                                                    dragOverPermission = { () => props.dragOverPermission(permission) } 
+                                                    dragEnterPermission = { () => props.dragEnterPermission(permission) } 
                                                     name = { translate }
-                                                    dragEnd={ () => props.dragEnd() } 
                                                     dragStart={ () => props.dragStart(permission, permissionGroup) }
                                                     permissionsExists = { permissionsExists }
                                                     key={ permission }

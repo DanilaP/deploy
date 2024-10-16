@@ -1,31 +1,19 @@
-import { useRef } from "react";
 import "./permission.scss";
 
 export default function Permission (props: { 
     name: string,
     dragStart: () => void, 
-    dragEnd: () => void,
     isDelete?: () => void,
     permissionsExists: any,
-    dragOverPermission: () => void
+    dragEnterPermission: () => void
 }) {
-
-    const ref = useRef<any>();
-    
-    const changeStylesOfPermission = () => {
-        ref.current.style.border = "1px solid #1976d2";
-        props.dragOverPermission();
-    };
 
     return (
         <div 
-            onDragLeave={ () => ref.current.style.border = "1px solid rgba(128, 128, 128, 0.247)" }
-            onDragOver={ changeStylesOfPermission }
+            onDragEnter={ props.dragEnterPermission }
             draggable = { props.permissionsExists.ModifyGroupOfPermissions } 
-            onDragEnd={ props.dragEnd } 
-            onDragStart={ props.dragStart } 
+            onDragStart={ props.dragStart }
             className='permission'
-            ref = { ref }
         >
             <div className="permission-name">
                 { props.name }
