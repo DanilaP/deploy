@@ -63,13 +63,8 @@ export default function TableComponent(props: {
     };
 
     const deleteRole = () => {
-        $api.delete(`/roles?name=${choosenRole?.name}`)
-        .then((res) => {
-            props.update(res.data.roles);
-        })
-        .catch((error) => {
-            console.error(t("methods.deleteRoleMethod"), error);
-        });
+        const newRoles = props.roles.filter((role: IRole) => role.name !== choosenRole?.name);
+        props.update(newRoles);
         setIsModalShown(false);
     };
     

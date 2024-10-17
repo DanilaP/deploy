@@ -17,28 +17,34 @@ export default function RolesPage () {
 
     const updateRolesInfo = () => {
         $api.put("/roles", { roles })
-        .then((res) => {
-            setRoles(() => res.data.roles);
-        })
         .catch((error) => {
             console.error(t("methods.updateRolesMethod"), error);
         });
     };
     
     const addNewRole = () => {
+        const newRoles = [...roles, newRole];
+        setRoles(newRoles);
+        /*
         $api.post("/roles", newRole)
         .then((res) => {
             setRoles(res.data.roles);
         })
         .catch((error) => {
             console.error(t("methods.addRoleMethod"), error);
-        });
+        });*/
     };
 
     useEffect(() => {
         document.title = t("titles.rolesPage");
     });
-    
+   
+    useEffect(() => {
+        if (roles.length !== 0 && permissionsExists.ModifyRoles) {
+            updateRolesInfo();
+        }
+    }, [roles]);
+
     useEffect(() => {
         $api.get("/permissions")
         .then((res) => {
@@ -60,12 +66,6 @@ export default function RolesPage () {
                         <TextField onChange={ (e) => setNewRole({ ...newRole, name: e.target.value }) } placeholder="Роль" />
                         <Button onClick={ addNewRole } variant="contained">{ t("text.addRole") }</Button>
                     </> : null
-                }
-                {
-                    permissionsExists.ModifyRoles ?
-                    <div className="save-button">
-                        <Button onClick={ updateRolesInfo } variant="contained">{ t("text.saveChanges") }</Button>
-                    </div> : null
                 }
             </div>
             <div className="roles-content">

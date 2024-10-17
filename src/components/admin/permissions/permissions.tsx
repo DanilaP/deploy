@@ -7,6 +7,7 @@ import $api from '../../../configs/axiosconfig/axios';
 import PermissionsList from './permissions-list/permissions-list';
 import PermissionsGroupList from './permissions-group-list/permissions-group-list';
 import { checkConcretePermissions } from '../../../helpers/permissions-helpers';
+import useDebounceFunction from '../../../helpers/use-debounce';
 
 export default function PermissionsPage () {
     const { t } = useTranslation();
@@ -17,6 +18,15 @@ export default function PermissionsPage () {
     const [choosenPermition, setChoosenPermition] = useState<string>("");
     const [dragStartGroup, setDragStartGroup] = useState<IPermissionGroup | null>(null);
     const permissionsExists = checkConcretePermissions();
+
+    const saveChanges = () => {
+        $api.put("/permissions/groups", { permissionsGroups: permissionsGroups })
+        .catch((error) => {
+            console.error(t("methods.changeGroupOfPermissions"), error);
+        });
+    };
+
+    const debouncedUpdatePermission = useDebounceFunction(saveChanges, 500);
 
     const createGroupOfPermissions = () => {
         let isGroupAlreadyExists = false;
@@ -105,14 +115,7 @@ export default function PermissionsPage () {
         });
         setPermissionsGroups(newGroupsInfo);
     };
-
-    const saveChanges = () => {
-        $api.put("/permissions/groups", { permissionsGroups: permissionsGroups })
-        .catch((error) => {
-            console.error(t("methods.changeGroupOfPermissions"), error);
-        });
-    };
-     
+   
     useEffect(() => {
         //Если перетаскиваем в пустую группу
         if (currentDragEnterGroup?.permissions.length === 0) {
@@ -152,6 +155,12 @@ export default function PermissionsPage () {
         });
     }, []);
     
+    useEffect(() => {
+        if (permissionsExists.ModifyGroupOfPermissions && permissionsGroups.length !== 0) {
+            debouncedUpdatePermission();
+        }
+    }, [permissionsGroups]);
+
     return (
         <div className='permissions'>
             <div className="permissions-settings">
@@ -164,12 +173,6 @@ export default function PermissionsPage () {
                         </TextField>
                         <Button onClick={ createGroupOfPermissions } variant='contained'>{ t("text.createGroup") }</Button>
                     </> : null
-                }
-                {
-                    permissionsExists.ModifyGroupOfPermissions ? 
-                    <Button onClick={ saveChanges } variant='contained'>
-                        { t("text.saveChanges") }
-                    </Button> : null
                 }
             </div>
             <div className="permissions-content">

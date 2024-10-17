@@ -1,30 +1,37 @@
 [
-    {
-        "id": 1727098679785,
-        "login": "danila@gmail.com",
-        "password": "$2a$07$iJxbcrqGHQTYajyfktQwIuLYb7xRGeumn4p3fFr8WaK8Uune5vWMq",
-        "role": "Администратор",
-        "avatar": "http://localhost:5000/avatar.jpg"
-    },
-    {
-        "id": 1727158100336,
-        "login": "new@gmail.com",
-        "password": "$2a$07$yeAFGaIvxta72M/4RzLiReAPt/hCKDPOvSB.FpG4sM/gi07HBtGL6",
-        "role": "Модератор",
-        "avatar": "http://localhost:5000/avatar.jpg"
-    },
-    {
-        "id": 1727161785732,
-        "login": "newuser@gmail.com",
-        "password": "$2a$07$ItQ8NTItTNk46S.PwwmdD.n.BrlwoO.Sc7ByhzR40f3quxyZUyt6S",
-        "role": "Пользователь",
-        "avatar": "http://localhost:5000/avatar.jpg"
-    },
-    {
-        "id": 1728297976514,
-        "login": "moderator@gmail.com",
-        "password": "$2a$07$eXPXym4iHPjqh6PRpEwuxOba.BYuuJvJ2tAFoal/2lFnlvLxiO0cW",
-        "role": "Модератор",
-        "avatar": "http://localhost:5000/avatar.jpg"
-    }
+  {
+    "id": 1727098679785,
+    "login": "danila@gmail.com",
+    "password": "$2a$07$iJxbcrqGHQTYajyfktQwIuLYb7xRGeumn4p3fFr8WaK8Uune5vWMq",
+    "role": "Администратор",
+    "avatar": "http://localhost:5000/avatar.jpg"
+  },
+  {
+    "id": 1727158100336,
+    "login": "new@gmail.com",
+    "password": "$2a$07$yeAFGaIvxta72M/4RzLiReAPt/hCKDPOvSB.FpG4sM/gi07HBtGL6",
+    "role": "Модератор",
+    "avatar": "http://localhost:5000/avatar.jpg"
+  },
+  {
+    "id": 1727161785732,
+    "login": "newuser@gmail.com",
+    "password": "$2a$07$ItQ8NTItTNk46S.PwwmdD.n.BrlwoO.Sc7ByhzR40f3quxyZUyt6S",
+    "role": "Пользователь",
+    "avatar": "http://localhost:5000/avatar.jpg"
+  },
+  {
+    "id": 1728297976514,
+    "login": "moderator@gmail.com",
+    "password": "$2a$07$eXPXym4iHPjqh6PRpEwuxOba.BYuuJvJ2tAFoal/2lFnlvLxiO0cW",
+    "role": "Модератор",
+    "avatar": "http://localhost:5000/avatar.jpg"
+  },
+  {
+    "id": 1729151164306,
+    "login": "anotheruser@gmail.com",
+    "password": "$2a$07$RIVrAaNH3IudlX.7HPtXIuhy/5jhw2YKxEL6OxTM/q16x/C.nulLq",
+    "role": "Пользователь",
+    "avatar": "http://localhost:5000/avatar.jpg"
+  }
 ]
