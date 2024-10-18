@@ -11,13 +11,14 @@
       "CreateUsers",
       "DeleteUsers",
       "ModifyUsers",
-      "CreateGroupOfPermissions",
       "CreateRoles",
-      "DeleteGroupOfPermissions",
-      "ModifyGroupOfPermissions",
       "CreateProducts",
       "DeleteProducts",
-      "ModifyProducts"
+      "ModifyProducts",
+      "ModifyGroupOfPermissions",
+      "CreateGroupOfPermissions",
+      "DeleteGroupOfPermissions",
+      "ModifyGroupOfPermissions"
     ]
   },
   {
