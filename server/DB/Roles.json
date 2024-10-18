@@ -6,18 +6,18 @@
       "OrderManagement",
       "DeleteUsers",
       "CreateUsers",
-      "CreateProducts",
-      "DeleteProducts",
-      "ModifyProducts",
       "DeleteRoles",
       "ModifyRoles",
       "CreateUsers",
       "DeleteUsers",
       "ModifyUsers",
       "CreateGroupOfPermissions",
+      "CreateRoles",
       "DeleteGroupOfPermissions",
       "ModifyGroupOfPermissions",
-      "CreateRoles"
+      "CreateProducts",
+      "DeleteProducts",
+      "ModifyProducts"
     ]
   },
   {
@@ -30,8 +30,7 @@
       "ModifyUsers",
       "CreateUsers",
       "DeleteUsers",
-      "ModifyUsers",
-      "CreateProducts"
+      "ModifyUsers"
     ]
   },
   {

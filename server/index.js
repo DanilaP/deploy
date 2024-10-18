@@ -219,18 +219,6 @@ app.delete("/permissions/groups", async function(req, res) {
 app.put("/permissions/groups", async function(req, res) {
     try {
         const newGroups = req.body.permissionsGroups;
-        const allPermissionsFromGroups = newGroups.reduce((prev, group) => {
-            return [...prev, ...group.permissions];
-        }, []);
-        const currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
-
-        let updatedRoles = currentRoles.map(role => {
-            return {
-                ...role,
-                permissions: role.permissions.filter(el => allPermissionsFromGroups.includes(el))
-            };
-        });
-        fs.writeFileSync('DB/Roles.json', JSON.stringify(updatedRoles, null, 2));
         fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups, null, 2));
         
         res.status(200).json({ message: "Группа разрешений успешно обновлена", permissionsGroups: newGroups });
