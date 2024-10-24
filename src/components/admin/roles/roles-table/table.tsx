@@ -63,13 +63,8 @@ export default function TableComponent(props: {
     };
 
     const deleteRole = () => {
-        $api.delete(`/roles?name=${choosenRole?.name}`)
-        .then((res) => {
-            props.update(res.data.roles);
-        })
-        .catch((error) => {
-            console.error(t("methods.deleteRoleMethod"), error);
-        });
+        const newRoles = props.roles.filter((role: IRole) => role.name !== choosenRole?.name);
+        props.update(newRoles);
         setIsModalShown(false);
     };
     
@@ -106,8 +101,11 @@ export default function TableComponent(props: {
                         props.permissionsGroups.map((permissionsGroup: IPermissionGroup, groupIndex) => {
                             return (
                                 <Fragment key = { permissionsGroup.name }>
-                                    <TableRow>
-                                        <TableCell style={{ textTransform: "uppercase", color: "#1976d2" }}>
+                                    <TableRow style={{
+                                        marginTop: "20px",
+                                        backgroundColor: "#2993fd39"
+                                    }}>
+                                        <TableCell style={{ textTransform: "uppercase", color: "var(--text-color)" }}>
                                             { permissionsGroup.name }
                                         </TableCell>
                                         {
@@ -144,7 +142,7 @@ export default function TableComponent(props: {
                                                         : { borderBottom: "none" }
                                                     }
                                                 >
-                                                    <TableCell>
+                                                    <TableCell style={ { paddingLeft: "40px" } }>
                                                         { t("permissions." + permission) }
                                                     </TableCell>
                                                     {

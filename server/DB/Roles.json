@@ -1,32 +1,32 @@
 [
-    {
-        "name": "Администратор",
-        "permissions": [
-            "CreateUsers",
-            "DeleteUsers",
-            "ModifyUsers",
-            "ViewOrderListOfUser",
-            "OrderManagement",
-            "CreateRoles",
-            "ModifyRoles",
-            "CreateGroupOfPermissions",
-            "DeleteGroupOfPermissions",
-            "DeleteRoles",
-            "ModifyGroupOfPermissions",
-            "CreateProducts",
-            "DeleteProducts",
-            "ModifyProducts"
-        ]
-    },
-    {
-        "name": "Пользователь",
-        "permissions": []
-    },
-    {
-        "name": "Модератор",
-        "permissions": [
-            "CreateUsers",
-            "DeleteUsers"
-        ]
-    }
+  {
+    "name": "Администратор",
+    "permissions": [
+      "CreateUsers",
+      "DeleteUsers",
+      "ModifyUsers",
+      "ViewOrderListOfUser",
+      "OrderManagement",
+      "CreateRoles",
+      "ModifyRoles",
+      "CreateGroupOfPermissions",
+      "DeleteGroupOfPermissions",
+      "DeleteRoles",
+      "ModifyGroupOfPermissions",
+      "CreateProducts",
+      "DeleteProducts",
+      "ModifyProducts"
+    ]
+  },
+  {
+    "name": "Пользователь",
+    "permissions": []
+  },
+  {
+    "name": "Модератор",
+    "permissions": [
+      "CreateUsers",
+      "DeleteUsers"
+    ]
+  }
 ]

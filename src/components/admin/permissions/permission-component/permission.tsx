@@ -1,31 +1,40 @@
-import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./permission.scss";
+import { useRef } from "react";
 
 export default function Permission (props: { 
     name: string,
     dragStart: () => void, 
-    dragEnd: () => void,
     isDelete?: () => void,
     permissionsExists: any,
-    dragOverPermission: () => void
+    dragEnterPermission: () => void,
 }) {
-
-    const ref = useRef<any>();
+    const draggablePermission = useSelector((store: any) => store.draggablePermission);
+    const dispatch = useDispatch();
+    const ref = useRef<HTMLDivElement>(null);
     
-    const changeStylesOfPermission = () => {
-        ref.current.style.border = "1px solid #1976d2";
-        props.dragOverPermission();
+    const handleDragEnd = () => {
+        dispatch({ type: "SET_DRAGGABLE_PERMISSION", payload: null });
+        ref.current?.removeEventListener("dragend", handleDragEnd);
+    };
+
+    const handleDragStart = () => {
+        props.dragStart();
+        dispatch({ type: "SET_DRAGGABLE_PERMISSION", payload: props.name });
+        ref.current?.addEventListener("dragend", handleDragEnd);
     };
 
     return (
-        <div 
-            onDragLeave={ () => ref.current.style.border = "1px solid rgba(128, 128, 128, 0.247)" }
-            onDragOver={ changeStylesOfPermission }
+        <div
+            ref={ ref }
+            onDragEnter={ props.dragEnterPermission }
             draggable = { props.permissionsExists.ModifyGroupOfPermissions } 
-            onDragEnd={ props.dragEnd } 
-            onDragStart={ props.dragStart } 
-            className='permission'
-            ref = { ref }
+            onDragStart={ handleDragStart }
+            className= { 
+                draggablePermission === props.name 
+                ? `permission active` 
+                : `permission inactive` 
+            }
         >
             <div className="permission-name">
                 { props.name }

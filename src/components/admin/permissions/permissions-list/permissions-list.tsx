@@ -7,9 +7,8 @@ import Permission from '../permission-component/permission';
 export default function PermissionsList (props: { 
     permissions: IPermission[], 
     dragStart: (element: any, from: IPermissionGroup | null) => void, 
-    dragEnd: () => void, 
-    dragOver: (element: any) => void, 
-    dragOverPermission: (permission: string) => void,
+    dragEnter: (element: any) => void, 
+    dragEnterPermission: (permission: string) => void,
     permissionsGroups: IPermissionGroup[],
 }) {
 
@@ -20,17 +19,16 @@ export default function PermissionsList (props: {
     }, []);
     
     return (
-        <div onDragOver={ () => props.dragOver(null) } className='permissions-list-main'>
+        <div onDragEnter={ () => props.dragEnter(null) } className='permissions-list-main'>
             {
                 props.permissions.map((permission: IPermission) => {
                     const translate = t(`permissions.${permission.name}`);
                     if (!upwrappedPermissions.includes(permission.name)) {
                         return (
                             <Permission 
-                                dragOverPermission = { () => props.dragOverPermission(permission.name) }
+                                dragEnterPermission = { () => props.dragEnterPermission(permission.name) }
                                 permissionsExists = { permissionsExists }
                                 name = { translate }
-                                dragEnd={ () => props.dragEnd() } 
                                 dragStart={ () => props.dragStart(permission.name, null) }
                                 key={ permission.name }
                             />
