@@ -22,12 +22,16 @@ export default function PermissionsGroupList (props: {
     };
     
     return (
-        <div className='permisisons-groups-list-main'>
+        <div className='permisisons-groups-list-main' onMouseUp={() => console.log('click')}>
             <Masonry sequential={ true } columns={2}>
                 {
                     props.permissionsGroups.map((permissionGroup: IPermissionGroup) => {
                         return (
-                            <div onDragEnter={ () => props.dragEnter(permissionGroup) } key={ permissionGroup.name } className='permission-group'>
+                            <div 
+                                onDragEnter={ () => props.dragEnter(permissionGroup) } 
+                                key={ permissionGroup.name }
+                                className='permission-group'
+                            >
                                 <div className="permission-group-name">
                                     { permissionGroup.name }
                                     {

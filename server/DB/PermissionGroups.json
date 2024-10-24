@@ -18,15 +18,15 @@
   {
     "name": "Администрирование заказов",
     "permissions": [
-      "ViewOrderListOfUser",
-      "OrderManagement"
+      "OrderManagement",
+      "ViewOrderListOfUser"
     ]
   },
   {
     "name": "Администрирование прав",
     "permissions": [
-      "CreateGroupOfPermissions",
       "DeleteGroupOfPermissions",
+      "CreateGroupOfPermissions",
       "ModifyGroupOfPermissions"
     ]
   },
