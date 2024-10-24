@@ -62,7 +62,7 @@ export default function ProductPage () {
                 <div className="product-info">
                     <div className="item">
                         <h1>{ product?.name }</h1> 
-                        { t("text.choosenVariation") }: {`"${ variationInfo?.title }"`}
+                        { t("text.choosenVariation") }: { `"${ variationInfo?.title }"` }
                     </div>
                     <div className="item">
                         <b>{ t("text.category") }</b>: { product?.category }
@@ -82,7 +82,12 @@ export default function ProductPage () {
                             product?.variations.map((variation: any) => {
                                 return (
                                     <div key={ variation.name } className="variation">
-                                        <div onClick={ () => changeVariation(variation.name) } className="variation-name">{ variation.title }</div>
+                                        <div 
+                                            onClick={ () => changeVariation(variation.name) } 
+                                            className="variation-name"
+                                        >
+                                                { variation.title }
+                                        </div>
                                     </div>
                                 );
                             })

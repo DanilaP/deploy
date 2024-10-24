@@ -87,7 +87,10 @@
         "addRoleMethod": "Метод добавления роли",
         "createGroupOfPermissions": "Метод создания группы пермишнов",
         "deleteGroupOfPermissions": "Метод удаления группы пермишнов",
-        "changeGroupsOfPermissions": "Метод изменения группы пермишнов"
+        "changeGroupsOfPermissions": "Метод изменения группы пермишнов",
+        "createReview": "Метод создания отзыва",
+        "deleteReview": "Метод удаления отзыва",
+        "changeReview": "Метод изменения отзыва"
     },
     "permissions": {
         "CreateUsers": "Создание пользователей",

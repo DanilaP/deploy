@@ -87,7 +87,10 @@
         "addRoleMethod": "Add role method",
         "createGroupOfPermissions": "Create group of permissions",
         "deleteGroupOfPermissions": "Delete group of permissions",
-        "changeGroupsOfPermissions": "Change group of permissions"
+        "changeGroupsOfPermissions": "Change group of permissions",
+        "createReview": "Create review method",
+        "deleteReview": "Delete review method",
+        "changeReview": "Change review method"
     },
     "permissions": {
         "CreateUsers": "Create users",

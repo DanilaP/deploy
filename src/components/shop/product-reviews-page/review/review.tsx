@@ -21,7 +21,7 @@ export default function Review (props: { review: IReview }) {
                         { t("text.user") }: { props.review.clientId }
                     </div>
                     <div className="review-evaluation">
-                        <Rating precision={0.5} name="half-rating" readOnly value={ props.review.evaluation }/>
+                        <Rating precision={ 0.5 } name="half-rating" readOnly value={ props.review.evaluation }/>
                     </div>
                 </div>
                 <div className="review-text">

@@ -16,7 +16,7 @@ export default function MediaCard(props: { product: IProduct }) {
     
     const showDetails = () => {
         navigate(`/product/${ props.product.id }`);
-    }
+    };
 
     return (
         <Card sx={ { maxWidth: 345 } }>

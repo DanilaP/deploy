@@ -47,7 +47,7 @@ export default function ProductReviews () {
                 }
             })
             .catch((error) => {
-                console.error(error);
+                console.error(t("methods.createReview"), error);
             });
         }
     };
@@ -63,7 +63,7 @@ export default function ProductReviews () {
             setUserReviewInfo({ text: "", evaluation: 0 });
         })
         .catch((error) => {
-            console.error(error);
+            console.error(t("methods.deleteReview"), error);
         });
     };
 
