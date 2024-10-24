@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from '../../../../translation/i18n.js';
-import { IUser } from '../../../../interfaces/interfaces.js';
+import { IRole, IUser } from '../../../../interfaces/interfaces.js';
 import './manipulate-user.scss';
 import $api from '../../../../configs/axiosconfig/axios.js';
 import { Button, MenuItem, Select, TextField } from '@mui/material';
@@ -8,6 +8,7 @@ import { Button, MenuItem, Select, TextField } from '@mui/material';
 export default function ManipulateUser (props: {user: IUser | null, cancel: VoidFunction, handleUpdateUsers: Void}) {
     const { t } = useTranslation();
     const [newUserData, setNewUserData] = useState<IUser | null>(props.user);
+    const [roles, setRoles] = useState<IRole[]>([]);
 
     const confirm = () => {
         if (props.user) {
@@ -43,6 +44,16 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
         }
     };
 
+    useEffect(() => {
+        $api.get("/roles")
+        .then((res) => {
+            setRoles(res.data.roles);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }, []);
+
     return (
         <div className='manipulate-user'>
             <div className="data">
@@ -52,8 +63,11 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
                     onChange={ (e) => setNewUserData({ ...newUserData, role: e.target.value }) }
                 >
                     { /*Todo: send id instead of name */ }
-                    <MenuItem value="Администратор">{ t("text.admin") }</MenuItem>
-                    <MenuItem value="Пользователь">{ t("text.user") }</MenuItem>
+                    {
+                        roles.map((role: IRole) => {
+                            return <MenuItem value={ role.name }>{ role.name }</MenuItem>;
+                        })
+                    }
                 </Select>
                 <label>{ t("text.login") }</label>
                 <TextField 

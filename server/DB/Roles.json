@@ -1,14 +1,43 @@
 [
-    {
-        "name":"Администратор",
-        "permissions":["ViewOrderListOfUser","OrderManagement","ModifyUsers","ModifyProducts","DeleteUsers","CreateUsers","CreateProducts","DeleteProducts"]
-    },
-    {
-        "name":"Пользователь",
-        "permissions":[]
-    },
-    {
-        "name":"Модератор",
-        "permissions":["ModifyUsers"]
-    }
+  {
+    "name": "Администратор",
+    "permissions": [
+      "ViewOrderListOfUser",
+      "OrderManagement",
+      "DeleteUsers",
+      "CreateUsers",
+      "DeleteRoles",
+      "ModifyRoles",
+      "CreateUsers",
+      "DeleteUsers",
+      "ModifyUsers",
+      "CreateRoles",
+      "CreateProducts",
+      "DeleteProducts",
+      "ModifyProducts",
+      "ModifyGroupOfPermissions",
+      "CreateGroupOfPermissions",
+      "DeleteGroupOfPermissions",
+      "ModifyGroupOfPermissions"
+    ]
+  },
+  {
+    "name": "Пользователь",
+    "permissions": []
+  },
+  {
+    "name": "Модератор",
+    "permissions": [
+      "ModifyUsers",
+      "CreateUsers",
+      "DeleteUsers",
+      "ModifyUsers"
+    ]
+  },
+  {
+    "name": "Младший модератор",
+    "permissions": [
+      "ModifyUsers"
+    ]
+  }
 ]

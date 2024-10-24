@@ -1,25 +1,41 @@
 [
-    {
-        "name": "Администрирование товаров",
-        "permissions": [
-            "ModifyProducts",
-            "CreateProducts",
-            "DeleteProducts"
-        ]
-    },
-    {
-        "name": "Администрирование пользователей",
-        "permissions": [
-            "CreateUsers",
-            "DeleteUsers",
-            "ModifyUsers"
-        ]
-    },
-    {
-        "name": "Администрирование заказов",
-        "permissions": [
-            "ViewOrderListOfUser",
-            "OrderManagement"
-        ]
-    }
+  {
+    "name": "Администрирование товаров",
+    "permissions": [
+      "CreateProducts",
+      "DeleteProducts",
+      "ModifyProducts"
+    ]
+  },
+  {
+    "name": "Администрирование пользователей",
+    "permissions": [
+      "CreateUsers",
+      "DeleteUsers",
+      "ModifyUsers"
+    ]
+  },
+  {
+    "name": "Администрирование заказов",
+    "permissions": [
+      "ViewOrderListOfUser",
+      "OrderManagement"
+    ]
+  },
+  {
+    "name": "Администрирование прав",
+    "permissions": [
+      "DeleteGroupOfPermissions",
+      "CreateGroupOfPermissions",
+      "ModifyGroupOfPermissions"
+    ]
+  },
+  {
+    "name": "Администрирование ролей",
+    "permissions": [
+      "CreateRoles",
+      "DeleteRoles",
+      "ModifyRoles"
+    ]
+  }
 ]

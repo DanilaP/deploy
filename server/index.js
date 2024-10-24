@@ -59,7 +59,7 @@ app.post("/auth/signup", async function(req, res) {
                 role: "Пользователь",
                 avatar: "http://localhost:5000/avatar.jpg"
             };
-            let updatedUsers = JSON.stringify([...currentUsers, newUser]);
+            let updatedUsers = JSON.stringify([...currentUsers, newUser], null, 2);
             fs.writeFileSync('DB/Users.json', updatedUsers);
             res.status(200).json({ message: "Успешная регистрация", user: newUser, token: generateAccessToken(newUserId) });
         }
@@ -86,7 +86,7 @@ app.post("/users", async function(req, res) {
                 role,
                 avatar: "http://localhost:5000/avatar.jpg"
             };
-            let updatedUsers = JSON.stringify([...currentUsers, newUser]);
+            let updatedUsers = JSON.stringify([...currentUsers, newUser], null, 2);
             fs.writeFileSync('DB/Users.json', updatedUsers);
             res.status(200).json({ message: "Успешная регистрация", user: newUser, users: JSON.parse(updatedUsers) });
         }
@@ -102,7 +102,7 @@ app.delete("/users", async function(req, res) {
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         if (currentUsers.length !== 0) {
             let newUsersArray = currentUsers.filter((user) => user.id !== +userId);
-            fs.writeFileSync('DB/Users.json', JSON.stringify(newUsersArray));
+            fs.writeFileSync('DB/Users.json', JSON.stringify(newUsersArray, null, 2));
             res.status(200).json({ message: "Успешное удаление пользователя!", users: newUsersArray });
         }
     }
@@ -137,7 +137,7 @@ app.put("/users", async function(req, res) {
             } 
             return user;
         });
-        fs.writeFileSync('DB/Users.json', JSON.stringify(updatedUsers));
+        fs.writeFileSync('DB/Users.json', JSON.stringify(updatedUsers, null, 2));
         res.status(200).json({ message: "Успешное обновление данных пользователя", user: updatedUsers });
     }
     catch(error) {
@@ -152,9 +152,12 @@ app.get("/profile", async function(req, res) {
         const token = req.headers.authorization;     
         const userId = jwt_decode(token);
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
-
         let user = currentUsers.filter((user) => user.id === userId.id);
-        res.status(200).json({ message: "Данные о пользователе успешно получены", user: user });
+
+        let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
+        let currentUserPermissions = currentRoles.filter((role) => role.name === user[0].role)[0].permissions;
+
+        res.status(200).json({ message: "Данные о пользователе успешно получены", user: user, permissions: currentUserPermissions });
     }
     catch(error) {
         console.error("get /profile", error);
@@ -167,7 +170,8 @@ app.get("/permissions", async function(req, res) {
     try {
         let currentPermissions = JSON.parse(fs.readFileSync('DB/Permissions.json', 'utf8'));
         let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
-        res.status(200).json({ message: "Данные о разрешениях пользователей успешно получены", permissions: currentPermissions, roles: currentRoles });
+        let currentPermissionsGroups = JSON.parse(fs.readFileSync('DB/PermissionGroups.json', 'utf8'));
+        res.status(200).json({ message: "Данные о разрешениях пользователей успешно получены", permissions: currentPermissions, roles: currentRoles, permissionsGroups: currentPermissionsGroups });
     }
     catch(error) {
         console.error("get /permitions", error);
@@ -191,7 +195,7 @@ app.post("/permissions/groups", async function(req, res) {
     try {
         let currentGroups = JSON.parse(fs.readFileSync('DB/PermissionGroups.json', 'utf8'));
         const newGroups = [...currentGroups, { name: req.body.name, permissions: [] }];
-        fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups));
+        fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups, null, 2));
         res.status(200).json({ message: "Группа разрешений успешно добавлена", permissionsGroups: newGroups });
     }
     catch(error) {
@@ -203,7 +207,7 @@ app.delete("/permissions/groups", async function(req, res) {
     try {
         let currentGroups = JSON.parse(fs.readFileSync('DB/PermissionGroups.json', 'utf8'));
         const newGroups = currentGroups.filter((group) => group.name !== req.query.name);
-        fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups));
+        fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups, null, 2));
         
         res.status(200).json({ message: "Группа разрешений успешно удалена", permissionsGroups: newGroups });
     }
@@ -215,7 +219,7 @@ app.delete("/permissions/groups", async function(req, res) {
 app.put("/permissions/groups", async function(req, res) {
     try {
         const newGroups = req.body.permissionsGroups;
-        fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups));
+        fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups, null, 2));
         
         res.status(200).json({ message: "Группа разрешений успешно обновлена", permissionsGroups: newGroups });
     }
@@ -240,7 +244,7 @@ app.delete("/roles", async function(req, res) {
     try {
         let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
         const newRoles = currentRoles.filter((role) => role.name !== req.query.name);
-        fs.writeFileSync('DB/Roles.json', JSON.stringify(newRoles));
+        fs.writeFileSync('DB/Roles.json', JSON.stringify(newRoles, null, 2));
 
         res.status(200).json({ message: "Роль успешно удалена", roles: newRoles });
     }
@@ -253,7 +257,7 @@ app.post("/roles", async function(req, res) {
     try {
         let currentRoles = JSON.parse(fs.readFileSync('DB/Roles.json', 'utf8'));
         const newRoles = [...currentRoles, { name: req.body.name, permissions: req.body.permissions }];
-        fs.writeFileSync('DB/Roles.json', JSON.stringify(newRoles));
+        fs.writeFileSync('DB/Roles.json', JSON.stringify(newRoles, null, 2));
 
         res.status(200).json({ message: "Роль успешно добавлена", roles: newRoles });
     }
@@ -264,7 +268,7 @@ app.post("/roles", async function(req, res) {
 });
 app.put("/roles", async function(req, res) {
     try {
-        fs.writeFileSync('DB/Roles.json', JSON.stringify(req.body.roles));
+        fs.writeFileSync('DB/Roles.json', JSON.stringify(req.body.roles, null, 2));
 
         res.status(200).json({ message: "Роль успешно изменена", roles: req.body.roles });
     }

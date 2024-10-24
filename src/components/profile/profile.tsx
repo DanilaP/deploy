@@ -16,6 +16,7 @@ export default function ProfilePage () {
     const logout = () => {
         sessionStorage.removeItem("token");
         store.dispatch({ type: "USER", payload: null });
+        store.dispatch({ type: "USERPERMISSIONS", payload: {} });
         navigate("/auth/signin");
     };
 
@@ -23,6 +24,7 @@ export default function ProfilePage () {
         $api.get("/profile")
         .then((res) => {
             store.dispatch({ type: "USER", payload: res.data.user[0] });
+            store.dispatch({ type: "USERPERMISSIONS", payload: res.data.permissions });
         })
         .catch((error) => {
             console.log(error);
