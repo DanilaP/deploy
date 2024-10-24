@@ -32,8 +32,8 @@ export default function Permission (props: {
             onDragStart={ handleDragStart }
             className= { 
                 draggablePermission === props.name 
-                ? `permission bordered` 
-                : `permission not-bordered` 
+                ? `permission active` 
+                : `permission inactive` 
             }
         >
             <div className="permission-name">
