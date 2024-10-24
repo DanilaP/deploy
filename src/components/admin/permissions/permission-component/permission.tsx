@@ -26,12 +26,15 @@ export default function Permission (props: {
 
     return (
         <div
-            ref={ref}
+            ref={ ref }
             onDragEnter={ props.dragEnterPermission }
             draggable = { props.permissionsExists.ModifyGroupOfPermissions } 
             onDragStart={ handleDragStart }
-            className='permission'
-            style={draggablePermission === props.name ? { border: "1px solid #1976d2" } : { border: "1px solid rgba(128, 128, 128, 0.247)" }}
+            className= { 
+                draggablePermission === props.name 
+                ? `permission bordered` 
+                : `permission not-bordered` 
+            }
         >
             <div className="permission-name">
                 { props.name }

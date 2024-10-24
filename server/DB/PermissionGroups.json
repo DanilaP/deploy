@@ -18,8 +18,8 @@
   {
     "name": "Администрирование заказов",
     "permissions": [
-      "OrderManagement",
-      "ViewOrderListOfUser"
+      "ViewOrderListOfUser",
+      "OrderManagement"
     ]
   },
   {

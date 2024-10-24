@@ -22,7 +22,7 @@ export default function PermissionsGroupList (props: {
     };
     
     return (
-        <div className='permisisons-groups-list-main' onMouseUp={() => console.log('click')}>
+        <div className='permisisons-groups-list-main'>
             <Masonry sequential={ true } columns={2}>
                 {
                     props.permissionsGroups.map((permissionGroup: IPermissionGroup) => {
