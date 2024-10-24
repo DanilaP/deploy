@@ -49,13 +49,13 @@ export default function ProductPage () {
                         variationInfo?.images.map((image: string) => {
                             return (
                                 <SwiperSlide style={{ width: "100%" }} key={ image }>
-                                    <img src = { image }></img>
+                                    <img className = "swiper-image" src = { image }></img>
                                 </SwiperSlide>
                             );
                         })
                     }
                     <SwiperSlide key = { variationInfo?.video }>
-                        <video controls src = { variationInfo?.video }/>
+                        <video className = "swiper-video" controls src = { variationInfo?.video }/>
                     </SwiperSlide>
                 </Swiper>
                 </div>

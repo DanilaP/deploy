@@ -107,7 +107,7 @@ export default function ProductReviews () {
                         <TextField
                             value={ userReviewInfo.text } 
                             onChange={ (e) => setUserReviewInfo({ ...userReviewInfo, text: e.target.value }) } 
-                            placeholder='Отзыв'
+                            placeholder={ t("text.review") }
                             multiline 
                             rows={ 2 }
                         />

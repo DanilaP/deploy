@@ -72,7 +72,8 @@
         "variations": "Вариации",
         "choosenVariation": "Выбранная вариация",
         "changeReview": "Изменить отзыв",
-        "deleteReview": "Удалить отзыв"
+        "deleteReview": "Удалить отзыв",
+        "review": "Отзыв"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",
