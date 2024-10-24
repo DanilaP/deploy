@@ -11,6 +11,7 @@ import ProfilePage from "./components/profile/profile";
 import RolesPage from "./components/admin/roles/roles";
 import PermissionsPage from "./components/admin/permissions/permissions";
 import ProductPage from "./components/shop/product-page/product-page";
+import ProductReviews from "./components/shop/product-reviews-page/product-reviews-page";
 
 export const routes = [
     {
@@ -46,6 +47,11 @@ export const routes = [
     {
         path: "/product/:id",
         component: ProductPage,
+        children: null
+    },
+    {
+        path: "/product/:id/reviews",
+        component: ProductReviews,
         children: null
     },
     {

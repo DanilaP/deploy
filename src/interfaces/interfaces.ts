@@ -22,5 +22,15 @@ export interface IProduct {
     name: string,
     description: string,
     images: string[],
+    video: string,
+    category: string,
+    provider: string,
+    reviews: string[],
     variations: object[],
+}
+export interface IReview {
+    clientId?: string,
+    text: string,
+    avatar: string,
+    evaluation: number
 }

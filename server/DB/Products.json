@@ -1,202 +1,323 @@
 [
-    {
-        "id": 1,
-        "name": "Product 1",
-        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+  {
+    "id": 1,
+    "name": "Product 1",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+    "images": [
+      "http://localhost:5000/products/product9.jpg",
+      "http://localhost:5000/products/product7.jpg"
+    ],
+    "video": "http://localhost:5000/video/video1.mp4",
+    "category": "Вычислительная техника",
+    "provider": "Поставщик 1",
+    "reviews": [],
+    "variations": [
+      {
+        "name": "Base",
+        "title": "Базовая",
+        "stock": 7,
+        "price": 2000,
         "images": [
-            "http://localhost:5000/products/product1.jpg",
-            "http://localhost:5000/products/product2.jpg",
-            "http://localhost:5000/products/product3.jpg"
+          "http://localhost:5000/products/product3.jpg"
         ],
-        "variations": [
-            {
-                "name": "Base",
-                "title": "Базовая",
-                "stock": 7,
-                "price": 1000
-            },
-            {
-                "name": "Full",
-                "title": "Полная",
-                "stock": 3,
-                "price": 3000
-            }
-        ]
-    },
-    {
-        "id": 2,
-        "name": "Product 2",
-        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+        "video": "http://localhost:5000/video/video2.mp4"
+      },
+      {
+        "name": "Full",
+        "title": "Полная",
+        "stock": 3,
+        "price": 6000,
         "images": [
-            "http://localhost:5000/products/product2.jpg"
+          "http://localhost:5000/products/product5.jpg"
         ],
-        "variations": [
-            {
-                "name": "Base",
-                "title": "Базовая",
-                "stock": 7,
-                "price": 2000
-            },
-            {
-                "name": "Full",
-                "title": "Полная",
-                "stock": 3,
-                "price": 6000
-            }
-        ]
-    },
-    {
-        "id": 3,
-        "name": "Product 3",
-        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+        "video": "http://localhost:5000/video/video3.mp4"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Product 2",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+    "images": [
+      "http://localhost:5000/products/product2.jpg",
+      "http://localhost:5000/products/product1.jpg"
+    ],
+    "video": "http://localhost:5000/video/video3.mp4",
+    "category": "Вычислительная техника",
+    "provider": "Поставщик 1",
+    "reviews": [],
+    "variations": [
+      {
+        "name": "Base",
+        "title": "Базовая",
+        "stock": 7,
+        "price": 2000,
         "images": [
-            "http://localhost:5000/products/product3.jpg"
+          "http://localhost:5000/products/product3.jpg"
         ],
-        "variations": [
-            {
-                "name": "Base",
-                "title": "Базовая",
-                "stock": 7,
-                "price": 3000
-            },
-            {
-                "name": "Full",
-                "title": "Полная",
-                "stock": 3,
-                "price": 9000
-            }
-        ]
-    },
-    {
-        "id": 4,
-        "name": "Product 4",
-        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+        "video": "http://localhost:5000/video/video2.mp4"
+      },
+      {
+        "name": "Full",
+        "title": "Полная",
+        "stock": 3,
+        "price": 6000,
         "images": [
-            "http://localhost:5000/products/product4.jpg"
+          "http://localhost:5000/products/product5.jpg"
         ],
-        "variations": [
-            {
-                "name": "Base",
-                "title": "Базовая",
-                "stock": 7,
-                "price": 4000
-            },
-            {
-                "name": "Full",
-                "title": "Полная",
-                "stock": 3,
-                "price": 12000
-            }
-        ]
-    },
-    {
-        "id": 5,
-        "name": "Product 5",
-        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+        "video": "http://localhost:5000/video/video1.mp4"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Product 3",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+    "images": [
+      "http://localhost:5000/products/product3.jpg",
+      "http://localhost:5000/products/product1.jpg"
+    ],
+    "video": "http://localhost:5000/video/video2.mp4",
+    "category": "Вычислительная техника",
+    "provider": "Поставщик 1",
+    "reviews": [
+      {
+        "clientId": 1727098679785,
+        "text": "123",
+        "evaluation": 1.5
+      }
+    ],
+    "variations": [
+      {
+        "name": "Base",
+        "title": "Базовая",
+        "stock": 7,
+        "price": 3000,
         "images": [
-            "http://localhost:5000/products/product5.jpg"
+          "http://localhost:5000/products/product5.jpg"
         ],
-        "variations": [
-            {
-                "name": "Base",
-                "title": "Базовая",
-                "stock": 7,
-                "price": 5000
-            },
-            {
-                "name": "Full",
-                "title": "Полная",
-                "stock": 3,
-                "price": 15000
-            }
-        ]
-    },
-    {
-        "id": 6,
-        "name": "Product 6",
-        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+        "video": "http://localhost:5000/video/video3.mp4"
+      },
+      {
+        "name": "Full",
+        "title": "Полная",
+        "stock": 3,
+        "price": 9000,
         "images": [
-            "http://localhost:5000/products/product6.jpg"
+          "http://localhost:5000/products/product6.jpg"
         ],
-        "variations": [
-            {
-                "name": "Base",
-                "title": "Базовая",
-                "stock": 7,
-                "price": 6000
-            },
-            {
-                "name": "Full",
-                "title": "Полная",
-                "stock": 3,
-                "price": 18000
-            }
-        ]
-    },
-    {
-        "id": 7,
-        "name": "Product 7",
-        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+        "video": "http://localhost:5000/video/video1.mp4"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Product 4",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+    "images": [
+      "http://localhost:5000/products/product4.jpg",
+      "http://localhost:5000/products/product3.jpg"
+    ],
+    "video": "http://localhost:5000/video/video1.mp4",
+    "category": "Вычислительная техника",
+    "provider": "Поставщик 2",
+    "reviews": [],
+    "variations": [
+      {
+        "name": "Base",
+        "title": "Базовая",
+        "stock": 7,
+        "price": 4000,
         "images": [
-            "http://localhost:5000/products/product7.jpg"
+          "http://localhost:5000/products/product2.jpg"
         ],
-        "variations": [
-            {
-                "name": "Base",
-                "title": "Базовая",
-                "stock": 7,
-                "price": 7000
-            },
-            {
-                "name": "Full",
-                "title": "Полная",
-                "stock": 3,
-                "price": 21000
-            }
-        ]
-    },
-    {
-        "id": 8,
-        "name": "Product 8",
-        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+        "video": "http://localhost:5000/video/video2.mp4"
+      },
+      {
+        "name": "Full",
+        "title": "Полная",
+        "stock": 3,
+        "price": 12000,
         "images": [
-            "http://localhost:5000/products/product8.jpg"
+          "http://localhost:5000/products/product9.jpg"
         ],
-        "variations": [
-            {
-                "name": "Base",
-                "title": "Базовая",
-                "stock": 7,
-                "price": 8000
-            },
-            {
-                "name": "Full",
-                "title": "Полная",
-                "stock": 3,
-                "price": 24000
-            }
-        ]
-    },
-    {
-        "id": 9,
-        "name": "Product 9",
-        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+        "video": "http://localhost:5000/video/video3.mp4"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Product 5",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+    "images": [
+      "http://localhost:5000/products/product5.jpg",
+      "http://localhost:5000/products/product3.jpg"
+    ],
+    "video": "http://localhost:5000/video/video2.mp4",
+    "category": "Вычислительная техника",
+    "provider": "Поставщик 2",
+    "reviews": [],
+    "variations": [
+      {
+        "name": "Base",
+        "title": "Базовая",
+        "stock": 7,
+        "price": 5000,
         "images": [
-            "http://localhost:5000/products/product9.jpg"
+          "http://localhost:5000/products/product6.jpg"
         ],
-        "variations": [
-            {
-                "name": "Base",
-                "title": "Базовая",
-                "stock": 7,
-                "price": 9000
-            },
-            {
-                "name": "Full",
-                "title": "Полная",
-                "stock": 3,
-                "price": 27000
-            }
-        ]
-    }
+        "video": "http://localhost:5000/video/video1.mp4"
+      },
+      {
+        "name": "Full",
+        "title": "Полная",
+        "stock": 3,
+        "price": 15000,
+        "images": [
+          "http://localhost:5000/products/product7.jpg"
+        ],
+        "video": "http://localhost:5000/video/video3.mp4"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Product 6",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+    "images": [
+      "http://localhost:5000/products/product6.jpg",
+      "http://localhost:5000/products/product8.jpg"
+    ],
+    "video": "http://localhost:5000/video/video3.mp4",
+    "category": "Вычислительная техника",
+    "provider": "Поставщик 2",
+    "reviews": [],
+    "variations": [
+      {
+        "name": "Base",
+        "title": "Базовая",
+        "stock": 7,
+        "price": 6000,
+        "images": [
+          "http://localhost:5000/products/product2.jpg"
+        ],
+        "video": "http://localhost:5000/video/video2.mp4"
+      },
+      {
+        "name": "Full",
+        "title": "Полная",
+        "stock": 3,
+        "price": 18000,
+        "images": [
+          "http://localhost:5000/products/product3.jpg"
+        ],
+        "video": "http://localhost:5000/video/video1.mp4"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Product 7",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+    "images": [
+      "http://localhost:5000/products/product7.jpg",
+      "http://localhost:5000/products/product9.jpg"
+    ],
+    "video": "http://localhost:5000/video/video3.mp4",
+    "category": "Вычислительная техника",
+    "provider": "Поставщик 3",
+    "reviews": [],
+    "variations": [
+      {
+        "name": "Base",
+        "title": "Базовая",
+        "stock": 7,
+        "price": 7000,
+        "images": [
+          "http://localhost:5000/products/product1.jpg"
+        ],
+        "video": "http://localhost:5000/video/video1.mp4"
+      },
+      {
+        "name": "Full",
+        "title": "Полная",
+        "stock": 3,
+        "price": 21000,
+        "images": [
+          "http://localhost:5000/products/product3.jpg"
+        ],
+        "video": "http://localhost:5000/video/video2.mp4"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Product 8",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+    "images": [
+      "http://localhost:5000/products/product8.jpg",
+      "http://localhost:5000/products/product9.jpg"
+    ],
+    "video": "http://localhost:5000/video/video3.mp4",
+    "category": "Вычислительная техника",
+    "provider": "Поставщик 3",
+    "reviews": [],
+    "variations": [
+      {
+        "name": "Base",
+        "title": "Базовая",
+        "stock": 7,
+        "price": 8000,
+        "images": [
+          "http://localhost:5000/products/product3.jpg"
+        ],
+        "video": "http://localhost:5000/video/video2.mp4"
+      },
+      {
+        "name": "Full",
+        "title": "Полная",
+        "stock": 3,
+        "price": 24000,
+        "images": [
+          "http://localhost:5000/products/product5.jpg"
+        ],
+        "video": "http://localhost:5000/video/video1.mp4"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Product 9",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+    "images": [
+      "http://localhost:5000/products/product9.jpg",
+      "http://localhost:5000/products/product5.jpg"
+    ],
+    "video": "http://localhost:5000/video/video1.mp4",
+    "category": "Вычислительная техника",
+    "provider": "Поставщик 3",
+    "reviews": [],
+    "variations": [
+      {
+        "name": "Base",
+        "title": "Базовая",
+        "stock": 7,
+        "price": 9000,
+        "images": [
+          "http://localhost:5000/products/product4.jpg"
+        ],
+        "video": "http://localhost:5000/video/video2.mp4"
+      },
+      {
+        "name": "Full",
+        "title": "Полная",
+        "stock": 3,
+        "price": 27000,
+        "images": [
+          "http://localhost:5000/products/product6.jpg"
+        ],
+        "video": "http://localhost:5000/video/video3.mp4"
+      }
+    ]
+  }
 ]

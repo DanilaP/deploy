@@ -313,6 +313,100 @@ app.get("/product", async function(req, res) {
         res.status(400).json({ message: "Ошибка получения данных о товаре!" });
     }
 });
+app.put("/product", async function(req, res) {
+    try {
+        const token = req.headers.authorization;     
+        const userId = jwt_decode(token).id;
+        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        let user = currentUsers.filter((user) => user.id === userId)[0];
+
+        let updatedProducts = currentProducts.map((product) => {
+            if (product.id === +req.body.productId) {
+                if (product.reviews.filter((review) => review.clientId === userId).length === 0) {
+                    return {
+                        ...product,
+                        reviews: [...product.reviews, {
+                            clientId: userId,
+                            ...req.body.review
+                        }]
+                    };
+                }
+                else {
+                    return {
+                        ...product,
+                        reviews: product.reviews.map(review => {
+                            if (review.clientId === userId) {
+                                return {
+                                    clientId: userId,
+                                    ...req.body.review
+                                };
+                            } else return review;
+                        })
+                    };
+                }
+            } else return product;
+        });
+        fs.writeFileSync('DB/Products.json', JSON.stringify(updatedProducts, null, 2));
+        res.status(200).json({ message: "Данные о товаре успешно изменены!", review: {
+            ...req.body.review,
+            clientId: userId,
+            avatar: user.avatar
+        } });
+    }
+    catch(error) {
+        console.error("post /product", error);
+        res.status(400).json({ message: "Ошибка изменения данных о товаре!" });
+    }
+});
+
+//Reviews
+app.get("/reviews/product", async function(req, res) {
+    try {
+        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        let currentProduct = currentProducts.filter(product => product.id === +req.query.id)[0];
+        let reviewsData = { title: currentProduct.name, reviews: currentProduct.reviews };
+        if (currentProduct) {
+            reviewsData.reviews = reviewsData.reviews.map(comment => {
+                const currentUser = currentUsers.filter(user => user.id === comment.clientId)[0];
+                return {
+                    ...comment,
+                    avatar: currentUser?.avatar
+                };
+            });
+        }
+        else {
+            res.status(400).json({ message: "Ошибка получения данных об отзывах!" });
+        }
+        res.status(200).json({ message: "Данные об отзывах успешно получены", product: reviewsData });
+    }
+    catch(error) {
+        console.error("get /reviews", error);
+        res.status(400).json({ message: "Ошибка получения данных об отзывах!" });
+    }
+});
+app.delete("/reviews/product", async function(req, res) {
+    try {
+        let currentProductId = +req.query.productId;
+        let currentUserId = +req.query.userId;
+        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));  
+        let updatedProducts = currentProducts.map((product) => {
+            if (product.id === currentProductId) {
+                return {
+                    ...product,
+                    reviews: product.reviews.filter((review) => review.clientId !== currentUserId)
+                };
+            } else return product;
+        });
+        fs.writeFileSync('DB/Products.json', JSON.stringify(updatedProducts, null, 2));
+        res.status(200).json({ message: "Отзыв успешно удален" });
+    }
+    catch(error) {
+        console.error("delete /reviews/product", error);
+        res.status(400).json({ message: "Ошибка при удалении отзыва!" });
+    }
+});
 
 async function startApp() {
     try {

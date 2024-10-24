@@ -63,7 +63,16 @@
         "stock": "В наличии",
         "rub": "руб.",
         "pcs": "шт.",
-        "toBacket": "В корзину"
+        "toBacket": "В корзину",
+        "category": "Категория",
+        "productReviews": "Отзывы о товаре",
+        "averageEvaluation": "Средняя оценка",
+        "yourEvaluation": "Ваша оценка",
+        "sendReview": "Оставить отзыв",
+        "variations": "Вариации",
+        "choosenVariation": "Выбранная вариация",
+        "changeReview": "Изменить отзыв",
+        "deleteReview": "Удалить отзыв"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

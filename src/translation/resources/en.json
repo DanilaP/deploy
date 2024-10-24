@@ -63,7 +63,16 @@
         "stock": "In stock",
         "rub": "rub.",
         "pcs": "pcs.",
-        "toBacket": "To backet"
+        "toBacket": "To backet",
+        "category": "Category",
+        "productReviews": "Product reviews",
+        "averageEvaluation": "Average evaluation",
+        "yourEvaluation": "Your evaluation",
+        "sendReview": "Send review",
+        "variations": "Variations",
+        "choosenVariation": "Choosen variation",
+        "changeReview": "Change review",
+        "deleteReview": "Delete review"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
