@@ -5,7 +5,9 @@
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product9.jpg",
-      "http://localhost:5000/products/product7.jpg"
+      "http://localhost:5000/products/product7.jpg",
+      "http://localhost:5000/products/product3.jpg",
+      "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
     "category": "Вычислительная техника",
@@ -51,12 +53,20 @@
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product2.jpg",
-      "http://localhost:5000/products/product1.jpg"
+      "http://localhost:5000/products/product1.jpg",
+      "http://localhost:5000/products/product3.jpg",
+      "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
     "category": "Вычислительная техника",
     "provider": "Поставщик 1",
-    "reviews": [],
+    "reviews": [
+      {
+        "clientId": 1727098679785,
+        "text": "My comment for product 2",
+        "evaluation": 5
+      }
+    ],
     "variations": [
       {
         "name": "Base",
@@ -86,7 +96,9 @@
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product3.jpg",
-      "http://localhost:5000/products/product1.jpg"
+      "http://localhost:5000/products/product1.jpg",
+      "http://localhost:5000/products/product3.jpg",
+      "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video2.mp4",
     "category": "Вычислительная техника",
@@ -127,7 +139,9 @@
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product4.jpg",
-      "http://localhost:5000/products/product3.jpg"
+      "http://localhost:5000/products/product3.jpg",
+      "http://localhost:5000/products/product3.jpg",
+      "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
     "category": "Вычислительная техника",
@@ -162,7 +176,9 @@
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product5.jpg",
-      "http://localhost:5000/products/product3.jpg"
+      "http://localhost:5000/products/product3.jpg",
+      "http://localhost:5000/products/product6.jpg",
+      "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video2.mp4",
     "category": "Вычислительная техника",
@@ -197,7 +213,9 @@
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product6.jpg",
-      "http://localhost:5000/products/product8.jpg"
+      "http://localhost:5000/products/product8.jpg",
+      "http://localhost:5000/products/product3.jpg",
+      "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
     "category": "Вычислительная техника",
@@ -232,7 +250,9 @@
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product7.jpg",
-      "http://localhost:5000/products/product9.jpg"
+      "http://localhost:5000/products/product9.jpg",
+      "http://localhost:5000/products/product3.jpg",
+      "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
     "category": "Вычислительная техника",
@@ -267,7 +287,9 @@
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product8.jpg",
-      "http://localhost:5000/products/product9.jpg"
+      "http://localhost:5000/products/product9.jpg",
+      "http://localhost:5000/products/product3.jpg",
+      "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
     "category": "Вычислительная техника",
@@ -302,7 +324,9 @@
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product9.jpg",
-      "http://localhost:5000/products/product5.jpg"
+      "http://localhost:5000/products/product5.jpg",
+      "http://localhost:5000/products/product3.jpg",
+      "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
     "category": "Вычислительная техника",
