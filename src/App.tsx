@@ -73,7 +73,7 @@ function App() {
                     { currentStore.user ? (
                         <div className="header">
                             <Link to='/shop'><ShoppingCart />{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
-                            <Link to='/cart'><ShoppingBasket />{ !isMobile ? t('titles.cart') : null }</Link>
+                            <Link to='/cart'><ShoppingBasket />{ !isMobile ? t('titles.cart') : null }</Link><br/>
                             <Link to='/profile'><PersonPin />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
                             { checkPermissions() ?
                             (<Link to='/admin'><SupervisorAccount />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>

@@ -58,7 +58,16 @@
         "myOrders": "Мои заказы",
         "createGroup": "Создать группу",
         "deleteGroup": "Удалить группу",
-        "groupName": "Наименование группы"
+        "groupName": "Наименование группы",
+        "total": "Итого",
+        "orderAmount": "Сумма заказа",
+        "order": "Заказать",
+        "pcs": "шт",
+        "productsCount": {
+            "product_one": "{{count}} товар",
+            "product_few": "{{count}} товара",
+            "product_many": "{{count}} товаров"
+        }
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",
@@ -90,5 +99,8 @@
         "CreateGroupOfPermissions": "Создание группы пермишнов",
         "DeleteGroupOfPermissions": "Удаление группы пермишнов",
         "ModifyGroupOfPermissions": "Модификация группы пермишнов"
+    },
+    "symbols": {
+        "rub": "\u20BD"
     }
 }

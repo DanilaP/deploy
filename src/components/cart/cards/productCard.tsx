@@ -1,17 +1,32 @@
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Laptop, Add, Remove } from '@material-ui/icons';
-import {Button, Checkbox, Stack} from '@mui/material';
-const productCard = () => {
+import {
+    Box,
+    Card,
+    CardContent,
+    CardMedia,
+    Typography,
+    Button,
+    Checkbox,
+    Stack, IconButton,
+} from '@mui/material';
+import { Laptop, Add, Remove, FavoriteBorderSharp } from '@material-ui/icons';
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+
+interface ProductCardProps {
+    isAllChecked: boolean;
+}
+const productCard: FC<ProductCardProps> = ({ isAllChecked }) => {
+    const { t } = useTranslation();
+
     return (
         <Card sx={{ maxWidth: 800, boxShadow: 'none', backgroundColor: 'whitesmoke' }}>
             <Stack direction="row" spacing={2} sx={{ justifyContent: "space-between", alignItems: "center" }}>
-                <Checkbox sx={{ alignSelf: 'flex-start' }} defaultChecked />
+                <Checkbox
+                    sx={{ alignSelf: 'flex-start' }}
+                    checked={isAllChecked}
+                />
                 <CardMedia style={ { display: "flex",  alignItems: 'flex-start' } } >
-                    <Laptop color="primary" style={ { width: "100px", height: "100px", } } />
+                    <Laptop color="primary" style={ { width: "100px", height: "100px" } } />
                 </CardMedia>
                 <CardContent sx={{ flex: '1 0 auto' }}>
                     <Typography component="div" variant="body1">
@@ -27,7 +42,7 @@ const productCard = () => {
                 </CardContent>
                 <CardContent sx={{ flex: '1 0 auto' }}>
                     <Typography component="div" variant="body1">
-                       40 000 {"\u20BD"}
+                       40 000 {t('symbols.rub')}
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <Button
@@ -49,6 +64,9 @@ const productCard = () => {
                         </Button>
                     </Box>
                 </CardContent>
+                <IconButton color="primary">
+                    <FavoriteBorderSharp />
+                </IconButton>
             </Stack>
         </Card>
     );

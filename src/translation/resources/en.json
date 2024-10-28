@@ -58,7 +58,15 @@
         "myOrders": "My orders",
         "createGroup": "Create group",
         "deleteGroup": "Delete group",
-        "groupName": "Group name"
+        "groupName": "Group name",
+        "total": "Total price",
+        "orderAmount": "Order Details",
+        "order": "Proceed to checkout",
+        "pcs": "pcs",
+        "productsCount": {
+            "product_one": "{{count}} item",
+            "product_other": "{{count}} items"
+        }
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
@@ -90,5 +98,8 @@
         "CreateGroupOfPermissions": "Create group of permissions",
         "DeleteGroupOfPermissions": "Delete group of permissions",
         "ModifyGroupOfPermissions": "Modify group of permissions"
+    },
+    "symbols": {
+        "rub": "\u20BD"
     }
 }
