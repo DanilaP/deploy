@@ -15,7 +15,8 @@
         "manipulateUser": "Управление пользователем",
         "profilePage": "Страница профиля",
         "permissionsPage": "Разрешения/права",
-        "rolesPage": "Роли"
+        "rolesPage": "Роли",
+        "cart": "Корзина"
 },
     "labels": {
         "loading": "Загрузка..."

@@ -9,8 +9,7 @@ import { Switch } from '@mui/material';
 import { useSelector } from 'react-redux';
 import $api from './configs/axiosconfig/axios';
 import { store } from './store';
-import { PersonPin } from '@material-ui/icons';
-import { ShoppingCart } from '@material-ui/icons';
+import { PersonPin, ShoppingCart, ShoppingBasket } from '@material-ui/icons';
 import { SupervisorAccount } from '@material-ui/icons';
 import { checkPermissions } from './helpers/permissions-helpers';
 
@@ -69,38 +68,39 @@ function App() {
     }, []);
 
     return (
-        <> 
+        <>
             <div className='home-page-main'>
                     { currentStore.user ? (
                         <div className="header">
-                            <Link to='/shop'><ShoppingCart/>{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
+                            <Link to='/shop'><ShoppingCart />{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
+                            <Link to='/cart'><ShoppingBasket />{ !isMobile ? t('titles.cart') : null }</Link>
                             <Link to='/profile'><PersonPin />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
-                            { checkPermissions() ? 
-                            (<Link to='/admin'><SupervisorAccount/>{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
+                            { checkPermissions() ?
+                            (<Link to='/admin'><SupervisorAccount />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">
                                 <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
                                 <Switch onChange = { changeTheme } defaultChecked/>
                             </div>
                         </div> ) : null
-                    }  
+                    }
                 <div className="content">
                     <Routes>
-                        { isLoading && 
+                        { isLoading &&
                             routes.map(({ path, component: Component, children: Children }) => (
-                                <Route 
-                                    key={ path } 
-                                    path={ path } 
+                                <Route
+                                    key={ path }
+                                    path={ path }
                                     element={ <Component>{ Children && <Children /> }</Component> }
                                 />
                             ))
                         }
                         { checkPermissions() &&
                             adminRoutes.map(({ path,  component: Component, children: Children }) => (
-                                <Route 
-                                    key={ path } 
+                                <Route
+                                    key={ path }
                                     path={ path }
-                                    element={ currentStore.user 
-                                        ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> } 
+                                    element={ currentStore.user
+                                        ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> }
                                 />
                             ))
                         }

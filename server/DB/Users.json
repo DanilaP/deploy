@@ -33,5 +33,12 @@
     "password": "$2a$07$RIVrAaNH3IudlX.7HPtXIuhy/5jhw2YKxEL6OxTM/q16x/C.nulLq",
     "role": "Пользователь",
     "avatar": "http://localhost:5000/avatar.jpg"
+  },
+  {
+    "id": 1729840450731,
+    "login": "example@gmail.com",
+    "password": "$2a$07$LJFpUSzUjF1/JLNh1f33eekTbbu3KFFCI7.UZFoc.tmhnvBjdHLqu",
+    "role": "Администратор",
+    "avatar": "http://localhost:5000/avatar.jpg"
   }
 ]
