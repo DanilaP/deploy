@@ -29,9 +29,9 @@ export default function ShopPage () {
         <div className='shop-wrapper'>
             <div className="shop-products-wrapper">
                 <div className="shop-filters">
-                    <TextField placeholder='Поиск'></TextField>
-                    <Button variant="contained">{ t("text.find") }</Button>
-                    <Button variant="contained">{ t("text.filters") }</Button>
+                    <TextField className='filter-input' placeholder='Поиск'></TextField>
+                    <Button className='filter-button' variant="contained">{ t("text.find") }</Button>
+                    <Button className='filter-button' variant="contained">{ t("text.filters") }</Button>
                     <Select defaultValue="all">
                         <MenuItem value="all">{ t("text.categories") }</MenuItem>
                         <MenuItem value = "Категория 1">Категория 1</MenuItem>
