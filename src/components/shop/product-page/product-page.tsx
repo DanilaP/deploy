@@ -4,11 +4,8 @@ import $api from "../../../configs/axiosconfig/axios";
 import { useNavigate, useParams } from "react-router";
 import "./product-page.scss";
 import { useTranslation } from "react-i18next";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { Navigation } from 'swiper/modules';
-import 'swiper/css/navigation';
-import { Button } from "@mui/material";
+import ProductInfo from "./product-page-info/product-page-info";
+import ProductSlider from "./product-page-slider/product-page-slider";
 
 export default function ProductPage () {
     
@@ -42,59 +39,33 @@ export default function ProductPage () {
 
     return (
         <div className='product-page'>
-            <div className="product">
-                <div className="product-slider">
-                <Swiper navigation={true} modules={[Navigation]}>
-                    {
-                        variationInfo?.images.map((image: string) => {
-                            return (
-                                <SwiperSlide style={{ width: "100%" }} key={ image }>
-                                    <img className = "swiper-image" src = { image }></img>
-                                </SwiperSlide>
-                            );
-                        })
-                    }
-                    <SwiperSlide key = { variationInfo?.video }>
-                        <video className = "swiper-video" controls src = { variationInfo?.video }/>
-                    </SwiperSlide>
-                </Swiper>
+            <div className="product-page-main">
+                <div className="product-page-main-header">
+                    { product?.name + ". " } 
+                    { t("text.choosenVariation") }: { `"${ variationInfo?.title }"` }
                 </div>
-                <div className="product-info">
-                    <div className="item">
-                        <h1>{ product?.name }</h1> 
-                        { t("text.choosenVariation") }: { `"${ variationInfo?.title }"` }
+                <div className="product">
+                    <div className="product-main">
+                        <ProductSlider variationInfo = { variationInfo } />
+                        { 
+                            product 
+                            ? <ProductInfo 
+                                product={ product } 
+                                variationInfo={ variationInfo }
+                                changeVariation={ changeVariation }
+                            /> 
+                            : null 
+                        } 
                     </div>
-                    <div className="item">
-                        <b>{ t("text.category") }</b>: { product?.category }
-                    </div>
-                    <div className="item">
-                        <b>{ t("text.description") }</b>: { product?.description }
-                    </div>
-                    <div className="item">
-                        <b>{ t("text.cost") }</b>: { variationInfo?.price } { t("text.rub") }
-                    </div>
-                    <div className="item">
-                        <b>{ t("text.stock") }</b>: { variationInfo?.stock } { t("text.pcs") }
-                    </div>
-                    <div className="variations">
-                    { t("text.variations") }: 
+                    <div className="image-list">
                         {
-                            product?.variations.map((variation: any) => {
+                            product?.images.map((image) => {
                                 return (
-                                    <div key={ variation.name } className="variation">
-                                        <div 
-                                            onClick={ () => changeVariation(variation.name) } 
-                                            className="variation-name"
-                                        >
-                                                { variation.title }
-                                        </div>
-                                    </div>
+                                    <img className="image-list-img" src = { image } key={ image } />
                                 );
                             })
                         }
                     </div>
-                    <Button variant = "contained">{ t("text.toBacket") }</Button>
-                    <Button onClick={ () => navigate("reviews") }>{ t("text.productReviews") }</Button>
                 </div>
             </div>
         </div>

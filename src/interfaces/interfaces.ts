@@ -25,7 +25,7 @@ export interface IProduct {
     video: string,
     category: string,
     provider: string,
-    reviews: string[],
+    reviews: IReview[],
     variations: object[],
 }
 export interface IReview {

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './product-reviews-page.scss';
 import { useParams } from 'react-router';
@@ -7,6 +7,7 @@ import { Button, Rating, TextField } from '@mui/material';
 import Review from './review/review';
 import { IReview } from '../../../interfaces/interfaces';
 import { useSelector } from 'react-redux';
+import { getAverageEvaluation } from '../../../helpers/product-page-helpers';
 
 export default function ProductReviews () {
 
@@ -18,15 +19,6 @@ export default function ProductReviews () {
     const user = useSelector((store: any) => store.user);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const { t } = useTranslation();
-
-    const getAverageEvaluation = () => {
-        const evaluationQuantity = productInfo?.reviews.length;
-        let averageValue: number = 0;
-        productInfo?.reviews.map((review: any) => {
-            averageValue += review.evaluation;
-        });
-        return averageValue / evaluationQuantity;
-    };
     
     const createReview = () => {
         if (userReviewInfo.text !== "" && userReviewInfo.evaluation !== 0) {
@@ -95,15 +87,18 @@ export default function ProductReviews () {
             <div className="reviews-content">
                 <div className="reviews-settings">
                     <div className="reviews-settings-info">
-                        { t("text.averageEvaluation") }: 
+                        <div className="average-rating">
+                            { productInfo ? getAverageEvaluation(productInfo.reviews) : 0 }
+                        </div>
                         <Rating 
                             name="half-rating" 
                             precision={ 0.5 } 
                             readOnly 
-                            value = { getAverageEvaluation() } 
+                            value = { productInfo ? getAverageEvaluation(productInfo.reviews) : 0 } 
                         />
                     </div>
                     <div className="reviews-settings-content">
+                        <div className="user-review">{ t("text.yourReview") } </div>
                         <TextField
                             value={ userReviewInfo.text } 
                             onChange={ (e) => setUserReviewInfo({ ...userReviewInfo, text: e.target.value }) } 
@@ -111,8 +106,7 @@ export default function ProductReviews () {
                             multiline 
                             rows={ 2 }
                         />
-                        <div className="user-evaluation">
-                            { t("text.yourEvaluation") } :  
+                        <div className="user-evaluation"> 
                             { isLoading &&
                                 <Rating
                                     name="half-rating"
