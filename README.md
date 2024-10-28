@@ -42,5 +42,8 @@ If you are developing a production application, we recommend updating the config
 - Add permissions page `/admin/permissions`
 - Install `@mui/lab`,
 - Integrate permissions with roles
+- In case you have issues with packages @material-ui/core and @material-ui/icons just runfollowing command before npm i npm config 
+  - set legacy-peer-deps true
+
 
 
