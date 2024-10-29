@@ -4,20 +4,30 @@
     "login": "danila@gmail.com",
     "password": "$2a$07$iJxbcrqGHQTYajyfktQwIuLYb7xRGeumn4p3fFr8WaK8Uune5vWMq",
     "role": "Администратор",
-    "avatar": "http://localhost:5000/avatar.jpg"
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": [
+      {
+        "id": 1730194673098,
+        "productId": 2,
+        "number": 1,
+        "variation": "Base"
+      }
+    ]
   },
   {
     "id": 1727158100336,
     "login": "new@gmail.com",
     "password": "$2a$07$yeAFGaIvxta72M/4RzLiReAPt/hCKDPOvSB.FpG4sM/gi07HBtGL6",
     "role": "Модератор",
-    "avatar": "http://localhost:5000/avatar.jpg"
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": []
   },
   {
     "id": 1727161785732,
     "login": "newuser@gmail.com",
     "password": "$2a$07$ItQ8NTItTNk46S.PwwmdD.n.BrlwoO.Sc7ByhzR40f3quxyZUyt6S",
     "role": "Пользователь",
-    "avatar": "http://localhost:5000/avatar.jpg"
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": []
   }
 ]

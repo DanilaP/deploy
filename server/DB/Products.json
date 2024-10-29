@@ -3,6 +3,7 @@
     "id": 1,
     "name": "Product 1",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+    "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "images": [
       "http://localhost:5000/products/product9.jpg",
       "http://localhost:5000/products/product7.jpg",
@@ -11,17 +12,49 @@
     ],
     "video": "http://localhost:5000/video/video1.mp4",
     "category": "Вычислительная техника",
+    "additionalInfo": [
+      {
+        "name": "Корпус",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Цвет",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Размер",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материал",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материнская плата",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Видеокарта",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      }
+    ],
     "provider": "Поставщик 1",
     "reviews": [
       {
         "clientId": 1727158100336,
         "text": "this is the second review for product 1",
-        "evaluation": 4
+        "evaluation": 4,
+        "likes" : [],
+        "video": [],
+        "photo": []
       },
       {
         "clientId": 1727098679785,
-        "text": "new test review ",
-        "evaluation": 5
+        "text": "new test review 12323",
+        "evaluation": 5,
+        "likes" : [],
+        "video": [],
+        "photo": []
       }
     ],
     "variations": [
@@ -50,6 +83,7 @@
   {
     "id": 2,
     "name": "Product 2",
+    "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product2.jpg",
@@ -59,12 +93,41 @@
     ],
     "video": "http://localhost:5000/video/video3.mp4",
     "category": "Вычислительная техника",
+    "additionalInfo": [
+      {
+        "name": "Корпус",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Цвет",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Размер",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материал",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материнская плата",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Видеокарта",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      }
+    ],
     "provider": "Поставщик 1",
     "reviews": [
       {
         "clientId": 1727098679785,
         "text": "My comment for product 2",
-        "evaluation": 5
+        "evaluation": 3.5,
+        "likes" : [],
+        "video": [],
+        "photo": []
       }
     ],
     "variations": [
@@ -93,6 +156,7 @@
   {
     "id": 3,
     "name": "Product 3",
+    "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product3.jpg",
@@ -102,12 +166,41 @@
     ],
     "video": "http://localhost:5000/video/video2.mp4",
     "category": "Вычислительная техника",
+    "additionalInfo": [
+      {
+        "name": "Корпус",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Цвет",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Размер",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материал",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материнская плата",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Видеокарта",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      }
+    ],
     "provider": "Поставщик 1",
     "reviews": [
       {
         "clientId": 1727098679785,
         "text": "123",
-        "evaluation": 1.5
+        "evaluation": 1.5,
+        "likes" : [],
+        "video": [],
+        "photo": []
       }
     ],
     "variations": [
@@ -136,6 +229,7 @@
   {
     "id": 4,
     "name": "Product 4",
+    "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product4.jpg",
@@ -145,6 +239,32 @@
     ],
     "video": "http://localhost:5000/video/video1.mp4",
     "category": "Вычислительная техника",
+    "additionalInfo": [
+      {
+        "name": "Корпус",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Цвет",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Размер",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материал",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материнская плата",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Видеокарта",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      }
+    ],
     "provider": "Поставщик 2",
     "reviews": [],
     "variations": [
@@ -173,6 +293,7 @@
   {
     "id": 5,
     "name": "Product 5",
+    "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product5.jpg",
@@ -182,6 +303,32 @@
     ],
     "video": "http://localhost:5000/video/video2.mp4",
     "category": "Вычислительная техника",
+    "additionalInfo": [
+      {
+        "name": "Корпус",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Цвет",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Размер",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материал",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материнская плата",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Видеокарта",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      }
+    ],
     "provider": "Поставщик 2",
     "reviews": [],
     "variations": [
@@ -210,6 +357,7 @@
   {
     "id": 6,
     "name": "Product 6",
+    "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product6.jpg",
@@ -219,6 +367,32 @@
     ],
     "video": "http://localhost:5000/video/video3.mp4",
     "category": "Вычислительная техника",
+    "additionalInfo": [
+      {
+        "name": "Корпус",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Цвет",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Размер",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материал",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материнская плата",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Видеокарта",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      }
+    ],
     "provider": "Поставщик 2",
     "reviews": [],
     "variations": [
@@ -247,6 +421,7 @@
   {
     "id": 7,
     "name": "Product 7",
+    "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product7.jpg",
@@ -256,6 +431,32 @@
     ],
     "video": "http://localhost:5000/video/video3.mp4",
     "category": "Вычислительная техника",
+    "additionalInfo": [
+      {
+        "name": "Корпус",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Цвет",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Размер",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материал",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материнская плата",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Видеокарта",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      }
+    ],
     "provider": "Поставщик 3",
     "reviews": [],
     "variations": [
@@ -284,6 +485,7 @@
   {
     "id": 8,
     "name": "Product 8",
+    "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product8.jpg",
@@ -293,6 +495,32 @@
     ],
     "video": "http://localhost:5000/video/video3.mp4",
     "category": "Вычислительная техника",
+    "additionalInfo": [
+      {
+        "name": "Корпус",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Цвет",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Размер",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материал",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материнская плата",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Видеокарта",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      }
+    ],
     "provider": "Поставщик 3",
     "reviews": [],
     "variations": [
@@ -321,6 +549,7 @@
   {
     "id": 9,
     "name": "Product 9",
+    "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "images": [
       "http://localhost:5000/products/product9.jpg",
@@ -330,6 +559,32 @@
     ],
     "video": "http://localhost:5000/video/video1.mp4",
     "category": "Вычислительная техника",
+    "additionalInfo": [
+      {
+        "name": "Корпус",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Цвет",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Размер",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материал",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Материнская плата",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "name": "Видеокарта",
+        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      }
+    ],
     "provider": "Поставщик 3",
     "reviews": [],
     "variations": [
