@@ -40,22 +40,6 @@
     ],
     "provider": "Поставщик 1",
     "reviews": [
-      {
-        "clientId": 1727158100336,
-        "text": "this is the second review for product 1",
-        "evaluation": 4,
-        "likes" : [],
-        "video": [],
-        "photo": []
-      },
-      {
-        "clientId": 1727098679785,
-        "text": "new test review 12323",
-        "evaluation": 5,
-        "likes" : [],
-        "video": [],
-        "photo": []
-      }
     ],
     "variations": [
       {
@@ -125,7 +109,7 @@
         "clientId": 1727098679785,
         "text": "My comment for product 2",
         "evaluation": 3.5,
-        "likes" : [],
+        "likes": [],
         "video": [],
         "photo": []
       }
@@ -198,7 +182,7 @@
         "clientId": 1727098679785,
         "text": "123",
         "evaluation": 1.5,
-        "likes" : [],
+        "likes": [],
         "video": [],
         "photo": []
       }

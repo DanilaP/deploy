@@ -2,6 +2,7 @@ import { Rating } from '@mui/material';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IReview } from '../../../../interfaces/interfaces';
+import { Favorite } from '@material-ui/icons';
 
 export default function Review (props: { review: IReview }) {
 
@@ -27,6 +28,10 @@ export default function Review (props: { review: IReview }) {
                 <div className="review-text">
                     { props.review.text }
                 </div>
+            </div>
+            <div className='like-icon' >
+                { props.review.likes.length }
+                <Favorite />
             </div>
         </div>
     );

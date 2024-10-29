@@ -22,7 +22,7 @@
 
     .reviews-content {
         width: 90%;
-        height: 90%;
+        height: max-content;
         border: 1px solid rgba(128, 128, 128, 0.247);
         border-radius: 5px;
         background-color: var(--bg-color);
@@ -73,6 +73,17 @@
                     font-weight: 600;
                     text-align: center;
                 }
+
+                .files-data {
+                    display: flex;
+                    flex-direction: column;
+
+                    .files-data-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 20px;
+                    }
+                }
             }
         }
         
@@ -92,8 +103,25 @@
                 padding: 20px;
                 display: flex;
                 gap: 20px;
-                border-radius: 5px;
-                
+                border-radius: 5px; 
+                position: relative;
+
+                .like-icon {
+                    display: flex;
+                    align-items: center;
+                    position: absolute;
+                    right: 20px;
+                    bottom: 20px;
+                    cursor: pointer;
+                    
+                    .MuiSvgIcon-root {
+                        
+                        &:hover {
+                            color: red;
+                        }
+                    }
+                }
+
                 .review-avatar {
 
                     .avatar {

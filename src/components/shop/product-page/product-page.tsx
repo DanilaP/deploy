@@ -79,7 +79,7 @@ export default function ProductPage () {
                 </div>
             </div>
         )
-        : <Skeleton />
+        : <Skeleton style={ { margin: "0 auto" } } variant="rectangular" width={ "60vw" } height={ "90vh" }/>
     );
 }
 

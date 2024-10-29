@@ -8,6 +8,7 @@ import Review from './review/review';
 import { IReview } from '../../../interfaces/interfaces';
 import { useSelector } from 'react-redux';
 import { getAverageEvaluation } from '../../../helpers/product-page-helpers';
+import InputFile from '../../../components-ui/custom-file-nput/file-input';
 
 export default function ProductReviews () {
 
@@ -17,6 +18,11 @@ export default function ProductReviews () {
         { text: "", evaluation: 0 }
     );
     const user = useSelector((store: any) => store.user);
+    const [userMediaFiles, setUserMediaFiles] = useState<{ image: File | null,video: File | null }>({
+        image: null,
+        video: null
+    });
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const { t } = useTranslation();
     
@@ -24,7 +30,7 @@ export default function ProductReviews () {
         if (userReviewInfo.text !== "" && userReviewInfo.evaluation !== 0) {
             const review = { ...userReviewInfo, evaluation: userReviewInfo.evaluation };
 
-            $api.put("/product", { review, productId: params.id })
+            $api.put("/product", { review, productId: params.id, userMediaFiles })
             .then((res) => {
                 const isReviewExisted = productInfo.reviews.filter((review: IReview) => review.clientId === user.id);
                 if (isReviewExisted.length === 0) {
@@ -59,6 +65,14 @@ export default function ProductReviews () {
         });
     };
 
+    const changeUserMedia = (files: FileList | null, type: string) => {
+        if (files) {
+            type === "image" 
+            ? setUserMediaFiles({ ...userMediaFiles, image: files[0] })
+            : setUserMediaFiles({ ...userMediaFiles, video: files[0] });
+        }
+    };
+
     useEffect(() => {
         document.title = t("titles.aboutPage");
     });
@@ -82,13 +96,13 @@ export default function ProductReviews () {
     return (
         <div className='reviews-main'>
             <div className="reviews-header">
-                { t("text.productReviews") }: { productInfo?.title }
+                { t("text.productReviews") }: <div>{ productInfo?.title }</div>
             </div>
             <div className="reviews-content">
                 <div className="reviews-settings">
                     <div className="reviews-settings-info">
                         <div className="average-rating">
-                            { productInfo ? getAverageEvaluation(productInfo.reviews) : 0 }
+                            { productInfo?.reviews?.length > 0 ? getAverageEvaluation(productInfo.reviews) : 0 }
                         </div>
                         <Rating 
                             name="half-rating" 
@@ -106,6 +120,16 @@ export default function ProductReviews () {
                             multiline 
                             rows={ 2 }
                         />
+                        <div className="files-data">
+                            <div className='files-data-item'>
+                                <div>Загрузка изображений</div>
+                                <InputFile onChange={ (e) => changeUserMedia(e.target.files, "image") } />
+                            </div>
+                            <div className='files-data-item'>
+                                <div>Загрузка видео</div>
+                                <InputFile onChange={ (e) => changeUserMedia(e.target.files, "video") } />
+                            </div>
+                        </div>
                         <div className="user-evaluation"> 
                             { isLoading &&
                                 <Rating
