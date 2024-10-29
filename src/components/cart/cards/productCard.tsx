@@ -14,12 +14,13 @@ import { useTranslation } from 'react-i18next';
 
 interface ProductCardProps {
     isAllChecked: boolean;
+    item: any;
 }
-const productCard: FC<ProductCardProps> = ({ isAllChecked }) => {
+const productCard: FC<ProductCardProps> = ({ isAllChecked, item }) => {
     const { t } = useTranslation();
 
     return (
-        <Card sx={{ maxWidth: 800, boxShadow: 'none', backgroundColor: 'whitesmoke' }}>
+        <Card sx={{ maxWidth: '100%', boxShadow: 'none', backgroundColor: 'whitesmoke' }}>
             <Stack direction="row" spacing={2} sx={{ justifyContent: "space-between", alignItems: "center" }}>
                 <Checkbox
                     sx={{ alignSelf: 'flex-start' }}
@@ -30,19 +31,19 @@ const productCard: FC<ProductCardProps> = ({ isAllChecked }) => {
                 </CardMedia>
                 <CardContent sx={{ flex: '1 0 auto' }}>
                     <Typography component="div" variant="body1">
-                        ASUS ZenBook 14
+                        {item.name}
                     </Typography>
                     <Typography
                         variant="subtitle1"
                         component="div"
                         sx={{ color: 'text.secondary' }}
                     >
-                        1 шт. синий
+                        {item.description}
                     </Typography>
                 </CardContent>
                 <CardContent sx={{ flex: '1 0 auto' }}>
                     <Typography component="div" variant="body1">
-                       40 000 {t('symbols.rub')}
+                        {2000} {t('symbols.rub')}
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <Button
