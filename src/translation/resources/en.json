@@ -15,7 +15,8 @@
         "manipulateUser": "User manipulation",
         "profilePage": "Profile page",
         "permissionsPage": "Permissions page",
-        "rolesPage": "Roles page"
+        "rolesPage": "Roles page",
+        "goodsPage": "Goods page"
     },
     "labels": {
         "loading": "Loading..."
@@ -31,6 +32,8 @@
         "confirm": "Confirm",
         "close": "Close",
         "admin": "Admin",
+        "editGood": "Edit good",
+        "deleteGoods": "Delete good",
         "deletingUser": "Deleting user",
         "deletingUserConfirmation": "Do you want to delete the user?",
         "manipulateUser": "User manipulating",
@@ -57,7 +60,8 @@
         "myOrders": "My orders",
         "createGroup": "Create group",
         "deleteGroup": "Delete group",
-        "groupName": "Group name"
+        "groupName": "Group name",
+        "createGoods": "Create good"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",

@@ -4,7 +4,6 @@ import MediaCard from './card/card';
 import './shop.scss';
 import { Button, Menu, MenuItem, Select, TextField } from '@mui/material';
 
-
 export default function ShopPage () {
 
     const { t } = useTranslation();

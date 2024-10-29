@@ -1,0 +1,52 @@
+.update-good-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+    margin: 10px 0px 10px 0px;
+    .field {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        column-gap: 5px;
+        row-gap: 5px;
+        .label {
+            font-weight: 500;
+        }
+        .MuiInputBase-root {
+            height: 36.5px;
+        }
+        .MuiInputBase-input {
+            height: 1px;
+        }
+        .file-input {
+            width: 100%;
+            padding: 5px 0px 5px 0px;
+            border: none !important;
+        }
+        .field-column {
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            column-gap: 5px;
+            .hide-add {
+                width: 45px;
+            }
+        }
+    }
+    .field-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 5px;
+        .actions {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            cursor: pointer;
+        }
+    }
+    .field-mid-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 5px;
+    }
+}

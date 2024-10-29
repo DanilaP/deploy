@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from '../../translation/i18n';
 import { useNavigate } from 'react-router';
 import { MenuItem } from '@mui/material';
-import { SupervisedUserCircle, SupervisorAccount, Security } from '@material-ui/icons';
+import { SupervisedUserCircle, ShoppingCart, SupervisorAccount, Security } from '@material-ui/icons';
 import './admin.scss';
 import { checkConcretePermissions } from '../../helpers/permissions-helpers';
 
@@ -54,7 +54,12 @@ export default function AdminPage (props: AdminPageProps) {
                             <Security />{ !isMenuTextExists ? t("titles.permissionsPage") : null }
                         </MenuItem>  : null
                     }
-                    
+                    {
+                        permissionsExists.CreateGroupOfPermissions || permissionsExists.DeleteGroupOfPermissions || permissionsExists.ModifyGroupOfPermissions ? 
+                        <MenuItem onClick={ () => navigate("/admin/goods")}>
+                            <ShoppingCart />{ !isMenuTextExists ? t("titles.goodsPage") : null }
+                        </MenuItem>  : null
+                    }
                 </div>
                 <div className="content">{ children }</div>
             </div>

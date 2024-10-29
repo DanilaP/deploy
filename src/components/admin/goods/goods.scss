@@ -1,0 +1,36 @@
+.goods {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    .title {
+        font-size: 24px;
+    }
+    .actions {
+        display: flex;
+        column-gap: 5px;
+        .MuiInputBase-input {
+            height: 3.5px;
+        }
+    }
+    .list {
+        display: grid;
+        row-gap: 10px;
+        .wrapper {
+            display: grid;
+            grid-template-columns: calc(100% - 270px) 270px;
+            align-items: center;
+            padding: 10px;
+            border-radius: 7px;
+            min-height: 40px;
+            background-color: var(--bg-color-block);
+            .good-info {
+                display: flex;
+                column-gap: 20px;
+            }
+            .good-actions {
+                display: flex;
+                column-gap: 5px;
+            }
+        }
+    }
+}
