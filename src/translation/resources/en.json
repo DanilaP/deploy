@@ -73,7 +73,8 @@
         "choosenVariation": "Choosen variation",
         "changeReview": "Change review",
         "deleteReview": "Delete review",
-        "review": "Review"
+        "review": "Review",
+        "quantity": "Quantity"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",

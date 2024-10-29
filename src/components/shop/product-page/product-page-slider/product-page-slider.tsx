@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/navigation';
+import './product-page-slider.scss';
 
 export default function ProductSlider (props: { variationInfo: any }) {
 
@@ -14,7 +15,9 @@ export default function ProductSlider (props: { variationInfo: any }) {
     
     return (
         <div className="product-slider">
-            <Swiper navigation={true} modules={[Navigation]}>
+            <Swiper 
+                navigation={true} 
+                modules={[Navigation]}>
                 {
                     props.variationInfo?.images.map((image: string) => {
                         return (

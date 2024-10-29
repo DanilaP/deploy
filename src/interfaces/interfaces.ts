@@ -3,7 +3,8 @@ export interface IUser {
     login?: string,
     password?: string,
     role?: string,
-    avatar?: string
+    avatar?: string,
+    backet: IProduct[]
 }
 export interface IPermission {
     name: string,
@@ -21,16 +22,21 @@ export interface IProduct {
     id: number,
     name: string,
     description: string,
+    fullDescription: string,
     images: string[],
     video: string,
     category: string,
     provider: string,
     reviews: IReview[],
     variations: object[],
+    additionalInfo: []
 }
 export interface IReview {
     clientId?: string,
     text: string,
     avatar: string,
-    evaluation: number
+    evaluation: number,
+    video: string[],
+    photo: string[],
+    likes: string[]
 }
