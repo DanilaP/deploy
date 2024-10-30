@@ -63,6 +63,19 @@
         "orderAmount": "Сумма заказа",
         "order": "Заказать",
         "pcs": "шт",
+        "cart": {
+            "productChoose": "Выберите товары, чтобы перейти к оформлению",
+            "preDeliverInfo": "Доступные способы и время доставки можно выбрать при оформлении заказа",
+            "placeOrderButton": "Перейти к оформлению",
+            "deleteProductsButton": "Удалить выбранные",
+            "selectAll": "Выбрать все",
+            "stock": "В наличии",
+            "color": "Цвет",
+            "noColor": "Цвет не указан",
+            "emptyBasket": "Корзина пуста",
+            "findProductsInfo": "Что бы найти товары, перейдите в каталог",
+            "toCatalog": "В каталог"
+        },
         "productsCount": {
             "product_one": "{{count}} товар",
             "product_few": "{{count}} товара",
