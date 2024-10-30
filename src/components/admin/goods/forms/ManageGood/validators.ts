@@ -1,4 +1,4 @@
-import { IAdditionalInfo, IVariation } from "../../../../../interfaces/interfaces";
+import { IAdditionalInfo, IProduct, IVariation } from "../../../../../interfaces/interfaces";
 
 export const validateVariations = (variations: IVariation[]) => {
     let isValid: boolean = true;
@@ -27,5 +27,22 @@ export const validateAdditionalInfo = (additionalInfo: IAdditionalInfo[]) => {
             return isValid;
         }
     });
+    return isValid;
+};
+
+export const validateCommonFields = (newGoodData: IProduct) => {
+    let isValid = true;
+    if ( newGoodData?.category.length === 0 ||
+        newGoodData?.name.length === 0 ||
+        newGoodData?.provider.length === 0 ||
+        newGoodData?.description.length === 0 ||
+        newGoodData?.fullDescription.length === 0 ||
+        !newGoodData?.images ||
+        !newGoodData?.video ||
+        newGoodData?.provider.length === 0 
+    ) {
+        isValid = false;
+        return isValid;
+    }
     return isValid;
 };

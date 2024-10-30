@@ -67,7 +67,7 @@ export const GoodsPage = () => {
             formData.append('id', JSON.stringify(goodData.id));
         }
         const response = $api.post("/product", formData);
-        response.then(res => {
+        response.then((res: any) => {
             if (res.data) {
                 let updatedProducts = [];
                 if (goodData.id) {               
@@ -107,7 +107,7 @@ export const GoodsPage = () => {
 
     useEffect(() => {
         const response = $api.get("/products");
-        response.then(res => {
+        response.then((res: any) => {
             if (res.data.products) {
                 setCurrentProducts(res.data.products);
                 setFilteredProducts(res.data.products);

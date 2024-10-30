@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { DEFAULT_PRODUCT } from "./constants";
 import { useTranslation } from "react-i18next";
 import { IAdditionalInfo, IProduct, IVariation } from "../../../../../interfaces/interfaces";
+import { validateAdditionalInfo, validateCommonFields, validateVariations } from "./validators";
+import { convertFileListToBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import InputFile from "../../../../../components-ui/custom-file-nput/file-input";
 import "./ManageGood.scss";
-import { validateAdditionalInfo, validateVariations } from "./validators";
-import { convertFileListToBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
 
 export const ManageGoodForm = ({ 
     mode,
@@ -95,15 +95,10 @@ export const ManageGoodForm = ({
     };
 
     const handleUpdateSaveGoodData = () => {
+        console.log(validateCommonFields(newGoodData));
+        
         if (
-            newGoodData?.category.length !== 0 &&
-            newGoodData?.name.length !== 0 &&
-            newGoodData?.provider.length !== 0 &&
-            newGoodData?.description.length !== 0 &&
-            newGoodData?.fullDescription.length !== 0 &&
-            newGoodData?.images &&
-            newGoodData?.video &&
-            newGoodData?.provider.length !== 0 &&
+            validateCommonFields(newGoodData) && 
             validateAdditionalInfo(newGoodData.additionalInfo) &&
             validateVariations(newGoodData.variations)
         ) {
