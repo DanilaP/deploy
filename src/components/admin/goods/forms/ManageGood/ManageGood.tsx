@@ -1,12 +1,14 @@
 import { Button, MenuItem, Select, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import "./ManageGood.scss";
+import { DEFAULT_PRODUCT } from "./constants";
 import { useTranslation } from "react-i18next";
 import { IAdditionalInfo, IProduct, IVariation } from "../../../../../interfaces/interfaces";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import BackspaceIcon from '@material-ui/icons/Backspace';
-import { DEFAULT_PRODUCT } from "./constants";
 import InputFile from "../../../../../components-ui/custom-file-nput/file-input";
+import "./ManageGood.scss";
+import { validateAdditionalInfo, validateVariations } from "./validators";
+import { convertFileListToBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
 
 export const ManageGoodForm = ({ 
     mode,
@@ -21,7 +23,7 @@ export const ManageGoodForm = ({
 }) => {
     
     const { t } = useTranslation();
-    const [newGoodData, setNewGoodData] = useState(goodData || DEFAULT_PRODUCT);
+    const [newGoodData, setNewGoodData] = useState<IProduct>(goodData || DEFAULT_PRODUCT);
     const isEdit = mode === "edit";
     
     const handleAddAdditionalInfo = () => {
@@ -102,8 +104,8 @@ export const ManageGoodForm = ({
             newGoodData?.images &&
             newGoodData?.video &&
             newGoodData?.provider.length !== 0 &&
-            newGoodData?.additionalInfo.length !== 0 &&
-            newGoodData?.variations.length !== 0
+            validateAdditionalInfo(newGoodData.additionalInfo) &&
+            validateVariations(newGoodData.variations)
         ) {
             handleUpdateGood(newGoodData);
         }
@@ -174,7 +176,7 @@ export const ManageGoodForm = ({
                         height="25px"
                         multiple 
                         accept=".png, .jpg, .jpeg"
-                        onChange={(e) => setNewGoodData({ ...newGoodData, images: e.target.files })}
+                        onChange={(e) => setNewGoodData({ ...newGoodData, images: convertFileListToBlobArray(e.target.files) })}
                     /> ({newGoodData.images.length})
                 </div>
                 <div className="field-inline">
@@ -183,7 +185,7 @@ export const ManageGoodForm = ({
                         width="25px" 
                         height="25px"
                         accept=".mp4"
-                        onChange={(e) => setNewGoodData({ ...newGoodData, video: e.target.files })}
+                        onChange={(e) => setNewGoodData({ ...newGoodData, video: convertFileListToBlobArray(e.target.files)[0] })}
                     /> ({ newGoodData.video.length !== 0 ? 1 : 0 })
                 </div>
             </div>

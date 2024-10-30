@@ -1,12 +1,11 @@
 import { Button, TextField } from "@mui/material";
-import "./goods.scss";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 import { ManageGoodForm } from "./forms/ManageGood/ManageGood";
 import { IProduct } from "../../../interfaces/interfaces";
+import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 import $api from '../../../configs/axiosconfig/axios.js';
-import { convertFileListToBlobArray } from "../../../helpers/convert-file-list-to-blob-array.js";
+import "./goods.scss";
 
 export const GoodsPage = () => {
 
@@ -74,16 +73,15 @@ export const GoodsPage = () => {
                 if (goodData.id) {               
                     updatedProducts = currentProducts.map(el => {
                         if (el.id === goodData.id) {
-                            return { ...goodData, images: convertFileListToBlobArray(goodData.images) };
+                            return { ...goodData, images: goodData.images };
                         }
                         return el;
-                    });
-                    
+                    }); 
                 } else {          
                     updatedProducts = [...currentProducts, { 
                         ...goodData, 
                         id: Date.now(),
-                        images: convertFileListToBlobArray(goodData.images)
+                        images: goodData.images
                     }];
                 }
                 setFilteredProducts(updatedProducts);
