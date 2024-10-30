@@ -59,13 +59,25 @@
         "createGroup": "Create group",
         "deleteGroup": "Delete group",
         "groupName": "Group name",
-        "total": "Total price",
-        "orderAmount": "Order Details",
-        "order": "Proceed to checkout",
-        "pcs": "pcs",
-        "productsCount": {
-            "product_one": "{{count}} item",
-            "product_other": "{{count}} items"
+        "cart": {
+            "productChoose": "Select products to proceed to checkout",
+            "preDeliverInfo": "Available delivery methods and times can be selected when placing an order",
+            "placeOrderButton": "Proceed to checkout",
+            "deleteProductsButton": "Delete selected",
+            "selectAll": "Select all",
+            "stock": "In stock",
+            "color": "Color",
+            "noColor": "Color not specified",
+            "emptyBasket": "Cart is empty",
+            "findProductsInfo": "Go to the catalog to find products",
+            "toCatalog": "To the catalog",
+            "variation": "equipment",
+            "total": "Total price",
+            "pcs": "pcs",
+            "productsCount": {
+                "product_one": "{{count}} item",
+                "product_other": "{{count}} items"
+            }
         }
     },
     "methods": {

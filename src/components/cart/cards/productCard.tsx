@@ -20,8 +20,6 @@ interface ProductCardProps {
     isSelected: boolean;
     onSelect: () => void;
     product: any;
-    quantity: number;
-    onQuantityChange: (newQuantity: number) => void;
 }
 
 const styles = {
@@ -38,19 +36,14 @@ const styles = {
     actionIcons: { alignSelf: 'flex-start', display: 'flex', alignItems: 'center', mt: 2, color: 'gray' },
     priceText: { alignSelf: 'flex-start' }
 };
-const productCard: FC<ProductCardProps> = ({  product, isSelected, onSelect, quantity, onQuantityChange}) => {
+const productCard: FC<ProductCardProps> = ({  product, isSelected, onSelect }) => {
     const { t } = useTranslation();
-    const { productInfo } = product;
+    const { productInfo, number } = product;
+    const { variations, additionalInfo } = productInfo;
 
-    const handleIncrease = () => {
-        onQuantityChange(quantity + 1);
-    };
-
-    const handleDecrease = () => {
-        if (quantity > 1) {
-            onQuantityChange(quantity - 1);
-        }
-    };
+    const currentVariation = variations.find((variation: any) => variation.name === product.variation);
+    const currentColor = additionalInfo.find((info: any) => info.name === 'Цвет')?.description || t('text.cart.noColor');
+    const { stock, price, image, title } = currentVariation;
 
     return (
         <Card sx={styles.card}>
@@ -60,20 +53,18 @@ const productCard: FC<ProductCardProps> = ({  product, isSelected, onSelect, qua
                     <CardMedia
                         component="img"
                         sx={styles.media}
-                        image="https://opis-cdn.tinkoffjournal.ru/mercury/laptops-for-work-9.lbefgwwf4wck..jpg"
+                        image={image} //"https://opis-cdn.tinkoffjournal.ru/mercury/laptops-for-work-9.lbefgwwf4wck..jpg"
                         alt={productInfo.name}
                     />
                     <Stack>
                         <Typography variant="h6" component="div" sx={styles.productName}>
-                            {`${productInfo.name}, базовая комплектация`}
+                            {`${productInfo.name}, ${title} ${t('text.cart.variation')}`}
                         </Typography>
                         <Typography gutterBottom variant="subtitle2" sx={styles.colorDescription}>
-                            {t('text.cart.color')} {productInfo.additionalInfo.find(info => info.name === 'Цвет')?.description || t('text.cart.noColor')}
+                            {t('text.cart.color')} {currentColor}
                         </Typography>
                         <Box sx={styles.quantityBox}>
                             <Button
-                                disabled={!quantity}
-                                onClick={handleDecrease}
                                 variant="outlined"
                                 color="primary"
                                 size="small"
@@ -81,10 +72,8 @@ const productCard: FC<ProductCardProps> = ({  product, isSelected, onSelect, qua
                             >
                                 <Remove fontSize="small" />
                             </Button>
-                            <Typography variant="body1">{quantity}</Typography>
+                            <Typography variant="body1">{number}</Typography>
                             <Button
-                                disabled={quantity >= productInfo.variations.find(variation => variation.name === product.variation)?.stock}
-                                onClick={handleIncrease}
                                 variant="outlined"
                                 color="primary"
                                 size="small"
@@ -94,7 +83,7 @@ const productCard: FC<ProductCardProps> = ({  product, isSelected, onSelect, qua
                             </Button>
                         </Box>
                         <Typography gutterBottom variant="subtitle2" sx={styles.stockText}>
-                            {t('text.cart.stock')}: {productInfo.variations.find(variation => variation.name === product.variation)?.stock || 0} шт.
+                            {t('text.cart.stock')}: {stock} {t('text.cart.pcs')}.
                         </Typography>
                     </Stack>
                 </Stack>
@@ -109,7 +98,7 @@ const productCard: FC<ProductCardProps> = ({  product, isSelected, onSelect, qua
                         </IconButton>
                     </Box>
                     <Typography variant="h6" component="div" sx={styles.priceText}>
-                        {productInfo.variations.find(variation => variation.name === product.variation)?.price} ₽
+                        {price} {t('symbols.rub')}
                     </Typography>
                 </Stack>
             </Stack>

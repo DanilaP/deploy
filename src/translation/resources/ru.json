@@ -59,10 +59,6 @@
         "createGroup": "Создать группу",
         "deleteGroup": "Удалить группу",
         "groupName": "Наименование группы",
-        "total": "Итого",
-        "orderAmount": "Сумма заказа",
-        "order": "Заказать",
-        "pcs": "шт",
         "cart": {
             "productChoose": "Выберите товары, чтобы перейти к оформлению",
             "preDeliverInfo": "Доступные способы и время доставки можно выбрать при оформлении заказа",
@@ -74,12 +70,15 @@
             "noColor": "Цвет не указан",
             "emptyBasket": "Корзина пуста",
             "findProductsInfo": "Что бы найти товары, перейдите в каталог",
-            "toCatalog": "В каталог"
-        },
-        "productsCount": {
-            "product_one": "{{count}} товар",
-            "product_few": "{{count}} товара",
-            "product_many": "{{count}} товаров"
+            "toCatalog": "В каталог",
+            "variation": "комплектация",
+            "total": "Итого",
+            "pcs": "шт",
+            "productsCount": {
+                "product_one": "{{count}} товар",
+                "product_few": "{{count}} товара",
+                "product_many": "{{count}} товаров"
+            }
         }
     },
     "methods": {

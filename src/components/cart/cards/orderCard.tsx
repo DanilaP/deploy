@@ -1,22 +1,18 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import {Button, Typography, CardActions, Divider} from '@mui/material';
+import { Button, Typography, CardActions, Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { FC } from 'react';
 
 interface OrderCardProps {
-    isAllChecked: boolean;
-    productsCount: number;
     selectedProductIds: any[];
     totalSum: number;
+    totalQuantity: number;
 }
 
-interface OrderPromtProps {
-    isAllChecked: boolean;
-    productsCount: number;
-    sumToShow: number | string;
-    selectedProductIds: any[];
-    totalSum: number;
+interface OrderPromptProps {
+    sumToShow: string;
+    totalQuantity: number;
 }
 
 const emptyOrderPromptStyles = {
@@ -87,7 +83,7 @@ const EmptyOrderPrompt = () => {
     );
 };
 
-const OrderPrompt: FC<OrderPromtProps> = ({ isAllChecked, productsCount, sumToShow}) => {
+const OrderPrompt: FC<OrderPromptProps> = ({ sumToShow, totalQuantity}) => {
     const { t } = useTranslation();
 
     return (
@@ -98,11 +94,11 @@ const OrderPrompt: FC<OrderPromtProps> = ({ isAllChecked, productsCount, sumToSh
             <Divider />
             <Typography {...orderPromptStyles.total}>
                 <span>
-                    {t('text.total')}:
+                    {t('text.cart.total')}:
                 </span>
             </Typography>
             <Typography {...orderPromptStyles.products}>
-                {t('text.products')}, {isAllChecked ? productsCount : 0} {t('text.pcs')}.
+                {t('text.products')}, {totalQuantity} {t('text.cart.pcs')}.
                 <Typography {...orderPromptStyles.price}>
                     {sumToShow}{t('symbols.rub')}
                 </Typography>
@@ -111,19 +107,23 @@ const OrderPrompt: FC<OrderPromtProps> = ({ isAllChecked, productsCount, sumToSh
     );
 };
 
-const orderCard: FC<OrderCardProps> = ({ isAllChecked, productsCount, selectedProductIds, totalSum }) => {
+const orderCard: FC<OrderCardProps> = ({ selectedProductIds, totalSum, totalQuantity }) => {
     const { t } = useTranslation();
     const sumToShow = totalSum.toLocaleString('ru-RU');
+    const isSomeSelected = selectedProductIds.length > 0;
 
     return (
         <Card sx={orderCardStyles.card}>
-            {selectedProductIds.length > 0 ? (
-                <OrderPrompt isAllChecked={isAllChecked} productsCount={productsCount} sumToShow={sumToShow} />
+            {isSomeSelected ? (
+                <OrderPrompt
+                    sumToShow={sumToShow}
+                    totalQuantity={totalQuantity}
+                />
             ) : (
                 <EmptyOrderPrompt />
             )}
             <CardActions>
-                <Button variant="contained" disabled={selectedProductIds.length === 0} fullWidth>
+                <Button variant="contained" disabled={!isSomeSelected} fullWidth>
                     {t('text.cart.placeOrderButton')}
                 </Button>
             </CardActions>

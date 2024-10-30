@@ -59,47 +59,47 @@ const styles = {
 
 const Cart = () => {
     const { t } = useTranslation();
-    const [selectedProductIds, setSelectedProductIds] = useState<any>([]);
-    const [basket, setBasket] = useState([]);
+    const [basket, setBasket] = useState<any>([]);
+    const [selectedProductIds, setSelectedProductIds] = useState<string[]>([]);
     const [isAllSelected, setIsAllSelected] = useState(true);
     const [totalSum, setTotalSum] = useState(0);
-    const productsCount = basket.length;
+    const [totalQuantity, setTotalQuantity] = useState(0);
+    const isBasketEmpty = basket.length === 0;
 
-    const calculateTotalSum = () => {
-        const sum = basket && basket
-            .filter((product: any) => selectedProductIds.includes(product.id))
-            .reduce((acc: number, product: any) => {
-                const { variation, productInfo } = product;
-                const fullVariation = productInfo.variations.find(v => v.name === variation);
-                return acc + (fullVariation?.price || 0);
-            }, 0);
+    const calculateTotals = () => {
+        const filteredBasket = basket.filter(product => selectedProductIds.includes(product.id));
+
+        const quantity = filteredBasket.reduce((acc, product) => product.number + acc, 0);
+        const sum = filteredBasket.reduce((acc, product) => {
+            const currentVariation = product.productInfo.variations.find(v => v.name === product.variation);
+            return acc + (currentVariation?.price * product.number || 0);
+        }, 0);
+
+        setTotalQuantity(quantity);
         setTotalSum(sum);
     };
 
     useEffect(() => {
-        calculateTotalSum();
+        calculateTotals();
     }, [selectedProductIds, basket]);
 
     const handleSelectAllChange = () => {
-        if (isAllSelected) {
-            setSelectedProductIds([]);
-        } else {
-            setSelectedProductIds(basket.map((product: any) => product.id));
-        }
+        const newSelectedIds = isAllSelected ? [] : basket.map(product => product.id);
+        setSelectedProductIds(newSelectedIds);
         setIsAllSelected(!isAllSelected);
     };
 
-    const handleProductSelect = (productId: any) => {
-        setSelectedProductIds((prevSelected: any) =>
+    const handleProductSelect = (productId: string) => {
+        setSelectedProductIds(prevSelected =>
             prevSelected.includes(productId)
-                ? prevSelected.filter((id: any) => id !== productId)
+                ? prevSelected.filter(id => id !== productId)
                 : [...prevSelected, productId]
         );
     };
 
     useEffect(() => {
         if (basket.length > 0) {
-            const allProductIds = basket.map((product: any) => product.id);
+            const allProductIds = basket.map(product => product.id);
             setSelectedProductIds(allProductIds);
             setIsAllSelected(true);
         }
@@ -110,22 +110,22 @@ const Cart = () => {
     }, [selectedProductIds, basket]);
 
     useEffect(() => {
-        const getBacketData = async () => {
+        const fetchBasketData = async () => {
             try {
                 const { data: { backet } } = await $api.get('/backet');
                 setBasket(backet);
-                console.log({ backet })
             } catch (error) {
                 console.error(error);
             }
         };
-        getBacketData();
+        fetchBasketData();
     }, []);
 
     return (
         <Container className="cart" maxWidth="xl" sx={styles.container}>
-            {basket.length === 0 && <EmptyCartCard />}
-            {basket.length > 0 && (
+            { isBasketEmpty ? (
+                <EmptyCartCard />
+            ) : (
                 <Grid container rowSpacing={1} columnSpacing={2}>
                     <Grid size={{ sm: 12, md: 8, lg: 8, xl: 6 }} gap={2}>
                         <Stack direction='row' spacing={2} sx={styles.headerStack}>
@@ -133,7 +133,7 @@ const Cart = () => {
                                 {t('titles.cart')}
                             </Typography>
                             <Typography sx={styles.subtitleTypography} variant='subtitle1'>
-                                {t('text.productsCount.product', { count: productsCount })}
+                                {t('text.cart.productsCount.product', { count: totalQuantity })}
                             </Typography>
                         </Stack>
 
@@ -167,10 +167,9 @@ const Cart = () => {
 
                     <Grid size={{ sm: 12, md: 4, lg: 4, xl: 6 }} sx={styles.orderCardGrid}>
                         <OrderCard
-                            isAllSelected={isAllSelected}
-                            productsCount={productsCount}
                             selectedProductIds={selectedProductIds}
                             totalSum={totalSum}
+                            totalQuantity={totalQuantity}
                         />
                     </Grid>
                 </Grid>
