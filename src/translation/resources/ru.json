@@ -74,7 +74,8 @@
         "changeReview": "Изменить отзыв",
         "deleteReview": "Удалить отзыв",
         "review": "Отзыв",
-        "quantity": "Количество"
+        "quantity": "Количество",
+        "uploadFiles": "Загрузка файлов"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

@@ -18,6 +18,16 @@
         display: flex;
         width: 90%;
         font-size: 30px;
+
+        .product-link {
+            cursor: pointer;
+            text-decoration: underline;
+            padding-left: 10px;
+            
+            &:hover {
+                color: #1976d2;
+            }
+        }
     }
 
     .reviews-content {
@@ -38,7 +48,6 @@
             box-sizing: border-box;
             padding: 20px;
             display: flex;
-            justify-content: center;
             flex-direction: column;
             gap: 20px;
 
@@ -96,14 +105,12 @@
             flex-direction: column;
             overflow-y: scroll;
             padding: 20px;
+            height: 100%;
 
             .review {
-                height: max-content;
-                background-color: var(--bg-color);
-                padding: 20px;
                 display: flex;
-                gap: 20px;
-                border-radius: 5px; 
+                flex-direction: column;
+                background-color: var(--bg-color);
                 position: relative;
 
                 .like-icon {
@@ -113,14 +120,40 @@
                     right: 20px;
                     bottom: 20px;
                     cursor: pointer;
-                    
+                    border: none;
+                }
+                .active {
                     .MuiSvgIcon-root {
-                        
-                        &:hover {
-                            color: red;
-                        }
+                        color: red;
                     }
                 }
+                .inactive {
+                    .MuiSvgIcon-root {
+                        color: #1976d2;
+                    }
+                }
+
+                .review-images {
+                    display: flex;
+                    gap: 10px;
+                    margin-left: 20px;
+                    margin-bottom: 20px;
+
+                    .media {
+                        width: 70px;
+                        height: 70px;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .review-content {
+                height: max-content;
+                background-color: var(--bg-color);
+                padding: 20px;
+                display: flex;
+                gap: 20px;
+                border-radius: 5px; 
 
                 .review-avatar {
 

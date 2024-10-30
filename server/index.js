@@ -317,7 +317,9 @@ app.put("/product", async function(req, res) {
                         ...product,
                         reviews: [...product.reviews, {
                             clientId: userId,
-                            ...req.body.review
+                            ...req.body.review,
+                            video: "http://localhost:5000/video/video1.mp4",
+                            photo: "http://localhost:5000/products/product1.jpg"
                         }]
                     };
                 }
@@ -328,7 +330,9 @@ app.put("/product", async function(req, res) {
                             if (review.clientId === userId) {
                                 return {
                                     clientId: userId,
-                                    ...req.body.review
+                                    ...req.body.review,
+                                    video: "http://localhost:5000/video/video1.mp4",
+                                    photo: "http://localhost:5000/products/product1.jpg"
                                 };
                             } else return review;
                         })
@@ -340,7 +344,9 @@ app.put("/product", async function(req, res) {
         res.status(200).json({ message: "Данные о товаре успешно изменены!", review: {
             ...req.body.review,
             clientId: userId,
-            avatar: user.avatar
+            avatar: user.avatar,
+            video: "http://localhost:5000/video/video1.mp4",
+            photo: "http://localhost:5000/products/product1.jpg"
         } });
     }
     catch(error) {

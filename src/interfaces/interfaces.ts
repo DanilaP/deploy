@@ -36,7 +36,7 @@ export interface IReview {
     text: string,
     avatar: string,
     evaluation: number,
-    video: string[],
-    photo: string[],
-    likes: string[]
+    video?: string,
+    photo?: string,
+    likes?: string[]
 }

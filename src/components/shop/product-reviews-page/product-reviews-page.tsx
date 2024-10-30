@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './product-reviews-page.scss';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import $api from "../../../configs/axiosconfig/axios";
 import { Button, Rating, TextField } from '@mui/material';
 import Review from './review/review';
@@ -24,6 +24,7 @@ export default function ProductReviews () {
     });
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const navigate = useNavigate();
     const { t } = useTranslation();
     
     const createReview = () => {
@@ -65,9 +66,9 @@ export default function ProductReviews () {
         });
     };
 
-    const changeUserMedia = (files: FileList | null, type: string) => {
+    const changeUserMedia = (files: FileList | null) => {
         if (files) {
-            type === "image" 
+            files[0].name.includes("image") 
             ? setUserMediaFiles({ ...userMediaFiles, image: files[0] })
             : setUserMediaFiles({ ...userMediaFiles, video: files[0] });
         }
@@ -96,7 +97,8 @@ export default function ProductReviews () {
     return (
         <div className='reviews-main'>
             <div className="reviews-header">
-                { t("text.productReviews") }: <div>{ productInfo?.title }</div>
+                { t("text.productReviews") }: 
+                <div className='product-link' onClick={ () => navigate(-1) }>{ productInfo?.title }</div>
             </div>
             <div className="reviews-content">
                 <div className="reviews-settings">
@@ -122,12 +124,8 @@ export default function ProductReviews () {
                         />
                         <div className="files-data">
                             <div className='files-data-item'>
-                                <div>Загрузка изображений</div>
-                                <InputFile onChange={ (e) => changeUserMedia(e.target.files, "image") } />
-                            </div>
-                            <div className='files-data-item'>
-                                <div>Загрузка видео</div>
-                                <InputFile onChange={ (e) => changeUserMedia(e.target.files, "video") } />
+                                <div>{ t("text.uploadFiles") }</div>
+                                <InputFile onChange={ (e) => changeUserMedia(e.target.files) } />
                             </div>
                         </div>
                         <div className="user-evaluation"> 
