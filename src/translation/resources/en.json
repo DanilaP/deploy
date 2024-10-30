@@ -77,7 +77,11 @@
             "productsCount": {
                 "product_one": "{{count}} item",
                 "product_other": "{{count}} items"
-            }
+            },
+            "confirmDeleteTitle": "Removing product",
+            "confirmDeleteMessage": "Are you sure you want to delete the product?",
+            "delete": "Delete",
+            "cancel": "Cancel"
         }
     },
     "methods": {

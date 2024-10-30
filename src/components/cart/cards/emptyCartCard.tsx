@@ -2,7 +2,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
-import {useTranslation} from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 const styles = {
     card: {
@@ -26,6 +26,7 @@ const styles = {
         sx: { marginTop: 2 },
     },
 };
+
 const emptyCartCard = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();

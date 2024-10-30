@@ -60,54 +60,32 @@ const styles = {
 const Cart = () => {
     const { t } = useTranslation();
     const [basket, setBasket] = useState<any>([]);
-    const [selectedProductIds, setSelectedProductIds] = useState<string[]>([]);
-    const [isAllSelected, setIsAllSelected] = useState(true);
-    const [totalSum, setTotalSum] = useState(0);
-    const [totalQuantity, setTotalQuantity] = useState(0);
+    const [selectedProductIds, setSelectedProductIds] = useState<Array<number>>([]);
+    const [isAllSelected, setIsAllSelected] = useState<boolean>(true);
+    const [totalSum, setTotalSum] = useState<number>(0);
+    const [selectedTotalQuantity, setSelectedTotalQuantity] = useState<number>(0);
+    const [totalBasketQuantity, setTotalBasketQuantity] = useState<number>(0);
+
     const isBasketEmpty = basket.length === 0;
+    const isSomeSelected = selectedProductIds.length > 0;
+
+    const calculateFullBasketQuantity = () => {
+        const totalQuantity = basket.reduce((acc, product) => acc + product.number, 0);
+        setTotalBasketQuantity(totalQuantity);
+    };
 
     const calculateTotals = () => {
-        const filteredBasket = basket.filter(product => selectedProductIds.includes(product.id));
+        const filteredBasket = basket.filter((product) => selectedProductIds.includes(product.id));
 
         const quantity = filteredBasket.reduce((acc, product) => product.number + acc, 0);
         const sum = filteredBasket.reduce((acc, product) => {
-            const currentVariation = product.productInfo.variations.find(v => v.name === product.variation);
+            const currentVariation = product.productInfo.variations.find((v) => v.name === product.variation);
             return acc + (currentVariation?.price * product.number || 0);
         }, 0);
 
-        setTotalQuantity(quantity);
+        setSelectedTotalQuantity(quantity);
         setTotalSum(sum);
     };
-
-    useEffect(() => {
-        calculateTotals();
-    }, [selectedProductIds, basket]);
-
-    const handleSelectAllChange = () => {
-        const newSelectedIds = isAllSelected ? [] : basket.map(product => product.id);
-        setSelectedProductIds(newSelectedIds);
-        setIsAllSelected(!isAllSelected);
-    };
-
-    const handleProductSelect = (productId: string) => {
-        setSelectedProductIds(prevSelected =>
-            prevSelected.includes(productId)
-                ? prevSelected.filter(id => id !== productId)
-                : [...prevSelected, productId]
-        );
-    };
-
-    useEffect(() => {
-        if (basket.length > 0) {
-            const allProductIds = basket.map(product => product.id);
-            setSelectedProductIds(allProductIds);
-            setIsAllSelected(true);
-        }
-    }, [basket]);
-
-    useEffect(() => {
-        setIsAllSelected(selectedProductIds.length === basket.length);
-    }, [selectedProductIds, basket]);
 
     useEffect(() => {
         const fetchBasketData = async () => {
@@ -121,6 +99,50 @@ const Cart = () => {
         fetchBasketData();
     }, []);
 
+    useEffect(() => {
+        if (basket.length > 0) {
+            const allProductIds = basket.map((product) => product.id);
+            setSelectedProductIds(allProductIds);
+            setIsAllSelected(true);
+        }
+    }, [basket]);
+
+    useEffect(() => {
+        setIsAllSelected(selectedProductIds.length === basket.length);
+        calculateTotals();
+        calculateFullBasketQuantity();
+    }, [selectedProductIds, basket]);
+
+    const handleSelectAllChange = () => {
+        const newSelectedIds = isAllSelected ? [] : basket.map((product) => product.id);
+        setSelectedProductIds(newSelectedIds);
+        setIsAllSelected(!isAllSelected);
+    };
+
+    const handleProductSelect = (productId: string) => {
+        setSelectedProductIds(prevSelected => {
+                return prevSelected.includes(productId)
+                    ? prevSelected.filter(id => id !== productId)
+                    : [...prevSelected, productId];
+            }
+        );
+    };
+
+    const handleProductRemove = async (productId: string) => {
+        try {
+            const  { data: { backet } } = await $api.delete("/backet", {
+                params: {
+                    id: productId,
+                }
+            });
+            const ids = backet.map((product) => product.id);
+            const filteredBasket = basket.filter((item) => ids.includes(item.id));
+            setBasket(filteredBasket);
+        } catch(error) {
+            console.error(error);
+        }
+    };
+
     return (
         <Container className="cart" maxWidth="xl" sx={styles.container}>
             { isBasketEmpty ? (
@@ -133,7 +155,7 @@ const Cart = () => {
                                 {t('titles.cart')}
                             </Typography>
                             <Typography sx={styles.subtitleTypography} variant='subtitle1'>
-                                {t('text.cart.productsCount.product', { count: totalQuantity })}
+                                {t('text.cart.productsCount.product', { count: totalBasketQuantity })}
                             </Typography>
                         </Stack>
 
@@ -146,7 +168,7 @@ const Cart = () => {
                                 />
                                 <Typography component="div" sx={styles.checkboxText}>{t('text.cart.selectAll')}</Typography>
                             </Stack>
-                            {isAllSelected && (
+                            {isSomeSelected && (
                                 <Button size="small" aria-label="delete" sx={styles.button}>
                                     {t('text.cart.deleteProductsButton')}
                                 </Button>
@@ -159,6 +181,7 @@ const Cart = () => {
                                     key={product.id}
                                     isSelected={selectedProductIds.includes(product.id)}
                                     onSelect={() => handleProductSelect(product.id)}
+                                    handleProductRemove={() => handleProductRemove(product.id)}
                                     product={product}
                                 />
                             ))}
@@ -169,7 +192,7 @@ const Cart = () => {
                         <OrderCard
                             selectedProductIds={selectedProductIds}
                             totalSum={totalSum}
-                            totalQuantity={totalQuantity}
+                            totalQuantity={selectedTotalQuantity}
                         />
                     </Grid>
                 </Grid>

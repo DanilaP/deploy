@@ -78,7 +78,11 @@
                 "product_one": "{{count}} товар",
                 "product_few": "{{count}} товара",
                 "product_many": "{{count}} товаров"
-            }
+            },
+            "confirmDeleteTitle": "Удаление товара",
+            "confirmDeleteMessage": "Вы уверены, что хотите удалить товар?",
+            "delete": "Удалить",
+            "cancel": "Оставить"
         }
     },
     "methods": {
