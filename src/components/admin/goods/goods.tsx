@@ -6,11 +6,12 @@ import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 import { ManageGoodForm } from "./forms/ManageGood/ManageGood";
 import { IProduct } from "../../../interfaces/interfaces";
 import $api from '../../../configs/axiosconfig/axios.js';
+import { convertFileListToBlobArray } from "../../../helpers/convert-file-list-to-blob-array.js";
 
 export const GoodsPage = () => {
 
     const { t } = useTranslation();
-    const [modals, setModals] = useState({ edit: false, create: false, delete: false });
+    const [modals, setModals] = useState({ manage: false, delete: false });
     const [currentMode, setCurrentMode] = useState<"create" | "edit" | null>(null);
     const [currentProducts, setCurrentProducts] = useState<IProduct[]>([]);
     const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null);
@@ -18,26 +19,34 @@ export const GoodsPage = () => {
 
     const handleOpenCreatingGoodModal = () => {
         setModals(prev => {
-            return { ...prev, create: true };
+            return { ...prev, manage: true };
         });
         setCurrentMode("create");
     };
 
     const handleOpenEditingGoodModal = (product: IProduct) => {
         setModals(prev => {
-            return { ...prev, create: true };
+            return { ...prev, manage: true };
         });
         setCurrentProduct(product);
         setCurrentMode("edit");
     };
 
     const handleOpenDeleteGoodModal = (product: IProduct) => {
-        const updatedProducts = currentProducts.filter(el => el.id !== product.id);
-        setCurrentProducts(updatedProducts);
-        setFilteredProducts(updatedProducts);
+        setCurrentProduct(product);
         setModals(prev => {
             return { ...prev, delete: true };
         });
+    };
+
+    const handleApproveDeletingGood = () => {
+        const updatedProducts = currentProducts.filter(el => el.id !== currentProduct?.id);
+        setCurrentProducts(updatedProducts);
+        setFilteredProducts(updatedProducts);
+        setModals(prev => {
+            return { ...prev, delete: false };
+        });
+        setCurrentProduct(null);
     };
 
     const handleUpdateGood = (goodData: IProduct) => {
@@ -61,18 +70,28 @@ export const GoodsPage = () => {
         const response = $api.post("/product", formData);
         response.then(res => {
             if (res.data) {
-                setCurrentProduct(null);
-                setModals(prev => {
-                    return { ...prev, create: false };
-                });
-                const updatedProducts = currentProducts.map(el => {
-                    if (el.id === goodData.id) {
-                        return goodData;
-                    }
-                    return el;
-                });
+                let updatedProducts = [];
+                if (goodData.id) {               
+                    updatedProducts = currentProducts.map(el => {
+                        if (el.id === goodData.id) {
+                            return { ...goodData, images: convertFileListToBlobArray(goodData.images) };
+                        }
+                        return el;
+                    });
+                    
+                } else {          
+                    updatedProducts = [...currentProducts, { 
+                        ...goodData, 
+                        id: Date.now(),
+                        images: convertFileListToBlobArray(goodData.images)
+                    }];
+                }
                 setFilteredProducts(updatedProducts);
                 setCurrentProducts(updatedProducts);
+                setCurrentProduct(null);
+                setModals(prev => {
+                    return { ...prev, manage: false };
+                });
             }
         });
     };
@@ -84,7 +103,7 @@ export const GoodsPage = () => {
     const handleCancelUpdating = () => {
         setCurrentProduct(null);
         setModals(prev => {
-            return { ...prev, create: false };
+            return { ...prev, manage: false };
         });
     };
 
@@ -100,11 +119,11 @@ export const GoodsPage = () => {
 
     return (
         <div className="goods">
-            <div className="title">Управление товарами</div>
+            <div className="title">{t("text.managingGoods")}</div>
             <div className="actions">
                 <TextField 
                     onChange={ (e) => handleSearchProduct(e.target.value) } 
-                    placeholder="Наименование товара"
+                    placeholder={t("text.name")}
                     className="search-field"
                 />
                 <Button
@@ -119,9 +138,9 @@ export const GoodsPage = () => {
                             <div className="wrapper" key={product.id}>
                                 <div className="good-info">
                                     <img src={product.images[0]} width="50px" height="50px" />
-                                    <div className="good-title">Товар: {product.name}</div>
-                                    <div className="good-price">Вариации: {product.variations.length}</div>
-                                    <div className="good-stock">Поставщик: {product.provider}</div>
+                                    <div className="good-title">{t("text.good")}: {product.name}</div>
+                                    <div className="good-price">{t("text.variations")}: {product.variations.length}</div>
+                                    <div className="good-stock">{t("text.provider")}: {product.provider}</div>
                                 </div>
                                 <div className="good-actions">
                                     <Button
@@ -139,10 +158,10 @@ export const GoodsPage = () => {
                 }
             </div>
             <CustomModal 
-                isDisplay={ modals.create }
+                isDisplay={ modals.manage }
                 title = { currentMode === 'create' ? t("text.createGoods") : t("text.editGood") }
                 typeOfActions='none'
-                closeModal={ () => setModals({ ...modals, create: false }) }
+                closeModal={ () => setModals({ ...modals, manage: false }) }
             >
                 <ManageGoodForm 
                     handleUpdateGood={handleUpdateGood}
@@ -155,10 +174,10 @@ export const GoodsPage = () => {
                 isDisplay={ modals.delete }
                 title = { t("text.deleteGoods") }
                 typeOfActions='default'
-                actionConfirmed={ () => setModals({ ...modals, delete: false }) }
+                actionConfirmed={ handleApproveDeletingGood }
                 closeModal={ () => setModals({ ...modals, delete: false }) }
             >
-                Подтвердить удаление товара?
+                <span>{t("text.approveDeletingGood")}?</span>
             </CustomModal>
         </div>
     );

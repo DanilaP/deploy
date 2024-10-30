@@ -1,11 +1,12 @@
 import { Button, MenuItem, Select, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ManageGood.scss";
 import { useTranslation } from "react-i18next";
 import { IAdditionalInfo, IProduct, IVariation } from "../../../../../interfaces/interfaces";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import { DEFAULT_PRODUCT } from "./constants";
+import InputFile from "../../../../../components-ui/custom-file-nput/file-input";
 
 export const ManageGoodForm = ({ 
     mode,
@@ -18,11 +19,11 @@ export const ManageGoodForm = ({
     handleUpdateGood: (goodData: IProduct) => void,
     handleCancelUpdating: () => void
 }) => {
-
+    
     const { t } = useTranslation();
     const [newGoodData, setNewGoodData] = useState(goodData || DEFAULT_PRODUCT);
     const isEdit = mode === "edit";
-
+    
     const handleAddAdditionalInfo = () => {
         setNewGoodData(prevGoodData => {
             return {
@@ -61,7 +62,7 @@ export const ManageGoodForm = ({
             return {
                 ...prevGoodData,
                 variations: [...prevGoodData.variations, 
-                    { name: "-", title: "-", stock: 1, price: 1, images: [""], video: "" }
+                    { name: "", title: "", stock: 1, price: 1, images: [""], video: "" }
                 ]
             };
         });
@@ -108,29 +109,35 @@ export const ManageGoodForm = ({
         }
     };
     
+    useEffect(() => {
+        if (goodData) {
+            setNewGoodData(goodData);
+        }
+    }, [goodData]);
+
     return (
         <div className="update-good-form">
             <div className="field-mid-group">
                 <div className="field">
-                    <label className="label" htmlFor="update-good-name">Наименование</label>
+                    <label className="label" htmlFor="update-good-name">{t("text.name")}</label>
                     <TextField
                         onChange={(e) => setNewGoodData({ ...newGoodData, name: e.target.value })}
                         id="update-good-name"
-                        placeholder="Наименование товара"
+                        placeholder={t("text.name")}
                         defaultValue={ isEdit ? newGoodData?.name : "" }
                     />
                 </div>
                 <div className="field">
-                    <label className="label" htmlFor="update-good-provider">Поставщик</label>
+                    <label className="label" htmlFor="update-good-provider">{t("text.provider")}</label>
                     <TextField
                         onChange={(e) => setNewGoodData({ ...newGoodData, provider: e.target.value })}
                         id="update-good-provider"
-                        placeholder="Поставщик"
+                        placeholder={t("text.provider")}
                         defaultValue={ isEdit ? newGoodData?.provider : "" }
                     />
                 </div>
                 <div className="field">
-                    <label className="label" htmlFor="update-good-category">Категория</label>
+                    <label className="label" htmlFor="update-good-category">{t("text.category")}</label>
                       <Select
                         defaultValue={ isEdit ? newGoodData?.category : "" }
                         onChange={(e) => setNewGoodData({ ...newGoodData, category: e.target.value })}
@@ -141,61 +148,61 @@ export const ManageGoodForm = ({
             </div>
             <div className="field-group">
                 <div className="field">
-                    <label className="label" htmlFor="update-good-description">Описание</label>
+                    <label className="label" htmlFor="update-good-description">{t("text.description")}</label>
                     <TextField
                         onChange={(e) => setNewGoodData({ ...newGoodData, description: e.target.value })}
                         id="update-good-description"
-                        placeholder="Описание товара"
+                        placeholder={t("text.description")}
                         defaultValue={ isEdit ? newGoodData?.description : "" }
                     />
                 </div>
                 <div className="field">
-                    <label className="label" htmlFor="update-good-full-description">Полное описание</label>
+                    <label className="label" htmlFor="update-good-full-description">{t("text.fullDescription")}</label>
                     <TextField
                         onChange={(e) => setNewGoodData({ ...newGoodData, fullDescription: e.target.value })}
                         id="update-good-full-description"
-                        placeholder="Полное описание"
+                        placeholder={t("text.fullDescription")}
                         defaultValue={ isEdit ? newGoodData?.fullDescription : "" }
                     />
                 </div>
             </div>
             <div className="field-group">
-                <div className="field">
-                    <label className="label" htmlFor="update-good-images">Изображения товара</label>
-                    <input
-                        onChange={(e) => setNewGoodData({ ...newGoodData, images: e.target.files })}
-                        type="file"
+                <div className="field-inline">
+                    <label className="label" htmlFor="update-good-images">{t("text.images")}</label>
+                    <InputFile 
+                        width="25px" 
+                        height="25px"
                         multiple 
-                        className="file-input"
                         accept=".png, .jpg, .jpeg"
-                    />
+                        onChange={(e) => setNewGoodData({ ...newGoodData, images: e.target.files })}
+                    /> ({newGoodData.images.length})
                 </div>
-                <div className="field">
-                    <label className="label" htmlFor="update-good-video">Видео товара</label>
-                    <input
-                        onChange={(e) => setNewGoodData({ ...newGoodData, video: e.target.files })}
-                        type="file" 
-                        className="file-input"
+                <div className="field-inline">
+                    <label className="label" htmlFor="update-good-video">{t("text.video")}</label>
+                    <InputFile 
+                        width="25px" 
+                        height="25px"
                         accept=".mp4"
-                    />
+                        onChange={(e) => setNewGoodData({ ...newGoodData, video: e.target.files })}
+                    /> ({ newGoodData.video.length !== 0 ? 1 : 0 })
                 </div>
             </div>
             <div className="field">
-                <label className="label" >Характеристики (название, значение)</label>
+                <label className="label" >{t("text.additionalProductInfo")}</label>
                 {
                     newGoodData?.additionalInfo.map((info, index) => {
                         return (
                             <div className="field-column">
                                 <TextField
                                     defaultValue={info.name}
-                                    placeholder="Название"
+                                    placeholder={t("text.name")}
                                     onChange={(el) => {
                                         handleUpdateAdditionalData({ ...info, name: el.target.value }, index);
                                     }}
                                 />
                                 <TextField
                                     defaultValue={info.description}
-                                    placeholder="Значение"
+                                    placeholder={t("text.value")}
                                     onChange={(el) => {
                                         handleUpdateAdditionalData({ ...info, description: el.target.value }, index);
                                     }}
@@ -212,35 +219,35 @@ export const ManageGoodForm = ({
                 }
             </div>
             <div className="field">
-                <label className="label" htmlFor="update-good-variations-info">Вариации (заголовок, значение, цена, остаток)</label>
+                <label className="label" htmlFor="update-good-variations-info">{t("text.variationsOfProduct")}</label>
                 {
                     newGoodData?.variations.map((info, index) => {
                         return (
                             <div className="field-column">
                                 <TextField
                                     defaultValue={info.name}
-                                    placeholder="Название"
+                                    placeholder={t("text.name")}
                                     onChange={(el) => {
                                         handleUpdateVariationData({ ...info, name: el.target.value }, index);
                                     }}
                                 />
                                 <TextField
                                     defaultValue={info.title}
-                                    placeholder="Значение"
+                                    placeholder={t("text.value")}
                                     onChange={(el) => {
                                         handleUpdateVariationData({ ...info, title: el.target.value }, index);
                                     }}
                                 />
                                 <TextField
                                     defaultValue={info.price}
-                                    placeholder="Цена"
+                                    placeholder={t("text.price")}
                                     onChange={(el) => {
                                         handleUpdateVariationData({ ...info, price: +el.target.value }, index);
                                     }}
                                 />
                                 <TextField
                                     defaultValue={info.stock}
-                                    placeholder="Остаток"
+                                    placeholder={t("text.stock")}
                                     onChange={(el) => {
                                         handleUpdateVariationData({ ...info, stock: +el.target.value }, index);
                                     }}
@@ -248,9 +255,7 @@ export const ManageGoodForm = ({
                                 { index === newGoodData.variations.length - 1 
                                     ? <AddBoxIcon onClick={handleAddVariation} /> : <div className="hide-add"></div>
                                 }
-                                <BackspaceIcon
-                                    onClick={() => handleDeleteVariationData(index)}
-                                />
+                                <BackspaceIcon onClick={() => handleDeleteVariationData(index)} />
                             </div>
                         );
                     })
