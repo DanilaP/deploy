@@ -2,7 +2,7 @@ import { Rating } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IReview } from '../../../../interfaces/interfaces';
-import { Favorite } from '@material-ui/icons';
+import { MdOutlineFavorite } from "react-icons/md";
 
 export default function Review (props: { review: IReview }) {
 
@@ -45,8 +45,8 @@ export default function Review (props: { review: IReview }) {
                 </div>
             </div>
             <div onClick = { likeReview } className={`like-icon ${ isLike ? "active" : "inactive" }`} >
-                <Favorite />
                 { currentLikes?.length }
+                <MdOutlineFavorite className='icon' />
             </div>
             <div className="review-images">
                 {
