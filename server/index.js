@@ -294,7 +294,7 @@ app.get("/products", async function(req, res) {
 app.get("/product", async function(req, res) {
     try {
         let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
-        const choosenProduct = currentProducts.filter((product) => product.id === +req.query.id);
+        const choosenProduct = currentProducts.filter((product) => product.id === Number(req.query.id));
         res.status(200).json({ message: "Данные о товаре успешно получены", product: choosenProduct[0] });
     }
     catch(error) {
@@ -311,7 +311,7 @@ app.put("/product", async function(req, res) {
         let user = currentUsers.filter((user) => user.id === userId)[0];
 
         let updatedProducts = currentProducts.map((product) => {
-            if (product.id === +req.body.productId) {
+            if (product.id === Number(req.body.productId)) {
                 if (product.reviews.filter((review) => review.clientId === userId).length === 0) {
                     return {
                         ...product,
@@ -360,7 +360,7 @@ app.get("/reviews/product", async function(req, res) {
     try {
         let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
-        let currentProduct = currentProducts.filter(product => product.id === +req.query.id)[0];
+        let currentProduct = currentProducts.filter(product => product.id === Number(req.query.id))[0];
         let reviewsData = { title: currentProduct.name, reviews: currentProduct.reviews };
         if (currentProduct) {
             reviewsData.reviews = reviewsData.reviews.map(comment => {
@@ -440,7 +440,7 @@ app.delete("/backet", async function(req, res) {
         let updatedBacket = [];
         let updatedUsers = currentUsers.map((user) => {
             if (user.id === userId) {
-                updatedBacket = user.backet.filter((product) => product.id !== +req.query.id);
+                updatedBacket = user.backet.filter((product) => product.id !== Number(req.query.id));
                 return {
                     ...user,
                     backet: updatedBacket
