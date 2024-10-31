@@ -1,0 +1,190 @@
+.reviews-main {
+    width: 80%;
+    height: calc(100vh - 90px);
+    margin: 0 auto;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 5px;
+    gap: 10px;
+
+    .MuiSvgIcon-root {
+        color: #1976d2;
+    }
+
+    .reviews-header {
+        display: flex;
+        width: 90%;
+        font-size: 30px;
+
+        .product-link {
+            cursor: pointer;
+            text-decoration: underline;
+            padding-left: 10px;
+            
+            &:hover {
+                color: #1976d2;
+            }
+        }
+    }
+
+    .reviews-content {
+        width: 90%;
+        height: max-content;
+        border: 1px solid rgba(128, 128, 128, 0.247);
+        border-radius: 5px;
+        background-color: var(--bg-color);
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 20px;
+        padding: 20px;
+        box-sizing: border-box;
+
+        .reviews-settings {
+            border-radius: 5px;
+            background-color: var(--bg-color-block);
+            box-sizing: border-box;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .reviews-settings-info {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+
+                .average-rating {
+                    font-size: 70px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                }
+            }
+
+            .reviews-settings-content {
+                display: flex;
+                flex-direction: column;
+                box-sizing: border-box;
+                padding: 20px;
+                gap: 20px;
+
+                .user-evaluation {
+                    display: flex;
+                    justify-content: center;
+                    gap: 20px;
+                }
+
+                .user-review {
+                    font-size: 30px;
+                    font-weight: 600;
+                    text-align: center;
+                }
+
+                .files-data {
+                    display: flex;
+                    flex-direction: column;
+
+                    .files-data-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 20px;
+                    }
+                }
+            }
+        }
+        
+        .reviews {
+            border-radius: 5px;
+            background-color: var(--bg-color-block);
+            display: flex;
+            gap: 20px;
+            box-sizing: border-box;
+            flex-direction: column;
+            overflow-y: scroll;
+            padding: 20px;
+            height: 100%;
+
+            .review {
+                display: flex;
+                flex-direction: column;
+                background-color: var(--bg-color);
+                position: relative;
+
+                .like-icon {
+                    display: flex;
+                    align-items: center;
+                    position: absolute;
+                    right: 20px;
+                    bottom: 20px;
+                    cursor: pointer;
+                    border: none;
+                }
+                .active {
+                    .MuiSvgIcon-root {
+                        color: red;
+                    }
+                }
+                .inactive {
+                    .MuiSvgIcon-root {
+                        color: #1976d2;
+                    }
+                }
+
+                .review-images {
+                    display: flex;
+                    gap: 10px;
+                    margin-left: 20px;
+                    margin-bottom: 20px;
+
+                    .media {
+                        width: 70px;
+                        height: 70px;
+                        cursor: pointer;
+                        object-fit: fill;
+                    }
+                }
+            }
+
+            .review-content {
+                height: max-content;
+                background-color: var(--bg-color);
+                padding: 20px;
+                display: flex;
+                gap: 20px;
+                border-radius: 5px; 
+
+                .review-avatar {
+
+                    .avatar {
+                        width: 100px;
+                        height: 100px;
+                        border-radius: 50%;
+                    }
+                }
+
+                .review-info {
+
+                    .review-info-header {
+                        display: flex;
+                        gap: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1170px) {
+    .reviews-main {
+        width: 100%;
+
+        .reviews-content {
+            display: flex;
+            flex-direction: column;
+            height: max-content;
+        }
+    }
+}

@@ -57,7 +57,25 @@
         "myOrders": "Мои заказы",
         "createGroup": "Создать группу",
         "deleteGroup": "Удалить группу",
-        "groupName": "Наименование группы"
+        "groupName": "Наименование группы",
+        "cost": "Стоимость",
+        "description": "Описание",
+        "stock": "В наличии",
+        "rub": "руб.",
+        "pcs": "шт.",
+        "toBacket": "В корзину",
+        "category": "Категория",
+        "productReviews": "Отзывы о товаре",
+        "averageEvaluation": "Средняя оценка",
+        "yourReview": "Ваш отзыв",
+        "sendReview": "Оставить отзыв",
+        "variations": "Вариации",
+        "choosenVariation": "Выбранная вариация",
+        "changeReview": "Изменить отзыв",
+        "deleteReview": "Удалить отзыв",
+        "review": "Отзыв",
+        "quantity": "Количество",
+        "uploadFiles": "Загрузка файлов"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",
@@ -72,7 +90,10 @@
         "addRoleMethod": "Метод добавления роли",
         "createGroupOfPermissions": "Метод создания группы пермишнов",
         "deleteGroupOfPermissions": "Метод удаления группы пермишнов",
-        "changeGroupsOfPermissions": "Метод изменения группы пермишнов"
+        "changeGroupsOfPermissions": "Метод изменения группы пермишнов",
+        "createReview": "Метод создания отзыва",
+        "deleteReview": "Метод удаления отзыва",
+        "changeReview": "Метод изменения отзыва"
     },
     "permissions": {
         "CreateUsers": "Создание пользователей",

@@ -9,7 +9,6 @@ import { IPermission, IPermissionGroup, IRole } from '../../../../interfaces/int
 import { Checkbox } from '@mui/material';
 import { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import $api from '../../../../configs/axiosconfig/axios';
 import CustomModal from '../../../../components-ui/custom-modal/custom-modal';
 import { checkConcretePermissions } from '../../../../helpers/permissions-helpers';
 
