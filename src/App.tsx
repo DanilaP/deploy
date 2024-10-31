@@ -9,9 +9,9 @@ import { Switch } from '@mui/material';
 import { useSelector } from 'react-redux';
 import $api from './configs/axiosconfig/axios';
 import { store } from './store';
-import { PersonPin } from '@material-ui/icons';
-import { ShoppingCart } from '@material-ui/icons';
-import { SupervisorAccount } from '@material-ui/icons';
+import { FaShoppingCart } from "react-icons/fa";
+import { MdPersonPin } from "react-icons/md";
+import { MdSupervisorAccount } from "react-icons/md";
 import { checkPermissions } from './helpers/permissions-helpers';
 
 function App() {
@@ -73,10 +73,10 @@ function App() {
             <div className='home-page-main'>
                     { currentStore.user ? (
                         <div className="header">
-                            <Link to='/shop'><ShoppingCart/>{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
-                            <Link to='/profile'><PersonPin />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
+                            <Link to='/shop'><FaShoppingCart className='icon' />{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
+                            <Link to='/profile'><MdPersonPin className='icon' />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
                             { checkPermissions() ? 
-                            (<Link to='/admin'><SupervisorAccount/>{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
+                            (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">
                                 <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
                                 <Switch onChange = { changeTheme } defaultChecked/>

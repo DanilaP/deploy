@@ -1,7 +1,7 @@
 import { ChangeEvent, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import "./file-input.scss";
-import { ControlPoint } from '@material-ui/icons';
+import { MdOutlineControlPoint } from "react-icons/md";
 
 export default function InputFile(props: { 
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void 
@@ -12,7 +12,7 @@ export default function InputFile(props: {
 
     return( 
         <div className="form-group">
-            <ControlPoint color="primary" style={{ width: "30px", height: "30px", cursor: "pointer" }}/>
+            <MdOutlineControlPoint className='icon' color="primary" style={{ width: "30px", height: "30px", cursor: "pointer" }}/>
             <label className="label">
                 <input 
                     ref={ref} 

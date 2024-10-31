@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from '../../../../translation/i18n';
 import { Button, Rating, TextField } from '@mui/material';
-import { Favorite, Textsms } from '@material-ui/icons';
+import { MdOutlineFavorite, MdTextsms } from "react-icons/md";
 import { IProduct } from '../../../../interfaces/interfaces';
 import { getAverageEvaluation } from '../../../../helpers/product-page-helpers';
 import { useNavigate } from 'react-router';
@@ -45,7 +45,7 @@ export default function ProductInfo (props: {
                     { props.variationInfo?.price } { t("text.rub") }
                 </div>
                 <div className="item">
-                    <Favorite className="favorite-icon" />
+                    <MdOutlineFavorite className="icon favorite-icon" />
                 </div>
                 <div className="additional-information">
                     <Rating 
@@ -56,7 +56,7 @@ export default function ProductInfo (props: {
                         value = { props.product ? getAverageEvaluation(props.product.reviews) : 0 } 
                     />
                     { ` (${ props.product?.reviews.length }) ` }
-                    <Textsms onClick = { () => navigation("reviews") } className='comment' />
+                    <MdTextsms onClick = { () => navigation("reviews") } className='icon comment' />
                     { t("text.review") }
                 </div>
             </div>
