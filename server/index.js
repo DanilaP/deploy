@@ -305,12 +305,11 @@ app.get("/product", async function(req, res) {
 
 app.post("/product", async function(req, res) {
     try {
-        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
-        res.status(200).json({ message: "Данные о товаре успешно получены", product: req.body });
+        res.status(200).json({ message: "Данные о товаре успешно обновлены", product: req.body });
     }
     catch(error) {
-        console.error("get /product", error);
-        res.status(400).json({ message: "Ошибка получения данных о товаре!" });
+        console.error("post /product", error);
+        res.status(400).json({ message: "Ошибка обновления данных о товаре!" });
     }
 });
 
