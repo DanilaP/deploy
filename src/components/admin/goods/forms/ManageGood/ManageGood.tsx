@@ -95,8 +95,6 @@ export const ManageGoodForm = ({
     };
 
     const handleUpdateSaveGoodData = () => {
-        console.log(validateCommonFields(newGoodData));
-        
         if (
             validateCommonFields(newGoodData) && 
             validateAdditionalInfo(newGoodData.additionalInfo) &&
