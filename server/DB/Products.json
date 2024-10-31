@@ -44,7 +44,7 @@
         "clientId": 1727158100336,
         "text": "this is the second review for product 1",
         "evaluation": 4,
-        "likes" : [],
+        "likes": [],
         "video": [],
         "photo": []
       },
@@ -130,8 +130,7 @@
       {
         "clientId": 1727098679785,
         "text": "My comment for product 2",
-        "evaluation": 3.5,
-        "likes" : [],
+        "evaluation": 5,
         "video": "http://localhost:5000/video/video1.mp4",
         "photo": "http://localhost:5000/products/product1.jpg"
       }
@@ -204,7 +203,7 @@
         "clientId": 1727098679785,
         "text": "123",
         "evaluation": 1.5,
-        "likes" : [],
+        "likes": [],
         "video": "http://localhost:5000/video/video1.mp4",
         "photo": "http://localhost:5000/products/product1.jpg"
       }
