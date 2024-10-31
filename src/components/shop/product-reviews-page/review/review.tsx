@@ -44,14 +44,14 @@ export default function Review (props: { review: IReview }) {
             <div className="review-images">
                 {
                     props.review.photo && (
-                        <a href = { props.review.photo }>
+                        <a target="__blank" href = { props.review.photo }>
                             <img className='media' src = { props.review.photo } />
                         </a>
                     )
                 }
                 {
                     props.review.video && (
-                        <a href = { props.review.video }>
+                        <a target="__blank" href = { props.review.video }>
                             <video className='media' src = { props.review.video } />
                         </a>
                     )
