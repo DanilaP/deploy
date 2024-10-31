@@ -57,7 +57,8 @@ app.post("/auth/signup", async function(req, res) {
                 login,
                 password: bcrypt.hashSync(password, 7),
                 role: "Пользователь",
-                avatar: "http://localhost:5000/avatar.jpg"
+                avatar: "http://localhost:5000/avatar.jpg",
+                backet: []
             };
             let updatedUsers = JSON.stringify([...currentUsers, newUser], null, 2);
             fs.writeFileSync('DB/Users.json', updatedUsers);
@@ -278,6 +279,7 @@ app.put("/roles", async function(req, res) {
     }
 });
 
+
 //Products
 app.get("/products", async function(req, res) {
     try {
@@ -292,7 +294,7 @@ app.get("/products", async function(req, res) {
 app.get("/product", async function(req, res) {
     try {
         let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
-        const choosenProduct = currentProducts.filter((product) => product.id === +req.query.id);
+        const choosenProduct = currentProducts.filter((product) => product.id === Number(req.query.id));
         res.status(200).json({ message: "Данные о товаре успешно получены", product: choosenProduct[0] });
     }
     catch(error) {
@@ -309,13 +311,15 @@ app.put("/product", async function(req, res) {
         let user = currentUsers.filter((user) => user.id === userId)[0];
 
         let updatedProducts = currentProducts.map((product) => {
-            if (product.id === +req.body.productId) {
+            if (product.id === Number(req.body.productId)) {
                 if (product.reviews.filter((review) => review.clientId === userId).length === 0) {
                     return {
                         ...product,
                         reviews: [...product.reviews, {
                             clientId: userId,
-                            ...req.body.review
+                            ...req.body.review,
+                            video: "http://localhost:5000/video/video1.mp4",
+                            photo: "http://localhost:5000/products/product1.jpg"
                         }]
                     };
                 }
@@ -326,7 +330,9 @@ app.put("/product", async function(req, res) {
                             if (review.clientId === userId) {
                                 return {
                                     clientId: userId,
-                                    ...req.body.review
+                                    ...req.body.review,
+                                    video: "http://localhost:5000/video/video1.mp4",
+                                    photo: "http://localhost:5000/products/product1.jpg"
                                 };
                             } else return review;
                         })
@@ -336,10 +342,12 @@ app.put("/product", async function(req, res) {
         });
         fs.writeFileSync('DB/Products.json', JSON.stringify(updatedProducts, null, 2));
         res.status(200).json({ message: "Данные о товаре успешно изменены!", review: {
-                ...req.body.review,
-                clientId: userId,
-                avatar: user.avatar
-            } });
+            ...req.body.review,
+            clientId: userId,
+            avatar: user.avatar,
+            video: "http://localhost:5000/video/video1.mp4",
+            photo: "http://localhost:5000/products/product1.jpg"
+        } });
     }
     catch(error) {
         console.error("post /product", error);
@@ -352,7 +360,7 @@ app.get("/reviews/product", async function(req, res) {
     try {
         let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
-        let currentProduct = currentProducts.filter(product => product.id === +req.query.id)[0];
+        let currentProduct = currentProducts.filter(product => product.id === Number(req.query.id))[0];
         let reviewsData = { title: currentProduct.name, reviews: currentProduct.reviews };
         if (currentProduct) {
             reviewsData.reviews = reviewsData.reviews.map(comment => {
@@ -432,7 +440,7 @@ app.delete("/backet", async function(req, res) {
         let updatedBacket = [];
         let updatedUsers = currentUsers.map((user) => {
             if (user.id === userId) {
-                updatedBacket = user.backet.filter((product) => product.id !== +req.query.id);
+                updatedBacket = user.backet.filter((product) => product.id !== Number(req.query.id));
                 return {
                     ...user,
                     backet: updatedBacket
@@ -473,6 +481,7 @@ app.post("/backet", async function(req, res) {
         console.error("post /backet", error);
     }
 });
+
 
 async function startApp() {
     try {

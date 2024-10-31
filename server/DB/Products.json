@@ -41,20 +41,18 @@
     "provider": "Поставщик 1",
     "reviews": [
       {
-        "clientId": 1727158100336,
-        "text": "this is the second review for product 1",
+        "clientId": 1727161785732,
+        "text": "123123",
         "evaluation": 4,
-        "likes" : [],
-        "video": [],
-        "photo": []
+        "video": "http://localhost:5000/video/video1.mp4",
+        "photo": "http://localhost:5000/products/product1.jpg"
       },
       {
         "clientId": 1727098679785,
-        "text": "new test review 12323",
+        "text": "Test review 123123 12313",
         "evaluation": 5,
-        "likes" : [],
-        "video": [],
-        "photo": []
+        "video": "http://localhost:5000/video/video1.mp4",
+        "photo": "http://localhost:5000/products/product1.jpg"
       }
     ],
     "variations": [
@@ -125,9 +123,8 @@
         "clientId": 1727098679785,
         "text": "My comment for product 2",
         "evaluation": 3.5,
-        "likes" : [],
-        "video": [],
-        "photo": []
+        "video": "http://localhost:5000/video/video1.mp4",
+        "photo": "http://localhost:5000/products/product1.jpg"
       }
     ],
     "variations": [
@@ -198,9 +195,8 @@
         "clientId": 1727098679785,
         "text": "123",
         "evaluation": 1.5,
-        "likes" : [],
-        "video": [],
-        "photo": []
+        "video": "http://localhost:5000/video/video1.mp4",
+        "photo": "http://localhost:5000/products/product1.jpg"
       }
     ],
     "variations": [

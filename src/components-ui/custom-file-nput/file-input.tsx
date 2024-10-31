@@ -12,13 +12,13 @@ export default function InputFile(props: {
 
     return( 
         <div className="form-group">
-            <ControlPoint color="primary" style={{ width: "50px", height: "50px", cursor: "pointer" }}/>
+            <ControlPoint color="primary" style={{ width: "30px", height: "30px", cursor: "pointer" }}/>
             <label className="label">
                 <input 
                     ref={ref} 
                     type="file" 
                     className="input-type-file" 
-                    onChange={(event) => props.onChange!(event)} accept=".jpg,.jpeg,.png,.gif"
+                    onChange={(event) => props.onChange!(event)} accept=".jpg,.jpeg,.png,.gif,.mp4, .avi"
                 />
             </label>
         </div>

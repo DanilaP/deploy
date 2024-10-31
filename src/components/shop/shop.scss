@@ -4,43 +4,46 @@
     align-items: center;   
     box-sizing: border-box;
     margin-top: 10px;
-
-    & .shop-products-wrapper {
+    padding: 20px;
+    
+    .shop-products-wrapper {
         display: flex;
         flex-direction: column;
 
-        & .shop-filters {
+        .shop-filters {
             min-height: 50px;
             box-sizing: border-box;
             display: flex;
             gap: 10px;
 
-            & input {
+            .MuiInputBase-input {
                 height: 3.5px;
             }
             
-            & button {
+            .filter-button {
                 height: 36.5px;
             }
 
-            & .MuiInputBase-root {
+            .MuiInputBase-root {
                 height: 36.5px;
             }
         }
 
-        & .shop-content {
+        .shop-content {
             display: grid;
             justify-content: space-between;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             margin-bottom: 50px;
             
-            & .MuiPaper-root  {
+            .MuiPaper-root  {
                 background-color: var(--bg-color-block);
                 color: var(--text-color);
 
-                & p {
-                    color: var(--text-color);
+                .product-image {
+                    width: 300px;
+                    height: 200px;
+                    margin-top: 20px;
                 }
             }
         }
@@ -50,9 +53,9 @@
 @media screen and (max-width: 570px) {
     .shop-wrapper {
         
-        & .shop-products-wrapper {
+        .shop-products-wrapper {
             
-            & .shop-content {
+            .shop-content {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
             }

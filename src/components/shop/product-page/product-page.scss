@@ -1,0 +1,177 @@
+.product-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 60px);
+    padding: 20px;
+    box-sizing: border-box;
+
+    .MuiSvgIcon-root {
+        color: #1976d2;
+    }
+
+    .product-page-main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        gap: 10px;
+
+        .product-page-main-header {
+            width: 80%;
+            display: flex;
+            align-items:last baseline;
+            font-size: 30px;
+            font-weight: 600;
+        }
+    }
+
+    .product {
+        width: 80%;
+        height: max-content;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--bg-color-block);
+        padding: 20px;
+        box-sizing: border-box;
+        color: var(--text-color);
+        border: 1px solid rgba(128, 128, 128, 0.247);
+
+        .product-main {
+            display: flex;
+            gap: 20px;
+        }
+
+        .comment {
+            margin-left: 10px;
+            color: var(--text-color);
+            cursor: pointer;
+
+            &:hover {
+                color: #1976d2;
+            }
+        }
+
+        .additional-description {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: max-content;
+            font-size: 20px;
+            box-sizing: border-box;
+            padding: 20px;
+            gap: 20px;
+
+            .full-description {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                text-align: justify;
+                font-size: 16px;
+                background-color: var(--bg-color);
+                padding: 20px;
+                box-sizing: border-box;
+            }
+
+            .additional-info {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px; 
+
+                .info {
+                    width: 45%;
+                    padding: 20px;
+                    background-color: var(--bg-color);
+                }
+
+                .name {
+                    font-weight: 600;
+                }
+
+                .description {
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 1400px) {
+    .product-page {
+        .product-page-main {
+            .product-page-main-header {
+                font-size: 20px;
+            }
+            .product {
+                .additional-description {
+                    .additional-info {
+                        .info {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 1130px) {
+    .product-page {
+        .product-page-main {
+            .product-page-main-header {
+                width: 100%;
+            }
+            .product {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .product-page {
+        height: max-content;
+        .product {
+            .product-main {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .product-slider {
+                width: 80%;
+                .swiper-image {
+                    height: 100%;
+                }
+            }
+            .product-info {
+                width: 80%;
+            }
+            .image-list {
+                justify-content: center;
+            }
+        }
+    }
+}
+@media screen and (max-width: 900px) {
+    .product-page {
+        .product-page-main {
+            .product-page-main-header {
+                font-size: 15px;
+            }
+        }
+        .product {
+            .product-main {
+                width: 100%;
+            }
+            .product-slider {
+                width: 80%;
+            }
+            .product-info {
+                width: 80%;
+            }
+        }
+    }
+}
