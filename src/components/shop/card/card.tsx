@@ -6,27 +6,33 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTranslation } from 'react-i18next';
-import { ShoppingBasket } from '@material-ui/icons';
+import { IProduct } from '../../../interfaces/interfaces';
+import { useNavigate } from 'react-router-dom';
 
-export default function MediaCard() {
+export default function MediaCard(props: { product: IProduct }) {
+
+    const navigate = useNavigate();
     const { t } = useTranslation();
+    
+    const showDetails = () => {
+        navigate(`/product/${ props.product.id }`);
+    };
+
     return (
         <Card sx={ { maxWidth: 345 } }>
            <CardMedia style={ { display: "flex", justifyContent: "center" } } >
-                <ShoppingBasket color="primary" style={ { width: "200px", height: "100px" } } />
+                <img className='product-image' src = { props.product.images[0] } />
            </CardMedia>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                Lizard
+                    {  props.product.name }
                 </Typography>
-                <Typography variant="body2" sx={ { color: 'text.secondary' } }>
-                Lizards are a widespread group of squamate reptiles, with over 6,000
-                species, ranging across all continents except Antarctica
+                <Typography gutterBottom component="div">
+                    {  props.product.description }
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button variant="contained" size="small">{ t("text.buy") }</Button>
-                <Button variant="contained" size="small">{ t("text.details") }</Button>
+                <Button onClick={ showDetails } variant="contained" size="small">{ t("text.details") }</Button>
             </CardActions>
         </Card>
     );

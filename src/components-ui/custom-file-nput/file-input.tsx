@@ -1,5 +1,4 @@
 import { ChangeEvent, useRef } from "react";
-import { useTranslation } from "react-i18next";
 import "./file-input.scss";
 import { ControlPoint } from '@material-ui/icons';
 
@@ -12,7 +11,6 @@ export default function InputFile(props: {
 }) {
 
     const ref = useRef(null);
-    const { t } = useTranslation();
 
     return( 
         <div className="form-group">

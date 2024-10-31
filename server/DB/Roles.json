@@ -2,23 +2,20 @@
   {
     "name": "Администратор",
     "permissions": [
-      "ViewOrderListOfUser",
-      "OrderManagement",
-      "DeleteUsers",
-      "CreateUsers",
-      "DeleteRoles",
-      "ModifyRoles",
       "CreateUsers",
       "DeleteUsers",
       "ModifyUsers",
+      "ViewOrderListOfUser",
+      "OrderManagement",
       "CreateRoles",
-      "CreateProducts",
-      "DeleteProducts",
-      "ModifyProducts",
-      "ModifyGroupOfPermissions",
+      "ModifyRoles",
       "CreateGroupOfPermissions",
       "DeleteGroupOfPermissions",
-      "ModifyGroupOfPermissions"
+      "DeleteRoles",
+      "ModifyGroupOfPermissions",
+      "CreateProducts",
+      "DeleteProducts",
+      "ModifyProducts"
     ]
   },
   {
@@ -28,16 +25,8 @@
   {
     "name": "Модератор",
     "permissions": [
-      "ModifyUsers",
       "CreateUsers",
-      "DeleteUsers",
-      "ModifyUsers"
-    ]
-  },
-  {
-    "name": "Младший модератор",
-    "permissions": [
-      "ModifyUsers"
+      "DeleteUsers"
     ]
   }
 ]

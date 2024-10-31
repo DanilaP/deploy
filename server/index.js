@@ -58,7 +58,8 @@ app.post("/auth/signup", async function(req, res) {
                 login,
                 password: bcrypt.hashSync(password, 7),
                 role: "Пользователь",
-                avatar: "http://localhost:5000/avatar.jpg"
+                avatar: "http://localhost:5000/avatar.jpg",
+                backet: []
             };
             let updatedUsers = JSON.stringify([...currentUsers, newUser], null, 2);
             fs.writeFileSync('DB/Users.json', updatedUsers);
@@ -294,7 +295,7 @@ app.get("/products", async function(req, res) {
 app.get("/product", async function(req, res) {
     try {
         let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
-        const choosenProduct = currentProducts.filter((product) => product.id === +req.query.id);
+        const choosenProduct = currentProducts.filter((product) => product.id === Number(req.query.id));
         res.status(200).json({ message: "Данные о товаре успешно получены", product: choosenProduct[0] });
     }
     catch(error) {
@@ -302,7 +303,6 @@ app.get("/product", async function(req, res) {
         res.status(400).json({ message: "Ошибка получения данных о товаре!" });
     }
 });
-
 app.post("/product", async function(req, res) {
     try {
         res.status(200).json({ message: "Данные о товаре успешно обновлены", product: req.body });
@@ -322,13 +322,15 @@ app.put("/product", async function(req, res) {
         let user = currentUsers.filter((user) => user.id === userId)[0];
 
         let updatedProducts = currentProducts.map((product) => {
-            if (product.id === +req.body.productId) {
+            if (product.id === Number(req.body.productId)) {
                 if (product.reviews.filter((review) => review.clientId === userId).length === 0) {
                     return {
                         ...product,
                         reviews: [...product.reviews, {
                             clientId: userId,
-                            ...req.body.review
+                            ...req.body.review,
+                            video: "http://localhost:5000/video/video1.mp4",
+                            photo: "http://localhost:5000/products/product1.jpg"
                         }]
                     };
                 }
@@ -339,7 +341,9 @@ app.put("/product", async function(req, res) {
                             if (review.clientId === userId) {
                                 return {
                                     clientId: userId,
-                                    ...req.body.review
+                                    ...req.body.review,
+                                    video: "http://localhost:5000/video/video1.mp4",
+                                    photo: "http://localhost:5000/products/product1.jpg"
                                 };
                             } else return review;
                         })
@@ -351,7 +355,9 @@ app.put("/product", async function(req, res) {
         res.status(200).json({ message: "Данные о товаре успешно изменены!", review: {
             ...req.body.review,
             clientId: userId,
-            avatar: user.avatar
+            avatar: user.avatar,
+            video: "http://localhost:5000/video/video1.mp4",
+            photo: "http://localhost:5000/products/product1.jpg"
         } });
     }
     catch(error) {
@@ -365,7 +371,7 @@ app.get("/reviews/product", async function(req, res) {
     try {
         let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
-        let currentProduct = currentProducts.filter(product => product.id === +req.query.id)[0];
+        let currentProduct = currentProducts.filter(product => product.id === Number(req.query.id))[0];
         let reviewsData = { title: currentProduct.name, reviews: currentProduct.reviews };
         if (currentProduct) {
             reviewsData.reviews = reviewsData.reviews.map(comment => {
@@ -407,6 +413,85 @@ app.delete("/reviews/product", async function(req, res) {
         res.status(400).json({ message: "Ошибка при удалении отзыва!" });
     }
 });
+
+//User Backet
+app.get("/backet", async function(req, res) {
+    try {
+        const token = req.headers.authorization;     
+        const userId = jwt_decode(token).id;
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+        let user = currentUsers.filter((user) => user.id === userId)[0];
+        
+        let userBacketInfo = user.backet.map((productInfoFromBacket) => {
+            return currentProducts.map((product) => {
+                if (productInfoFromBacket.productId === product.id) {   
+                    return {
+                        productInfo: { ...product },
+                        number: productInfoFromBacket.number,
+                        variation: productInfoFromBacket.variation,
+                        id: productInfoFromBacket.id
+                    };
+                }
+            });
+        });
+        let fixedArray = userBacketInfo.flat().filter((el) => el);
+        res.status(200).json({ message: "Данные о корзине пользователя успешно получены", backet: fixedArray });
+    } catch (error) {
+        res.status(400).json({ message: "Ошибка получения данных о корзине пользователя" });
+        console.error("get /backet", error);
+    }
+});
+app.delete("/backet", async function(req, res) {
+    try {
+        const token = req.headers.authorization;     
+        const userId = jwt_decode(token).id;
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        let updatedBacket = [];
+        let updatedUsers = currentUsers.map((user) => {
+            if (user.id === userId) {
+                updatedBacket = user.backet.filter((product) => product.id !== Number(req.query.id));
+                return {
+                    ...user,
+                    backet: updatedBacket
+                };
+            } else return user;
+        });
+        fs.writeFileSync('DB/Users.json', JSON.stringify(updatedUsers, null, 2));
+        res.status(200).json({ message: "Товар успешно удален из корзины", backet: updatedBacket });
+    }
+    catch(error) {
+        res.status(400).json({ message: "Ошибка при удалении товара из корзины пользователя!" });
+        console.error("delete /backet", error);
+    }
+});
+app.post("/backet", async function(req, res) {
+    try {
+        const token = req.headers.authorization;     
+        const userId = jwt_decode(token).id;
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        let updatedUsers = currentUsers.map((user) => {
+            if (user.id === userId) {
+                return {
+                    ...user,
+                    backet: [...user.backet, {
+                        id: Date.now(),
+                        productId: req.body.product.id,
+                        number: +req.body.product.number,
+                        variation: req.body.product.variation
+                    }]
+                };
+            } else return user;
+        });
+        fs.writeFileSync('DB/Users.json', JSON.stringify(updatedUsers, null, 2));
+        res.status(200).json({ message: "Товар успешно добавлен в корзину" });
+    }
+    catch(error) {
+        res.status(400).json({ message: "Ошибка при добавлении товара в корзину пользователя!" });
+        console.error("post /backet", error);
+    }
+});
+
 
 async function startApp() {
     try {

@@ -76,7 +76,25 @@
         "createGroup": "Create group",
         "deleteGroup": "Delete group",
         "groupName": "Group name",
-        "createGoods": "Create good"
+        "createGoods": "Create good",
+        "cost": "Cost",
+        "description": "Description",
+        "stock": "In stock",
+        "rub": "rub.",
+        "pcs": "pcs.",
+        "toBacket": "To backet",
+        "category": "Category",
+        "productReviews": "Product reviews",
+        "averageEvaluation": "Average evaluation",
+        "yourReview": "Your review",
+        "sendReview": "Send review",
+        "variations": "Variations",
+        "choosenVariation": "Choosen variation",
+        "changeReview": "Change review",
+        "deleteReview": "Delete review",
+        "review": "Review",
+        "quantity": "Quantity",
+        "uploadFiles": "Upload files"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
@@ -91,7 +109,10 @@
         "addRoleMethod": "Add role method",
         "createGroupOfPermissions": "Create group of permissions",
         "deleteGroupOfPermissions": "Delete group of permissions",
-        "changeGroupsOfPermissions": "Change group of permissions"
+        "changeGroupsOfPermissions": "Change group of permissions",
+        "createReview": "Create review method",
+        "deleteReview": "Delete review method",
+        "changeReview": "Change review method"
     },
     "permissions": {
         "CreateUsers": "Create users",
