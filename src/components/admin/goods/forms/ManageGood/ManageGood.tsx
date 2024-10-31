@@ -137,7 +137,7 @@ export const ManageGoodForm = ({
                         defaultValue={ isEdit ? newGoodData?.category : "" }
                         onChange={(e) => setNewGoodData({ ...newGoodData, category: e.target.value })}
                     >
-                        <MenuItem value="Вычислительная техника">Вычислительная техника</MenuItem>
+                        <MenuItem value={t("text.technics")}>{t("text.technics")}</MenuItem>
                     </Select>
                 </div>
             </div>
