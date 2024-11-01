@@ -3,12 +3,12 @@
     flex-direction: column;
     gap: 20px;
 
-    & .admin-wrapper {
+    .admin-wrapper {
         display: grid;
         grid-template-columns: 250px calc(100vw - 250px);
     }
 
-    & .admin-menu {
+    .admin-menu {
         display: flex;
         flex-direction: column;
         background-color: var(--bg-color-block);
@@ -19,7 +19,7 @@
         padding: 20px;
         box-sizing: border-box;
         
-        & .item {
+        .item {
             box-sizing: border-box;
             padding: 10px;
             text-align: center;
@@ -28,13 +28,13 @@
             cursor: pointer;
         }
 
-        & li {
+        li {
             display: flex;
             gap: 5px;
         }
     }
 
-    & .content {
+    .content {
         display: flex;
         background-color: var(--bg-color);
         padding: 20px;
@@ -43,11 +43,10 @@
 
 @media screen and (max-width: 820px) {
     .admin-page-main {
-
-        & .admin-wrapper {
+        .admin-wrapper {
             grid-template-columns: 100px calc(100vw - 100px);
 
-            & .admin-menu {
+            .admin-menu {
                 min-width: 100px;
             }
         }
