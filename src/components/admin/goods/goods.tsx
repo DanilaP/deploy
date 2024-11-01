@@ -98,6 +98,7 @@ export const GoodsPage = () => {
     };
 
     const handleSearchProduct = (inputValue: string) => {
+        if (inputValue.length <= import.meta.env.VITE_APP_MIX_LENGTH_FOR_SEARCH && inputValue.length !== 0) return;
         const searchValue = inputValue.toLowerCase();
         setFilteredProducts(currentProducts.filter(el => {
             return el.name.toLowerCase().includes(searchValue) ||
@@ -110,6 +111,7 @@ export const GoodsPage = () => {
     };
 
     const handleSearchProductByProvider = (inputValue: string) => {
+        if (inputValue.length <= import.meta.env.VITE_APP_MIX_LENGTH_FOR_SEARCH && inputValue.length !== 0) return;
         const searchValue = inputValue.toLowerCase();
         setFilteredProducts(currentProducts.filter(el => el.provider.toLowerCase().includes(searchValue)));
     };
