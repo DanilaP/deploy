@@ -5,7 +5,7 @@ import { IPermission, IPermissionGroup, IRole } from "../../../interfaces/interf
 import './roles.scss';
 import TableComponent from "./roles-table/table";
 import { Button, TextField } from "@mui/material";
-import { checkConcretePermissions } from "../../../helpers/permissions-helpers";
+import usePermissions from "../../../helpers/permissions-helpers.ts";
 
 export default function RolesPage () {
     const { t } = useTranslation();
@@ -13,6 +13,8 @@ export default function RolesPage () {
     const [permissions, setPermissions] = useState<IPermission[]>([]);
     const [permissionsGroups, setPermissionsGroups] = useState<IPermissionGroup[]>([]);
     const [newRole, setNewRole] = useState<IRole>({ name: "", permissions: [] });
+
+    const { checkConcretePermissions } = usePermissions();
     const permissionsExists = checkConcretePermissions();
 
     const updateRolesInfo = () => {
@@ -21,7 +23,7 @@ export default function RolesPage () {
             console.error(t("methods.updateRolesMethod"), error);
         });
     };
-    
+
     const addNewRole = () => {
         const newRoles = [...roles, newRole];
         setRoles(newRoles);
@@ -38,7 +40,7 @@ export default function RolesPage () {
     useEffect(() => {
         document.title = t("titles.rolesPage");
     });
-   
+
     useEffect(() => {
         if (roles.length !== 0 && permissionsExists.ModifyRoles) {
             updateRolesInfo();
@@ -56,7 +58,7 @@ export default function RolesPage () {
             console.error(t("methods.getPermitionsMethod"), error);
         });
     }, []);
-    
+
     return (
         <div className="roles">
             <div className="roles-add-role">
@@ -69,10 +71,10 @@ export default function RolesPage () {
                 }
             </div>
             <div className="roles-content">
-                <TableComponent 
-                    permissionsGroups = { permissionsGroups } 
-                    update = { setRoles } 
-                    roles={ roles } 
+                <TableComponent
+                    permissionsGroups = { permissionsGroups }
+                    update = { setRoles }
+                    roles={ roles }
                     permissions={ permissions }
                 />
             </div>
