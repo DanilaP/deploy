@@ -10,20 +10,22 @@ import { Checkbox } from '@mui/material';
 import { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import CustomModal from '../../../../components-ui/custom-modal/custom-modal';
-import { checkConcretePermissions } from '../../../../helpers/permissions-helpers';
+import usePermissions from "../../../../helpers/permissions-helpers.ts";
 
-export default function TableComponent(props: { 
-    update: (data: IRole[]) => void, 
-    roles: IRole[], 
+export default function TableComponent(props: {
+    update: (data: IRole[]) => void,
+    roles: IRole[],
     permissions: IPermission[],
     permissionsGroups: IPermissionGroup[],
 }) {
 
     const [isModalShown, setIsModalShown] = useState<boolean>(false);
     const [choosenRole, setChoosenRole] = useState<IRole>();
-    const permissionsExists = checkConcretePermissions();
     const { t } = useTranslation();
-    
+
+    const { checkConcretePermissions } = usePermissions();
+    const permissionsExists = checkConcretePermissions();
+
     const updateRole = (roleName: string, permissionName: string, isChecked: boolean) => {
         if (permissionsExists.ModifyRoles) {
             const newRoles = props.roles.map((role: IRole) => {
@@ -49,7 +51,7 @@ export default function TableComponent(props: {
                         return { ...role, permissions: [...role.permissions, ...permissionsGroup.permissions] };
                     } else {
                         return { ...role, permissions: role.permissions.filter((permission: string) => !permissionsGroup.permissions.includes(permission) ) };
-                    } 
+                    }
                 } else return role;
             });
             props.update(newRoles);
@@ -66,7 +68,7 @@ export default function TableComponent(props: {
         props.update(newRoles);
         setIsModalShown(false);
     };
-    
+
     const getPermissionsWithGroup = () => {
         return props.permissionsGroups.reduce((prev: string[], group: IPermissionGroup) => {
             return [...prev, ...group.permissions];
@@ -120,7 +122,7 @@ export default function TableComponent(props: {
                                                     <TableCell key={ permissionsGroup.name + role.name }>
                                                         <Checkbox
                                                             disabled = { !permissionsExists.ModifyRoles }
-                                                            onChange={ (e) => updateRoleFromGroup(role.name, permissionsGroup, e.target.checked) } 
+                                                            onChange={ (e) => updateRoleFromGroup(role.name, permissionsGroup, e.target.checked) }
                                                             checked = { groupChecked }
                                                         >
                                                         </Checkbox>
@@ -132,7 +134,7 @@ export default function TableComponent(props: {
                                     {
                                         permissionsGroup.permissions.map((permission: string, permInfex) => {
                                             return (
-                                                <TableRow 
+                                                <TableRow
                                                     key={ permission }
                                                     style={
                                                         groupIndex === props.permissionsGroups.length - 1 &&
@@ -150,7 +152,7 @@ export default function TableComponent(props: {
                                                                 <TableCell key={ permission + role.name } >
                                                                     <Checkbox
                                                                         disabled = { !permissionsExists.ModifyRoles }
-                                                                        onChange={ (e) => updateRole(role.name, permission, e.target.checked) } 
+                                                                        onChange={ (e) => updateRole(role.name, permission, e.target.checked) }
                                                                         checked = { role.permissions?.includes(permission) ? true : false }>
                                                                     </Checkbox>
                                                                 </TableCell>
@@ -180,7 +182,7 @@ export default function TableComponent(props: {
                                                     <TableCell key={ el.name + role.name }>
                                                         <Checkbox
                                                             disabled = { !permissionsExists.ModifyRoles }
-                                                            onChange={ (e) => updateRole(role.name, el.name, e.target.checked) } 
+                                                            onChange={ (e) => updateRole(role.name, el.name, e.target.checked) }
                                                             checked = { role.permissions?.includes(el.name) ? true : false }>
                                                         </Checkbox>
                                                     </TableCell>
@@ -195,7 +197,7 @@ export default function TableComponent(props: {
                 </TableBody>
             </Table>
         </TableContainer>
-        <CustomModal 
+        <CustomModal
             isDisplay={ isModalShown }
             title = { t("text.confirm") }
             typeOfActions='default'
