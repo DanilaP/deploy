@@ -6,18 +6,20 @@ import $api from "../../../configs/axiosconfig/axios";
 import { Button, Rating, TextField } from '@mui/material';
 import Review from './review/review';
 import { IReview } from '../../../interfaces/interfaces';
-import { useSelector } from 'react-redux';
 import { getAverageEvaluation } from '../../../helpers/product-page-helpers';
 import InputFile from '../../../components-ui/custom-file-nput/file-input';
+import { useStore } from '../../../stores';
 
 export default function ProductReviews () {
-
     const params = useParams();
     const [productInfo, setProductInfo] = useState<{ title: string, reviews: IReview[] }>({ title: "", reviews: [] });
     const [userReviewInfo, setUserReviewInfo] = useState<{ text: string, evaluation: number | null }>(
         { text: "", evaluation: 0 }
     );
-    const user = useSelector((store: any) => store.user);
+
+    const { userStore } = useStore();
+    const { user } = userStore;
+
     const [userMediaFiles, setUserMediaFiles] = useState<{ image: File | null,video: File | null }>({
         image: null,
         video: null
@@ -27,7 +29,7 @@ export default function ProductReviews () {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const navigate = useNavigate();
     const { t } = useTranslation();
-    
+
     const createReview = () => {
         if (userReviewInfo.text !== "" && userReviewInfo.evaluation !== 0) {
             const review = { ...userReviewInfo, evaluation: userReviewInfo.evaluation };
@@ -80,6 +82,9 @@ export default function ProductReviews () {
                 newMediaPreview[1] =  URL.createObjectURL(files[0]);
                 setUserMediaFilesPreview(newMediaPreview);
             }
+            files[0].name.includes("image")
+            ? setUserMediaFiles({ ...userMediaFiles, image: files[0] })
+            : setUserMediaFiles({ ...userMediaFiles, video: files[0] });
         }
     };
 
@@ -100,13 +105,13 @@ export default function ProductReviews () {
         .catch((error) => {
             console.error(error);
         });
-        
+
     }, []);
 
     return (
         <div className='reviews-main'>
             <div className="reviews-header">
-                { t("text.productReviews") }: 
+                { t("text.productReviews") }:
                 <div className='product-link' onClick={ () => navigate(-1) }>{ productInfo?.title }</div>
             </div>
             <div className="reviews-content">
@@ -115,20 +120,20 @@ export default function ProductReviews () {
                         <div className="average-rating">
                             { productInfo?.reviews?.length > 0 ? getAverageEvaluation(productInfo.reviews) : 0 }
                         </div>
-                        <Rating 
-                            name="half-rating" 
-                            precision={ 0.5 } 
-                            readOnly 
-                            value = { productInfo ? getAverageEvaluation(productInfo.reviews) : 0 } 
+                        <Rating
+                            name="half-rating"
+                            precision={ 0.5 }
+                            readOnly
+                            value = { productInfo ? getAverageEvaluation(productInfo.reviews) : 0 }
                         />
                     </div>
                     <div className="reviews-settings-content">
                         <div className="user-review">{ t("text.yourReview") } </div>
                         <TextField
-                            value={ userReviewInfo.text } 
-                            onChange={ (e) => setUserReviewInfo({ ...userReviewInfo, text: e.target.value }) } 
+                            value={ userReviewInfo.text }
+                            onChange={ (e) => setUserReviewInfo({ ...userReviewInfo, text: e.target.value }) }
                             placeholder={ t("text.review") }
-                            multiline 
+                            multiline
                             rows={ 2 }
                         />
                         <div className="files-data">
@@ -146,11 +151,11 @@ export default function ProductReviews () {
                             }
                             </div>
                         </div>
-                        <div className="user-evaluation"> 
+                        <div className="user-evaluation">
                             { isLoading &&
                                 <Rating
                                     name="half-rating"
-                                    value={ userReviewInfo.evaluation } 
+                                    value={ userReviewInfo.evaluation }
                                     precision={ 0.5 }
                                     onChange={(event, newValue) => {
                                         setUserReviewInfo({ ...userReviewInfo, evaluation: newValue });
@@ -161,7 +166,7 @@ export default function ProductReviews () {
                         <Button onClick={ createReview } variant='contained'>
                             {
                                 productInfo.reviews.filter((review: IReview) => review.clientId === user.id).length !== 0
-                                ? t("text.changeReview") 
+                                ? t("text.changeReview")
                                 : t("text.sendReview")
                             }
                         </Button>

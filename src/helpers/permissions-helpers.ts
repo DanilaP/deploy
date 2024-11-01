@@ -1,18 +1,26 @@
 import { IPermission } from "../interfaces/interfaces";
-import { store } from "../store";
+import { useStore } from "../stores";
 
-export const checkPermissions = () => {
-    const flag = store.getState().permissions.length > 0 ? true : false;
-    return flag;
+const usePermissions = () => {
+    const { userStore } = useStore();
+
+    const checkPermissions = () => {
+        return userStore.permissions.length > 0;
+    };
+
+    const checkConcretePermissions = () => {
+        const currentPermissions = userStore.permissions;
+        const allPermissions = userStore.allPermissions;
+
+        const permissionsExists = allPermissions.reduce((prev: Record<string, boolean>, perm: IPermission) => {
+            return { ...prev, [perm.name]: currentPermissions.includes(perm.name) };
+        }, {});
+
+        return permissionsExists;
+    };
+
+    return { checkPermissions, checkConcretePermissions };
 };
 
-export const checkConcretePermissions = () => {
-    const currentPermissions = store.getState().permissions;
-    const allPermissions = store.getState().allPermissions;
+export default usePermissions;
 
-    const permissionsExists = allPermissions.reduce((prev: Record<string, boolean>, perm: IPermission) => {
-        return { ...prev, [perm.name]: currentPermissions.includes(perm.name) };
-    }, {});
-
-    return permissionsExists;
-};
