@@ -2,34 +2,37 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import $api from '../../configs/axiosconfig/axios';
 import { useNavigate } from 'react-router';
-import { store } from '../../store';
-import { useSelector } from 'react-redux';
-import { Button, Input } from '@mui/material';
+import { Button } from '@mui/material';
 import './profile.scss';
 import InputFile from '../../components-ui/custom-file-nput/file-input';
+import { useStore } from '../../stores';
 
 export default function ProfilePage () {
     const { t } = useTranslation();
-    const user = useSelector((store: any) => store.user);
+
+    const { userStore } = useStore();
+    const user = userStore.user;
+
     const navigate = useNavigate();
+
 
     const logout = () => {
         sessionStorage.removeItem("token");
-        store.dispatch({ type: "USER", payload: null });
-        store.dispatch({ type: "USERPERMISSIONS", payload: {} });
+        userStore.setUser(null);
+        userStore.setPermissions([]);
         navigate("/auth/signin");
     };
 
     useEffect(() => {
         $api.get("/profile")
         .then((res) => {
-            store.dispatch({ type: "USER", payload: res.data.user[0] });
-            store.dispatch({ type: "USERPERMISSIONS", payload: res.data.permissions });
+            userStore.setUser(res.data.user[0]);
+            userStore.setPermissions(res.data.permissions);
         })
         .catch((error) => {
             console.log(error);
         });
-    }, []);
+    }, [userStore]);
 
     useEffect(() => {
         document.title = t("titles.profilePage");

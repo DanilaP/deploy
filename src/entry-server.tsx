@@ -1,15 +1,14 @@
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import App from './App';
-import { Provider } from 'react-redux';
-import { store } from './store';
+import rootStore, { StoreContext } from './stores';
 
 export function render(url, context) {
     return ReactDOMServer.renderToString(
         <StaticRouter location={url} context={context}>
-            <Provider store={store}>
+            <StoreContext.Provider value={rootStore}>
                 <App />
-            </Provider>
+            </StoreContext.Provider>
         </StaticRouter>,
     );
 }

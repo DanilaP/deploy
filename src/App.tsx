@@ -1,27 +1,30 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from './translation/i18n';
-import { adminRoutes, routes } from './routes';
 import { Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
-import './stylesheets/application.scss';
-import './stylesheets/themes/dark.scss';
-import './stylesheets/themes/white.scss';
 import { Switch } from '@mui/material';
-import { useSelector } from 'react-redux';
-import $api from './configs/axiosconfig/axios';
-import { store } from './store';
 import { PersonPin } from '@material-ui/icons';
 import { ShoppingCart } from '@material-ui/icons';
 import { SupervisorAccount } from '@material-ui/icons';
-import { checkPermissions } from './helpers/permissions-helpers';
+import { observer } from 'mobx-react-lite';
+import './stylesheets/application.scss';
+import './stylesheets/themes/dark.scss';
+import './stylesheets/themes/white.scss';
+
+import { adminRoutes, routes } from './routes';
+import $api from './configs/axiosconfig/axios';
+import { useStore } from './stores';
+import usePermissions from './helpers/permissions-helpers.ts';
 
 function App() {
     const [theme, setTheme] = useState("white-theme");
-    const currentStore = useSelector((store: any) => store);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const { t } = useTranslation();
+
+    const { userStore } = useStore();
+    const { checkPermissions } = usePermissions();
 
     const changeTheme = () => {
         const newTheme = theme === "white-theme" ? "dark-theme" : "white-theme";
@@ -37,8 +40,8 @@ function App() {
     useEffect(() => {
         $api.get("/profile")
         .then((res) => {
-            store.dispatch({ type: "USER", payload: res.data.user[0] });
-            store.dispatch({ type: "USERPERMISSIONS", payload: res.data.permissions });
+            userStore.setUser(res.data.user[0]);
+            userStore.setPermissions(res.data.permissions);
             setIsLoading(true);
         })
         .catch((error) => {
@@ -51,7 +54,7 @@ function App() {
     useEffect(() => {
         $api.get("/permissions")
         .then((res) => {
-            store.dispatch({ type: "ALLPERMISSIONS", payload: res.data.permissions });
+            userStore.setAllPermissions(res.data.permissions);
         })
         .catch((error) => {
             console.error(error);
@@ -59,48 +62,50 @@ function App() {
     }, []);
 
     useEffect(() => {
-        window.addEventListener("resize", () => {
-            if (window.innerWidth <= 820) {
-                setIsMobile(true);
-            } else {
-                setIsMobile(false);
-            }
-        });
-    }, []);
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 820);
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [userStore, navigate]);
 
     return (
-        <> 
+        <>
             <div className='home-page-main'>
-                    { currentStore.user ? (
+                    { userStore.user ? (
                         <div className="header">
                             <Link to='/shop'><ShoppingCart/>{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
                             <Link to='/profile'><PersonPin />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
-                            { checkPermissions() ? 
+                            { checkPermissions() ?
                             (<Link to='/admin'><SupervisorAccount/>{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">
                                 <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
                                 <Switch onChange = { changeTheme } defaultChecked/>
                             </div>
                         </div> ) : null
-                    }  
+                    }
                 <div className="content">
                     <Routes>
-                        { isLoading && 
+                        { isLoading &&
                             routes.map(({ path, component: Component, children: Children }) => (
-                                <Route 
-                                    key={ path } 
-                                    path={ path } 
+                                <Route
+                                    key={ path }
+                                    path={ path }
                                     element={ <Component>{ Children && <Children /> }</Component> }
                                 />
                             ))
                         }
                         { checkPermissions() &&
                             adminRoutes.map(({ path,  component: Component, children: Children }) => (
-                                <Route 
-                                    key={ path } 
+                                <Route
+                                    key={ path }
                                     path={ path }
-                                    element={ currentStore.user 
-                                        ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> } 
+                                    element={ userStore.user
+                                        ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> }
                                 />
                             ))
                         }
@@ -111,4 +116,4 @@ function App() {
     );
 }
 
-export default App;
+export default observer(App);
