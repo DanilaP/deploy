@@ -71,7 +71,7 @@ function App() {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, [userStore, navigate]);
+    }, []);
 
     return (
         <>
