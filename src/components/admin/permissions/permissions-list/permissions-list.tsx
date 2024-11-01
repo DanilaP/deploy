@@ -1,23 +1,26 @@
 import { useTranslation } from 'react-i18next';
 import './permissions-list.scss';
 import { IPermission, IPermissionGroup } from '../../../../interfaces/interfaces';
-import { checkConcretePermissions } from '../../../../helpers/permissions-helpers';
 import Permission from '../permission-component/permission';
+import usePermissions from "../../../../helpers/permissions-helpers.ts";
 
-export default function PermissionsList (props: { 
-    permissions: IPermission[], 
-    dragStart: (element: any, from: IPermissionGroup | null) => void, 
-    dragEnter: (element: any) => void, 
+export default function PermissionsList (props: {
+    permissions: IPermission[],
+    dragStart: (element: any, from: IPermissionGroup | null) => void,
+    dragEnter: (element: any) => void,
     dragEnterPermission: (permission: string) => void,
     permissionsGroups: IPermissionGroup[],
 }) {
 
     const { t } = useTranslation();
+
+    const { checkConcretePermissions } = usePermissions();
     const permissionsExists = checkConcretePermissions();
+
     const upwrappedPermissions = props.permissionsGroups.reduce((prev: string[], group: IPermissionGroup) => {
         return [...prev, ...group.permissions];
     }, []);
-    
+
     return (
         <div onDragEnter={ () => props.dragEnter(null) } className='permissions-list-main'>
             {
@@ -25,7 +28,7 @@ export default function PermissionsList (props: {
                     const translate = t(`permissions.${permission.name}`);
                     if (!upwrappedPermissions.includes(permission.name)) {
                         return (
-                            <Permission 
+                            <Permission
                                 dragEnterPermission = { () => props.dragEnterPermission(permission.name) }
                                 permissionsExists = { permissionsExists }
                                 name = { translate }
