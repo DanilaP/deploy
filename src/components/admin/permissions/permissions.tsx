@@ -6,8 +6,8 @@ import { IPermission, IPermissionGroup } from '../../../interfaces/interfaces';
 import $api from '../../../configs/axiosconfig/axios';
 import PermissionsList from './permissions-list/permissions-list';
 import PermissionsGroupList from './permissions-group-list/permissions-group-list';
-import { checkConcretePermissions } from '../../../helpers/permissions-helpers';
 import useDebounceFunction from '../../../helpers/use-debounce';
+import usePermissions from "../../../helpers/permissions-helpers.ts";
 
 export default function PermissionsPage () {
     const { t } = useTranslation();
@@ -17,6 +17,8 @@ export default function PermissionsPage () {
     const [currentDragEnterGroup, setCurrentDragEnterGroup] = useState<IPermissionGroup | null>();
     const [choosenPermition, setChoosenPermition] = useState<string>("");
     const [dragStartGroup, setDragStartGroup] = useState<IPermissionGroup | null>(null);
+
+    const { checkConcretePermissions } = usePermissions();
     const permissionsExists = checkConcretePermissions();
 
     const saveChanges = () => {
@@ -54,7 +56,7 @@ export default function PermissionsPage () {
     const dragEnterGroup = (group: IPermissionGroup | null) => {
         setCurrentDragEnterGroup(group);
     };
-    
+
     const dragEnterPermission = (permission: string) => {
         if (permission !== choosenPermition) {
             //Если переносим внутри одной группы
@@ -72,7 +74,7 @@ export default function PermissionsPage () {
                     } else return group;
                 });
                 setPermissionsGroups(newGroups);
-            } 
+            }
             //Если переносим в другую группу
             else {
                 const newGroups = permissionsGroups.map((group: IPermissionGroup) => {
@@ -95,9 +97,9 @@ export default function PermissionsPage () {
                     }
                     //Удаляем из старой группы перетаскиваемый пермишн
                     if (group.name === dragStartGroup?.name) {
-                        return { 
-                            ...group, 
-                            permissions: group.permissions.filter((permission: string) => permission !== choosenPermition) 
+                        return {
+                            ...group,
+                            permissions: group.permissions.filter((permission: string) => permission !== choosenPermition)
                         };
                     }
                     else return group;
@@ -115,7 +117,7 @@ export default function PermissionsPage () {
         });
         setPermissionsGroups(newGroupsInfo);
     };
-   
+
     useEffect(() => {
         //Если перетаскиваем в пустую группу
         if (currentDragEnterGroup?.permissions.length === 0) {
@@ -126,11 +128,11 @@ export default function PermissionsPage () {
                         ...currentGroup,
                         permissions: [...currentGroup.permissions, choosenPermition]
                     };
-                } 
+                }
                 if (currentGroup.name === dragStartGroup?.name) {
-                    return { 
-                        ...currentGroup, 
-                        permissions: currentGroup.permissions.filter((permission: string) => permission !== choosenPermition) 
+                    return {
+                        ...currentGroup,
+                        permissions: currentGroup.permissions.filter((permission: string) => permission !== choosenPermition)
                     };
                 }
                 else return currentGroup;
@@ -154,7 +156,7 @@ export default function PermissionsPage () {
             console.error(error);
         });
     }, []);
-    
+
     useEffect(() => {
         if (permissionsExists.ModifyGroupOfPermissions && permissionsGroups.length !== 0) {
             debouncedUpdatePermission();
@@ -165,10 +167,10 @@ export default function PermissionsPage () {
         <div className='permissions'>
             <div className="permissions-settings">
                 {
-                    permissionsExists.CreateGroupOfPermissions ? 
+                    permissionsExists.CreateGroupOfPermissions ?
                     <>
-                        <TextField 
-                            onChange={ (e) => setNewGroup(e.target.value) } 
+                        <TextField
+                            onChange={ (e) => setNewGroup(e.target.value) }
                             placeholder={ t("text.groupName") }>
                         </TextField>
                         <Button onClick={ createGroupOfPermissions } variant='contained'>{ t("text.createGroup") }</Button>
@@ -177,21 +179,21 @@ export default function PermissionsPage () {
             </div>
             <div className="permissions-content">
                 <div className="permissions-list">
-                    <PermissionsList 
+                    <PermissionsList
                         dragEnterPermission = { dragEnterPermission }
-                        permissionsGroups = { permissionsGroups } 
-                        dragEnter = { dragEnterGroup } 
-                        dragStart = { dragStart } 
+                        permissionsGroups = { permissionsGroups }
+                        dragEnter = { dragEnterGroup }
+                        dragStart = { dragStart }
                         permissions={ permissions } />
                 </div>
                 <div className="groups-list">
-                    <PermissionsGroupList 
+                    <PermissionsGroupList
                         dragEnterPermission = { dragEnterPermission }
-                        deletePermission = { deletePermissionFromGroup } 
-                        dragEnter = { dragEnterGroup } 
-                        dragStart = { dragStart }  
+                        deletePermission = { deletePermissionFromGroup }
+                        dragEnter = { dragEnterGroup }
+                        dragStart = { dragStart }
                         deleteGroup={ deleteGroupOfPermissions }
-                        permissionsGroups={ permissionsGroups } 
+                        permissionsGroups={ permissionsGroups }
                     />
                 </div>
             </div>

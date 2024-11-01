@@ -35,5 +35,13 @@
     "role": "Пользователь",
     "avatar": "http://localhost:5000/avatar.jpg",
     "backet": []
+  },
+  {
+    "id": 1730462293031,
+    "login": "svetlana@gmail.com",
+    "password": "$2a$07$wQA9hUv05QN12XtjpC5hJO2tsFiHTT.ZCJJAXzxhAcCbdyEvJUviW",
+    "role": "Администратор",
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": []
   }
 ]

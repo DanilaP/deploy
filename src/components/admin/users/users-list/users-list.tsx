@@ -6,13 +6,15 @@ import './users-list.scss';
 import CustomModal from '../../../../components-ui/custom-modal/custom-modal.js';
 import ManipulateUser from '../manipulate-user/manipulate-user.js';
 import { Button, TextField } from '@mui/material';
-import { checkConcretePermissions } from '../../../../helpers/permissions-helpers.js';
+import usePermissions from "../../../../helpers/permissions-helpers.ts";
 
 export default function UsersList () {
     const { t } = useTranslation();
     const [users, setUsers] = useState<IUser[]>();
     const [modalState, setModalState] = useState({ manipulateModal: false, deleteModal: false });
     const [choosenUser, setChoosenUser] = useState<IUser | null>(null);
+
+    const { checkConcretePermissions } = usePermissions();
     const permissionsExists = checkConcretePermissions();
 
     const startDeleteUser = (user: IUser) => {
@@ -35,7 +37,7 @@ export default function UsersList () {
         setChoosenUser(user);
         setModalState({ ...modalState, manipulateModal: true });
     };
-    
+
     const updateUsersList = (newUsers: IUser[]) => {
         setUsers(newUsers);
     };
@@ -59,7 +61,7 @@ export default function UsersList () {
             <div className="users-list-header">
                 <TextField placeholder='id пользователя'></TextField>
                 <Button variant="contained">{ t("text.find") }</Button>
-                { permissionsExists.CreateUsers ? 
+                { permissionsExists.CreateUsers ?
                     <Button className='create-button' onClick={ () => startManipulating(null) } variant="contained">
                         { t("text.createUser") }
                     </Button>  : null
@@ -85,13 +87,13 @@ export default function UsersList () {
                             </div>
                             <div className="user-settings">
                                 {
-                                    permissionsExists.ModifyUsers ? 
+                                    permissionsExists.ModifyUsers ?
                                     <Button onClick={ () => startManipulating(user) } variant="contained">
                                         { t("text.edit") }
                                     </Button> : null
                                 }
                                 {
-                                    permissionsExists.DeleteUsers ? 
+                                    permissionsExists.DeleteUsers ?
                                     <Button onClick={ () => startDeleteUser(user) } variant="contained">
                                         { t("text.delete") }
                                     </Button> : null
@@ -101,7 +103,7 @@ export default function UsersList () {
                     );
                 })
             }
-            <CustomModal 
+            <CustomModal
                 isDisplay={ modalState.deleteModal }
                 title = { t("text.deletingUser") }
                 typeOfActions='default'
@@ -110,16 +112,16 @@ export default function UsersList () {
             >
                 <div>{ t("text.deletingUserConfirmation") }</div>
             </CustomModal>
-            <CustomModal 
+            <CustomModal
                 isDisplay={ modalState.manipulateModal }
                 title = { `${ t("text.manipulateUser") } ${ choosenUser ? choosenUser?.id : t("text.creating") }` }
                 typeOfActions='none'
                 actionConfirmed={ aproveDeleteUser }
                 closeModal={ () => setModalState({ ...modalState, manipulateModal: false }) }
             >
-                <ManipulateUser 
+                <ManipulateUser
                     handleUpdateUsers = { updateUsersList }
-                    cancel = { () => setModalState({ ...modalState, manipulateModal: false }) } 
+                    cancel = { () => setModalState({ ...modalState, manipulateModal: false }) }
                     user={ choosenUser }>
                 </ManipulateUser>
             </CustomModal>
