@@ -7,7 +7,6 @@ import { useNavigate } from "react-router";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 import $api from '../../../configs/axiosconfig/axios.js';
 import SearchIcon from '@material-ui/icons/Search';
-import { InputAdornment } from '@mui/material';
 import "./goods.scss";
 
 export const GoodsPage = () => {

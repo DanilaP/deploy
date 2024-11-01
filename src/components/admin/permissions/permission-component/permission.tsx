@@ -1,26 +1,28 @@
-import { useDispatch, useSelector } from "react-redux";
 import "./permission.scss";
 import { useRef } from "react";
+import { useStore } from "../../../../stores";
 
-export default function Permission (props: { 
+export default function Permission (props: {
     name: string,
-    dragStart: () => void, 
+    dragStart: () => void,
     isDelete?: () => void,
     permissionsExists: any,
     dragEnterPermission: () => void,
 }) {
-    const draggablePermission = useSelector((store: any) => store.draggablePermission);
-    const dispatch = useDispatch();
+
     const ref = useRef<HTMLDivElement>(null);
-    
+
+    const { userStore } = useStore();
+    const draggablePermission = userStore.draggablePermission;
+
     const handleDragEnd = () => {
-        dispatch({ type: "SET_DRAGGABLE_PERMISSION", payload: null });
+        userStore.setDraggablePermission(null);
         ref.current?.removeEventListener("dragend", handleDragEnd);
     };
 
     const handleDragStart = () => {
         props.dragStart();
-        dispatch({ type: "SET_DRAGGABLE_PERMISSION", payload: props.name });
+        userStore.setDraggablePermission(null);
         ref.current?.addEventListener("dragend", handleDragEnd);
     };
 
@@ -28,19 +30,19 @@ export default function Permission (props: {
         <div
             ref={ ref }
             onDragEnter={ props.dragEnterPermission }
-            draggable = { props.permissionsExists.ModifyGroupOfPermissions } 
+            draggable = { props.permissionsExists.ModifyGroupOfPermissions }
             onDragStart={ handleDragStart }
-            className= { 
-                draggablePermission === props.name 
-                ? `permission active` 
-                : `permission inactive` 
+            className= {
+                draggablePermission === props.name
+                ? `permission active`
+                : `permission inactive`
             }
         >
             <div className="permission-name">
                 { props.name }
             </div>
             {
-                (props.isDelete && props.permissionsExists.ModifyGroupOfPermissions) && 
+                (props.isDelete && props.permissionsExists.ModifyGroupOfPermissions) &&
                     <div onClick={ props.isDelete } className="delete-button">x</div>
             }
         </div>
