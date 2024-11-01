@@ -82,9 +82,6 @@ export default function ProductReviews () {
                 newMediaPreview[1] =  URL.createObjectURL(files[0]);
                 setUserMediaFilesPreview(newMediaPreview);
             }
-            files[0].name.includes("image")
-            ? setUserMediaFiles({ ...userMediaFiles, image: files[0] })
-            : setUserMediaFiles({ ...userMediaFiles, video: files[0] });
         }
     };
 
