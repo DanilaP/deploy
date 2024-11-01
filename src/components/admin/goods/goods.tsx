@@ -3,8 +3,11 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { ManageGoodForm } from "./forms/ManageGood/ManageGood";
 import { IProduct } from "../../../interfaces/interfaces";
+import { useNavigate } from "react-router";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 import $api from '../../../configs/axiosconfig/axios.js';
+import SearchIcon from '@material-ui/icons/Search';
+import { InputAdornment } from '@mui/material';
 import "./goods.scss";
 
 export const GoodsPage = () => {
@@ -15,6 +18,7 @@ export const GoodsPage = () => {
     const [currentProducts, setCurrentProducts] = useState<IProduct[]>([]);
     const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null);
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
+    const navigate = useNavigate();
 
     const handleOpenCreatingGoodModal = () => {
         setModals(prev => {
@@ -94,8 +98,21 @@ export const GoodsPage = () => {
         });
     };
 
-    const handleSearchProduct = (searchValue: string) => {
-        setFilteredProducts(currentProducts.filter(el => el.name.includes(searchValue)));
+    const handleSearchProduct = (inputValue: string) => {
+        const searchValue = inputValue.toLowerCase();
+        setFilteredProducts(currentProducts.filter(el => {
+            return el.name.toLowerCase().includes(searchValue) ||
+                el.category.toLowerCase().includes(searchValue) ||
+                el.description.toLowerCase().includes(searchValue) ||
+                el.fullDescription.toLowerCase().includes(searchValue) ||
+                el.provider.toLowerCase().includes(searchValue) ||
+                String(el.variations[0].price).includes(searchValue);
+        }));
+    };
+
+    const handleSearchProductByProvider = (inputValue: string) => {
+        const searchValue = inputValue.toLowerCase();
+        setFilteredProducts(currentProducts.filter(el => el.provider.toLowerCase().includes(searchValue)));
     };
 
     const handleCancelUpdating = () => {
@@ -103,6 +120,10 @@ export const GoodsPage = () => {
         setModals(prev => {
             return { ...prev, manage: false };
         });
+    };
+
+    const handleGotoProductPage = (product: IProduct) => {
+        navigate(`/product/${product.id}`);
     };
 
     useEffect(() => {
@@ -118,35 +139,72 @@ export const GoodsPage = () => {
     return (
         <div className="goods">
             <div className="title">{t("text.managingGoods")}</div>
-            <div className="actions">
-                <TextField 
-                    onChange={ (e) => handleSearchProduct(e.target.value) } 
-                    placeholder={t("text.name")}
-                    className="search-field"
-                />
-                <Button
-                    variant='contained'
-                    onClick={handleOpenCreatingGoodModal}
-                >{ t("text.createGoods") }</Button>
+            <div className="goods-actions">
+                <div className="filters">
+                    <TextField 
+                        onChange={ (e) => handleSearchProduct(e.target.value) } 
+                        placeholder={t("text.searchAll")}
+                        InputProps={{
+                            startAdornment: (
+                                <SearchIcon />
+                            ),
+                        }}
+                    />
+                    <TextField 
+                        onChange={ (e) => handleSearchProductByProvider(e.target.value) } 
+                        placeholder={t("text.provider")}
+                        className="search-field"
+                        InputProps={{
+                            startAdornment: (
+                                <SearchIcon />
+                            ),
+                        }}
+                    />
+                </div>
+                <div className="buttons">
+                    <Button
+                        variant='contained'
+                        onClick={handleOpenCreatingGoodModal}
+                    >{ t("text.createGoods") }</Button>
+                </div>
             </div>
             <div className="list">
                 {
                     filteredProducts.map(product => {
                         return (
-                            <div className="wrapper" key={product.id}>
-                                <div className="good-info">
-                                    <img src={product.images[0]} width="50px" height="50px" />
-                                    <div className="good-title">{t("text.good")}: {product.name}</div>
-                                    <div className="good-price">{t("text.variations")}: {product.variations.length}</div>
-                                    <div className="good-stock">{t("text.provider")}: {product.provider}</div>
+                            <div 
+                                className="wrapper" 
+                                key={product.id}
+                            >
+                                <div className="good-info" onClick={() => handleOpenEditingGoodModal(product)} >
+                                    <div className="good-info-main">
+                                        <img 
+                                            className="good-image" 
+                                            src={product.images[0]} 
+                                            width="50px" 
+                                            height="50px"
+                                        />
+                                        <div className="good-title">{product.name}</div>
+                                        <div className="good-price">{t("text.price")}: {product.variations[0].price}</div>
+                                        <div className="good-provider">{product.provider}</div>
+                                    </div>
+                                    <div className="good-info-more">
+                                        <div className="good-description">
+                                            {t("text.description")}: {product.description}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="good-actions">
                                     <Button
-                                        variant='contained'
+                                        variant='outlined'
+                                        onClick={() => handleGotoProductPage(product)}
+                                    >{ t("text.goto") }</Button>
+                                    <Button
+                                        variant='outlined'
                                         onClick={() => handleOpenEditingGoodModal(product)}
                                     >{ t("text.edit") }</Button>
                                     <Button
-                                        variant='contained'
+                                        variant='outlined'
                                         onClick={() => handleOpenDeleteGoodModal(product)}
                                     >{ t("text.delete") }</Button>
                                 </div>
@@ -175,7 +233,7 @@ export const GoodsPage = () => {
                 actionConfirmed={ handleApproveDeletingGood }
                 closeModal={ () => setModals({ ...modals, delete: false }) }
             >
-                <span>{t("text.approveDeletingGood")}?</span>
+                <div className="delete-text">{t("text.approveDeletingGood")}?</div>
             </CustomModal>
         </div>
     );

@@ -12,5 +12,9 @@ export const DEFAULT_PRODUCT: IProduct = {
     variations: [
         { name: "", title: "", stock: 1, price: 1, images: [""], video: "" }
     ],
-    additionalInfo: [{ name: "", description: "" }],
+    additionalInfo: [{ name: "", description: "", id: Date.now() }],
 };
+
+export const DEFAULT_CATEGORYS = [
+    { label: "Вычислительная техника", id: 1 },
+];

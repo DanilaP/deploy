@@ -32,6 +32,7 @@ export interface IProduct {
     additionalInfo: IAdditionalInfo[]
 }
 export interface IAdditionalInfo {
+    id: number,
     name: string,
     description: string
 }

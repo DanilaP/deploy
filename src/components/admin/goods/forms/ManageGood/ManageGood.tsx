@@ -1,6 +1,7 @@
-import { Button, MenuItem, Select, TextField } from "@mui/material";
+import { Button, Autocomplete, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { DEFAULT_PRODUCT } from "./constants";
+import IconButton from "@mui/material/IconButton";
+import { DEFAULT_CATEGORYS, DEFAULT_PRODUCT } from "./constants";
 import { useTranslation } from "react-i18next";
 import { IAdditionalInfo, IProduct, IVariation } from "../../../../../interfaces/interfaces";
 import { validateAdditionalInfo, validateCommonFields, validateVariations } from "./validators";
@@ -24,13 +25,14 @@ export const ManageGoodForm = ({
     
     const { t } = useTranslation();
     const [newGoodData, setNewGoodData] = useState<IProduct>(goodData || DEFAULT_PRODUCT);
+    const [categorys, setCategorys] = useState(DEFAULT_CATEGORYS);
     const isEdit = mode === "edit";
     
     const handleAddAdditionalInfo = () => {
         setNewGoodData(prevGoodData => {
             return {
                 ...prevGoodData,
-                additionalInfo: [...prevGoodData.additionalInfo, { name: "", description: "" }]
+                additionalInfo: [...prevGoodData.additionalInfo, { name: "", description: "", id: Date.now() }]
             };
         });
     };
@@ -94,6 +96,10 @@ export const ManageGoodForm = ({
         });
     };
 
+    const handleUpdateCategory = (value) => {
+        setNewGoodData({ ...newGoodData, category: value[0]?.label });
+    };
+
     const handleUpdateSaveGoodData = () => {
         if (
             validateCommonFields(newGoodData) && 
@@ -112,7 +118,7 @@ export const ManageGoodForm = ({
 
     return (
         <div className="update-good-form">
-            <div className="field-mid-group">
+            <div className="field-group">
                 <div className="field">
                     <label className="label" htmlFor="update-good-name">{t("text.name")}</label>
                     <TextField
@@ -131,20 +137,27 @@ export const ManageGoodForm = ({
                         defaultValue={ isEdit ? newGoodData?.provider : "" }
                     />
                 </div>
-                <div className="field">
-                    <label className="label" htmlFor="update-good-category">{t("text.category")}</label>
-                      <Select
-                        defaultValue={ isEdit ? newGoodData?.category : "" }
-                        onChange={(e) => setNewGoodData({ ...newGoodData, category: e.target.value })}
-                    >
-                        <MenuItem value={t("text.technics")}>{t("text.technics")}</MenuItem>
-                    </Select>
-                </div>
             </div>
+            <div className="field">
+                    <label className="label" htmlFor="update-good-category">{t("text.category")}</label>
+                    <Autocomplete
+                        multiple
+                        limitTags={2}
+                        onChange={(_, value) => handleUpdateCategory(value)}
+                        defaultValue={ isEdit ? [
+                            categorys[0],
+                        ]: [] }
+                        options={categorys}
+                        renderInput={(params) => <TextField {...params} />}
+                    />
+                </div>
             <div className="field-group">
                 <div className="field">
                     <label className="label" htmlFor="update-good-description">{t("text.description")}</label>
                     <TextField
+                        multiline
+                        minRows={3}
+                        maxRows={3}
                         onChange={(e) => setNewGoodData({ ...newGoodData, description: e.target.value })}
                         id="update-good-description"
                         placeholder={t("text.description")}
@@ -154,6 +167,9 @@ export const ManageGoodForm = ({
                 <div className="field">
                     <label className="label" htmlFor="update-good-full-description">{t("text.fullDescription")}</label>
                     <TextField
+                        multiline
+                        minRows={3}
+                        maxRows={3}
                         onChange={(e) => setNewGoodData({ ...newGoodData, fullDescription: e.target.value })}
                         id="update-good-full-description"
                         placeholder={t("text.fullDescription")}
@@ -170,7 +186,14 @@ export const ManageGoodForm = ({
                         multiple 
                         accept=".png, .jpg, .jpeg"
                         onChange={(e) => setNewGoodData({ ...newGoodData, images: convertFileListToBlobArray(e.target.files) })}
-                    /> ({newGoodData.images.length})
+                    />
+                    <div className="additions">
+                        {
+                            newGoodData.images.map(el => (
+                                <img className="image" key={el} src={el} />
+                            ))
+                        }
+                    </div>
                 </div>
                 <div className="field-inline">
                     <label className="label" htmlFor="update-good-video">{t("text.video")}</label>
@@ -179,7 +202,13 @@ export const ManageGoodForm = ({
                         height="25px"
                         accept=".mp4"
                         onChange={(e) => setNewGoodData({ ...newGoodData, video: convertFileListToBlobArray(e.target.files)[0] })}
-                    /> ({ newGoodData.video.length !== 0 ? 1 : 0 })
+                    />
+                    <div className="additions">
+                        {
+                            newGoodData.video.length !== 0 && 
+                            <video className="video" src={newGoodData.video} />
+                        }
+                    </div>
                 </div>
             </div>
             <div className="field">
@@ -187,7 +216,7 @@ export const ManageGoodForm = ({
                 {
                     newGoodData?.additionalInfo.map((info, index) => {
                         return (
-                            <div className="field-column">
+                            <div className="field-column" key={info.id}>
                                 <TextField
                                     defaultValue={info.name}
                                     placeholder={t("text.name")}
@@ -203,11 +232,13 @@ export const ManageGoodForm = ({
                                     }}
                                 />
                                 { index === newGoodData.additionalInfo.length - 1 
-                                    && <AddBoxIcon onClick={handleAddAdditionalInfo} />
+                                    && <IconButton className="mui-actions" onClick={handleAddAdditionalInfo}>
+                                        <AddBoxIcon />
+                                    </IconButton>
                                 }
-                                <BackspaceIcon
-                                    onClick={() => handleDeleteAdditionalData(index)}
-                                />
+                                <IconButton className="mui-actions" onClick={() => handleDeleteAdditionalData(index)}>
+                                    <BackspaceIcon />
+                                </IconButton>
                             </div>
                         );
                     })
@@ -218,10 +249,10 @@ export const ManageGoodForm = ({
                 {
                     newGoodData?.variations.map((info, index) => {
                         return (
-                            <div className="field-column">
+                            <div className="field-column" key={info.images[0]}>
                                 <TextField
                                     defaultValue={info.name}
-                                    placeholder={t("text.name")}
+                                    placeholder={t("text.systemKey")}
                                     onChange={(el) => {
                                         handleUpdateVariationData({ ...info, name: el.target.value }, index);
                                     }}
@@ -248,15 +279,19 @@ export const ManageGoodForm = ({
                                     }}
                                 />
                                 { index === newGoodData.variations.length - 1 
-                                    ? <AddBoxIcon onClick={handleAddVariation} /> : <div className="hide-add"></div>
+                                    ? <IconButton className="mui-actions" onClick={handleAddVariation}>
+                                        <AddBoxIcon />
+                                    </IconButton> : <div className="hide-add"></div>
                                 }
-                                <BackspaceIcon onClick={() => handleDeleteVariationData(index)} />
+                                <IconButton className="mui-actions" onClick={() => handleDeleteVariationData(index)}>
+                                    <BackspaceIcon />
+                                </IconButton>
                             </div>
                         );
                     })
                 }
             </div>
-            <div className="actions">
+            <div className="form-actions">
                 <Button 
                     onClick={ handleUpdateSaveGoodData }
                     variant="contained"

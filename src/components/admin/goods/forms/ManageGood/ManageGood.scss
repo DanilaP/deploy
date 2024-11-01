@@ -12,17 +12,33 @@
         .label {
             font-weight: 500;
         }
-        .MuiInputBase-root {
-            height: 36.5px;
+        .MuiChip-root {
+           width: 150px;
+        }
+        .MuiSelect-select {
+            max-height: 3.5px !important;
+            padding: 7px;
         }
         .MuiInputBase-input {
-            height: 1px;
+            padding: 0px;
+            border: none !important;
+        }
+        .MuiInputBase-root {
+            padding: 8px 10px 8px 10px;
+        }
+        .MuiChip-label {
+            color: var(--text-color);
         }
         .MuiSvgIcon-root {
+            color: var(--text-color);
             &:hover {
                 cursor: pointer;
                 color: var(--default-color);
             }
+        }
+        .mui-actions {
+            width: 25px;
+            height: 25px;
         }
         .file-input {
             width: 100%;
@@ -35,7 +51,7 @@
             align-items: center;
             column-gap: 5px;
             .hide-add {
-                width: 45px;
+                width: 25px;
             }
         }
     }
@@ -53,11 +69,24 @@
             display: flex;
             column-gap: 5px;
             align-items: center;
+            .additions {
+                display: flex;
+                column-gap: 5px;
+                .video, .image {
+                    object-fit: fill;
+                    width: 40px;
+                    height: 40px;
+                }
+            }
         }
     }
     .field-mid-group {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 5px;
+    }
+    .form-actions {
+        display: flex;
         column-gap: 5px;
     }
 }

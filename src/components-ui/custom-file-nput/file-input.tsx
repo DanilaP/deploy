@@ -14,16 +14,15 @@ export default function InputFile(props: {
 
     return( 
         <div className="form-group">
-            <ControlPoint color="primary" style={{ width: props.width || "50px", height: props.height || "50px", cursor: "pointer" }}/>
-            <label className="label">
-                <input 
-                    ref={ref} 
-                    type="file" 
-                    className="input-type-file" 
-                    multiple={props.multiple || false}
-                    onChange={(event) => props.onChange!(event)} accept={props.accept || ".jpg,.jpeg,.png,.gif"}
-                />
-            </label>
+            <ControlPoint style={{ width: props.width || "50px", height: props.height || "50px", cursor: "pointer" }}/>
+            <input 
+                ref={ref}
+                style={{ width: props.width, height: props.height }}
+                type="file" 
+                className="input-type-file" 
+                multiple={props.multiple || false}
+                onChange={(event) => props.onChange!(event)} accept={props.accept || ".jpg,.jpeg,.png,.gif"}
+            />
         </div>
     );
 }
