@@ -15,12 +15,14 @@ export const ManageGoodForm = ({
     mode,
     goodData,
     handleCancelUpdating,
-    handleUpdateGood
+    handleUpdateGood,
+    handleUnsavedDataExist
 }: {
     mode: "edit" | "create" | null,
     goodData?: IProduct | null,
     handleUpdateGood: (goodData: IProduct) => void,
-    handleCancelUpdating: () => void
+    handleCancelUpdating: () => void,
+    handleUnsavedDataExist: (status: boolean) => void
 }) => {
     
     const { t } = useTranslation();
@@ -116,6 +118,10 @@ export const ManageGoodForm = ({
         }
     }, [goodData]);
 
+    useEffect(() => {
+        handleUnsavedDataExist(JSON.stringify(newGoodData) !== JSON.stringify(goodData));
+    }, [newGoodData]);
+
     return (
         <div className="update-good-form">
             <div className="field">
@@ -187,9 +193,9 @@ export const ManageGoodForm = ({
                 </label>
                 <div className="additions">
                     {
-                        newGoodData.images.map(el => (
+                        newGoodData.images.map((el, index) => (
                             <Tooltip
-                                key={ el } 
+                                key={ el + index } 
                                 title={
                                     <img
                                         width="300px"

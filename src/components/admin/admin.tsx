@@ -42,26 +42,26 @@ export default function AdminPage (props: AdminPageProps) {
                 <div className="admin-menu">
                     {
                         permissionsExists.CreateUsers || permissionsExists.DeleteUsers || permissionsExists.ModifyUsers ?
-                        <MenuItem onClick={ () => navigate("/admin/users")}>
+                        <MenuItem onClick={ () => navigate("/admin/users") }>
                             <MdSupervisedUserCircle className='icon' />{ !isMenuTextExists ? t("text.usersAdmin") : null }
                         </MenuItem> : null
                     }
                     {
                         permissionsExists.CreateRoles || permissionsExists.DeleteRoles || permissionsExists.ModifyRoles ?
-                        <MenuItem onClick={ () => navigate("/admin/roles")}>
+                        <MenuItem onClick={ () => navigate("/admin/roles") }>
                             <FaUsersCog className='icon' />{ !isMenuTextExists ?  t("text.rolesAdmin") : null }
                         </MenuItem> : null
                     }
                     {
                         permissionsExists.CreateGroupOfPermissions || permissionsExists.DeleteGroupOfPermissions || permissionsExists.ModifyGroupOfPermissions ?
-                        <MenuItem onClick={ () => navigate("/admin/permissions")}>
+                        <MenuItem onClick={ () => navigate("/admin/permissions") }>
                             <MdOutlineSecurity className='icon' />{ !isMenuTextExists ? t("titles.permissionsPage") : null }
                         </MenuItem>  : null
                     }
                     {
                         permissionsExists.CreateGroupOfPermissions || permissionsExists.DeleteGroupOfPermissions || permissionsExists.ModifyGroupOfPermissions ? 
-                        <MenuItem onClick={ () => navigate("/admin/goods")}>
-                            <FaShoppingCart />{ !isMenuTextExists ? t("titles.goodsPage") : null }
+                        <MenuItem onClick={ () => navigate("/admin/goods") }>
+                            <FaShoppingCart className='icon' />{ !isMenuTextExists ? t("titles.goodsPage") : null }
                         </MenuItem>  : null
                     }
                 </div>

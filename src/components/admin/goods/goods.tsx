@@ -12,11 +12,12 @@ import "./goods.scss";
 export const GoodsPage = () => {
 
     const { t } = useTranslation();
-    const [modals, setModals] = useState({ manage: false, delete: false });
+    const [modals, setModals] = useState({ manage: false, delete: false, unsaved: false });
     const [currentMode, setCurrentMode] = useState<"create" | "edit" | null>(null);
     const [currentProducts, setCurrentProducts] = useState<IProduct[]>([]);
     const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null);
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
+    const [unSavedDataExist, setUnsavedDataExist] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const handleOpenCreatingGoodModal = () => {
@@ -93,6 +94,7 @@ export const GoodsPage = () => {
                 setModals(prev => {
                     return { ...prev, manage: false };
                 });
+                setUnsavedDataExist(false);
             }
         });
     };
@@ -116,15 +118,29 @@ export const GoodsPage = () => {
         setFilteredProducts(currentProducts.filter(el => el.provider.toLowerCase().includes(searchValue)));
     };
 
-    const handleCancelUpdating = () => {
-        setCurrentProduct(null);
-        setModals(prev => {
-            return { ...prev, manage: false };
-        });
+    const handleCancelUpdating = (status: boolean) => {
+        if (status) {
+            setModals(prev => {
+                return { ...prev, unsaved: true };
+            });
+            return;
+        } else {
+            setModals(prev => {
+                return { ...prev, manage: false };
+            });
+            setModals(prev => {
+                return { ...prev, unsaved: false };
+            });
+            setUnsavedDataExist(false);
+        }
     };
 
     const handleGotoProductPage = (product: IProduct) => {
         navigate(`/product/${product.id}`);
+    };
+
+    const handleUnsavedDataExist = (status: boolean) => {
+        setUnsavedDataExist(status);
     };
 
     useEffect(() => {
@@ -218,11 +234,12 @@ export const GoodsPage = () => {
                 isDisplay={ modals.manage }
                 title = { currentMode === 'create' ? t("text.createGoods") : t("text.editGood") }
                 typeOfActions='none'
-                closeModal={ () => setModals({ ...modals, manage: false }) }
+                closeModal={ () => handleCancelUpdating(unSavedDataExist) }
             >
                 <ManageGoodForm 
                     handleUpdateGood={ handleUpdateGood }
-                    handleCancelUpdating={ handleCancelUpdating }
+                    handleCancelUpdating={ () => handleCancelUpdating(unSavedDataExist) }
+                    handleUnsavedDataExist={ handleUnsavedDataExist }
                     mode={ currentMode }
                     goodData={ currentProduct }
                 />
@@ -235,6 +252,18 @@ export const GoodsPage = () => {
                 closeModal={ () => setModals({ ...modals, delete: false }) }
             >
                 <div className="delete-text">{ t("text.approveDeletingGood") }?</div>
+            </CustomModal>
+            <CustomModal 
+                isDisplay={ modals.unsaved }
+                title={ t("text.approveAction") }
+                typeOfActions='default'
+                actionConfirmed={ () => handleCancelUpdating(false) }
+                closeModal={ () => setModals(prev => { 
+                    return { ...prev, unsaved: false };
+                    }
+                ) }
+            >
+                <div className="delete-text">{ t("text.unsavedChanges") }?</div>
             </CustomModal>
         </div>
     );
