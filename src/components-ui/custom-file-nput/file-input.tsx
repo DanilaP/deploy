@@ -1,6 +1,6 @@
 import { ChangeEvent, useRef } from "react";
 import "./file-input.scss";
-import { ControlPoint } from '@material-ui/icons';
+import { FiPlusCircle } from "react-icons/fi";
 
 export default function InputFile(props: { 
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void
@@ -14,7 +14,7 @@ export default function InputFile(props: {
 
     return( 
         <div className="form-group">
-            <ControlPoint style={{ width: props.width || "50px", height: props.height || "50px", cursor: "pointer" }}/>
+            <FiPlusCircle fontSize={25} />
             <input 
                 ref={ref}
                 style={{ width: props.width, height: props.height }}

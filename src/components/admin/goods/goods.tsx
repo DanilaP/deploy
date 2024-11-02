@@ -6,7 +6,7 @@ import { IProduct } from "../../../interfaces/interfaces";
 import { useNavigate } from "react-router";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 import $api from '../../../configs/axiosconfig/axios.js';
-import SearchIcon from '@material-ui/icons/Search';
+import { IoMdSearch } from "react-icons/io";
 import "./goods.scss";
 
 export const GoodsPage = () => {
@@ -139,33 +139,33 @@ export const GoodsPage = () => {
 
     return (
         <div className="goods">
-            <div className="title">{t("text.managingGoods")}</div>
+            <div className="title">{ t("text.managingGoods") }</div>
             <div className="goods-actions">
                 <div className="filters">
                     <TextField 
                         onChange={ (e) => handleSearchProduct(e.target.value) } 
-                        placeholder={t("text.searchAll")}
-                        InputProps={{
+                        placeholder={ t("text.searchAll") }
+                        InputProps={ {
                             startAdornment: (
-                                <SearchIcon />
+                                <IoMdSearch />
                             ),
-                        }}
+                        } }
                     />
                     <TextField 
                         onChange={ (e) => handleSearchProductByProvider(e.target.value) } 
-                        placeholder={t("text.provider")}
+                        placeholder={ t("text.provider") }
                         className="search-field"
-                        InputProps={{
+                        InputProps={ {
                             startAdornment: (
-                                <SearchIcon />
+                                <IoMdSearch />
                             ),
-                        }}
+                        } }
                     />
                 </div>
                 <div className="buttons">
                     <Button
                         variant='contained'
-                        onClick={handleOpenCreatingGoodModal}
+                        onClick={ handleOpenCreatingGoodModal }
                     >{ t("text.createGoods") }</Button>
                 </div>
             </div>
@@ -175,38 +175,38 @@ export const GoodsPage = () => {
                         return (
                             <div 
                                 className="wrapper" 
-                                key={product.id}
+                                key={ product.id }
                             >
-                                <div className="good-info" onClick={() => handleOpenEditingGoodModal(product)} >
+                                <div className="good-info" onClick={ () => handleOpenEditingGoodModal(product) } >
                                     <div className="good-info-main">
                                         <img 
                                             className="good-image" 
-                                            src={product.images[0]} 
+                                            src={ product.images[0] } 
                                             width="50px" 
                                             height="50px"
                                         />
-                                        <div className="good-title">{product.name}</div>
-                                        <div className="good-price">{t("text.price")}: {product.variations[0].price}</div>
-                                        <div className="good-provider">{product.provider}</div>
+                                        <div className="good-title">{ product.name }</div>
+                                        <div className="good-price">{ t("text.price") }: { product.variations[0].price }</div>
+                                        <div className="good-provider">{ product.provider }</div>
                                     </div>
                                     <div className="good-info-more">
                                         <div className="good-description">
-                                            {t("text.description")}: {product.description}
+                                            { t("text.description") }: { product.description }
                                         </div>
                                     </div>
                                 </div>
                                 <div className="good-actions">
                                     <Button
                                         variant='outlined'
-                                        onClick={() => handleGotoProductPage(product)}
+                                        onClick={ () => handleGotoProductPage(product) }
                                     >{ t("text.goto") }</Button>
                                     <Button
                                         variant='outlined'
-                                        onClick={() => handleOpenEditingGoodModal(product)}
+                                        onClick={ () => handleOpenEditingGoodModal(product) }
                                     >{ t("text.edit") }</Button>
                                     <Button
                                         variant='outlined'
-                                        onClick={() => handleOpenDeleteGoodModal(product)}
+                                        onClick={ () => handleOpenDeleteGoodModal(product) }
                                     >{ t("text.delete") }</Button>
                                 </div>
                             </div>
@@ -221,20 +221,20 @@ export const GoodsPage = () => {
                 closeModal={ () => setModals({ ...modals, manage: false }) }
             >
                 <ManageGoodForm 
-                    handleUpdateGood={handleUpdateGood}
-                    handleCancelUpdating={handleCancelUpdating}
-                    mode={currentMode}
-                    goodData={currentProduct}
+                    handleUpdateGood={ handleUpdateGood }
+                    handleCancelUpdating={ handleCancelUpdating }
+                    mode={ currentMode }
+                    goodData={ currentProduct }
                 />
             </CustomModal>
             <CustomModal 
                 isDisplay={ modals.delete }
-                title = { t("text.deleteGoods") }
+                title={ t("text.deleteGoods") }
                 typeOfActions='default'
                 actionConfirmed={ handleApproveDeletingGood }
                 closeModal={ () => setModals({ ...modals, delete: false }) }
             >
-                <div className="delete-text">{t("text.approveDeletingGood")}?</div>
+                <div className="delete-text">{ t("text.approveDeletingGood") }?</div>
             </CustomModal>
         </div>
     );

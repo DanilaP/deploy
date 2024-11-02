@@ -92,6 +92,21 @@
                         align-items: center;
                         gap: 20px;
                     }
+
+                    .files-data-preview {
+                        display: flex;
+                        flex-wrap: wrap;
+                        width: 100%;
+                        height: 50px;
+                        gap: 10px;
+                        margin-top: 20px;
+                        
+                        .files-data-image {
+                            width: 60px;
+                            height: 50px;
+                            object-fit: fill;
+                        }
+                    }
                 }
             }
         }
@@ -123,12 +138,12 @@
                     border: none;
                 }
                 .active {
-                    .MuiSvgIcon-root {
+                    .icon {
                         color: red;
                     }
                 }
                 .inactive {
-                    .MuiSvgIcon-root {
+                    .icon {
                         color: #1976d2;
                     }
                 }
