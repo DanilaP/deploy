@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from './translation/i18n';
 import { Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
 import { Switch } from '@mui/material';
-import { PersonPin, ShoppingBasket, ShoppingCart, SupervisorAccount } from '@material-ui/icons';
+import { FaShoppingCart } from "react-icons/fa";
+import { MdPersonPin } from "react-icons/md";
+import { MdSupervisorAccount } from "react-icons/md";
 import { observer } from 'mobx-react-lite';
 import './stylesheets/application.scss';
 import './stylesheets/themes/dark.scss';
 import './stylesheets/themes/white.scss';
-
 import { adminRoutes, routes } from './routes';
 import $api from './configs/axiosconfig/axios';
 import { useStore } from './stores';
@@ -76,11 +77,11 @@ function App() {
             <div className='home-page-main'>
                     { userStore.user ? (
                         <div className="header">
-                            <Link to='/shop'><ShoppingCart/>{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
+                            <Link to='/shop'><FaShoppingCart className='icon' />{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
                             <Link to='/cart'><ShoppingBasket />{ !isMobile ? t('titles.cart') : null }</Link><br/>
-                            <Link to='/profile'><PersonPin />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
+                            <Link to='/profile'><MdPersonPin className='icon' />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
                             { checkPermissions() ?
-                            (<Link to='/admin'><SupervisorAccount/>{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
+                            (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">
                                 <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
                                 <Switch onChange = { changeTheme } defaultChecked/>

@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from '../../translation/i18n';
 import { useNavigate } from 'react-router';
 import { MenuItem } from '@mui/material';
-import { SupervisedUserCircle, SupervisorAccount, Security } from '@material-ui/icons';
+import { MdSupervisedUserCircle } from "react-icons/md";
+import { FaUsersCog } from "react-icons/fa";
+import { MdOutlineSecurity } from "react-icons/md";
+
 import './admin.scss';
 import usePermissions from "../../helpers/permissions-helpers.ts";
 
@@ -40,19 +43,19 @@ export default function AdminPage (props: AdminPageProps) {
                     {
                         permissionsExists.CreateUsers || permissionsExists.DeleteUsers || permissionsExists.ModifyUsers ?
                         <MenuItem onClick={ () => navigate("/admin/users")}>
-                            <SupervisedUserCircle />{ !isMenuTextExists ? t("text.usersAdmin") : null }
+                            <MdSupervisedUserCircle className='icon' />{ !isMenuTextExists ? t("text.usersAdmin") : null }
                         </MenuItem> : null
                     }
                     {
                         permissionsExists.CreateRoles || permissionsExists.DeleteRoles || permissionsExists.ModifyRoles ?
                         <MenuItem onClick={ () => navigate("/admin/roles")}>
-                            <SupervisorAccount />{ !isMenuTextExists ?  t("text.rolesAdmin") : null }
+                            <FaUsersCog className='icon' />{ !isMenuTextExists ?  t("text.rolesAdmin") : null }
                         </MenuItem> : null
                     }
                     {
                         permissionsExists.CreateGroupOfPermissions || permissionsExists.DeleteGroupOfPermissions || permissionsExists.ModifyGroupOfPermissions ?
                         <MenuItem onClick={ () => navigate("/admin/permissions")}>
-                            <Security />{ !isMenuTextExists ? t("titles.permissionsPage") : null }
+                            <MdOutlineSecurity className='icon' />{ !isMenuTextExists ? t("titles.permissionsPage") : null }
                         </MenuItem>  : null
                     }
 
