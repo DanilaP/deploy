@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from './translation/i18n';
 import { Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
 import { Switch } from '@mui/material';
-import { PersonPin } from '@material-ui/icons';
-import { ShoppingCart } from '@material-ui/icons';
-import { SupervisorAccount } from '@material-ui/icons';
+import { PersonPin, ShoppingBasket, ShoppingCart, SupervisorAccount } from '@material-ui/icons';
 import { observer } from 'mobx-react-lite';
 import './stylesheets/application.scss';
 import './stylesheets/themes/dark.scss';
@@ -79,6 +77,7 @@ function App() {
                     { userStore.user ? (
                         <div className="header">
                             <Link to='/shop'><ShoppingCart/>{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
+                            <Link to='/cart'><ShoppingBasket />{ !isMobile ? t('titles.cart') : null }</Link><br/>
                             <Link to='/profile'><PersonPin />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
                             { checkPermissions() ?
                             (<Link to='/admin'><SupervisorAccount/>{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>

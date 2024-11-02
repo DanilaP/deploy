@@ -438,9 +438,12 @@ app.delete("/backet", async function(req, res) {
         const userId = jwt_decode(token).id;
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         let updatedBacket = [];
+        const idsToDelete = req.query.ids.split(',').map(Number);
         let updatedUsers = currentUsers.map((user) => {
             if (user.id === userId) {
-                updatedBacket = user.backet.filter((product) => product.id !== Number(req.query.id));
+                updatedBacket = user.backet.filter(
+                  (product) => !idsToDelete.includes(product.id)
+                );
                 return {
                     ...user,
                     backet: updatedBacket

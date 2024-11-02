@@ -6,7 +6,7 @@ import SignUp from "./components/auth/sign-up";
 import AboutPage from "./components/about/about";
 import HomePage from "./components/home/home";
 import ShopPage from "./components/shop/shop";
-import CartPage from "./components/cart/cart.tsx";
+import CartPage from "./components/cart/cart-page.tsx";
 import UsersList from "./components/admin/users/users-list/users-list";
 import ProfilePage from "./components/profile/profile";
 import RolesPage from "./components/admin/roles/roles";

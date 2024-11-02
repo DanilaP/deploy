@@ -3,46 +3,25 @@ import CardContent from '@mui/material/CardContent';
 import { Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
-
-const styles = {
-    card: {
-        textAlign: 'center',
-        padding: 2,
-        boxShadow: 'none',
-    },
-    title: {
-        variant: "h5" as const,
-        component: "div" as const,
-        gutterBottom: true,
-    },
-    body: {
-        variant: "body1" as const,
-        color: "text.secondary",
-        gutterBottom: true,
-    },
-    button: {
-        variant: "contained" as const,
-        color: "primary" as const,
-        sx: { marginTop: 2 },
-    },
-};
+import './empty-cart-card.scss';
 
 const emptyCartCard = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
     return (
-        <Card sx={styles.card}>
+        <Card className="empty-card">
             <CardContent>
-                <Typography {...styles.title}>
+                <Typography gutterBottom variant="h5" className="empty-card-title" component="div">
                     {t('text.cart.emptyBasket')}
                 </Typography>
-                <Typography {...styles.body}>
+                <Typography gutterBottom variant="body1" className="empty-card-body">
                     {t('text.cart.findProductsInfo')}
                 </Typography>
                 <Button
+                    variant="contained"
                     onClick={() => navigate("/shop")}
-                    {...styles.button}
+                    className="empty-card-button"
                 >
                     {t('text.cart.toCatalog')}
                 </Button>

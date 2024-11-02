@@ -15,6 +15,7 @@ import {
 } from '@material-ui/icons';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import './product-card.scss'
 
 interface ProductCardProps {
     isSelected: boolean;
@@ -23,28 +24,14 @@ interface ProductCardProps {
     product: any;
 }
 
-const styles = {
-    card: { padding: 2, boxShadow: 'none' },
-    mainStack: { alignItems: "center", justifyContent: 'space-between' },
-    rowStack: { direction: 'row', spacing: 2 },
-    checkbox: { alignSelf: 'flex-start' },
-    media: { width: 150, height: 150 },
-    productName: { fontSize: '0.875rem' },
-    colorDescription: { color: 'text.secondary', fontSize: '0.65rem' },
-    quantityBox: { display: 'flex', alignItems: 'center', gap: 1, mt: 2 },
-    quantityButton: { minWidth: 0, padding: '3px 5px' },
-    stockText: { color: 'text.primary', fontSize: '0.65rem', mt: 2 },
-    actionIcons: { alignSelf: 'flex-start', display: 'flex', alignItems: 'center', mt: 2, color: 'gray' },
-    priceText: { alignSelf: 'flex-start' }
-};
 const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, handleProductRemove }) => {
     const { t } = useTranslation();
     const { productInfo, number } = product;
-    const { variations, additionalInfo } = productInfo;
+    const { variations, additionalInfo, images } = productInfo;
 
     const currentVariation = variations.find((variation: any) => variation.name === product.variation);
     const currentColor = additionalInfo.find((info: any) => info.name === 'Цвет')?.description || t('text.cart.noColor');
-    const { stock, price, image, title } = currentVariation;
+    const { stock, price, title } = currentVariation;
 
     const [open, setOpen] = useState<boolean>(false);
 
@@ -58,52 +45,49 @@ const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, hand
 
     return (
         <>
-            <Card sx={styles.card}>
-                <Stack direction="row" spacing={2} sx={styles.mainStack}>
+            <Card className="card-product">
+                <Stack direction="row" spacing={2} className="mainStack">
                     <Stack direction="row" spacing={2}>
-                        <Checkbox sx={styles.checkbox} checked={isSelected} onChange={onSelect} />
-                        <CardMedia component="img" sx={styles.media} image={image} alt={productInfo.name} />
+                        <Checkbox className="product-checkbox" checked={isSelected} onChange={onSelect} />
+                        <CardMedia component="img" className="product-media" image={images[0]} alt={productInfo.name} />
                         <Stack>
-                            <Typography variant="h6" component="div" sx={styles.productName}>
+                            <Typography variant="h6" component="div" className="productName">
                                 {`${productInfo.name}, ${title} ${t('text.cart.variation')}`}
                             </Typography>
-                            <Typography gutterBottom variant="subtitle2" sx={styles.colorDescription}>
+                            <Typography gutterBottom variant="subtitle2" className="colorDescription">
                                 {t('text.cart.color')} {currentColor}
                             </Typography>
-                            <Box sx={styles.quantityBox}>
-                                <Button variant="outlined" color="primary" size="small" sx={styles.quantityButton}>
+                            <Box className="quantityBox">
+                                <Button variant="outlined" color="primary" size="small" className="quantityButton">
                                     <Remove fontSize="small" />
                                 </Button>
                                 <Typography variant="body1">{number}</Typography>
-                                <Button variant="outlined" color="primary" size="small" sx={styles.quantityButton}>
+                                <Button variant="outlined" color="primary" size="small" className="quantityButton">
                                     <Add fontSize="small" />
                                 </Button>
                             </Box>
-                            <Typography gutterBottom variant="subtitle2" sx={styles.stockText}>
+                            <Typography gutterBottom variant="subtitle2" className="stockText">
                                 {t('text.cart.stock')}: {stock} {t('text.cart.pcs')}.
                             </Typography>
                         </Stack>
                     </Stack>
 
                     <Stack spacing={8}>
-                        <Box sx={styles.actionIcons}>
-                            <IconButton color="inherit" size="small" sx={styles.quantityButton}>
+                        <Box className="actionIcons">
+                            <IconButton color="inherit" size="small">
                                 <FavoriteBorder fontSize="small" />
                             </IconButton>
-                            <IconButton
-                                color="inherit"
-                                size="small"
-                                sx={styles.quantityButton}
-                                onClick={handleOpenDialog}
-                            >
+                            <IconButton color="inherit" size="small" onClick={handleOpenDialog}>
                                 <DeleteOutlined fontSize="small" />
                             </IconButton>
                         </Box>
-                        <Typography variant="h6" component="div" sx={styles.priceText}>
-                            {price} {t('symbols.rub')}
+
+                        <Typography variant="h6" className="product-price">
+                            {`${price} ${t('text.rub')}`}
                         </Typography>
                     </Stack>
                 </Stack>
+
             </Card>
 
             <Dialog open={open} onClose={handleCloseDialog}>
@@ -116,7 +100,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, hand
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleConfirmRemove} variant="contained" color="secondary" autoFocus>
+                    <Button onClick={handleConfirmRemove} variant="contained" color="error" autoFocus>
                         {t('text.cart.delete')}
                     </Button>
                     <Button onClick={handleCloseDialog} color="primary">
