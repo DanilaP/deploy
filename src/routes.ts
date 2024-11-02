@@ -13,6 +13,7 @@ import RolesPage from "./components/admin/roles/roles";
 import PermissionsPage from "./components/admin/permissions/permissions";
 import ProductPage from "./components/shop/product-page/product-page";
 import ProductReviews from "./components/shop/product-reviews-page/product-reviews-page";
+import CheckoutPage from "./components/checkout/checkout-page.tsx";
 
 export const routes = [
     {
@@ -43,6 +44,11 @@ export const routes = [
     {
         path: '/cart',
         component: CartPage,
+        children: null
+    },
+    {
+        path: '/checkout',
+        component: CheckoutPage,
         children: null
     },
     {

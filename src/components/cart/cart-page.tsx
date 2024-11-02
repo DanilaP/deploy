@@ -1,55 +1,39 @@
 import { Button, Checkbox, Container, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import ProductCard from './cards/product-card/product-card.tsx';
 import OrderCard from './cards/order-card/order-card.tsx';
 import './cart-page.scss';
 import $api from '../../configs/axiosconfig/axios.js';
-import Card from "@mui/material/Card";
-import EmptyCartCard from "./cards/empty-cart-card/empty-cart-card.tsx";
-import {useStore} from "../../stores";
+import Card from '@mui/material/Card';
+import EmptyCartCard from './cards/empty-cart-card/empty-cart-card.tsx';
+import { useStore } from '../../stores';
 import { observer } from 'mobx-react-lite';
+import {IProduct} from "../../interfaces/interfaces.ts";
 
 const CartPage = () => {
     const { t } = useTranslation();
-
     const { cartStore } = useStore();
-    const { cart,
-        totalSum,
+    const {
+        cart,
         totalBasketQuantity,
         isAllSelected,
-        selectedTotalQuantity,
         selectedProductIds,
     } = cartStore;
 
+    const [localCart, setLocalCart] = useState<Array<IProduct>>([]);
+
     const isBasketEmpty = cart.length === 0;
     const isSomeSelected = selectedProductIds.length > 0;
-
-    const calculateFullBasketQuantity = () => {
-        const totalQuantity = cart.reduce((acc, product) => acc + product.number, 0);
-        cartStore.setTotalBasketQuantity(totalQuantity);
-    };
-
-    const calculateTotals = () => {
-        const filteredBasket = cart.filter((product) => selectedProductIds.includes(product.id));
-
-        const quantity = filteredBasket.reduce((acc, product) => product.number + acc, 0);
-        const sum = filteredBasket.reduce((acc, product) => {
-            const currentVariation = product.productInfo.variations.find((v) => v.name === product.variation);
-            return acc + (currentVariation?.price * product.number || 0);
-        }, 0);
-
-        cartStore.updateCartData(sum, quantity);
-    };
 
     useEffect(() => {
         const fetchBasketData = async () => {
             try {
                 const { data: { backet } } = await $api.get('/backet');
-                console.log({backet})
                 cartStore.setCart(backet);
+                setLocalCart(backet);
             } catch (error) {
                 console.error(error);
             }
@@ -59,59 +43,58 @@ const CartPage = () => {
 
 
     useEffect(() => {
-        if (cart.length > 0) {
-            const allProductIds = cart.map((product) => product.id);
+        if (localCart.length > 0) {
+            const allProductIds = localCart.map((product) => product.id);
             cartStore.setSelectedProductIds(allProductIds);
-            cartStore.setIsAllSelected(true);
+            cartStore.setTotalBasketQuantity(localCart.length);
         }
-    }, [cart]);
-
-    useEffect(() => {
-        calculateTotals();
-        calculateFullBasketQuantity();
-    }, [selectedProductIds, cart]);
-
+    }, [localCart]);
 
     const handleSelectAllChange = () => {
         const newSelectedIds = isAllSelected ? [] : cart.map((product) => product.id);
-
         cartStore.setSelectedProductIds(newSelectedIds);
         cartStore.setIsAllSelected(!isAllSelected)
     };
 
-    const handleProductSelect = (productId: string) => {
+    const handleProductSelect = (productId: number) => {
         cartStore.toggleProductSelection(productId);
     };
 
-    const handleProductRemove = async (productId: string) => {
+    const removeProducts = async (ids: number[]) => {
         try {
-            const  { data: { backet } } = await $api.delete("/backet", {
+            const { data: { backet } } = await $api.delete("/backet", {
                 params: {
-                    ids: [productId].join(','),
+                    ids: ids.join(','),
                 }
             });
-            const ids = backet.map((product) => product.id);
-            const filteredBasket = cart.filter((item) => ids.includes(item.id));
+            const filteredIds = backet.map((product: IProduct) => product.id);
+            const filteredBasket = cart.filter((item) => filteredIds.includes(item.id));
             cartStore.setCart(filteredBasket);
-        } catch(error) {
+        } catch (error) {
             console.error(error);
         }
     };
 
-    const handleRemoveProducts = async() => {
+    const handleProductRemove = (productId: number) => {
+        removeProducts([productId]);
+    };
+
+    const handleRemoveProducts = () => {
+        removeProducts(selectedProductIds);
+    };
+
+    const handleProductQuantityChange = async(productId: number, newQuantity: number) => {
+        cartStore.updateProductQuantity(productId, newQuantity);
+
+        const updatedCart = cartStore.cart;
+
         try {
-            const  { data: { backet } } = await $api.delete("/backet", {
-                params: {
-                    ids: [selectedProductIds].join(','),
-                }
-            });
-            const ids = backet.map((product) => product.id);
-            const filteredBasket = cart.filter((item) => ids.includes(item.id));
-            cartStore.setCart(filteredBasket);
-        } catch(error) {
+            const { data } = await $api.put('/backet/updateCart', { cart: updatedCart });
+            cartStore.setCart(data.cart.cart);
+        } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     return (
         <Container className="cart cart-page-container" maxWidth="xl">
@@ -155,12 +138,13 @@ const CartPage = () => {
                         </Card>
 
                         <Stack spacing={1} className="basket-stack">
-                            {cart.map((product: any) => (
+                            {cart.map((product: IProduct) => (
                                 <ProductCard
                                     key={product.id}
                                     isSelected={selectedProductIds.includes(product.id)}
                                     onSelect={() => handleProductSelect(product.id)}
                                     handleProductRemove={() => handleProductRemove(product.id)}
+                                    onQuantityChange={(newQuantity: number) => handleProductQuantityChange(product.id, newQuantity)}
                                     product={product}
                                 />
                             ))}

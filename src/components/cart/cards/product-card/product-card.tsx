@@ -5,26 +5,34 @@ import {
     Typography,
     Button,
     Checkbox,
-    Stack, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+    Stack,
+    IconButton,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
 } from '@mui/material';
 import {
-    Add,
-    Remove,
-    FavoriteBorder,
-  DeleteOutlined,
-} from '@material-ui/icons';
+    FaPlus as Add,
+    FaMinus as Remove,
+    FaRegHeart as FavoriteBorder,
+    FaTrashAlt as DeleteOutlined
+} from 'react-icons/fa';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './product-card.scss'
+import {IProduct} from "../../../../interfaces/interfaces.ts";
 
 interface ProductCardProps {
     isSelected: boolean;
     onSelect: () => void;
     handleProductRemove: () => void;
+    onQuantityChange: (quantity: number) => void;
     product: any;
 }
 
-const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, handleProductRemove }) => {
+const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, handleProductRemove, onQuantityChange }) => {
     const { t } = useTranslation();
     const { productInfo, number } = product;
     const { variations, additionalInfo, images } = productInfo;
@@ -43,6 +51,16 @@ const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, hand
         handleCloseDialog();
     };
 
+    const handleIncrease = () => {
+        onQuantityChange(product.number + 1);
+    };
+
+    const handleDecrease = () => {
+        if (product.number > 1) {
+            onQuantityChange(product.number - 1);
+        }
+    };
+
     return (
         <>
             <Card className="card-product">
@@ -58,11 +76,25 @@ const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, hand
                                 {t('text.cart.color')} {currentColor}
                             </Typography>
                             <Box className="quantityBox">
-                                <Button variant="outlined" color="primary" size="small" className="quantityButton">
+                                <Button
+                                    disabled={product.number === 1}
+                                    variant="outlined"
+                                    color="primary"
+                                    size="small"
+                                    className="quantityButton"
+                                    onClick={handleDecrease}
+                                >
                                     <Remove fontSize="small" />
                                 </Button>
                                 <Typography variant="body1">{number}</Typography>
-                                <Button variant="outlined" color="primary" size="small" className="quantityButton">
+                                <Button
+                                    disabled={product.number === stock}
+                                    variant="outlined"
+                                    color="primary"
+                                    size="small"
+                                    className="quantityButton"
+                                    onClick={handleIncrease}
+                                >
                                     <Add fontSize="small" />
                                 </Button>
                             </Box>

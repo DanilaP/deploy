@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { FC } from 'react';
 import './order-card.scss';
 import { useStore } from '../../../../stores';
+import { observer } from 'mobx-react-lite';
+import {useNavigate} from "react-router";
 
 interface OrderPromptProps {
     sumToShow: string;
@@ -55,6 +57,8 @@ const orderCard = () => {
     } = cartStore;
 
     const { t } = useTranslation();
+    const navigate = useNavigate();
+
     const sumToShow = totalSum.toLocaleString('ru-RU');
     const isSomeSelected = selectedProductIds.length > 0;
 
@@ -70,7 +74,12 @@ const orderCard = () => {
                 <EmptyOrderPrompt />
             )}
             <CardActions>
-                <Button variant="contained" disabled={!isSomeSelected} fullWidth>
+                <Button
+                    onClick={() => navigate('/checkout')}
+                    variant="contained"
+                    disabled={!isSomeSelected}
+                    fullWidth
+                >
                     {t('text.cart.placeOrderButton')}
                 </Button>
             </CardActions>
@@ -78,4 +87,4 @@ const orderCard = () => {
     );
 };
 
-export default orderCard;
+export default observer(orderCard);

@@ -488,6 +488,9 @@ app.post("/backet", async function(req, res) {
     }
 });
 
+app.put('/backet/updateCart', (req, res) => {
+    res.status(200).json({ message: "Корзина успешно обновлена", cart: req.body });
+});
 
 async function startApp() {
     try {

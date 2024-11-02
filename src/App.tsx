@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from './translation/i18n';
 import { Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
 import { Switch } from '@mui/material';
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaShoppingBag } from "react-icons/fa";
 import { MdPersonPin } from "react-icons/md";
 import { MdSupervisorAccount } from "react-icons/md";
 import { observer } from 'mobx-react-lite';
@@ -77,8 +77,8 @@ function App() {
             <div className='home-page-main'>
                     { userStore.user ? (
                         <div className="header">
+                            <Link to='/cart'><FaShoppingBag className='icon' />{ !isMobile ? t('titles.cart') : null }</Link><br/>
                             <Link to='/shop'><FaShoppingCart className='icon' />{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
-                            <Link to='/cart'><ShoppingBasket />{ !isMobile ? t('titles.cart') : null }</Link><br/>
                             <Link to='/profile'><MdPersonPin className='icon' />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
                             { checkPermissions() ?
                             (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
