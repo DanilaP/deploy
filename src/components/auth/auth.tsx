@@ -21,7 +21,7 @@ export default function AuthPage (props: AuthPageProps) {
         <div className='auth-wrapper'>
             <div className="auth-form">
                 <div className="auth-form-header">
-                    <MdExitToApp className='icon' style={ { width: "50px", height: "50px" } } color='primary' />
+                    <MdExitToApp className='icon' color='primary' />
                 </div>
                 <div className="auth-form-content">{ children }</div>
                 <div className="auth-form-footer">
