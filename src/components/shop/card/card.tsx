@@ -15,7 +15,7 @@ export default function MediaCard(props: { product: IProduct }) {
     const { t } = useTranslation();
     
     const showDetails = () => {
-        navigate(`/product/${ props.product.id }`);
+        navigate(`/shop/product/${ props.product.id }`);
     };
 
     return (

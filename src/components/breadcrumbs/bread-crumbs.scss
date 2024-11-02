@@ -1,0 +1,21 @@
+.bread-crumbs {
+    min-height: 40px;
+    max-height: max-content;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.247);
+    background-color: var(--bg-color-block);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    box-sizing: border-box;
+    padding-left: 25px;
+    flex-wrap: wrap;
+
+    .bread-crumbs-link {
+        color: var(--text-color);
+        cursor: pointer;
+
+        &:hover {
+            color: #1976d2;
+        }
+    }
+}

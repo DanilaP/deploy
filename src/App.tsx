@@ -13,6 +13,7 @@ import { adminRoutes, routes } from './routes';
 import $api from './configs/axiosconfig/axios';
 import { useStore } from './stores';
 import usePermissions from './helpers/permissions-helpers.ts';
+import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
 
 function App() {
     const [theme, setTheme] = useState("white-theme");
@@ -86,6 +87,9 @@ function App() {
                                 <Switch onChange = { changeTheme } defaultChecked/>
                             </div>
                         </div> ) : null
+                    }
+                    {
+                        userStore.user ? <BreadCrumbs /> : null
                     }
                 <div className="content">
                     <Routes>
