@@ -12,9 +12,16 @@ export default function Review (props: { review: IReview }) {
     });
 
     const [isLike, setIsLike] = useState<boolean>();
+    const [currentLikes, setCurrentLikes] = useState(props.review?.likes);
 
     const likeReview = () => {
-        isLike ? setIsLike(false) : setIsLike(true);
+        if (isLike) {
+            setIsLike(false);
+            setCurrentLikes([]);
+        } else {
+            setIsLike(true);
+            setCurrentLikes(["test"]);
+        }
     };
 
     return (
@@ -38,7 +45,7 @@ export default function Review (props: { review: IReview }) {
                 </div>
             </div>
             <div onClick = { likeReview } className={`like-icon ${ isLike ? "active" : "inactive" }`} >
-                { props.review?.likes?.length }
+                { currentLikes?.length }
                 <MdOutlineFavorite className='icon' />
             </div>
             <div className="review-images">

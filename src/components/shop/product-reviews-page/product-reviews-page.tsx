@@ -24,6 +24,7 @@ export default function ProductReviews () {
         image: null,
         video: null
     });
+    const [userMediaFilesPreview, setUserMediaFilesPreview] = useState<string[]>([]);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const navigate = useNavigate();
@@ -70,9 +71,17 @@ export default function ProductReviews () {
 
     const changeUserMedia = (files: FileList | null) => {
         if (files) {
-            files[0].name.includes("image")
-            ? setUserMediaFiles({ ...userMediaFiles, image: files[0] })
-            : setUserMediaFiles({ ...userMediaFiles, video: files[0] });
+            const newMediaPreview = userMediaFilesPreview;
+            if (files[0].type.includes("image")) {
+                setUserMediaFiles({ ...userMediaFiles, image: files[0] });
+                newMediaPreview[0] =  URL.createObjectURL(files[0]);
+                setUserMediaFilesPreview(newMediaPreview);
+            }
+            else {
+                setUserMediaFiles({ ...userMediaFiles, video: files[0] });
+                newMediaPreview[1] =  URL.createObjectURL(files[0]);
+                setUserMediaFilesPreview(newMediaPreview);
+            }
         }
     };
 
@@ -128,6 +137,15 @@ export default function ProductReviews () {
                             <div className='files-data-item'>
                                 <div>{ t("text.uploadFiles") }</div>
                                 <InputFile onChange={ (e) => changeUserMedia(e.target.files) } />
+                            </div>
+                            <div className="files-data-preview">
+                            { userMediaFilesPreview.length > 0 
+                            &&
+                                <>
+                                    <img className='files-data-image' src = { userMediaFilesPreview[0] } />
+                                    <video className='files-data-image' src = { userMediaFilesPreview[1] } />
+                                </>
+                            }
                             </div>
                         </div>
                         <div className="user-evaluation">

@@ -319,7 +319,8 @@ app.put("/product", async function(req, res) {
                             clientId: userId,
                             ...req.body.review,
                             video: "http://localhost:5000/video/video1.mp4",
-                            photo: "http://localhost:5000/products/product1.jpg"
+                            photo: "http://localhost:5000/products/product1.jpg",
+                            likes: []
                         }]
                     };
                 }
@@ -332,7 +333,8 @@ app.put("/product", async function(req, res) {
                                     clientId: userId,
                                     ...req.body.review,
                                     video: "http://localhost:5000/video/video1.mp4",
-                                    photo: "http://localhost:5000/products/product1.jpg"
+                                    photo: "http://localhost:5000/products/product1.jpg",
+                                    likes: []
                                 };
                             } else return review;
                         })
@@ -346,7 +348,8 @@ app.put("/product", async function(req, res) {
             clientId: userId,
             avatar: user.avatar,
             video: "http://localhost:5000/video/video1.mp4",
-            photo: "http://localhost:5000/products/product1.jpg"
+            photo: "http://localhost:5000/products/product1.jpg",
+            likes: []
         } });
     }
     catch(error) {
