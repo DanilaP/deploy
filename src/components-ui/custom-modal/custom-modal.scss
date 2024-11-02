@@ -45,7 +45,7 @@
     }
 
     .manage-custom-modal {
-        button {
+        > button {
             border-radius: 5px;
             border: none;
             color: white;
@@ -91,7 +91,7 @@
                 .custom-modal-close {
                     text-align: right;
 
-                    button {
+                    > button {
                         width: 25px;
                         height: 25px;
                         font-size: 16px;
