@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from './translation/i18n';
 import { Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
 import { Switch } from '@mui/material';
+import $api from './configs/axiosconfig/axios';
 import { FaShoppingCart, FaShoppingBag } from "react-icons/fa";
 import { MdPersonPin } from "react-icons/md";
 import { MdSupervisorAccount } from "react-icons/md";
@@ -10,7 +11,6 @@ import './stylesheets/application.scss';
 import './stylesheets/themes/dark.scss';
 import './stylesheets/themes/white.scss';
 import { adminRoutes, routes } from './routes';
-import $api from './configs/axiosconfig/axios';
 import { useStore } from './stores';
 import usePermissions from './helpers/permissions-helpers.ts';
 
