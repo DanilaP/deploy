@@ -5,6 +5,7 @@ import { MenuItem } from '@mui/material';
 import { SupervisedUserCircle, ShoppingCart, SupervisorAccount, Security } from '@material-ui/icons';
 import './admin.scss';
 import usePermissions from "../../helpers/permissions-helpers.ts";
+import CategoryIcon from '@material-ui/icons/Category';
 
 interface AdminPageProps {
     children: React.ReactElement | null
@@ -59,6 +60,12 @@ export default function AdminPage (props: AdminPageProps) {
                         permissionsExists.CreateGroupOfPermissions || permissionsExists.DeleteGroupOfPermissions || permissionsExists.ModifyGroupOfPermissions ? 
                         <MenuItem onClick={ () => navigate("/admin/goods")}>
                             <ShoppingCart />{ !isMenuTextExists ? t("titles.goodsPage") : null }
+                        </MenuItem>  : null
+                    }
+                    {
+                        permissionsExists.CreateGroupOfPermissions || permissionsExists.DeleteGroupOfPermissions || permissionsExists.ModifyGroupOfPermissions ? 
+                        <MenuItem onClick={ () => navigate("/admin/categorys")}>
+                            <CategoryIcon />{ !isMenuTextExists ? t("text.categorys") : null }
                         </MenuItem>  : null
                     }
                 </div>

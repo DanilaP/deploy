@@ -492,6 +492,19 @@ app.post("/backet", async function(req, res) {
     }
 });
 
+// categorys
+
+app.get("/category", async function(req, res) {
+    try {
+        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categorys.json', 'utf8'));
+        res.status(200).json({ message: "Данные о категориях получены", categoryList: currentCategoryList });
+    }
+    catch(error) {
+        console.error("get /category", error);
+        res.status(400).json({ message: "Ошибка получения данных о категории!" });
+    }
+});
+
 
 async function startApp() {
     try {

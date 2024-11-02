@@ -53,3 +53,8 @@ export interface IReview {
     photo?: string,
     likes?: string[]
 }
+export interface ICategory {
+    title: string,
+    id: string,
+    categorys?: ICategory[]
+}
