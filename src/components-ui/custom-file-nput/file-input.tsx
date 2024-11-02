@@ -12,7 +12,7 @@ export default function InputFile(props: {
 
     return( 
         <div className="form-group">
-            <MdOutlineControlPoint className='icon' color="primary" style={{ width: "30px", height: "30px", cursor: "pointer" }}/>
+            <MdOutlineControlPoint className='icon' color="primary" />
             <label className="label">
                 <input 
                     ref={ref} 
