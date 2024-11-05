@@ -15,7 +15,9 @@
         "manipulateUser": "User manipulation",
         "profilePage": "Profile page",
         "permissionsPage": "Permissions page",
-        "rolesPage": "Roles page"
+        "rolesPage": "Roles page",
+        "productPage": "Product page",
+        "productReviewsPage": "Product reviews page"
     },
     "labels": {
         "loading": "Loading..."

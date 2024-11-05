@@ -7,10 +7,6 @@ import { MdOutlineFavorite } from "react-icons/md";
 export default function Review (props: { review: IReview }) {
 
     const { t } = useTranslation();
-    useEffect(() => {
-        document.title = t("titles.aboutPage");
-    });
-
     const [isLike, setIsLike] = useState<boolean>();
     const [currentLikes, setCurrentLikes] = useState(props.review?.likes);
 

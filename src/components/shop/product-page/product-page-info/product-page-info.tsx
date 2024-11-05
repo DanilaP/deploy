@@ -31,10 +31,6 @@ export default function ProductInfo (props: {
         }
     };
 
-    useEffect(() => {
-        document.title = t("titles.aboutPage");
-    });
-
     return (
         <div className="product-info">
             <div className="product-info-header">

@@ -92,27 +92,29 @@ function App() {
                         userStore.user ? <BreadCrumbs /> : null
                     }
                 <div className="content">
-                    <Routes>
-                        { isLoading &&
-                            routes.map(({ path, component: Component, children: Children }) => (
-                                <Route
-                                    key={ path }
-                                    path={ path }
-                                    element={ <Component>{ Children && <Children /> }</Component> }
-                                />
-                            ))
-                        }
-                        { checkPermissions() &&
-                            adminRoutes.map(({ path,  component: Component, children: Children }) => (
-                                <Route
-                                    key={ path }
-                                    path={ path }
-                                    element={ userStore.user
-                                        ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> }
-                                />
-                            ))
-                        }
-                    </Routes>
+                    { isLoading &&  
+                        <Routes>
+                            { 
+                                routes.map(({ path, component: Component, children: Children }) => (
+                                    <Route
+                                        key={ path }
+                                        path={ path }
+                                        element={ <Component>{ Children && <Children /> }</Component> }
+                                    />
+                                ))
+                            }
+                            { checkPermissions() &&
+                                adminRoutes.map(({ path,  component: Component, children: Children }) => (
+                                    <Route
+                                        key={ path }
+                                        path={ path }
+                                        element={ userStore.user
+                                            ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> }
+                                    />
+                                ))
+                            }
+                        </Routes>
+                    }
                 </div>
             </div>
         </>

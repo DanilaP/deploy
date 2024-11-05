@@ -15,7 +15,9 @@
         "manipulateUser": "Управление пользователем",
         "profilePage": "Страница профиля",
         "permissionsPage": "Разрешения/права",
-        "rolesPage": "Роли"
+        "rolesPage": "Роли",
+        "productPage": "Страница продукта",
+        "productReviewsPage": "Страница отзывов о продукте"
 },
     "labels": {
         "loading": "Загрузка..."

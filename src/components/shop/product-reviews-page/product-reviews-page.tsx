@@ -86,8 +86,8 @@ export default function ProductReviews () {
     };
 
     useEffect(() => {
-        document.title = t("titles.aboutPage");
-    });
+        document.title = t("titles.productReviewsPage");
+    }, []);
 
     useEffect(() => {
         $api.get(`/reviews/product/?id=${ params.id }`)
