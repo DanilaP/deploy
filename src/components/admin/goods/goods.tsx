@@ -126,11 +126,9 @@ export const GoodsPage = () => {
             return;
         } else {
             setModals(prev => {
-                return { ...prev, manage: false };
+                return { ...prev, manage: false, unsaved: false };
             });
-            setModals(prev => {
-                return { ...prev, unsaved: false };
-            });
+            setCurrentProduct(null);
             setUnsavedDataExist(false);
         }
     };
