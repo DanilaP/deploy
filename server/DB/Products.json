@@ -14,32 +14,46 @@
     "category": "Вычислительная техника",
     "additionalInfo": [
       {
+        "id": 1,
         "name": "Корпус",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 2,
         "name": "Цвет",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 3,
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 4,
         "name": "Материал",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 5,
         "name": "Материнская плата",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 6,
         "name": "Видеокарта",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
     ],
     "provider": "Поставщик 1",
     "reviews": [
+      {
+        "clientId": 1727158100336,
+        "text": "this is the second review for product 1",
+        "evaluation": 4,
+        "likes": [],
+        "video": [],
+        "photo": []
+      },
       {
         "clientId": 1727161785732,
         "text": "123123",
@@ -95,26 +109,32 @@
     "category": "Вычислительная техника",
     "additionalInfo": [
       {
+        "id": 1,
         "name": "Корпус",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 2,
         "name": "Цвет",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 3,
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 4,
         "name": "Материал",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 5,
         "name": "Материнская плата",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 6,
         "name": "Видеокарта",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
@@ -124,7 +144,7 @@
       {
         "clientId": 1727098679785,
         "text": "My comment for product 2",
-        "evaluation": 3.5,
+        "evaluation": 5,
         "video": "http://localhost:5000/video/video1.mp4",
         "photo": "http://localhost:5000/products/product1.jpg"
       }
@@ -167,26 +187,32 @@
     "category": "Вычислительная техника",
     "additionalInfo": [
       {
+        "id": 1,
         "name": "Корпус",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 2,
         "name": "Цвет",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 3,
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 4,
         "name": "Материал",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 5,
         "name": "Материнская плата",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 6,
         "name": "Видеокарта",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
@@ -197,6 +223,7 @@
         "clientId": 1727098679785,
         "text": "123",
         "evaluation": 1.5,
+        "likes": [],
         "video": "http://localhost:5000/video/video1.mp4",
         "photo": "http://localhost:5000/products/product1.jpg"
       }
@@ -239,26 +266,32 @@
     "category": "Вычислительная техника",
     "additionalInfo": [
       {
+        "id": 1,
         "name": "Корпус",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 2,
         "name": "Цвет",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 3,
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 4,
         "name": "Материал",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 5,
         "name": "Материнская плата",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 6,
         "name": "Видеокарта",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
@@ -303,26 +336,32 @@
     "category": "Вычислительная техника",
     "additionalInfo": [
       {
+        "id": 1,
         "name": "Корпус",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 2,
         "name": "Цвет",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 3,
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 4,
         "name": "Материал",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 5,
         "name": "Материнская плата",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 6,
         "name": "Видеокарта",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
@@ -367,26 +406,32 @@
     "category": "Вычислительная техника",
     "additionalInfo": [
       {
+        "id": 1,
         "name": "Корпус",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 2,
         "name": "Цвет",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 3,
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 4,
         "name": "Материал",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 5,
         "name": "Материнская плата",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 6,
         "name": "Видеокарта",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
@@ -431,26 +476,32 @@
     "category": "Вычислительная техника",
     "additionalInfo": [
       {
+        "id": 1,
         "name": "Корпус",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 2,
         "name": "Цвет",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 3,
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 4,
         "name": "Материал",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 5,
         "name": "Материнская плата",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 6,
         "name": "Видеокарта",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
@@ -495,26 +546,32 @@
     "category": "Вычислительная техника",
     "additionalInfo": [
       {
+        "id": 1,
         "name": "Корпус",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 2,
         "name": "Цвет",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 3,
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 4,
         "name": "Материал",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 5,
         "name": "Материнская плата",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 6,
         "name": "Видеокарта",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
@@ -559,26 +616,32 @@
     "category": "Вычислительная техника",
     "additionalInfo": [
       {
+        "id": 1,
         "name": "Корпус",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 2,
         "name": "Цвет",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 3,
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 4,
         "name": "Материал",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 5,
         "name": "Материнская плата",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
+        "id": 6,
         "name": "Видеокарта",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }

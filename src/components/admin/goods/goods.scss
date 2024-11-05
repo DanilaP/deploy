@@ -1,0 +1,89 @@
+.goods {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    .title {
+        font-size: 24px;
+    }
+    .goods-actions {
+        display: grid;
+        grid-template-columns: calc(100% - 250px) 250px;
+        .filters {
+            display: flex;
+            column-gap: 5px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: right;
+        }
+        .MuiInputBase-input {
+            height: 3.5px;
+            border: none !important;
+        }
+    }
+    .list {
+        display: grid;
+        row-gap: 10px;
+        .wrapper {
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: grid;
+            grid-template-columns: 50px calc(100% - 450px) 370px;
+            column-gap: 20px;
+            align-items: center;
+            padding: 10px;
+            border-radius: 7px;
+            min-height: 40px;
+            background-color: var(--bg-color-block);
+            .good-avatar {
+                display: grid;
+                align-items: start;
+                height: 100%;
+                .good-image {
+                    border-radius: 5px;
+                }
+            }
+            .good-info {
+                display: flex;
+                row-gap: 10px;
+                flex-direction: column;
+                
+                .good-info-main {
+                    display: flex;
+                    column-gap: 20px;
+
+                    .good-title {
+                        text-transform: uppercase;
+                    }
+                    .good-price {
+                        text-transform: uppercase;
+                        font-weight: 600;
+                    }
+                    .good-provider {
+                        color: gray;
+                        text-transform: lowercase;
+                    }
+                }
+                .good-info-more {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    row-gap: 20px;
+                    text-align: justify;
+                }
+            }
+            .good-actions {
+                display: flex;
+                column-gap: 5px;
+            }
+        }
+        .wrapper:hover {
+            border: 1px solid var(--default-color);
+        }
+    }
+    .delete-text {
+        margin: 15px 0px 10px 0px;
+    }
+}
+.MuiSvgIcon-root, .MuiInputBase-root {
+    color: var(--text-color) !important;
+}

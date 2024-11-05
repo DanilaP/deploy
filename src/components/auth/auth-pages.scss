@@ -34,11 +34,11 @@
         justify-content: center;
     }
 
-    label {
+    > label {
         color: var(--text-color);
     }
         
-    a {
+    > a {
         display: flex;
         justify-content: center;
         margin-top: 20px;
