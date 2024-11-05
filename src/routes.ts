@@ -93,6 +93,7 @@ export const adminRoutes = [
     {
         path: '/admin/goods',
         component: AdminPage,
-        children: GoodsPage
+        children: GoodsPage,
+        breadcrumb : t("titles.goodsPage")
     },
 ];
