@@ -10,6 +10,7 @@ import { BiMessageSquareAdd } from "react-icons/bi";
 import InputFile from "../../../../../components-ui/custom-file-nput/file-input";
 import "./ManageGood.scss";
 import { MdDelete } from "react-icons/md";
+import lodash from "lodash";
 
 export const ManageGoodForm = ({ 
     mode,
@@ -119,7 +120,7 @@ export const ManageGoodForm = ({
     }, [goodData]);
 
     useEffect(() => {
-        handleUnsavedDataExist(JSON.stringify(newGoodData) !== JSON.stringify(goodData));
+        handleUnsavedDataExist(!lodash.isEqual(newGoodData, goodData));
     }, [newGoodData]);
 
     return (

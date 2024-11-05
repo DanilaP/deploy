@@ -158,12 +158,12 @@ export const GoodsPage = () => {
             <div className="title">{ t("text.managingGoods") }</div>
             <div className="goods-actions">
                 <div className="filters">
-                    <TextField 
+                    <TextField
                         onChange={ (e) => handleSearchProduct(e.target.value) } 
                         placeholder={ t("text.searchAll") }
                         InputProps={ {
                             startAdornment: (
-                                <IoMdSearch />
+                                <IoMdSearch fontSize={ 25 } />
                             ),
                         } }
                     />
@@ -173,7 +173,7 @@ export const GoodsPage = () => {
                         className="search-field"
                         InputProps={ {
                             startAdornment: (
-                                <IoMdSearch />
+                                <IoMdSearch fontSize={ 25 } />
                             ),
                         } }
                     />
@@ -193,14 +193,16 @@ export const GoodsPage = () => {
                                 className="wrapper" 
                                 key={ product.id }
                             >
+                                <div className="good-avatar" onClick={ () => handleOpenEditingGoodModal(product) } >
+                                    <img 
+                                        className="good-image" 
+                                        src={ product.images[0] } 
+                                        width="50px" 
+                                        height="50px"
+                                    />
+                                </div>
                                 <div className="good-info" onClick={ () => handleOpenEditingGoodModal(product) } >
                                     <div className="good-info-main">
-                                        <img 
-                                            className="good-image" 
-                                            src={ product.images[0] } 
-                                            width="50px" 
-                                            height="50px"
-                                        />
                                         <div className="good-title">{ product.name }</div>
                                         <div className="good-price">{ t("text.price") }: { product.variations[0].price }</div>
                                         <div className="good-provider">{ product.provider }</div>
