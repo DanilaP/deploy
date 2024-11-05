@@ -16,13 +16,17 @@ export const CategorysPage = () => {
 
     const [currentCategory, setCurrentCategory] = useState<ICategory>({} as ICategory);
     const [newCategoryTitle, setNewCategoryTitle] = useState<string>("");
+    const [expandedItems, setExpandedItems] = useState<string[]>([]);
     const [modals, setModals] = useState({ add: false });
     const { t } = useTranslation();
     const { 
-        categorys, 
+        categorys,
+        filteredCategories,
         setCategorys, 
+        setFilteredCategories,
         handleDeleteSubCategory,
-        handleFindCategoryAndAddIntoNewCategory
+        handleFindCategoryAndAddIntoNewCategory,
+        handleFilterCategoriesByIncludingString
     } = useCategoryHelper();
     
     const handleOpenAddSubCategory = (e: any, category: ICategory) => {
@@ -36,21 +40,40 @@ export const CategorysPage = () => {
     const handleApproveAddingCategory = () => {
         if (newCategoryTitle.trim().length === 0) return;
         const updatedCategory = handleFindCategoryAndAddIntoNewCategory(currentCategory, newCategoryTitle, categorys);
+        const updatedFiltered = handleFindCategoryAndAddIntoNewCategory(currentCategory, newCategoryTitle, filteredCategories);
         setCategorys(updatedCategory);
+        setFilteredCategories(updatedFiltered);
         setModals(prev => {
             return { ...prev, add: false };
         });
         return updatedCategory;
     };
 
+    const handleClickTreeItem = (category: ICategory) => {
+        if (expandedItems.filter(el => el === category.id).length !== 0) {
+            setExpandedItems(items => items.filter(el => el !== category.id));
+        } else {
+            setExpandedItems(prev => [...prev, category.id]);
+        }
+    };
+
     const handleApproveDeleteSubCategory = (e: any, categoryList: ICategory[], category: ICategory) => {
         e.stopPropagation();
-        handleDeleteSubCategory(categoryList, category);
+        const updatedCategories = handleDeleteSubCategory(categoryList, category);
+        const updatedFiltered = handleDeleteSubCategory(filteredCategories, category);
+        setCategorys(updatedCategories);
+        setFilteredCategories(updatedFiltered);
+    };
+
+    const handleStartSearchingCategories = (textValue: string) => {
+        const findedCategories = handleFilterCategoriesByIncludingString(textValue, categorys);
+        setFilteredCategories(findedCategories);
     };
 
     const renderCategories = (items: ICategory[]) => {
         return items.map((category: ICategory) => (
             <TreeItem
+                onClick={() => handleClickTreeItem(category)}
                 key={category.id} 
                 itemId={category.id} 
                 label={
@@ -90,7 +113,7 @@ export const CategorysPage = () => {
             <div className="category-page-title">Управление категориями</div>
             <div className="category-page-search">
                 <TextField 
-                    onChange={ (e) => console.log(1) } 
+                    onChange={ (e) => handleStartSearchingCategories(e.target.value) } 
                     placeholder={t("text.name")}
                     InputProps={{
                         startAdornment: (
@@ -100,8 +123,8 @@ export const CategorysPage = () => {
                 />
             </div>
             <div className="category-page-content">
-                <SimpleTreeView>
-                    {renderCategories(categorys)}
+                <SimpleTreeView expandedItems={expandedItems}>
+                    {renderCategories(filteredCategories)}
                 </SimpleTreeView>
             </div>
             <CustomModal 

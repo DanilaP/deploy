@@ -5,6 +5,7 @@ import $api from "../configs/axiosconfig/axios.js";
 export const useCategoryHelper = () => {
 
     const [categorys, setCategorys] = useState<ICategory[]>([]);
+    const [filteredCategories, setFilteredCategories] = useState<ICategory[]>([]);
 
     const handleDeleteSubCategory = (categoryList: ICategory[], category: ICategory) => {
         const updatedCategory = categoryList.reduce((prev: ICategory[], item: ICategory) => {
@@ -17,7 +18,6 @@ export const useCategoryHelper = () => {
             }
             return [...prev, item];
         }, []);
-        setCategorys(updatedCategory);
         return updatedCategory;
     };
 
@@ -45,13 +45,43 @@ export const useCategoryHelper = () => {
         return updatedCategory;
     };
 
+    const handleFilterCategoriesByIncludingString = (
+        textValue: string,
+        categoryList: ICategory[]
+    ) => {
+        const findedCategories = categoryList.reduce((prev: ICategory[], item: ICategory) => {
+            if (item.title.toLowerCase().includes(textValue.toLowerCase())) {
+                return [...prev, item];
+            }
+            if (item.categorys) {
+                const findedItem: ICategory[] = 
+                    handleFilterCategoriesByIncludingString(textValue, item.categorys);
+
+                if (findedItem.length !== 0) {
+                    return [...prev, ...findedItem];
+                }
+            }
+            return prev;
+        }, []);
+        return findedCategories;
+    };
+
     useEffect(() => {
         $api.get("/category").then(res => {
             if (res.data) {
                 setCategorys(res.data.categoryList);
+                setFilteredCategories(res.data.categoryList);
             }
         });
     }, []);
 
-    return { categorys, setCategorys, handleDeleteSubCategory, handleFindCategoryAndAddIntoNewCategory };
+    return { 
+        categorys,
+        filteredCategories,
+        setCategorys,
+        setFilteredCategories,
+        handleDeleteSubCategory, 
+        handleFindCategoryAndAddIntoNewCategory, 
+        handleFilterCategoriesByIncludingString
+    };
 };
