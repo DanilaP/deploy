@@ -28,17 +28,14 @@ class CartStore {
     }
 
     toggleProductSelection(productId: number) {
-        if (this.selectedProductIds.includes(productId)) {
-            if (this.selectedProductIds.length === 1) {
-                this.isAllSelected = false;
-            }
-            this.selectedProductIds = this.selectedProductIds.filter(id => id !== productId);
-        } else {
-            this.selectedProductIds = [...this.selectedProductIds, productId];
-            if (this.selectedProductIds.length === this.totalBasketQuantity) {
-                this.isAllSelected = true;
-            }
-        }
+        const { selectedProductIds, totalBasketQuantity } = this;
+        const isSelected = selectedProductIds.includes(productId);
+
+        this.selectedProductIds = isSelected
+            ? selectedProductIds.filter(id => id !== productId)
+            : [...selectedProductIds, productId];
+
+        this.isAllSelected = this.selectedProductIds.length === totalBasketQuantity;
         this.calculateTotals();
     }
 
@@ -61,10 +58,10 @@ class CartStore {
         const totalQuantity = filteredBasket.reduce((acc, product) => acc + product.number, 0);
         const totalSum = filteredBasket.reduce((acc, product) => {
             const variation = product.productInfo.variations.find(v => v.name === product.variation);
-            return acc + (variation?.price || 0) * product.number;
+            return acc + (variation?.price || 1) * product.number;
         }, 0);
         this.updateCartData(totalSum, totalQuantity);
     }
-};
+}
 
 export default CartStore;

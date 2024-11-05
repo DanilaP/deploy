@@ -1,7 +1,7 @@
 import { Button, Checkbox, Container, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import ProductCard from './cards/product-card/product-card.tsx';
 import OrderCard from './cards/order-card/order-card.tsx';
@@ -23,32 +23,16 @@ const CartPage = () => {
         selectedProductIds,
     } = cartStore;
 
-    const [localCart, setLocalCart] = useState<Array<IProduct>>([]);
-
     const isBasketEmpty = cart.length === 0;
     const isSomeSelected = selectedProductIds.length > 0;
 
     useEffect(() => {
-        const fetchBasketData = async () => {
-            try {
-                const { data: { backet } } = await $api.get('/backet');
-                cartStore.setCart(backet);
-                setLocalCart(backet);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchBasketData();
-    }, []);
-
-
-    useEffect(() => {
-        if (localCart.length > 0) {
-            const allProductIds = localCart.map((product) => product.id);
+        if (cart.length > 0) {
+            const allProductIds = cart.map((product) => product.id);
             cartStore.setSelectedProductIds(allProductIds);
-            cartStore.setTotalBasketQuantity(localCart.length);
+            cartStore.setTotalBasketQuantity(cart.length);
         }
-    }, [localCart]);
+    }, [cart]);
 
     const handleSelectAllChange = () => {
         const newSelectedIds = isAllSelected ? [] : cart.map((product) => product.id);
@@ -85,7 +69,6 @@ const CartPage = () => {
 
     const handleProductQuantityChange = async(productId: number, newQuantity: number) => {
         cartStore.updateProductQuantity(productId, newQuantity);
-
         const updatedCart = cartStore.cart;
 
         try {
@@ -97,7 +80,7 @@ const CartPage = () => {
     };
 
     return (
-        <Container className="cart cart-page-container" maxWidth="xl">
+        <Container className="cart cart-page-container" maxWidth="lg">
             { isBasketEmpty ? (
                 <EmptyCartCard />
             ) : (
@@ -152,7 +135,7 @@ const CartPage = () => {
                     </Grid>
 
                     <Grid size={{ sm: 12, md: 4, lg: 4, xl: 6 }} className="order-card-grid">
-                        <OrderCard />
+                        <OrderCard isSomeSelected={isSomeSelected} />
                     </Grid>
                 </Grid>
             )}

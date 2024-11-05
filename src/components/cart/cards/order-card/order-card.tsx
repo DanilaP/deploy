@@ -48,20 +48,17 @@ const OrderPrompt: FC<OrderPromptProps> = ({ sumToShow, totalQuantity}) => {
     );
 };
 
-const orderCard = () => {
+const orderCard: FC<{ isSomeSelected: boolean }> = ({ isSomeSelected }) => {
     const { cartStore } = useStore();
     const {
         totalSum,
         selectedTotalQuantity,
-        selectedProductIds,
     } = cartStore;
 
     const { t } = useTranslation();
     const navigate = useNavigate();
 
     const sumToShow = totalSum.toLocaleString('ru-RU');
-    const isSomeSelected = selectedProductIds.length > 0;
-
 
     return (
         <Card className="order-card">
