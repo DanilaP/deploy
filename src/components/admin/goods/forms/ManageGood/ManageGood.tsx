@@ -1,7 +1,7 @@
 import { Button, Autocomplete, TextField, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import { DEFAULT_CATEGORYS, DEFAULT_PRODUCT } from "./constants";
+import { DEFAULT_CATEGORIES, DEFAULT_PRODUCT } from "./constants";
 import { useTranslation } from "react-i18next";
 import { IAdditionalInfo, IProduct, IVariation } from "../../../../../interfaces/interfaces";
 import { validateAdditionalInfo, validateCommonFields, validateVariations } from "./validators";
@@ -28,7 +28,7 @@ export const ManageGoodForm = ({
     
     const { t } = useTranslation();
     const [newGoodData, setNewGoodData] = useState<IProduct>(goodData || DEFAULT_PRODUCT);
-    const [categorys, setCategorys] = useState(DEFAULT_CATEGORYS);
+    const [categorys, setCategorys] = useState(DEFAULT_CATEGORIES);
     const isEdit = mode === "edit";
     
     const handleAddAdditionalInfo = () => {
