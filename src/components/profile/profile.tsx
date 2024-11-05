@@ -55,10 +55,10 @@ export default function ProfilePage () {
                     </div>
                 </div>
                 <div className="profile-content-info">
-                    <div className="name">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, sapiente!</div>
-                    <div className="surname">Lorem ipsum dolor sit amet.</div>
-                    <div className="phone-number">Lorem ipsum dolor sit amet consectetur adipisicing.</div>
-                    <div className="town">Lorem, ipsum dolor.</div>
+                    <div className="item name">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, sapiente!</div>
+                    <div className="item surname">Lorem ipsum dolor sit amet.</div>
+                    <div className="item phone-number">Lorem ipsum dolor sit amet consectetur adipisicing.</div>
+                    <div className="item town">Lorem, ipsum dolor.</div>
                 </div>
             </div>
         </div>

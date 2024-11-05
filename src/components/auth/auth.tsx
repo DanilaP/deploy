@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useTranslation } from '../../translation/i18n';
-import '../../stylesheets/authpages.scss';
+import './auth-pages.scss';
 import { Button } from '@mui/material';
 import { MdExitToApp } from "react-icons/md";
 
