@@ -11,49 +11,50 @@ import RolesPage from "./components/admin/roles/roles";
 import PermissionsPage from "./components/admin/permissions/permissions";
 import ProductPage from "./components/shop/product-page/product-page";
 import ProductReviews from "./components/shop/product-reviews-page/product-reviews-page";
+import { t } from "i18next";
 
 export const routes = [
     {
         path: '/about',
         component: AboutPage,
         children: null,
-        breadcrumb : 'О проекте'
+        breadcrumb : t("breadcrumbs.about")
     },
     {
         path: '/auth/signin',
         component: AuthPage,
         children: SignIn,
-        breadcrumb : 'Авторизация'
+        breadcrumb : ''
     },
     {
         path: '/auth/signup',
         component: AuthPage,
         children: SignUp,
-        breadcrumb : 'Регистрация'
+        breadcrumb : ''
     },
     {
         path: '/shop',
         component: ShopPage,
         children: null,
-        breadcrumb : 'Магазин'
+        breadcrumb : t("breadcrumbs.shop")
     },
     {
         path: '/profile',
         component: ProfilePage,
         children: null,
-        breadcrumb : 'Профиль'
+        breadcrumb : t("breadcrumbs.profile")
     },
     {
         path: "/shop/product/:id",
         component: ProductPage,
         children: null,
-        breadcrumb : `Продукт`
+        breadcrumb : t("breadcrumbs.shopProduct")
     },
     {
         path: "/shop/product/:id/reviews",
         component: ProductReviews,
         children: null,
-        breadcrumb : `Отзывы о продукте`
+        breadcrumb : t("breadcrumbs.productReviews")
     },
     {
         path: '*',
@@ -68,24 +69,24 @@ export const adminRoutes = [
         path: '/admin',
         component: AdminPage,
         children: null,
-        breadcrumb : 'Страница администрации'
+        breadcrumb : t("breadcrumbs.adminPage")
     },
     {
         path: '/admin/users',
         component: AdminPage,
         children: UsersList,
-        breadcrumb : 'Страница пользователей'
+        breadcrumb : t("breadcrumbs.adminUsers")
     },
     {
         path: '/admin/roles',
         component: AdminPage,
         children: RolesPage,
-        breadcrumb : 'Страница ролей'
+        breadcrumb : t("breadcrumbs.adminRoles")
     },
     {
         path: '/admin/permissions',
         component: AdminPage,
         children: PermissionsPage,
-        breadcrumb : 'Страница прав'
+        breadcrumb : t("breadcrumbs.adminPermissions")
     },
 ];

@@ -110,5 +110,16 @@
         "CreateGroupOfPermissions": "Create group of permissions",
         "DeleteGroupOfPermissions": "Delete group of permissions",
         "ModifyGroupOfPermissions": "Modify group of permissions"
+    },
+    "breadcrumbs": {
+        "about": "About page",
+        "shop": "Shop",
+        "profile": "Profile",
+        "adminPage": "Admin page",
+        "adminUsers": "Users",
+        "adminRoles": "Roles",
+        "adminPermissions": "Permissions",
+        "shopProduct": "Product",
+        "productReviews": "Reviews of the product"
     }
 }

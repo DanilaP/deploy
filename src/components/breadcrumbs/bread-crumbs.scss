@@ -10,6 +10,10 @@
     padding-left: 25px;
     flex-wrap: wrap;
 
+    .MuiBreadcrumbs-separator {
+        color: var(--text-color);
+    }
+
     .bread-crumbs-link {
         color: var(--text-color);
         cursor: pointer;
