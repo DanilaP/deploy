@@ -15,6 +15,6 @@ export const DEFAULT_PRODUCT: IProduct = {
     additionalInfo: [{ name: "", description: "", id: Date.now() }],
 };
 
-export const DEFAULT_CATEGORYS = [
+export const DEFAULT_CATEGORIES = [
     { label: "Вычислительная техника", id: 1 },
 ];
