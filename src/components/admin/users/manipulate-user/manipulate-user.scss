@@ -1,17 +1,18 @@
 .manipulate-user {
 
-    & .data {
+    .data {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
 
-        & .MuiInputBase-input {
+        .MuiInputBase-input {
             width: 200px;
             height: 30px;
         }
     }
-    & .settings {
+    
+    .settings {
         margin-top: 20px;
         display: flex;
         gap: 10px;

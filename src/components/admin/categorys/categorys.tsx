@@ -2,15 +2,15 @@ import "./categorys.scss";
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import { useState } from "react";
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import BackspaceIcon from '@material-ui/icons/Backspace';
 import IconButton from "@mui/material/IconButton";
 import { ICategory } from "../../../interfaces/interfaces.js";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.js";
 import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
-import SearchIcon from '@material-ui/icons/Search';
 import { useCategoryHelper } from "../../../helpers/use-category-helper.js";
+import { BiMessageSquareAdd } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
+import { IoMdSearch } from "react-icons/io";
 
 export const CategorysPage = () => {
 
@@ -73,37 +73,37 @@ export const CategorysPage = () => {
     const renderCategories = (items: ICategory[]) => {
         return items.map((category: ICategory) => (
             <TreeItem
-                onClick={() => handleClickTreeItem(category)}
-                key={category.id} 
-                itemId={category.id} 
+                onClick={ () => handleClickTreeItem(category) }
+                key={ category.id } 
+                itemId={ category.id } 
                 label={
                     <div className="category-item">
-                        <div className="category-title">{category.title}</div>
+                        <div className="category-title">{ category.title }</div>
                         <div className="category-actions">
                             <IconButton
                                 className="mui-actions" 
-                                onClick={(e) => handleOpenAddSubCategory(e, category)} 
+                                onClick={ (e) => handleOpenAddSubCategory(e, category) } 
                             >
-                                <AddBoxIcon />
+                                <BiMessageSquareAdd />
                             </IconButton>
                             <IconButton 
                                 className="mui-actions" 
-                                onClick={(e) => handleApproveDeleteSubCategory(e, categorys, category)} 
+                                onClick={ (e) => handleApproveDeleteSubCategory(e, categorys, category) } 
                             >
-                                <BackspaceIcon />
+                                <MdDelete />
                             </IconButton>
                         </div>
                     </div>
                 }
-                className={`${ 
+                className={ `${ 
                     category.categorys && category.categorys.length !== 0
                         ? "not-empty-category" 
                         : "empty-category" 
-                }`}
+                }` }
             >
-                {category.categorys &&
+                { category.categorys &&
                 category.categorys.length > 0 &&
-                renderCategories(category.categorys)}
+                renderCategories(category.categorys) }
             </TreeItem>
         ));
     };
@@ -114,17 +114,17 @@ export const CategorysPage = () => {
             <div className="category-page-search">
                 <TextField 
                     onChange={ (e) => handleStartSearchingCategories(e.target.value) } 
-                    placeholder={t("text.name")}
-                    InputProps={{
+                    placeholder={ t("text.name") }
+                    InputProps={ {
                         startAdornment: (
-                            <SearchIcon />
+                            <IoMdSearch />
                         ),
-                    }}
+                    } }
                 />
             </div>
             <div className="category-page-content">
-                <SimpleTreeView expandedItems={expandedItems}>
-                    {renderCategories(filteredCategories)}
+                <SimpleTreeView expandedItems={ expandedItems }>
+                    { renderCategories(filteredCategories) }
                 </SimpleTreeView>
             </div>
             <CustomModal 
@@ -135,11 +135,11 @@ export const CategorysPage = () => {
                 closeModal={ () => setModals({ ...modals, add: false }) }
             >
                 <div className="adding-category">
-                    <label className="label" htmlFor="update-good-providernew-category-title">{t("text.name")}</label>
+                    <label className="label" htmlFor="update-good-providernew-category-title">{ t("text.name") }</label>
                     <TextField
-                        onChange={(e) => setNewCategoryTitle(e.target.value)}
+                        onChange={ (e) => setNewCategoryTitle(e.target.value) }
                         id="new-category-title"
-                        placeholder={t("text.name")}
+                        placeholder={ t("text.name") }
                     />
                 </div>
             </CustomModal>

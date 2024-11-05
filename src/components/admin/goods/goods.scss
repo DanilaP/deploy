@@ -28,41 +28,46 @@
             border: 1px solid transparent;
             cursor: pointer;
             display: grid;
-            grid-template-columns: calc(100% - 370px) 370px;
+            grid-template-columns: 50px calc(100% - 450px) 370px;
+            column-gap: 20px;
             align-items: center;
             padding: 10px;
             border-radius: 7px;
             min-height: 40px;
             background-color: var(--bg-color-block);
-            .good-info {
+            .good-avatar {
                 display: grid;
-                column-gap: 20px;
+                align-items: start;
+                height: 100%;
+                .good-image {
+                    border-radius: 5px;
+                }
+            }
+            .good-info {
+                display: flex;
+                row-gap: 10px;
+                flex-direction: column;
                 .good-info-main {
-                    .good-image {
-                        border-radius: 5px;
-                    }
                     .good-title {
                         text-transform: uppercase;
                     }
+                    .good-price {
+                        text-transform: uppercase;
+                        font-weight: 600;
+                    }
+                    .good-provider {
+                        color: gray;
+                        text-transform: lowercase;
+                    }
                     display: flex;
-                    align-items: start;
                     column-gap: 20px;
                 }
                 .good-info-more {
-                    margin-right: 20px;
-                    margin-left: 70px;
                     display: grid;
                     grid-template-columns: 1fr;
                     row-gap: 20px;
+                    text-align: justify;
                 }
-            }
-            .good-price {
-                text-transform: uppercase;
-                font-weight: 600;
-            }
-            .good-provider {
-                color: gray;
-                text-transform: lowercase;
             }
             .good-actions {
                 display: flex;
@@ -76,4 +81,7 @@
     .delete-text {
         margin: 15px 0px 10px 0px;
     }
+}
+.MuiSvgIcon-root, .MuiInputBase-root {
+    color: var(--text-color) !important;
 }

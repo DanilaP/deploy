@@ -6,7 +6,7 @@
     overflow-x: hidden;
     height: calc(100% - 20px);
 
-    & .permission-group {
+    .permission-group {
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -16,14 +16,14 @@
         cursor: pointer;
         border: 1px solid rgba(128, 128, 128, 0.247);
 
-        & .permission-group-name {
+        .permission-group-name {
             display: flex;
             align-items: center;
             font-weight: 700;
             color: #1976d2;
             position: relative;
 
-            & .delete-button {
+            .delete-button {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -43,12 +43,12 @@
             }
         }
 
-        & .permission-group-permissions {
+        .permission-group-permissions {
             display: flex;
             flex-direction: column;
             gap: 10px;
 
-            & .permission {
+            .permission {
                 display: flex;
                 align-items: center;
                 gap: 10px;
@@ -58,7 +58,7 @@
                 cursor: pointer;
                 position: relative;
 
-                & .delete-button {
+                .delete-button {
                     position: absolute;
                     right: 10px;
                     display: flex;
@@ -72,6 +72,5 @@
                 }
             }
         }   
-        
     }
 }

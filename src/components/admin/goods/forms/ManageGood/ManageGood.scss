@@ -10,80 +10,68 @@
         column-gap: 5px;
         row-gap: 5px;
         .label {
+            display: flex;
+            align-items: center;
             font-weight: 500;
         }
         .MuiChip-root {
            width: 150px;
-        }
-        .MuiSelect-select {
-            max-height: 3.5px !important;
-            padding: 7px;
         }
         .MuiInputBase-input {
             padding: 0px;
             border: none !important;
         }
         .MuiInputBase-root {
+            border: none;
             padding: 8px 10px 8px 10px;
         }
         .MuiChip-label {
             color: var(--text-color);
         }
-        .MuiSvgIcon-root {
+        .mui-actions {
+            min-width: 25px;
+            height: 25px;
             color: var(--text-color);
-            &:hover {
-                cursor: pointer;
+            & :hover {
                 color: var(--default-color);
             }
-        }
-        .mui-actions {
-            width: 25px;
-            height: 25px;
         }
         .file-input {
             width: 100%;
             padding: 5px 0px 5px 0px;
-            border: none !important;
         }
         .field-column {
-            margin-top: 5px;
-            display: flex;
+            display: grid;
             align-items: center;
-            column-gap: 5px;
-            .hide-add {
-                width: 25px;
-            }
-        }
-    }
-    .field-group {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        column-gap: 5px;
-        .actions {
-            display: flex;
-            height: 100%;
-            align-items: center;
-            cursor: pointer;
-        }
-        .field-inline {
-            display: flex;
-            column-gap: 5px;
-            align-items: center;
-            .additions {
+            grid-template-columns: calc(100% - 90px) 80px;
+            .fields-data {
+                width: 100%;
                 display: flex;
+                align-items: center;
                 column-gap: 5px;
-                .video, .image {
-                    object-fit: fill;
-                    width: 40px;
-                    height: 40px;
-                }
+            }
+            .variation-description {
+                width: 100%;
+            }
+            .dynamic-actions {
+                width: 80px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
             }
         }
-    }
-    .field-mid-group {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        column-gap: 5px;
+        .additions {
+            display: flex;
+            column-gap: 5px;
+            .video, .image {
+                object-fit: fill;
+                width: 40px;
+                height: 40px;
+                border-radius: 5px;
+            }
+            .MuiTooltip-popper, .MuiTooltip-tooltip {
+                background-color: red;
+            }
+        }
     }
     .form-actions {
         display: flex;

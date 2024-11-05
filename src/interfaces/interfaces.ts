@@ -4,7 +4,7 @@ export interface IUser {
     password?: string,
     role?: string,
     avatar?: string,
-    backet: IProduct[]
+    backet?: any[]
 }
 export interface IPermission {
     name: string,

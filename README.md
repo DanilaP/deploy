@@ -44,6 +44,9 @@ If you are developing a production application, we recommend updating the config
 - Integrate permissions with roles
 - In case you have issues with packages @material-ui/core and @material-ui/icons just runfollowing command before npm i npm config 
   - set legacy-peer-deps true
+  - Uninstall `@material-ui/core`, `@material-ui/icons`, Install `react-icons: ^5.3.0`
+- Add page for managing goods for admin
+  - added lodash package into dependencies
 
 
 
