@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useTranslation } from '../../translation/i18n';
-import '../../stylesheets/servicepages.scss';
+import './404.scss';
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 

@@ -14,14 +14,14 @@ export default function InputFile(props: {
 
     return( 
         <div className="form-group">
-            <FiPlusCircle fontSize={25} />
+            <FiPlusCircle fontSize={ 25 } />
             <input 
-                ref={ref}
-                style={{ width: props.width, height: props.height }}
+                ref={ ref }
+                style={ { width: props.width, height: props.height } }
                 type="file" 
                 className="input-type-file" 
-                multiple={props.multiple || false}
-                onChange={(event) => props.onChange!(event)} accept={props.accept || ".jpg,.jpeg,.png,.gif"}
+                multiple={ props.multiple || false }
+                onChange={ (event) => props.onChange!(event) } accept={ props.accept || ".jpg,.jpeg,.png,.gif" }
             />
         </div>
     );
