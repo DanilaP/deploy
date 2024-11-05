@@ -4,6 +4,14 @@
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     box-sizing: border-box;
     width: 100vw;
+    
+    .MuiFormLabel-root {
+        color: var(--text-color);
+    }
+
+    .icon {
+        font-size: 25px;
+    }
 
     .home-page-main {
         display: flex;

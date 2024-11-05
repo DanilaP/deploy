@@ -1,0 +1,80 @@
+.update-good-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+    margin: 10px 0px 10px 0px;
+    .field {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        column-gap: 5px;
+        row-gap: 5px;
+        .label {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        .MuiChip-root {
+           width: 150px;
+        }
+        .MuiInputBase-input {
+            padding: 0px;
+            border: none !important;
+        }
+        .MuiInputBase-root {
+            border: none;
+            padding: 8px 10px 8px 10px;
+        }
+        .MuiChip-label {
+            color: var(--text-color);
+        }
+        .mui-actions {
+            min-width: 25px;
+            height: 25px;
+            color: var(--text-color);
+            & :hover {
+                color: var(--default-color);
+            }
+        }
+        .file-input {
+            width: 100%;
+            padding: 5px 0px 5px 0px;
+        }
+        .field-column {
+            display: grid;
+            align-items: center;
+            grid-template-columns: calc(100% - 90px) 80px;
+            .fields-data {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                column-gap: 5px;
+            }
+            .variation-description {
+                width: 100%;
+            }
+            .dynamic-actions {
+                width: 80px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .additions {
+            display: flex;
+            column-gap: 5px;
+            .video, .image {
+                object-fit: fill;
+                width: 40px;
+                height: 40px;
+                border-radius: 5px;
+            }
+            .MuiTooltip-popper, .MuiTooltip-tooltip {
+                background-color: red;
+            }
+        }
+    }
+    .form-actions {
+        display: flex;
+        column-gap: 5px;
+    }
+}

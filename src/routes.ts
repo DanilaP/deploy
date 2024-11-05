@@ -10,6 +10,7 @@ import UsersList from "./components/admin/users/users-list/users-list";
 import ProfilePage from "./components/profile/profile";
 import RolesPage from "./components/admin/roles/roles";
 import PermissionsPage from "./components/admin/permissions/permissions";
+import { GoodsPage } from "./components/admin/goods/goods";
 import ProductPage from "./components/shop/product-page/product-page";
 import ProductReviews from "./components/shop/product-reviews-page/product-reviews-page";
 
@@ -81,5 +82,10 @@ export const adminRoutes = [
         path: '/admin/permissions',
         component: AdminPage,
         children: PermissionsPage
+    },
+    {
+        path: '/admin/goods',
+        component: AdminPage,
+        children: GoodsPage
     },
 ];

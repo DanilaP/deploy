@@ -5,6 +5,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:react/recommended'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -15,6 +16,8 @@ module.exports = {
       { allowConstantExport: true },
     ],
     "object-curly-spacing": ["error", "always"],
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    'react/jsx-curly-spacing': ['error', { when: 'always', children: true }],
+    'react/react-in-jsx-scope': 'off',
   },
 }
