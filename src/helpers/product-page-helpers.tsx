@@ -6,5 +6,5 @@ export const getAverageEvaluation = (reviews: IReview[]) => {
     reviews.map((review: any) => {
         averageValue += review.evaluation;
     });
-    return averageValue / evaluationQuantity;
+    return (averageValue / evaluationQuantity).toFixed(1);
 };
