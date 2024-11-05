@@ -29,6 +29,7 @@ export const ManageGoodForm = ({
     const { t } = useTranslation();
     const [newGoodData, setNewGoodData] = useState<IProduct>(goodData || DEFAULT_PRODUCT);
     const [categorys, setCategorys] = useState(DEFAULT_CATEGORIES);
+    const [isFormValid, setIsFormValid] = useState<boolean>(false);
     const isEdit = mode === "edit";
     
     const handleAddAdditionalInfo = () => {
@@ -105,9 +106,7 @@ export const ManageGoodForm = ({
 
     const handleUpdateSaveGoodData = () => {
         if (
-            validateCommonFields(newGoodData) && 
-            validateAdditionalInfo(newGoodData.additionalInfo) &&
-            validateVariations(newGoodData.variations)
+            isFormValid
         ) {
             handleUpdateGood(newGoodData);
         }
@@ -121,8 +120,13 @@ export const ManageGoodForm = ({
 
     useEffect(() => {
         handleUnsavedDataExist(!lodash.isEqual(newGoodData, goodData));
+        setIsFormValid(
+            validateCommonFields(newGoodData) && 
+            validateAdditionalInfo(newGoodData.additionalInfo) &&
+            validateVariations(newGoodData.variations)
+        );
     }, [newGoodData]);
-
+    
     return (
         <div className="update-good-form">
             <div className="field">
@@ -337,6 +341,7 @@ export const ManageGoodForm = ({
                 <Button 
                     onClick={ handleUpdateSaveGoodData }
                     variant="contained"
+                    disabled={ !isFormValid }
                 >
                     { t("text.confirm") }
                 </Button>
