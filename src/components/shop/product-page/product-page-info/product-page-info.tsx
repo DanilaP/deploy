@@ -49,7 +49,7 @@ export default function ProductInfo (props: {
                         name="half-rating" 
                         precision={ 0.5 } 
                         readOnly 
-                        value = { props.product ? getAverageEvaluation(props.product.reviews) : 0 } 
+                        value = { props.product ? Number(getAverageEvaluation(props.product.reviews)) : 0 } 
                     />
                     { ` (${ props.product?.reviews.length }) ` }
                     <MdTextsms onClick = { () => navigation("reviews") } className='icon comment' />
