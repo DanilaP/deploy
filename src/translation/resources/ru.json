@@ -16,11 +16,9 @@
         "profilePage": "Страница профиля",
         "permissionsPage": "Разрешения/права",
         "rolesPage": "Роли",
-        "cart": "Корзина"
-},
-        "rolesPage": "Роли",
+        "cart": "Корзина",
         "goodsPage": "Товары"
-    },
+},
     "labels": {
         "loading": "Загрузка..."
     },
