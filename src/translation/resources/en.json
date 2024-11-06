@@ -16,6 +16,8 @@
         "profilePage": "Profile page",
         "permissionsPage": "Permissions page",
         "cart": "Cart",
+        "productPage": "Product page",
+        "productReviewsPage": "Product reviews page",
         "technics": "technics",
         "rolesPage": "Roles page",
         "goodsPage": "Goods page"
@@ -212,5 +214,16 @@
     },
     "symbols": {
         "rub": "\u20BD"
+    },
+    "breadcrumbs": {
+        "about": "About page",
+        "shop": "Shop",
+        "profile": "Profile",
+        "adminPage": "Admin page",
+        "adminUsers": "Users",
+        "adminRoles": "Roles",
+        "adminPermissions": "Permissions",
+        "shopProduct": "Product",
+        "productReviews": "Reviews of the product"
     }
 }

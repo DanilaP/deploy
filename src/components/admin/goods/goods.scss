@@ -47,7 +47,11 @@
                 display: flex;
                 row-gap: 10px;
                 flex-direction: column;
+                
                 .good-info-main {
+                    display: flex;
+                    column-gap: 20px;
+
                     .good-title {
                         text-transform: uppercase;
                     }
@@ -59,8 +63,6 @@
                         color: gray;
                         text-transform: lowercase;
                     }
-                    display: flex;
-                    column-gap: 20px;
                 }
                 .good-info-more {
                     display: grid;

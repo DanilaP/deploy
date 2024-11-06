@@ -13,6 +13,7 @@ import './stylesheets/themes/white.scss';
 import { adminRoutes, routes } from './routes';
 import { useStore } from './stores';
 import usePermissions from './helpers/permissions-helpers.ts';
+import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
 
 function App() {
     const [theme, setTheme] = useState("white-theme");
@@ -100,28 +101,33 @@ function App() {
                             </div>
                         </div> ) : null
                     }
+                    {
+                        userStore.user ? <BreadCrumbs /> : null
+                    }
                 <div className="content">
-                    <Routes>
-                        { isLoading &&
-                            routes.map(({ path, component: Component, children: Children }) => (
-                                <Route
-                                    key={ path }
-                                    path={ path }
-                                    element={ <Component>{ Children && <Children /> }</Component> }
-                                />
-                            ))
-                        }
-                        { checkPermissions() &&
-                            adminRoutes.map(({ path,  component: Component, children: Children }) => (
-                                <Route
-                                    key={ path }
-                                    path={ path }
-                                    element={ userStore.user
-                                        ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> }
-                                />
-                            ))
-                        }
-                    </Routes>
+                    { isLoading &&  
+                        <Routes>
+                            { 
+                                routes.map(({ path, component: Component, children: Children }) => (
+                                    <Route
+                                        key={ path }
+                                        path={ path }
+                                        element={ <Component>{ Children && <Children /> }</Component> }
+                                    />
+                                ))
+                            }
+                            { checkPermissions() &&
+                                adminRoutes.map(({ path,  component: Component, children: Children }) => (
+                                    <Route
+                                        key={ path }
+                                        path={ path }
+                                        element={ userStore.user
+                                            ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> }
+                                    />
+                                ))
+                            }
+                        </Routes>
+                    }
                 </div>
             </div>
         </>

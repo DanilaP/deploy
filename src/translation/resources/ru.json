@@ -17,6 +17,8 @@
         "permissionsPage": "Разрешения/права",
         "rolesPage": "Роли",
         "cart": "Корзина",
+        "productPage": "Страница продукта",
+        "productReviewsPage": "Страница отзывов о продукте",
         "goodsPage": "Товары"
 },
     "labels": {
@@ -215,5 +217,16 @@
     },
     "symbols": {
         "rub": "\u20BD"
+    },
+    "breadcrumbs": {
+        "about": "О проекте",
+        "shop": "Магазин",
+        "profile": "Профиль",
+        "adminPage": "Страница администрации",
+        "adminUsers": "Пользователи",
+        "adminRoles": "Роли",
+        "adminPermissions": "Разрешения/права",
+        "shopProduct": "Продукт",
+        "productReviews": "Отзывы о продукте"
     }
 }
