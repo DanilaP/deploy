@@ -4,18 +4,19 @@ import "./checkout-card.scss";
 import CardContent from "@mui/material/CardContent";
 import { useTranslation } from "react-i18next";
 import { useStore } from "../../../stores";
-import {FaShoppingCart, FaTruck} from 'react-icons/fa';
+import { FaShoppingCart, FaTruck } from 'react-icons/fa';
 
 interface CheckoutCard {
     selectedPayment: string;
     selectedDelivery: string;
+    handleConfirmCheckout: () => void;
 }
 
-const CheckoutCard: React.FC<CheckoutCard>  = ({ selectedPayment, selectedDelivery}) => {
+const CheckoutCard: React.FC<CheckoutCard>  = ({ selectedPayment, selectedDelivery, handleConfirmCheckout }) => {
     const { t } = useTranslation();
 
     const { cartStore } = useStore();
-    const { cart, totalSum, selectedTotalQuantity } = cartStore;
+    const { totalSum, selectedTotalQuantity } = cartStore;
 
     const sumToShow = totalSum.toLocaleString('ru-RU');
 
@@ -49,7 +50,7 @@ const CheckoutCard: React.FC<CheckoutCard>  = ({ selectedPayment, selectedDelive
 
                 <Stack sx={{ mt: 1, mb: 1}} direction="row" spacing={2}>
                     <Typography gutterBottom className="checkout-total">
-                        {t(`text.checkout.orderPaymentMethods.${selectedPayment}`)}
+                        {selectedPayment ? t(`text.checkout.orderPaymentMethods.${selectedPayment}`) : t('text.checkout.emptyPaymentVar')}
                     </Typography>
                 </Stack>
 
@@ -63,7 +64,7 @@ const CheckoutCard: React.FC<CheckoutCard>  = ({ selectedPayment, selectedDelive
 
                 <Stack sx={{ mt: 1}} direction="row" spacing={1}>
                     <Typography gutterBottom className="checkout-total">
-                        {t(`text.checkout.orderDeliveryMethods.${selectedDelivery}`)}
+                        {selectedDelivery ? t(`text.checkout.orderDeliveryMethods.${selectedDelivery}`) : t('text.checkout.emptyDeliveryVar')}
                     </Typography>
                     {selectedDelivery === 'courier' ? <FaTruck size={20}/> : <FaShoppingCart size={20}/>}
                 </Stack>
@@ -72,6 +73,7 @@ const CheckoutCard: React.FC<CheckoutCard>  = ({ selectedPayment, selectedDelive
 
             <CardActions>
                 <Button
+                    onClick={handleConfirmCheckout}
                     variant="contained"
                     fullWidth
                 >

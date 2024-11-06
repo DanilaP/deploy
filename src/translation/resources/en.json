@@ -121,6 +121,59 @@
             "confirmDeleteMessage": "Are you sure you want to delete the product?",
             "delete": "Delete",
             "cancel": "Cancel"
+        },
+        "checkout": {
+            "orderCheckout": "Order Checkout",
+            "contactsData": "Contact Information",
+            "deliveryVars": "Delivery Methods",
+            "nameLabel": "Your Name",
+            "telLabel": "Phone Number",
+            "paymentVars": "Payment Methods",
+            "shortInCity": "in",
+            "selectedProducts": "Selected Products",
+            "paymentMethods": {
+                "card": "Card",
+                "cash": "Cash",
+                "spb": "SBP"
+            },
+            "orderPaymentMethods": {
+                "cash": "Cash on Delivery",
+                "spb": "Payment via SBP QR code",
+                "card": "Payment by Bank Card"
+            },
+            "orderDeliveryMethods": {
+                "courier": "Courier Delivery in Moscow",
+                "pickup": "Store Pickup"
+            },
+            "errors": {
+                "emptyName": "Please enter your name",
+                "emptyTel": "Please enter your phone number",
+                "emptyDeliveryMethod": "Please select a delivery method",
+                "emptyPaymentMethod": "Please select a payment method"
+            },
+            "pickup": "Pickup",
+            "enterDeliveryAddress": "Enter Delivery Address",
+            "courierFormLabels": {
+                "address": "Address",
+                "apartment": "Apartment",
+                "entrance": "Entrance",
+                "floor": "Floor",
+                "intercom": "Intercom Code",
+                "comment": "Comment for Courier"
+            },
+            "storageDuration": "Storage Duration",
+            "address": "Address",
+            "chooseShop": "Choose Store",
+            "byAddress": "by address",
+            "courierDelivery": "Courier Delivery",
+            "pickupFromShop": "Store Pickup",
+            "orderStorageDuration": "Order Storage Duration",
+            "placeOrder": "Place Order",
+            "deliveryVar": "Delivery Method",
+            "paymentVar": "Payment Method",
+            "orderData": "Order Details",
+            "emptyDeliveryVar": "Delivery method not selected",
+            "emptyPaymentVar": "Payment method not selected"
         }
     },
     "methods": {

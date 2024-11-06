@@ -10,8 +10,23 @@ import {
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import './courier-dialog.scss';
+import { ICourierFormData } from "../../../../interfaces/interfaces.ts";
 
-const CourierDialog:FC<any> = ({ open, handleClose, courierFormData, handleChange, handleConfirm }) => {
+interface CourierDialogProps {
+    open: boolean;
+    handleClose: () => void;
+    courierFormData: ICourierFormData;
+    handleChange: (field: keyof ICourierFormData) => (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleConfirm: (data: string) => void;
+}
+
+const CourierDialog:FC<CourierDialogProps> = ({
+  open,
+  handleClose,
+  courierFormData,
+  handleChange,
+  handleConfirm,
+}) => {
     const { t } = useTranslation();
     return (
         <Dialog className="courier-dialog-wrapper" open={open} onClose={handleClose} maxWidth="sm" fullWidth>
@@ -83,7 +98,7 @@ const CourierDialog:FC<any> = ({ open, handleClose, courierFormData, handleChang
                 </Button>
             </DialogActions>
         </Dialog>
-    )
+    );
 };
 
 export default CourierDialog;

@@ -1,13 +1,14 @@
 import Grid from "@mui/material/Grid2";
 import Card from "@mui/material/Card";
-import {CardMedia, Typography} from "@mui/material";
+import { CardMedia, Typography } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import { observer } from 'mobx-react-lite';
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import './product-card.scss';
+import { IProduct } from "../../../interfaces/interfaces.ts";
 
-const ProductCard: FC<any> = ({ product }) => {
+const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
     const { t } = useTranslation();
 
     const { productInfo, number } = product;
@@ -18,7 +19,6 @@ const ProductCard: FC<any> = ({ product }) => {
     const { images } = currentVariation;
     const price = currentVariation.price;
     const title = currentVariation.title;
-
 
     return (
         <Grid className="product-grid-wrapper" key={product.id}>

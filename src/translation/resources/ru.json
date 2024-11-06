@@ -104,7 +104,8 @@
             "confirmDeleteTitle": "Удаление товара",
             "confirmDeleteMessage": "Вы уверены, что хотите удалить товар?",
             "delete": "Удалить",
-            "cancel": "Оставить"
+            "cancel": "Оставить",
+            "orderData": "Данные заказа"
         },
         "checkout": {
             "orderCheckout": "Оформление заказа",
@@ -129,6 +130,12 @@
                 "courier": "Доставка курьером по Москве",
                 "pickup": "Самовывоз из магазина"
             },
+            "errors": {
+                "emptyName": "Введите ваше имя",
+                "emptyTel": "Введите номер телефона",
+                "emptyDeliveryMethod": "Выберите метод доставки",
+                "emptyPaymentMethod": "Выберите способ оплаты"
+            },
             "pickup": "Самовывоз",
             "enterDeliveryAddress": "Введите адрес доставки",
             "courierFormLabels": {
@@ -149,7 +156,9 @@
             "placeOrder": " Оформить",
             "deliveryVar": "Способ доставки",
             "paymentVar": "Способ оплаты",
-            "orderData": "Данные заказа"
+            "orderData": "Данные заказа",
+            "emptyDeliveryVar": "Способ доставки не выбран",
+            "emptyPaymentVar": "Способ оплаты не выбран"
         },
         "createGoods": "Создать товар",
         "unsavedChanges": "У вас есть несохраненные изменения. Вы уверены",

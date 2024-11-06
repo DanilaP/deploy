@@ -1,44 +1,55 @@
 import Grid from "@mui/material/Grid2";
-import { TextField } from "@mui/material";
+import { FormHelperText, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import './user-data-form.scss';
 
 interface UserDataFormProps {
     name: string;
-    setName: (name: string) => void;
+    handleTelChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     tel: string;
-    setTel: (tel: string) => void;
+    handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    nameError: string;
+    telError: string;
 }
 
-const UserDataForm: React.FC<UserDataFormProps> = ({ name, setName, tel, setTel}) => {
+const UserDataForm: React.FC<UserDataFormProps> = ({
+   name,
+   tel,
+   nameError,
+   telError,
+   handleNameChange,
+   handleTelChange
+}) => {
     const { t } = useTranslation();
 
     return (
-        <form className="user-data-wrapper">
-            <Grid container spacing={2} >
+            <Grid className="user-data-wrapper" container spacing={2} >
                 <Grid size={{xs: 6}}>
                     <TextField
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={handleNameChange}
                         label={t('text.checkout.nameLabel')}
                         variant="outlined"
                         fullWidth
                         value={name}
                         required
+                        error={!!nameError}
                     />
+                    {nameError && <FormHelperText error>{nameError}</FormHelperText>}
                 </Grid>
                 <Grid size={{xs: 6}}>
                     <TextField
-                        onChange={(e) => setTel(e.target.value)}
+                        onChange={handleTelChange}
                         label={t('text.checkout.telLabel')}
                         variant="outlined"
                         fullWidth
                         value={tel}
                         type="tel"
                         required
+                        error={!!telError}
                     />
+                    {telError && <FormHelperText error>{telError}</FormHelperText>}
                 </Grid>
             </Grid>
-        </form>
     );
 };
 

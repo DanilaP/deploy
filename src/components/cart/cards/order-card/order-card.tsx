@@ -48,17 +48,14 @@ const OrderPrompt: FC<OrderPromptProps> = ({ sumToShow, totalQuantity}) => {
     );
 };
 
-const orderCard: FC<{ isSomeSelected: boolean }> = ({ isSomeSelected }) => {
+const orderCard: FC<{ isSomeSelected: boolean, handleProceedToCheckout: () => void }> = ({ isSomeSelected, handleProceedToCheckout }) => {
     const { cartStore } = useStore();
     const {
-        cart,
         totalSum,
         selectedTotalQuantity,
     } = cartStore;
 
     const { t } = useTranslation();
-    const navigate = useNavigate();
-
     const sumToShow = totalSum.toLocaleString('ru-RU');
 
     return (
@@ -73,10 +70,7 @@ const orderCard: FC<{ isSomeSelected: boolean }> = ({ isSomeSelected }) => {
             )}
             <CardActions>
                 <Button
-                    onClick={() => {
-                        cartStore.cart = cart;
-                        navigate('/checkout')
-                    }}
+                    onClick={handleProceedToCheckout}
                     variant="contained"
                     disabled={!isSomeSelected}
                     fullWidth

@@ -148,6 +148,12 @@ app.put("/users", async function(req, res) {
     }
 });
 
+// personalUserData
+app.post('/user/:id', async (req, res) => {
+    const userData = req.body;
+    res.status(200).json({ message: "Данные пользователя успешно переданы", userData: userData });
+});
+
 //Profile
 app.get("/profile", async function(req, res) {
     try {
@@ -501,6 +507,11 @@ app.post("/backet", async function(req, res) {
 app.put('/backet/updateCart', (req, res) => {
     res.status(200).json({ message: "Корзина успешно обновлена", cart: req.body });
 });
+
+// DeliveryData
+app.post('/delivery', async (req, res) => {
+    res.status(200).json({ message: "Данные о доставке успешно переданы", delivery: req.body });
+})
 
 async function startApp() {
     try {

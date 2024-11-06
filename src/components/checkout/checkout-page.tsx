@@ -12,6 +12,8 @@ import Grid from "@mui/material/Grid2";
 import CheckoutCard from "./checkout-card/checkout-card.tsx";
 import ProductCard from "./product-card/product-card.tsx";
 import './checkout-page.scss'
+import $api from "../../configs/axiosconfig/axios.js";
+import {ICourierFormData, IDeliveryData} from "../../interfaces/interfaces.ts";
 
 const stores = [
     { id: '1', storeName: "ЭлектроМир", location: "Киевская улица, дом 5", storageDuration: "5 дней" },
@@ -21,11 +23,12 @@ const stores = [
     { id: '5', storeName: "СмартЗона", location: "Невский проспект, дом 30", storageDuration: "3 дня" }
 ];
 
-const deliveryData = {
+const deliveryDataCurrent = {
     "country": "Россия",
     "city": "Москва",
     "paymentMethod": "card",
     "paymentMethods": ["card", "cash", "spb"],
+    "deliveryMethods": ["courier", "pickup"],
     "deliveryMethod": "pickup",
     "deliveryData": {
         storeId: '1',
@@ -41,42 +44,92 @@ const deliveryData = {
     },
 };
 
-const userData = {
+const userDataCurrent = {
     name: "Svetlana",
-    tel: "89264472217"
-}
+    tel: "8 (926) 447-22-17"
+};
 
 const CheckoutPage = () => {
     const { t } = useTranslation();
-    const { cartStore } = useStore();
+    const { cartStore, userStore } = useStore();
     const { cart } = cartStore;
 
-    // const [deliveryData, setDeliveryData] = useState<any>();
+    const [deliveryData, setDeliveryData] = useState<IDeliveryData>();
+    const [name, setName] = useState('');
+    const [tel, setTel] = useState('');
 
-    const [selectedPayment, setSelectedPayment] = useState(deliveryData.paymentMethod || '');
-    const [selectedDelivery, setSelectedDelivery] = useState(deliveryData.deliveryMethod || '');
-    const [name, setName] = useState(userData.name || '');
-    const [tel, setTel] = useState(userData.tel || '');
+    const [selectedPayment, setSelectedPayment] = useState('');
+    const [selectedDelivery, setSelectedDelivery] = useState('');
+    const [courierFormData, setCourierFormData] = useState<ICourierFormData>();
 
-    const [courierFormData, setCourierFormData] = useState(deliveryData.deliveryData.courier);
+    const [nameError, setNameError] = useState('');
+    const [telError, setTelError] = useState('');
+    const [paymentError, setPaymentError] = useState('');
+    const [deliveryError, setDeliveryError] = useState('');
+
+    const[isValidCheckoutData, setIsValidCheckoutData] = useState(true);
+
+    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setName(event.target.value);
+        setNameError('');
+    };
+
+    const handleTelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTel(event.target.value);
+        setTelError('');
+    };
 
     const handlePaymentChange = (event) => {
         setSelectedPayment(event.target.value);
+        setPaymentError('');
+    };
+
+    const handleConfirmCheckout = () => {
+        if (!name) {
+            setIsValidCheckoutData(false);
+            setNameError(t('text.checkout.errors.emptyName'));
+        }
+
+        if (!tel) {
+            setIsValidCheckoutData(false);
+            setTelError(t('text.checkout.errors.emptyTel'));
+        }
+
+        if (!selectedPayment) {
+            setIsValidCheckoutData(false);
+            setPaymentError(t('text.checkout.errors.emptyPaymentMethod'));
+        }
+
+        if (!selectedDelivery) {
+            setIsValidCheckoutData(false);
+            setDeliveryError(t('text.checkout.errors.emptyDeliveryMethod'));
+        }
     };
 
     useEffect(() => {
         const fetchDeliveryData = async () => {
-           const data = await fetch('delivery');
-           // setDeliveryData(deliveryData);
+           const data = await $api.post('/delivery',  deliveryDataCurrent);
+           setDeliveryData(data.data.delivery);
         };
 
         const fetchUserData = async() => {
-            const data = await fetch('userData');
+            const data = await $api.post(`/user/${userStore.user?.id}`, userDataCurrent);
+            setName(data.data.userData.name)
+            setTel(data.data.userData.tel);
         };
+
         Promise.all([fetchUserData(), fetchDeliveryData()]);
     }, []);
 
-    return (
+    useEffect(() => {
+        if (deliveryData) {
+            setSelectedPayment(deliveryData.paymentMethod || '');
+            setSelectedDelivery(deliveryData.deliveryMethod || '');
+            setCourierFormData(deliveryData.deliveryData.courier);
+        }
+    }, [deliveryData]);
+
+    return ( deliveryData &&
         <Container className="checkout-wrapper" maxWidth="lg">
             <Grid container rowSpacing={1} columnSpacing={2}>
                 <Grid size={{ sm: 12, md: 8, lg: 8, xl: 6 }} gap={2}>
@@ -91,9 +144,11 @@ const CheckoutPage = () => {
                             </Typography>
                             <UserDataForm
                                 name={name}
-                                setName={setName}
                                 tel={tel}
-                                setTel={setTel}
+                                nameError={nameError}
+                                telError={telError}
+                                handleNameChange={handleNameChange}
+                                handleTelChange={handleTelChange}
                             />
                         </CardContent>
                     </Card>
@@ -106,13 +161,16 @@ const CheckoutPage = () => {
                             <Typography gutterBottom className="fs-16">
                                 {t('text.checkout.shortInCity')} {deliveryData.city}
                             </Typography>
-                            <DeliveryForm
-                                deliveryData={deliveryData.deliveryData}
-                                selectedDelivery={selectedDelivery}
-                                courierFormData={courierFormData}
-                                setCourierFormData={setCourierFormData}
-                                setSelectedDelivery={setSelectedDelivery}
-                            />
+                            {courierFormData && <DeliveryForm
+                              deliveryData={deliveryData.deliveryData}
+                              selectedDelivery={selectedDelivery}
+                              courierFormData={courierFormData}
+                              setCourierFormData={setCourierFormData}
+                              setSelectedDelivery={setSelectedDelivery}
+                              deliveryError={deliveryError}
+                              setDeliveryError={setDeliveryError}
+                            />}
+
                         </CardContent>
                     </Card>
 
@@ -125,6 +183,7 @@ const CheckoutPage = () => {
                                 selectedPayment={selectedPayment}
                                 handlePaymentChange={handlePaymentChange}
                                 paymentMethods={deliveryData.paymentMethods}
+                                paymentError={paymentError}
                             />
                         </CardContent>
                     </Card>
@@ -134,7 +193,10 @@ const CheckoutPage = () => {
                     </Typography>
                     <Grid container spacing={2}>
                         {cart.map((product) => (
-                            <ProductCard key={product.id} product={product} />
+                            <ProductCard
+                                key={product.id}
+                                product={product}
+                            />
                         ))}
                     </Grid>
                 </Grid>
@@ -143,6 +205,7 @@ const CheckoutPage = () => {
                     <CheckoutCard
                         selectedPayment={selectedPayment}
                         selectedDelivery={selectedDelivery}
+                        handleConfirmCheckout={handleConfirmCheckout}
                     />
                 </Grid>
             </Grid>

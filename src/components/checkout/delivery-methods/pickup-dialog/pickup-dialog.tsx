@@ -12,24 +12,26 @@ import {
 import { FC } from "react";
 import './pickup-dialog.scss';
 import { useTranslation } from "react-i18next";
+import { IStore } from "../../../../interfaces/interfaces.ts";
 
-interface Store {
-    id: string;
-    storeName: string;
-    location: string;
-    storageDuration: string;
-}
 
 interface PickupDialogProps {
     handleClose: () => void;
     open: boolean;
     selectedStoreId: string;
     setSelectedStoreId: (id: string) => void;
-    stores: Store[];
+    stores: IStore[];
     handleConfirm: (deliveryMethod: string) => void;
 }
 
-const PickupDialog: FC<PickupDialogProps> = ({ handleClose, open, selectedStoreId, setSelectedStoreId, stores, handleConfirm }) => {
+const PickupDialog: FC<PickupDialogProps> = ({
+  handleClose,
+  open,
+  selectedStoreId,
+  setSelectedStoreId,
+  stores,
+  handleConfirm,
+}) => {
     const { t } = useTranslation();
 
     return (

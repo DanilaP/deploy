@@ -5,11 +5,13 @@ import { FormControlLabel, Radio, Typography } from "@mui/material";
 import { FaCcVisa, FaCcMastercard, FaQrcode, FaMoneyBill } from 'react-icons/fa';
 import './payment-methods.scss'
 import { useTranslation } from "react-i18next";
+import { FC } from "react";
 
 interface PaymentFormProps {
     selectedPayment: string;
     handlePaymentChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     paymentMethods: string[];
+    paymentError: string;
 }
 
 const paymentMethodsData = {
@@ -33,14 +35,19 @@ const paymentMethodsData = {
         icon: <FaQrcode size={40} className="card-icon" />
     }
 }
-const PaymentMethods: React.FC<PaymentFormProps> = ({ selectedPayment, handlePaymentChange, paymentMethods}) => {
+const PaymentMethods: FC<PaymentFormProps> = ({
+    selectedPayment,
+    handlePaymentChange,
+    paymentMethods,
+    paymentError
+}) => {
     const { t } = useTranslation();
 
     return (
         <Grid className="payment-form-wrapper mb-3" container spacing={2}>
             {paymentMethods.map((method) => {
                 return (
-                    <Grid size={{ xs:  12, sm:4 }}>
+                    <Grid key={method} size={{ xs:  12, sm:4 }}>
                         <Card className={`card-wrapper ${selectedPayment === method ? 'selected' : ''}`}>
                             <CardContent>
                                 <FormControlLabel
@@ -67,6 +74,11 @@ const PaymentMethods: React.FC<PaymentFormProps> = ({ selectedPayment, handlePay
 
                 )
             })}
+            {paymentError && (
+                <Typography color="error" variant="body2">
+                    {paymentError}
+                </Typography>
+            )}
         </Grid>
     );
 };

@@ -53,3 +53,33 @@ export interface IReview {
     photo?: string,
     likes?: string[]
 }
+
+export interface ICourierFormData {
+    address: string;
+    apartment: string;
+    entrance: string;
+    floor: string;
+    intercom: string;
+    comment?: string;
+}
+
+export interface IStore {
+    id: string;
+    storeName: string;
+    location: string;
+    storageDuration: string;
+}
+
+export interface IDeliveryData {
+    country: string;
+    city: string;
+    paymentMethod: string;
+    paymentMethods: string[];
+    deliveryMethods: string[];
+    deliveryMethod: string;
+    deliveryData: {
+        storeId: string;
+        stores: IStore[];
+        courier: ICourierFormData;
+    };
+}

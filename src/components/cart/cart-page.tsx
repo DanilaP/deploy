@@ -12,9 +12,11 @@ import EmptyCartCard from './cards/empty-cart-card/empty-cart-card.tsx';
 import { useStore } from '../../stores';
 import { observer } from 'mobx-react-lite';
 import {IProduct} from "../../interfaces/interfaces.ts";
+import { useNavigate } from "react-router";
 
 const CartPage = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const { cartStore } = useStore();
     const {
         cart,
@@ -79,6 +81,12 @@ const CartPage = () => {
         }
     };
 
+    const handleProceedToCheckout = () => {
+        cartStore.cart = cart;
+        cartStore.totalBasketQuantity = totalBasketQuantity;
+        navigate('/checkout')
+    }
+
     return (
         <Container className="cart cart-page-container" maxWidth="lg">
             { isBasketEmpty ? (
@@ -135,7 +143,10 @@ const CartPage = () => {
                     </Grid>
 
                     <Grid size={{ sm: 12, md: 4, lg: 4, xl: 6 }} className="order-card-grid">
-                        <OrderCard isSomeSelected={isSomeSelected} />
+                        <OrderCard
+                            isSomeSelected={isSomeSelected}
+                            handleProceedToCheckout={handleProceedToCheckout}
+                        />
                     </Grid>
                 </Grid>
             )}
