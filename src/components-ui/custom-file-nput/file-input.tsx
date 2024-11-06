@@ -1,26 +1,28 @@
 import { ChangeEvent, useRef } from "react";
-import { useTranslation } from "react-i18next";
 import "./file-input.scss";
-import { MdOutlineControlPoint } from "react-icons/md";
+import { FiPlusCircle } from "react-icons/fi";
 
 export default function InputFile(props: { 
-    onChange?: (event: ChangeEvent<HTMLInputElement>) => void 
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void
+    width?: string,
+    height?: string
+    accept?: string,
+    multiple?: boolean
 }) {
 
     const ref = useRef(null);
-    const { t } = useTranslation();
 
     return( 
         <div className="form-group">
-            <MdOutlineControlPoint className='icon' color="primary" />
-            <label className="label">
-                <input 
-                    ref={ref} 
-                    type="file" 
-                    className="input-type-file" 
-                    onChange={(event) => props.onChange!(event)} accept=".jpg,.jpeg,.png,.gif,.mp4, .avi"
-                />
-            </label>
+            <FiPlusCircle fontSize={ 25 } />
+            <input 
+                ref={ ref }
+                style={ { width: props.width, height: props.height } }
+                type="file" 
+                className="input-type-file" 
+                multiple={ props.multiple || false }
+                onChange={ (event) => props.onChange!(event) } accept={ props.accept || ".jpg,.jpeg,.png,.gif" }
+            />
         </div>
-    )
+    );
 }

@@ -4,7 +4,7 @@ export interface IUser {
     password?: string,
     role?: string,
     avatar?: string,
-    backet: IProduct[]
+    backet?: any[]
 }
 export interface IPermission {
     name: string,
@@ -28,8 +28,21 @@ export interface IProduct {
     category: string,
     provider: string,
     reviews: IReview[],
-    variations: object[],
-    additionalInfo: []
+    variations: IVariation[],
+    additionalInfo: IAdditionalInfo[]
+}
+export interface IAdditionalInfo {
+    id: number,
+    name: string,
+    description: string
+}
+export interface IVariation {
+    name: string,
+    title: string,
+    stock: number,
+    price: number,
+    images: string[],
+    video: string
 }
 export interface IReview {
     clientId?: string,

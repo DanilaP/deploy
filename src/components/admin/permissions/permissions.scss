@@ -8,27 +8,27 @@
     border: 1px solid rgba(128, 128, 128, 0.247);
     height: calc(100vh - 150px);
 
-    & .permissions-settings {
+    .permissions-settings {
         display: flex;
         gap: 10px;
 
-        & .MuiButton-root {
+        .MuiButton-root {
             min-width: 205px;
         }
     }
 
-    & .permissions-content {
+    .permissions-content {
         display: flex;
         gap: 10px;
         height: calc(100vh - 190px);
 
-        & .permissions-list {
+        .permissions-list {
             background-color: var(--bg-color);
             border-radius: 5px;
             border: 1px solid rgba(128, 128, 128, 0.247);
         }
 
-        & .groups-list {
+        .groups-list {
             width: calc(100% - 350px);
             background-color: var(--bg-color);
             border-radius: 5px;
@@ -36,7 +36,7 @@
         }
     }
 
-    & .MuiInputBase-input {
+    .MuiInputBase-input {
         height: 3.5px;
     }
 }

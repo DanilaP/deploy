@@ -7,6 +7,7 @@ const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwt_decode = require('jwt-decode');
+const path = require('path');
 
 const generateAccessToken = (id) => {
     const payload = {
@@ -302,6 +303,16 @@ app.get("/product", async function(req, res) {
         res.status(400).json({ message: "Ошибка получения данных о товаре!" });
     }
 });
+app.post("/product", async function(req, res) {
+    try {
+        res.status(200).json({ message: "Данные о товаре успешно обновлены", product: req.body });
+    }
+    catch(error) {
+        console.error("post /product", error);
+        res.status(400).json({ message: "Ошибка обновления данных о товаре!" });
+    }
+});
+
 app.put("/product", async function(req, res) {
     try {
         const token = req.headers.authorization;
@@ -405,7 +416,6 @@ app.delete("/reviews/product", async function(req, res) {
         res.status(400).json({ message: "Ошибка при удалении отзыва!" });
     }
 });
-
 
 //User Backet
 app.get("/backet", async function(req, res) {

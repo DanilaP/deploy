@@ -5,27 +5,27 @@
     gap: 10px;
     padding-left: 10px;
     
-    & .users-list-header {
+    .users-list-header {
         display: flex;
         justify-content: space-between;
         gap: 10px;
         width: 681.6px;
 
-        & .MuiButton-root {
+        .MuiButton-root {
             min-width: 150px;
             height: 36.5px;
         }
 
-        & .MuiInputBase-input {
+        .MuiInputBase-input {
             height: 3.5px;
         }
     }
 
-    & .create-button {
+    .create-button {
         width: 300px;
     }
     
-    & .user {
+    .user {
         display: flex;
         align-items: center;
         box-sizing: border-box;
@@ -36,26 +36,26 @@
         gap: 30px;
         border: 1px solid rgba(128, 128, 128, 0.247);
 
-        & .user-avatar {
+        .user-avatar {
             
-            & .avatar {
+            .avatar {
                 width: 100px;
                 height: 100px;
                 border-radius: 50%;
             }
         }
 
-        & .user-info {
+        .user-info {
             min-width: 250px;
         }
 
-        & .user-settings {
+        .user-settings {
             display: flex;
             justify-content: center;
             gap: 5px;
             min-width: 250px;
 
-            & .MuiButton-root {
+            .MuiButton-root {
                 font-size: 15px;
                 padding: 5px;
             }
@@ -67,16 +67,16 @@
     .users-list {
         width: max-content; 
         
-        & .users-list-header {
+        .users-list-header {
             flex-wrap: wrap;
             width: 391.6px;
 
-            & .create-button {
+            .create-button {
                 width: 100%;
             }
         }
 
-        & .user {
+        .user {
             display: grid;
             grid-template-columns: 110px calc(100% - 110px);
             gap: 10px;
