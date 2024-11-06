@@ -3,7 +3,7 @@
     flex-direction: column;
     gap: 10px;
 
-    & .roles-content {
+    .roles-content {
         display: flex;
         box-sizing: border-box;
         padding: 10px;
@@ -12,14 +12,14 @@
         background-color: var(--bg-color-block);
         border: 1px solid rgba(128, 128, 128, 0.247);
 
-        & .MuiPaper-root {
+        .MuiPaper-root {
             background-color: var(--bg-color-block);
             
-            & th, td {
+            th, td {
                 color: var(--text-color);
             }
 
-            & span, input, svg {
+            span, input, svg {
                 color: var(--text-color);
                 border-color: var(--text-color);
             }
@@ -35,13 +35,13 @@
         }
     }
 
-    & .roles-add-role {
+    .roles-add-role {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         gap: 10px;
 
-        & .MuiInputBase-input {
+        .MuiInputBase-input {
             height: 3.5px;
         }
     }

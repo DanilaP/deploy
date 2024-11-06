@@ -2,7 +2,6 @@
   {
     "name": "Администрирование товаров",
     "permissions": [
-      "CreateProducts",
       "DeleteProducts",
       "ModifyProducts"
     ]
@@ -19,14 +18,15 @@
     "name": "Администрирование заказов",
     "permissions": [
       "ViewOrderListOfUser",
+      "CreateProducts",
       "OrderManagement"
     ]
   },
   {
     "name": "Администрирование прав",
     "permissions": [
-      "DeleteGroupOfPermissions",
       "CreateGroupOfPermissions",
+      "DeleteGroupOfPermissions",
       "ModifyGroupOfPermissions"
     ]
   },

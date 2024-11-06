@@ -1,8 +1,8 @@
 import NotFoundComponent from "./components/service/404";
 import AdminPage from "./components/admin/admin";
 import AuthPage from "./components/auth/auth";
-import SignIn from "./components/auth/sign-in";
-import SignUp from "./components/auth/sign-up";
+import SignIn from "./components/auth/sign-in/sign-in";
+import SignUp from "./components/auth/sign-up/sign-up";
 import AboutPage from "./components/about/about";
 import HomePage from "./components/home/home";
 import ShopPage from "./components/shop/shop";
@@ -11,6 +11,7 @@ import UsersList from "./components/admin/users/users-list/users-list";
 import ProfilePage from "./components/profile/profile";
 import RolesPage from "./components/admin/roles/roles";
 import PermissionsPage from "./components/admin/permissions/permissions";
+import { GoodsPage } from "./components/admin/goods/goods";
 import ProductPage from "./components/shop/product-page/product-page";
 import ProductReviews from "./components/shop/product-reviews-page/product-reviews-page";
 import CheckoutPage from "./components/checkout/checkout-page.tsx";
@@ -93,5 +94,10 @@ export const adminRoutes = [
         path: '/admin/permissions',
         component: AdminPage,
         children: PermissionsPage
+    },
+    {
+        path: '/admin/goods',
+        component: AdminPage,
+        children: GoodsPage
     },
 ];
