@@ -1,9 +1,16 @@
 .category-page {
     .category-page-title {
         font-size: 24px;
+        border-radius: 5px;
     }
     .category-page-search {
+        display: grid;
+        grid-template-columns: calc(100% - 250px) 250px;
         margin-top: 10px;
+        .categore-page-actions {
+            display: flex;
+            justify-content: right;
+        }
         .MuiInputBase-input {
             border: none !important;
             padding: 5px 10px 5px 10px;
@@ -12,16 +19,17 @@
     .category-page-content {
         margin-top: 15px;
         .category-item {
-            display: flex;
+            display: grid;
+            grid-template-columns: calc(100% - 100px) 100px;
             align-items: center;
             .category-actions {
-                margin-left: 10px;
+                display: flex;
+                column-gap: 10px;
                 .mui-actions {
                     color: var(--text-color);
-                    opacity: 0;
                     padding: 5px 0px 5px 0px;
                     &:hover {
-                        color: var(--default-color);
+                        color: gray;
                     }
                 }
             }
@@ -35,8 +43,8 @@
             margin-top: 5px;
             border-radius: 5px;
             background-color: var(--bg-color-block);
-            :hover, .Mui-selected {
-                background-color: var(--bg-color-block);
+            .Mui-selected {
+                background-color: var(--hover-color);
             }
         }
         .empty-category {
@@ -49,23 +57,28 @@
             text-transform: none;
             border-radius: 5px;
             background-color: var(--bg-color);
-            :hover, .Mui-selected {
-                background-color: var(--bg-color);
+            .Mui-selected {
+                background-color: var(--hover-color);
             }
         }    
-        .category-item:hover {
-            .mui-actions {
-                opacity: 1;
-            }
-        }
+    }
+    .MuiTreeItem-content:hover {
+        background-color: rgba(187, 235, 255, 0.203);
     }
     .adding-category {
         display: grid;
-        row-gap: 10px;
+        row-gap: 3px;
         margin-top: 15px;
         margin-top: 15px;
         #new-category-title {
             padding: 5px 10px 5px 10px;
         }
+        .adding-category-error {
+            color: red;
+            font-size: 12px;
+        }
+    }
+    .delete-text {
+        margin: 10px 0 10px 0;
     }
 }

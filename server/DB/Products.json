@@ -11,7 +11,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -46,14 +46,6 @@
     ],
     "provider": "Поставщик 1",
     "reviews": [
-      {
-        "clientId": 1727158100336,
-        "text": "this is the second review for product 1",
-        "evaluation": 4,
-        "likes": [],
-        "video": [],
-        "photo": []
-      },
       {
         "clientId": 1727161785732,
         "text": "123123",
@@ -106,7 +98,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -184,7 +176,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video2.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -263,7 +255,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -333,7 +325,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video2.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -403,7 +395,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -473,7 +465,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -543,7 +535,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -613,7 +605,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,

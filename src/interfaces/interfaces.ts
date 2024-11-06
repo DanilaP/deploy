@@ -25,7 +25,7 @@ export interface IProduct {
     fullDescription: string,
     images: string[],
     video: string,
-    category: string,
+    category: string[],
     provider: string,
     reviews: IReview[],
     variations: IVariation[],
@@ -56,5 +56,9 @@ export interface IReview {
 export interface ICategory {
     title: string,
     id: string,
-    categorys?: ICategory[]
+    categories?: ICategory[]
+}
+export interface ISelect {
+    id: string,
+    label: string
 }

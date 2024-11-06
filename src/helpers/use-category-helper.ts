@@ -1,20 +1,56 @@
 import { useEffect, useState } from "react";
-import { ICategory } from "../interfaces/interfaces";
+import { ICategory, ISelect } from "../interfaces/interfaces";
 import $api from "../configs/axiosconfig/axios.js";
 
 export const useCategoryHelper = () => {
 
-    const [categorys, setCategorys] = useState<ICategory[]>([]);
+    const [categories, setCategories] = useState<ICategory[]>([]);
+    const [categoriesForSelect, setCategoriesForSelect] = useState<ISelect[]>([]);
     const [filteredCategories, setFilteredCategories] = useState<ICategory[]>([]);
+
+    const handleGetCategoriesDataForSelect = (categoryList: ICategory[]): ISelect[] => {
+        const categoriesForSelect = categoryList.reduce((prev: ISelect[], item: ICategory) => {
+            const subCategoriesForSelect = handleGetCategoriesDataForSelect(item.categories || []);
+            return [...prev, { id: item.id, label: item.title }, ...subCategoriesForSelect];
+        }, []);
+        setCategoriesForSelect(categoriesForSelect);
+        return categoriesForSelect;
+    };
+
+    const handleAddRootCategory = (categoryTitle: string) => {
+        $api.post("/category", { title: categoryTitle }).then(res => {
+            if (res.data) {
+                const newCategory = { id: String(Date.now()), title: categoryTitle };
+                const updatedCategory = [...categories, newCategory];
+                const updatedFiltered = [...filteredCategories, newCategory];
+                setCategories(updatedCategory);
+                setFilteredCategories(updatedFiltered);
+            }
+        });
+    };
 
     const handleDeleteSubCategory = (categoryList: ICategory[], category: ICategory) => {
         const updatedCategory = categoryList.reduce((prev: ICategory[], item: ICategory) => {
             if (item.id === category.id) {
                 return prev;
             }
-            if (item.categorys) {
-                const filteredCategorys: ICategory[] = handleDeleteSubCategory(item.categorys, category);
-                return [...prev, { ...item, categorys: filteredCategorys }];
+            if (item.categories) {
+                const filteredCategorys: ICategory[] = handleDeleteSubCategory(item.categories, category);
+                return [...prev, { ...item, categories: filteredCategorys }];
+            }
+            return [...prev, item];
+        }, []);
+        return updatedCategory;
+    };
+
+    const handleUpdateCategory = (categoryList: ICategory[], newCategoryData: ICategory) => {
+        const updatedCategory = categoryList.reduce((prev: ICategory[], item: ICategory) => {
+            if (item.id === newCategoryData.id) {
+                return [...prev, newCategoryData];
+            }
+            if (item.categories) {
+                const updatedCategories: ICategory[] = handleUpdateCategory(item.categories, newCategoryData);
+                return [...prev, { ...item, categories: updatedCategories }];
             }
             return [...prev, item];
         }, []);
@@ -30,15 +66,15 @@ export const useCategoryHelper = () => {
             if (item.id === currentCategory.id) {
                 return [...prev, {
                     ...item,
-                    categorys: item.categorys 
-                        ? [...item.categorys, { id: String(Date.now()), title: newCategoryTitle }]
+                    categories: item.categories 
+                        ? [...item.categories, { id: String(Date.now()), title: newCategoryTitle }]
                         : [{ id: String(Date.now()), title: newCategoryTitle }]
                 }];
             }
-            if (item.categorys) {
+            if (item.categories) {
                 const updated: ICategory[] = 
-                    handleFindCategoryAndAddIntoNewCategory(currentCategory, newCategoryTitle, item.categorys);
-                return [...prev, { ...item, categorys: updated }];
+                    handleFindCategoryAndAddIntoNewCategory(currentCategory, newCategoryTitle, item.categories);
+                return [...prev, { ...item, categories: updated }];
             }
             return [...prev, item];
         }, []);
@@ -53,9 +89,9 @@ export const useCategoryHelper = () => {
             if (item.title.toLowerCase().includes(textValue.toLowerCase())) {
                 return [...prev, item];
             }
-            if (item.categorys) {
+            if (item.categories) {
                 const findedItem: ICategory[] = 
-                    handleFilterCategoriesByIncludingString(textValue, item.categorys);
+                    handleFilterCategoriesByIncludingString(textValue, item.categories);
 
                 if (findedItem.length !== 0) {
                     return [...prev, ...findedItem];
@@ -69,19 +105,23 @@ export const useCategoryHelper = () => {
     useEffect(() => {
         $api.get("/category").then(res => {
             if (res.data) {
-                setCategorys(res.data.categoryList);
+                setCategories(res.data.categoryList);
                 setFilteredCategories(res.data.categoryList);
+                handleGetCategoriesDataForSelect(res.data.categoryList);
             }
         });
     }, []);
 
     return { 
-        categorys,
+        categories,
         filteredCategories,
-        setCategorys,
+        categoriesForSelect,
+        setCategories,
         setFilteredCategories,
         handleDeleteSubCategory, 
         handleFindCategoryAndAddIntoNewCategory, 
-        handleFilterCategoriesByIncludingString
+        handleFilterCategoriesByIncludingString,
+        handleAddRootCategory,
+        handleUpdateCategory
     };
 };
