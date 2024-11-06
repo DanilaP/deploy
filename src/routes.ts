@@ -4,7 +4,6 @@ import AuthPage from "./components/auth/auth";
 import SignIn from "./components/auth/sign-in/sign-in";
 import SignUp from "./components/auth/sign-up/sign-up";
 import AboutPage from "./components/about/about";
-import HomePage from "./components/home/home";
 import ShopPage from "./components/shop/shop";
 import UsersList from "./components/admin/users/users-list/users-list";
 import ProfilePage from "./components/profile/profile";
@@ -14,52 +13,56 @@ import { GoodsPage } from "./components/admin/goods/goods";
 import ProductPage from "./components/shop/product-page/product-page";
 import ProductReviews from "./components/shop/product-reviews-page/product-reviews-page";
 import { CategorysPage } from "./components/admin/categorys/categorys";
+import { t } from "i18next";
 
 export const routes = [
     {
-        path: '/',
-        component: HomePage,
-        children: null
-    },
-    {
         path: '/about',
         component: AboutPage,
-        children: null 
+        children: null,
+        breadcrumb : t("breadcrumbs.about")
     },
     {
         path: '/auth/signin',
         component: AuthPage,
-        children: SignIn
+        children: SignIn,
+        breadcrumb : ''
     },
     {
         path: '/auth/signup',
         component: AuthPage,
-        children: SignUp
+        children: SignUp,
+        breadcrumb : ''
     },
     {
         path: '/shop',
         component: ShopPage,
-        children: null
+        children: null,
+        breadcrumb : t("breadcrumbs.shop")
     },
     {
         path: '/profile',
         component: ProfilePage,
-        children: null
+        children: null,
+        breadcrumb : t("breadcrumbs.profile")
     },
     {
-        path: "/product/:id",
+        path: "/shop/product/:id",
         component: ProductPage,
-        children: null
+        children: null,
+        breadcrumb : t("breadcrumbs.shopProduct")
     },
     {
-        path: "/product/:id/reviews",
+        path: "/shop/product/:id/reviews",
         component: ProductReviews,
-        children: null
+        children: null,
+        breadcrumb : t("breadcrumbs.productReviews")
     },
     {
         path: '*',
         component: NotFoundComponent,
-        children: null
+        children: null,
+        breadcrumb : ''
     }
 ];
 
@@ -67,31 +70,37 @@ export const adminRoutes = [
     {
         path: '/admin',
         component: AdminPage,
-        children: null
+        children: null,
+        breadcrumb : t("breadcrumbs.adminPage")
     },
     {
         path: '/admin/users',
         component: AdminPage,
-        children: UsersList
+        children: UsersList,
+        breadcrumb : t("breadcrumbs.adminUsers")
     },
     {
         path: '/admin/roles',
         component: AdminPage,
-        children: RolesPage
+        children: RolesPage,
+        breadcrumb : t("breadcrumbs.adminRoles")
     },
     {
         path: '/admin/permissions',
         component: AdminPage,
-        children: PermissionsPage
+        children: PermissionsPage,
+        breadcrumb : t("breadcrumbs.adminPermissions")
     },
     {
         path: '/admin/goods',
         component: AdminPage,
-        children: GoodsPage
+        children: GoodsPage,
+        breadcrumb : t("titles.goodsPage")
     },
     {
         path: '/admin/categorys',
         component: AdminPage,
-        children: CategorysPage
+        children: CategorysPage,
+        breadcrumb : t("text.categories")
     },
 ];

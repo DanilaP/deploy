@@ -16,6 +16,8 @@
         "profilePage": "Страница профиля",
         "permissionsPage": "Разрешения/права",
         "rolesPage": "Роли",
+        "productPage": "Страница продукта",
+        "productReviewsPage": "Страница отзывов о продукте",
         "goodsPage": "Товары"
     },
     "labels": {
@@ -137,5 +139,16 @@
         "CreateGroupOfPermissions": "Создание группы пермишнов",
         "DeleteGroupOfPermissions": "Удаление группы пермишнов",
         "ModifyGroupOfPermissions": "Модификация группы пермишнов"
+    },
+    "breadcrumbs": {
+        "about": "О проекте",
+        "shop": "Магазин",
+        "profile": "Профиль",
+        "adminPage": "Страница администрации",
+        "adminUsers": "Пользователи",
+        "adminRoles": "Роли",
+        "adminPermissions": "Разрешения/права",
+        "shopProduct": "Продукт",
+        "productReviews": "Отзывы о продукте"
     }
 }

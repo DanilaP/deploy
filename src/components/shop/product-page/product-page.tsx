@@ -38,6 +38,10 @@ export default function ProductPage () {
         });
     }, []);
 
+    useEffect(() => {
+        document.title = t("titles.productPage");
+    }, []);
+
     return (
         product ? (
             <div className='product-page'>

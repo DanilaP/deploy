@@ -3109,6 +3109,11 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
+use-react-router-breadcrumbs@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.npmjs.org/use-react-router-breadcrumbs/-/use-react-router-breadcrumbs-4.0.1.tgz"
+  integrity sha512-Zbcy0KvWt1JePFcUHJAnTr7Z+AeO9WxmPs6A5Q/xqOVoi8edPKzpqHF87WB2opXwie/QjCxrEyTB7kFg7fgXvQ==
+
 use-sync-external-store@^1.2.0:
   version "1.2.2"
   resolved "https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.2.2.tgz"
