@@ -97,7 +97,7 @@ const CartPage = () => {
     };
 
     return (
-        <Container className="cart cart-page-container" maxWidth="xl">
+        <Container className="cart cart-page-container" maxWidth="lg">
             { isBasketEmpty ? (
                 <EmptyCartCard />
             ) : (

@@ -51,6 +51,7 @@ const OrderPrompt: FC<OrderPromptProps> = ({ sumToShow, totalQuantity}) => {
 const orderCard = () => {
     const { cartStore } = useStore();
     const {
+        cart,
         totalSum,
         selectedTotalQuantity,
         selectedProductIds,
@@ -75,7 +76,10 @@ const orderCard = () => {
             )}
             <CardActions>
                 <Button
-                    onClick={() => navigate('/checkout')}
+                    onClick={() => {
+                        cartStore.cart = cart;
+                        navigate('/checkout')
+                    }}
                     variant="contained"
                     disabled={!isSomeSelected}
                     fullWidth

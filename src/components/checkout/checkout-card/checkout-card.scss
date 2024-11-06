@@ -1,0 +1,35 @@
+.checkout-card {
+  display: flex;
+  flex-direction: column;
+  padding: 2px;
+  margin: 48px 0 auto;
+  box-shadow: none;
+}
+
+.checkout-content {
+  .checkout-text {
+    font-size: 20px;
+    color: var(--text-secondary-color);
+  }
+
+  .checkout-total {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-secondary-color);
+    font-size: 0.90rem;
+  }
+
+  .checkout-products {
+    color: var(--text-secondary-color);
+    font-size: 0.90rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .price {
+    color: #1976d2 !important;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+

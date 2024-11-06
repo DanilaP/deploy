@@ -30,6 +30,7 @@
         "createUser": "Создать пользователя",
         "role": "Роль",
         "confirm": "Подтвердить",
+        "cancel": "Отмена",
         "close": "Закрыть",
         "admin": "Администратор",
         "deletingUser": "Удаление пользователя",
@@ -83,6 +84,51 @@
             "confirmDeleteMessage": "Вы уверены, что хотите удалить товар?",
             "delete": "Удалить",
             "cancel": "Оставить"
+        },
+        "checkout": {
+            "orderCheckout": "Оформление заказа",
+            "contactsData": "Контактная информация",
+            "deliveryVars": "Способы доставки",
+            "nameLabel": "Ваше имя",
+            "telLabel": "Номер телефона",
+            "paymentVars": "Способы оплаты",
+            "shortInCity": "в г.",
+            "selectedProducts": "Выбранные товары",
+            "paymentMethods": {
+                "card": "Картой",
+                "cash": "Наличными",
+                "spb": "СБП"
+            },
+            "orderPaymentMethods": {
+                "cash": "Оплата наличными при получении",
+                "spb": "Оплата по QR-коду СБП",
+                "card": "Оплата банковской картой"
+            },
+            "orderDeliveryMethods": {
+                "courier": "Доставка курьером по Москве",
+                "pickup": "Самовывоз из магазина"
+            },
+            "pickup": "Самовывоз",
+            "enterDeliveryAddress": "Введите адрес доставки",
+            "courierFormLabels": {
+                "address": "Адрес",
+                "apartment": "Квартира",
+                "entrance": "Подъезд",
+                "floor": "Этаж",
+                "intercom": "Код домофона",
+                "comment": "Комментарий курьеру"
+            },
+            "storageDuration": "Срок хранения",
+            "address": "Адрес",
+            "chooseShop": "Выберите магазин",
+            "byAddress": "по адресу",
+            "courierDelivery": "Доставка курьером",
+            "pickupFromShop": "Самовывоз из магазина",
+            "orderStorageDuration": "Срок хранения заказа",
+            "placeOrder": " Оформить",
+            "deliveryVar": "Способ доставки",
+            "paymentVar": "Способ оплаты",
+            "orderData": "Данные заказа"
         },
         "cost": "Стоимость",
         "description": "Описание",
