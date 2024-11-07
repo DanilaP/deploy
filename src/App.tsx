@@ -14,6 +14,7 @@ import { adminRoutes, routes } from './routes';
 import { useStore } from './stores';
 import usePermissions from './helpers/permissions-helpers.ts';
 import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
+import { MdFavoriteBorder } from "react-icons/md";
 
 function App() {
     const [theme, setTheme] = useState("white-theme");
@@ -76,10 +77,14 @@ function App() {
     return (
         <>
             <div className='home-page-main'>
-                    { userStore.user ? (
+                    { userStore.user && userStore.user.favorites ? (
                         <div className="header">
                             <Link to='/shop'><FaShoppingCart className='icon' />{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
                             <Link to='/profile'><MdPersonPin className='icon' />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
+                            <Link to='/favorites'>
+                                <MdFavoriteBorder className='icon' />
+                                { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
+                            </Link><br/>
                             { checkPermissions() ? 
                             (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">
