@@ -6,11 +6,11 @@ export const DEFAULT_PRODUCT: IProduct = {
     fullDescription: "",
     images: [] as string[],
     video: "",
-    category: "",
+    category: [] as string[],
     provider: "",
     reviews: [] as IReview[],
     variations: [
-        { name: "", title: "", stock: 1, price: 1, images: [""], video: "" }
+        { name: "", title: "", stock: 0, price: 0, images: [""], video: "" }
     ],
     additionalInfo: [{ name: "", description: "", id: Date.now() }],
 };

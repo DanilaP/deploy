@@ -104,7 +104,6 @@ export const GoodsPage = () => {
         const searchValue = inputValue.toLowerCase();
         setFilteredProducts(currentProducts.filter(el => {
             return el.name.toLowerCase().includes(searchValue) ||
-                el.category.toLowerCase().includes(searchValue) ||
                 el.description.toLowerCase().includes(searchValue) ||
                 el.fullDescription.toLowerCase().includes(searchValue) ||
                 el.provider.toLowerCase().includes(searchValue) ||

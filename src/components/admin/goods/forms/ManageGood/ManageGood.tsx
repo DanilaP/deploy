@@ -1,10 +1,10 @@
 import { Button, Autocomplete, TextField, Tooltip } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import { DEFAULT_CATEGORIES, DEFAULT_PRODUCT } from "./constants";
+import { DEFAULT_PRODUCT } from "./constants";
 import { useTranslation } from "react-i18next";
-import { IAdditionalInfo, ICategory, IProduct, ISelect, IVariation } from "../../../../../interfaces/interfaces";
-import { validateAdditionalInfo, validateCommonFields, validateVariations } from "./validators";
+import { IAdditionalInfo, IProduct, ISelect, IVariation } from "../../../../../interfaces/interfaces";
+import { validateGoodsForm } from "./validators";
 import { convertFileListToBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
 import { BiMessageSquareAdd } from "react-icons/bi";
 import InputFile from "../../../../../components-ui/custom-file-nput/file-input";
@@ -29,10 +29,13 @@ export const ManageGoodForm = ({
     
     const { t } = useTranslation();
     const [newGoodData, setNewGoodData] = useState<IProduct>(goodData || DEFAULT_PRODUCT);
-    const [isFormValid, setIsFormValid] = useState<boolean>(false);
+    const [isFormTouched, setIsFormTouched] = useState<boolean>(false);
+    const formWrapperRef = useRef<HTMLDivElement>(null);
     const { categoriesForSelect } = useCategoryHelper();
     const isEdit = mode === "edit";
     
+    const validationFormData = validateGoodsForm(newGoodData);
+
     const handleAddAdditionalInfo = () => {
         setNewGoodData(prevGoodData => {
             return {
@@ -106,8 +109,9 @@ export const ManageGoodForm = ({
     };
 
     const handleUpdateSaveGoodData = () => {
+        setIsFormTouched(true);
         if (
-            isFormValid
+            validationFormData.formValid
         ) {
             handleUpdateGood(newGoodData);
         }
@@ -121,18 +125,32 @@ export const ManageGoodForm = ({
 
     useEffect(() => {
         handleUnsavedDataExist(!lodash.isEqual(newGoodData, goodData));
-        setIsFormValid(
-            validateCommonFields(newGoodData) && 
-            validateAdditionalInfo(newGoodData.additionalInfo) &&
-            validateVariations(newGoodData.variations)
-        );
     }, [newGoodData]);
+
+    useEffect(() => {
+        if (isFormTouched && formWrapperRef.current) {
+            const formLabels = formWrapperRef.current.getElementsByClassName("label");
+            for (let i = 0, max = formLabels.length; i < max; i++) {
+                const isError = formLabels[i].getAttribute("data-error") === "true";
+                if (isError) {
+                    formLabels[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    return;
+                }
+            }
+        }
+    }, [isFormTouched]);
     
     return (
-        <div className="update-good-form">
+        <div className="update-good-form" ref={ formWrapperRef }>
             <div className="field">
-                <label className="label" htmlFor="update-good-name">{ t("text.name") }</label>
+                <label 
+                    className="label" 
+                    htmlFor="update-good-name"
+                    data-error={ Boolean(validationFormData?.name) }
+                >{ t("text.name") }</label>
                 <TextField
+                    error={ Boolean(validationFormData?.name) && isFormTouched }
+                    helperText={ isFormTouched && t(validationFormData?.name?.error) }
                     onChange={ (e) => setNewGoodData({ ...newGoodData, name: e.target.value }) }
                     id="update-good-name"
                     placeholder={ t("text.name") }
@@ -141,8 +159,14 @@ export const ManageGoodForm = ({
                 />
             </div>
             <div className="field">
-                <label className="label" htmlFor="update-good-provider">{ t("text.provider") }</label>
+                <label 
+                    className="label"
+                    htmlFor="update-good-provider"
+                    data-error={ Boolean(validationFormData?.provider) }
+                >{ t("text.provider") }</label>
                 <TextField
+                    error={ Boolean(validationFormData?.provider) && isFormTouched }
+                    helperText={ isFormTouched && t(validationFormData?.provider?.error) }
                     onChange={ (e) => setNewGoodData({ ...newGoodData, provider: e.target.value }) }
                     id="update-good-provider"
                     placeholder={ t("text.provider") }
@@ -150,22 +174,36 @@ export const ManageGoodForm = ({
                 />
             </div>
             <div className="field">
-                <label className="label" htmlFor="update-good-category">{ t("text.category") }</label>
+                <label 
+                    className="label" 
+                    htmlFor="update-good-category"
+                    data-error={ Boolean(validationFormData?.category) }
+                >{ t("text.category") }</label>
                 <Autocomplete
+                    id="update-good-category"
                     multiple
                     limitTags={ 2 }
                     onChange={ (_, value) => handleUpdateCategory(value) }
-                    value={ categoriesForSelect.length !== 0 && isEdit 
+                    value={ categoriesForSelect.length !== 0
                         ? categoriesForSelect.filter(el => newGoodData.category.includes(el.id))
-                        : [] 
+                        : []
                     }
                     options={ categoriesForSelect }
                     renderInput={ (params) => <TextField { ...params } /> }
                 />
+                { validationFormData.category && isFormTouched && 
+                    <span className="field-error-text">{ t(validationFormData.category.error) }</span>
+                }
             </div>
             <div className="field">
-                <label className="label" htmlFor="update-good-description">{ t("text.description") }</label>
+                <label 
+                    className="label" 
+                    htmlFor="update-good-description"
+                    data-error={ Boolean(validationFormData?.description) }
+                >{ t("text.description") }</label>
                 <TextField
+                    error={ Boolean(validationFormData?.description) && isFormTouched }
+                    helperText={ isFormTouched && t(validationFormData?.description?.error) }
                     multiline
                     minRows={ 3 }
                     maxRows={ 3 }
@@ -176,8 +214,14 @@ export const ManageGoodForm = ({
                 />
             </div>
             <div className="field">
-                <label className="label" htmlFor="update-good-full-description">{ t("text.fullDescription") }</label>
+                <label 
+                    className="label" 
+                    htmlFor="update-good-full-description"
+                    data-error={ Boolean(validationFormData?.fullDescription) }
+                >{ t("text.fullDescription") }</label>
                 <TextField
+                    error={ Boolean(validationFormData?.fullDescription) && isFormTouched }
+                    helperText={ isFormTouched && t(validationFormData?.fullDescription?.error) }
                     multiline
                     minRows={ 3 }
                     maxRows={ 3 }
@@ -188,9 +232,13 @@ export const ManageGoodForm = ({
                 />
             </div>
             <div className="field">
-                <label className="label" htmlFor="update-good-images">
+                <label 
+                    className="label" 
+                    id="update-good-images"
+                    data-error={ Boolean(validationFormData?.images) }
+                >
                     { t("text.images") }
-                    <InputFile 
+                    <InputFile
                         width="25px" 
                         height="25px"
                         multiple 
@@ -219,9 +267,16 @@ export const ManageGoodForm = ({
                         ))
                     }
                 </div>
+                { validationFormData.images && isFormTouched && 
+                    <span className="field-error-text">{ t(validationFormData.images.error) }</span>
+                }
             </div>
             <div className="field">
-                <label className="label" htmlFor="update-good-video">
+                <label 
+                    className="label" 
+                    id="update-good-video"
+                    data-error={ Boolean(validationFormData?.video) }
+                >
                     { t("text.video") }
                     <InputFile 
                         width="25px" 
@@ -249,53 +304,76 @@ export const ManageGoodForm = ({
                         </Tooltip>
                     }
                 </div>
+                { validationFormData.video && isFormTouched && 
+                    <span className="field-error-text">{ t(validationFormData.video.error) }</span>
+                }
             </div>
             <div className="field">
-                <label className="label" >{ t("text.additionalProductInfo") }</label>
+                <label 
+                    className="label" 
+                    id="update-good-additionalInfo"
+                    data-error={ Boolean(validationFormData?.additionalInfo) }
+                >{ t("text.additionalProductInfo") }</label>
                 {
                     newGoodData?.additionalInfo.map((info, index) => {
+                        const validationData = validationFormData.additionalInfo && validationFormData.additionalInfo[index] || {};
+                        const isErrorShown = Boolean(validationData) && isFormTouched;
                         return (
-                            <div className="field-column" key={ info.id }>
-                                <div className="fields-data">
-                                    <TextField
-                                        defaultValue={ info.name }
-                                        placeholder={ t("text.name") }
-                                        onChange={ (el) => {
-                                            handleUpdateAdditionalData({ ...info, name: el.target.value }, index);
-                                        } }
-                                    />
-                                    <TextField
-                                        className="variation-description"
-                                        defaultValue={ info.description }
-                                        placeholder={ t("text.value") }
-                                        onChange={ (el) => {
-                                            handleUpdateAdditionalData({ ...info, description: el.target.value }, index);
-                                        } }
-                                    />
-                                </div>
-                                <div className="dynamic-actions">
-                                    { index === newGoodData.additionalInfo.length - 1 
-                                        && <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
-                                            <BiMessageSquareAdd />
+                            <Fragment key={ info.id }>
+                                <div className="field-column">
+                                    <div className="fields-data">
+                                        <TextField
+                                            error={ isErrorShown }
+                                            helperText={ isErrorShown ? t(validationData?.name?.error) : "" }
+                                            defaultValue={ info.name }
+                                            placeholder={ t("text.name") }
+                                            onChange={ (el) => {
+                                                handleUpdateAdditionalData({ ...info, name: el.target.value }, index);
+                                            } }
+                                        />
+                                        <TextField
+                                            error={ isErrorShown }
+                                            helperText={ isErrorShown ? t(validationData?.description?.error) : "" }
+                                            className="variation-description"
+                                            defaultValue={ info.description }
+                                            placeholder={ t("text.value") }
+                                            onChange={ (el) => {
+                                                handleUpdateAdditionalData({ ...info, description: el.target.value }, index);
+                                            } }
+                                        />
+                                    </div>
+                                    <div className="dynamic-actions">
+                                        { index === newGoodData.additionalInfo.length - 1 
+                                            && <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
+                                                <BiMessageSquareAdd />
+                                            </IconButton>
+                                        }
+                                        <IconButton className="mui-actions" onClick={ () => handleDeleteAdditionalData(index) }>
+                                            <MdDelete />
                                         </IconButton>
-                                    }
-                                    <IconButton className="mui-actions" onClick={ () => handleDeleteAdditionalData(index) }>
-                                        <MdDelete />
-                                    </IconButton>
+                                    </div>
                                 </div>
-                            </div>
+                            </Fragment>
                         );
                     })
                 }
             </div>
             <div className="field">
-                <label className="label" htmlFor="update-good-variations-info">{ t("text.variationsOfProduct") }</label>
+                <label 
+                    className="label"
+                    id="update-good-variations"
+                    data-error={ Boolean(validationFormData?.variations) }
+                >{ t("text.variationsOfProduct") }</label>
                 {
                     newGoodData?.variations.map((info, index) => {
+                        const validationData = validationFormData.variations && validationFormData.variations[index];
+                        const isErrorShown = Boolean(validationData) && isFormTouched;
                         return (
-                            <div className="field-column" key={ info.images[0] }>
+                            <div className="field-column" key={ info.images[0] + index }>
                                 <div className="fields-data">
                                     <TextField
+                                        error={ isErrorShown }
+                                        helperText={ isErrorShown ? t(validationData?.name?.error) : "" }
                                         defaultValue={ info.name }
                                         placeholder={ t("text.systemKey") }
                                         onChange={ (el) => {
@@ -303,6 +381,8 @@ export const ManageGoodForm = ({
                                         } }
                                     />
                                     <TextField
+                                        error={ isErrorShown }
+                                        helperText={ isErrorShown ? t(validationData?.title?.error) : "" }
                                         defaultValue={ info.title }
                                         placeholder={ t("text.value") }
                                         onChange={ (el) => {
@@ -310,6 +390,8 @@ export const ManageGoodForm = ({
                                         } }
                                     />
                                     <TextField
+                                        error={ isErrorShown }
+                                        helperText={ isErrorShown ? t(validationData?.price?.error) : "" }
                                         defaultValue={ info.price }
                                         placeholder={ t("text.price") }
                                         onChange={ (el) => {
@@ -317,6 +399,8 @@ export const ManageGoodForm = ({
                                         } }
                                     />
                                     <TextField
+                                        error={ isErrorShown }
+                                        helperText={ isErrorShown ? t(validationData?.stock?.error) : "" }
                                         defaultValue={ info.stock }
                                         placeholder={ t("text.stock") }
                                         onChange={ (el) => {
@@ -343,7 +427,7 @@ export const ManageGoodForm = ({
                 <Button 
                     onClick={ handleUpdateSaveGoodData }
                     variant="contained"
-                    disabled={ !isFormValid }
+                    disabled={ !validationFormData.formValid && isFormTouched }
                 >
                     { t("text.confirm") }
                 </Button>
