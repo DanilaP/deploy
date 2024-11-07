@@ -80,7 +80,6 @@
         "additionalProductInfo": "Характеристики (название, значение)",
         "variationsOfProduct": "Вариации (системный ключ, название, цена, остаток)",
         "createGroup": "Создать группу",
-        "requiredField": "Это обязательное поле",
         "confirmDeletingCategory": "Вы уверены, что хотите удалить категорию",
         "deleteGroup": "Удалить группу",
         "editCategory": "Редактировать категорию",
@@ -150,5 +149,9 @@
         "adminPermissions": "Разрешения/права",
         "shopProduct": "Продукт",
         "productReviews": "Отзывы о продукте"
+    },
+    "errors": {
+        "requiredField": "Это обязательное поле",
+        "notZero": "Значение не должно быть 0"
     }
 }

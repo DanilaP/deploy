@@ -92,7 +92,6 @@
         "pcs": "pcs.",
         "toBacket": "To backet",
         "category": "Category",
-        "requiredField": "This field is requiered",
         "editCategory": "Edit category",
         "productReviews": "Product reviews",
         "averageEvaluation": "Average evaluation",
@@ -150,5 +149,9 @@
         "adminPermissions": "Permissions",
         "shopProduct": "Product",
         "productReviews": "Reviews of the product"
+    },
+    "errors": {
+        "requiredField": "This field is requiered",
+        "notZero": "This field cant be 0"
     }
 }

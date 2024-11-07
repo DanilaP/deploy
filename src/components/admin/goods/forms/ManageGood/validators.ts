@@ -1,18 +1,31 @@
 import { IAdditionalInfo, IProduct, IVariation } from "../../../../../interfaces/interfaces";
 
-export const FIELD_FOR_VALIDATION_IN_VARIATIONS = ['name', 'title', 'stock', 'price'];
+export const TEXT_FIELD_FOR_VALIDATION_IN_VARIATIONS = ['name', 'title'];
+export const NUM_FIELD_FOR_VALIDATION_IN_VARIATIONS = ['price'];
 
 export const validateVariations = (variations: IVariation[]) => {
     let validationData: any = { isValid: true };
     variations.forEach((info, index) => {
-        FIELD_FOR_VALIDATION_IN_VARIATIONS.map(key => {
+        TEXT_FIELD_FOR_VALIDATION_IN_VARIATIONS.map(key => {
             if (info[key]?.length === 0) {
                 validationData = { 
                     ...validationData, 
                     isValid: false, 
                     [index]: {
                         ...validationData[index],
-                        [key]: { error: "text.requiredField" }
+                        [key]: { error: "errors.requiredField" }
+                    } 
+                };
+            }
+        });
+        NUM_FIELD_FOR_VALIDATION_IN_VARIATIONS.map(key => {
+            if (info[key] === 0) {
+                validationData = { 
+                    ...validationData, 
+                    isValid: false, 
+                    [index]: {
+                        ...validationData[index],
+                        [key]: { error: "errors.notZero" }
                     } 
                 };
             }
@@ -31,7 +44,7 @@ export const validateAdditionalInfo = (additionalInfo: IAdditionalInfo[]) => {
                 isValid: false, 
                 [index]: {
                     ...validationData[index],
-                    name: { error: "text.requiredField" }
+                    name: { error: "errors.requiredField" }
                 } 
             };
         }
@@ -41,7 +54,7 @@ export const validateAdditionalInfo = (additionalInfo: IAdditionalInfo[]) => {
                 isValid: false, 
                 [index]: {
                     ...validationData[index],
-                    description: { error: "text.requiredField" }
+                    description: { error: "errors.requiredField" }
                 } 
             };
         }
@@ -54,11 +67,12 @@ export const validateGoodsForm = (goodData: IProduct) => {
 
     COMMON_FIELDS_FOR_VALIDATION.forEach((key: string) => {
         if (goodData[key].length === 0) {
-            validationData = { ...validationData, [key]: { error: "text.requiredField" }, formValid: false };
+            validationData = { ...validationData, [key]: { error: "errors.requiredField" }, formValid: false };
         }
     });
     const validationAdditionalInfo = validateAdditionalInfo(goodData.additionalInfo);
     const validationVariations = validateVariations(goodData.variations);
+    
     if (!validationAdditionalInfo.isValid) {
         validationData = { ...validationData, additionalInfo: validationAdditionalInfo, formValid: false };
     }
