@@ -85,4 +85,4 @@ export const validateGoodsForm = (goodData: IProduct) => {
 };
 
 export const COMMON_FIELDS_FOR_VALIDATION: string[]
-    = ["name", "provider", "category", "description", "fullDescription", "images", "video"];
+    = ["articleNumber", "name", "provider", "category", "description", "fullDescription", "images", "video"];

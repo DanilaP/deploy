@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "articleNumber": "100001",
     "name": "Product 1",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
@@ -96,6 +97,7 @@
   },
   {
     "id": 2,
+    "articleNumber": "100002",
     "name": "Product 2",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -174,6 +176,7 @@
   },
   {
     "id": 3,
+    "articleNumber": "100003",
     "name": "Product 3",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -253,6 +256,7 @@
   },
   {
     "id": 4,
+    "articleNumber": "100004",
     "name": "Product 4",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -323,6 +327,7 @@
   },
   {
     "id": 5,
+    "articleNumber": "100006",
     "name": "Product 5",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -393,6 +398,7 @@
   },
   {
     "id": 6,
+    "articleNumber": "100007",
     "name": "Product 6",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -463,6 +469,7 @@
   },
   {
     "id": 7,
+    "articleNumber": "100008",
     "name": "Product 7",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -533,6 +540,7 @@
   },
   {
     "id": 8,
+    "articleNumber": "100009",
     "name": "Product 8",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -603,6 +611,7 @@
   },
   {
     "id": 9,
+    "articleNumber": "100010",
     "name": "Product 9",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",

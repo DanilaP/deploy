@@ -2,6 +2,7 @@ import { IProduct, IReview } from "../../../../../interfaces/interfaces";
 
 export const DEFAULT_PRODUCT: IProduct = {
     name: "",
+    articleNumber: "",
     description: "",
     fullDescription: "",
     images: [] as string[],

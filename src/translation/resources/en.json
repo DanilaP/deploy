@@ -80,6 +80,7 @@
         "createCategory": "Create category",
         "deleteGroup": "Delete group",
         "addCategory": "Add category",
+        "articleNumber": "Article number",
         "unsavedChanges": "You have an unsaved changes. Are you sure",
         "groupName": "Group name",
         "approveAction": "Approve action",

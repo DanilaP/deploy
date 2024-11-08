@@ -144,6 +144,21 @@ export const ManageGoodForm = ({
         <div className="update-good-form" ref={ formWrapperRef }>
             <div className="field">
                 <label 
+                    className="label"
+                    htmlFor="update-good-articleNumber"
+                    data-error={ Boolean(validationFormData?.articleNumber) }
+                >{ t("text.articleNumber") }</label>
+                <TextField
+                    error={ Boolean(validationFormData?.articleNumber) && isFormTouched }
+                    helperText={ isFormTouched && t(validationFormData?.articleNumber?.error) }
+                    onChange={ (e) => setNewGoodData({ ...newGoodData, articleNumber: e.target.value }) }
+                    id="update-good-articleNumber"
+                    placeholder={ t("text.articleNumber") }
+                    defaultValue={ isEdit ? newGoodData?.articleNumber : "" }
+                />
+            </div>
+            <div className="field">
+                <label 
                     className="label" 
                     htmlFor="update-good-name"
                     data-error={ Boolean(validationFormData?.name) }

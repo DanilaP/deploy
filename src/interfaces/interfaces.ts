@@ -20,6 +20,7 @@ export interface IPermissionGroup {
 }
 export interface IProduct {
     id: number,
+    articleNumber: string,
     name: string,
     description: string,
     fullDescription: string,
