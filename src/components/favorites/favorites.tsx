@@ -23,13 +23,13 @@ export default function Favorites () {
     const navigate = useNavigate();
     const { userStore } = useStore();
     
-    const deleteFavourite = (event: any, id: number) => {
+    const deleteFavorite = (event: any, id: number) => {
         event.stopPropagation();
         setFavorites(() => favorites?.filter((product: IProduct) => product.id !== id));
         setChoosenProducts(() => choosenProducts?.filter((product: IProduct) => product.id !== id));
     };
 
-    const clearFavourites = () => {
+    const clearFavorites = () => {
         setFavorites([]);
         setChoosenProducts([]);
     };
@@ -103,7 +103,7 @@ export default function Favorites () {
                         <Checkbox checked = { allProductSelected } />
                         { t("text.selectAll") }
                     </Button>
-                    <Button onClick={ clearFavourites } variant='outlined'>{ t("text.deleteAll") }</Button>
+                    <Button onClick={ clearFavorites } variant='outlined'>{ t("text.deleteAll") }</Button>
                     <Button 
                         onClick={ () => setModalOpen(true) } 
                         disabled = { currentTotalInfo!.quantity === 0 } 
@@ -120,7 +120,7 @@ export default function Favorites () {
                         favorites?.map((product: IProduct) => {
                             return (
                                 <FavoriteItem
-                                    delete = { deleteFavourite } 
+                                    delete = { deleteFavorite } 
                                     key={ product.id } 
                                     product={ product } 
                                     changeChoosenProducts = { setChoosenProducts }
