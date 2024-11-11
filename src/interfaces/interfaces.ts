@@ -54,3 +54,14 @@ export interface IReview {
     photo?: string,
     likes?: string[]
 }
+export interface IStore {
+    id: number,
+    name: string,
+    address: string,
+    products: {
+        productId: number,
+        variation: string,
+        amount: number,
+        productInfo: IProduct
+    }[]
+}

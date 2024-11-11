@@ -18,7 +18,8 @@
         "rolesPage": "Роли",
         "productPage": "Страница продукта",
         "productReviewsPage": "Страница отзывов о продукте",
-        "goodsPage": "Товары"
+        "goodsPage": "Товары",
+        "productsStorePage": "Склад товаров"
     },
     "labels": {
         "loading": "Загрузка..."
@@ -104,7 +105,18 @@
         "addToBasket": "Добавить в корзину",
         "selectAll": "Выбрать всё",
         "numberOfProducts": "Количество товаров",
-        "amount": "На сумму"
+        "amount": "На сумму",
+        "product": "Продукт",
+        "inStock": "В наличии",
+        "notInStock": "Нет в наличии",
+        "remains": "Остаток",
+        "priceForEach": "Цена за единицу",
+        "total": "Всего",
+        "searchByAllFields": "Поиск по всем полям",
+        "onlyNotInStock": "Только нет в наличии",
+        "addStore": "Добавить склад",
+        "storeAddress": "Адрес склада",
+        "storeName": "Наименование склада"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

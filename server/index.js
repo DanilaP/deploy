@@ -517,6 +517,35 @@ app.get("/favorites", async function(req, res) {
     }
 })
 
+//Stores
+app.get("/stores", async function (req, res) {
+    try {
+        let currentStores = JSON.parse(fs.readFileSync('DB/Stores.json', 'utf8'));
+        let currentProducts= JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+        
+        let storesInfo = currentStores.map((store) => {
+            return (
+                {
+                    ...store,
+                    products: store.products.map((product) => {
+                        const foundedProduct = currentProducts.find(el => el.id === product.productId);
+                        return {
+                            ...product,
+                            productInfo: foundedProduct
+                        }
+                    })
+                }
+            );
+        });
+
+        res.status(200).json({ message: "Данные о товарах успешно получены", stores: storesInfo });
+    } 
+    catch (error) {
+        res.status(400).json({ message: "Ошибка при получении информации о складах" });
+        console.error("get /stores", error);
+    }
+})
+
 async function startApp() {
     try {
         server.listen(PORT, () => console.log('Server started at PORT' + " " + PORT));

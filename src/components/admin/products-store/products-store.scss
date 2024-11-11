@@ -1,0 +1,54 @@
+.products-store {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    .MuiPaper-root {
+        background-color: var(--bg-color-block);
+        border: 1px solid rgba(128, 128, 128, 0.247);
+
+        th, td {
+            color: var(--text-color);
+        }
+
+        span, input, svg {
+            color: var(--text-color);
+            border-color: var(--text-color);
+        }
+    }
+
+    .MuiButtonBase-root {
+        height: 36.5px;
+    }
+
+    .MuiInputBase-input {
+        border: none !important;
+    }
+
+    .MuiInputBase-root {
+        height: 36.5px;
+    } 
+
+    .icon {
+        cursor: pointer;
+    } 
+
+    .products-store-header {
+        display: flex;
+        gap: 20px;  
+
+        .filters {
+            display: flex;
+            gap: 20px;
+
+            .check-stock {
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+
+    .store-info {
+        font-size: 25px;
+    }
+}
