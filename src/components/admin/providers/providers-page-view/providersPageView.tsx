@@ -1,38 +1,48 @@
 import { Button, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
-import "./providersPageView.scss";
 import { IProvider } from "../../../../interfaces/interfaces";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-import CustomModal from "../../../../components-ui/custom-modal/custom-modal";
 import { useTranslation } from "react-i18next";
-import ProvidersManageForm from "../providers-manage-form/providersManageForm";
 import { IoMdSearch } from "react-icons/io";
 import { DEFAULT_PROVIDER } from "../constants";
+import ProvidersManageForm from "../providers-manage-form/providersManageForm";
+import CustomModal from "../../../../components-ui/custom-modal/custom-modal";
+import "./providersPageView.scss";
 
 interface IProvidersPageViewProps {
     providers: IProvider[],
-    modals: { manage: boolean, deleteConfirmation: boolean },
+    modals: { manage: boolean, deleteConfirmation: boolean, unsavedData: boolean },
     choosedProvider: IProvider,
+    isFormTouched: boolean,
+    handleSearchProvidersByAllFields: (value: string) => void,
     handleDeleteProvider: () => void,
-    handleOnOpenDeletingProviderModal: (provider: IProvider) => void,
+    handleOnOpenDeletingProviderModal: (e: any, provider: IProvider) => void,
     handleOnCloseDeletingProviderModal: () => void,
     handleOnOpenManageProviderModal: (provider: IProvider) => void,
     handleOnCloseManageProviderModal: () => void,
-    handleOnUpdateProvider: (provider: IProvider) => void,
-    handleOnCreateProvider: (provider: IProvider) => void
+    handleOnUpdateProvider: (formValid: boolean, provider: IProvider) => void,
+    handleOnCreateProvider: (formValid: boolean, provider: IProvider) => void,
+    handleSetUnsavedChangesExist: (status: boolean) => void,
+    handleCloseUnsavedDataModal: () => void,
+    handleCloseManageModalWithUnSavedData: () => void,
 }
 
 export default function ProvidersPageView({
     providers,
     modals,
     choosedProvider,
+    isFormTouched,
+    handleSearchProvidersByAllFields,
     handleDeleteProvider,
     handleOnOpenDeletingProviderModal,
     handleOnCloseDeletingProviderModal,
     handleOnOpenManageProviderModal,
     handleOnCloseManageProviderModal,
     handleOnUpdateProvider,
-    handleOnCreateProvider
+    handleOnCreateProvider,
+    handleSetUnsavedChangesExist,
+    handleCloseUnsavedDataModal,
+    handleCloseManageModalWithUnSavedData
 }: IProvidersPageViewProps) {
 
     const { t } = useTranslation();
@@ -43,7 +53,7 @@ export default function ProvidersPageView({
             <div className="actions">
                 <div className="search">
                     <TextField
-                        onChange={ (e) => console.log(e) } 
+                        onChange={ (e) => handleSearchProvidersByAllFields(e.target.value) } 
                         placeholder={ t("text.searchAll") }
                         InputProps={ {
                             startAdornment: (
@@ -63,30 +73,39 @@ export default function ProvidersPageView({
                 <TableContainer>
                     <Table>
                         <TableHead>
-                            <TableRow>
+                            <TableRow className="provider-row">
                                 <TableCell>ID</TableCell>
-                                <TableCell>Название</TableCell>
-                                <TableCell>Дата добавления</TableCell>
-                                <TableCell>Описание</TableCell>
-                                <TableCell>Контактное лицо</TableCell>
-                                <TableCell>Сайт</TableCell>
-                                <TableCell>Статус</TableCell>
-                                <TableCell>Изменить</TableCell>
-                                <TableCell>Удалить</TableCell>
+                                <TableCell>{ t("text.name") }</TableCell>
+                                <TableCell>{ t("text.dateOfCreation") }</TableCell>
+                                <TableCell>{ t("text.description") }</TableCell>
+                                <TableCell>{ t("text.contactPerson") }</TableCell>
+                                <TableCell>{ t("text.website") }</TableCell>
+                                <TableCell>{ t("text.status") }</TableCell>
+                                <TableCell>{ t("text.edit") }</TableCell>
+                                <TableCell>{ t("text.delete") }</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {
                                 providers.map(el => {
                                     return (
-                                        <TableRow className="provider-row" key={ el.id }>
+                                        <TableRow 
+                                            className="provider-row" 
+                                            key={ el.id }
+                                            onClick={ () => handleOnOpenManageProviderModal(el) }
+                                        >
                                             <TableCell>{ el.id }</TableCell>
                                             <TableCell>{ el.name }</TableCell>
                                             <TableCell>{ el.dateOfCreation }</TableCell>
                                             <TableCell>{ el.description }</TableCell>
                                             <TableCell>{ el.contactPerson.name }</TableCell>
                                             <TableCell>
-                                                <a href={ el.website } target="__blank">Посетить сайт</a>
+                                                <a 
+                                                    href={ el.website } 
+                                                    target="__blank"
+                                                    className="provider-visit-website"
+                                                    onClick={ e => e.stopPropagation() }
+                                                >{ t("text.visitWebsite") }</a>
                                             </TableCell>
                                             <TableCell className="provider-status">
                                                 { el.active 
@@ -105,7 +124,7 @@ export default function ProvidersPageView({
                                             <TableCell className="provider-actions">
                                                 <IconButton
                                                     className="mui-actions"
-                                                    onClick={ () => handleOnOpenDeletingProviderModal(el) }
+                                                    onClick={ (e: eny) => handleOnOpenDeletingProviderModal(e, el) }
                                                 >
                                                     <MdDelete />
                                                 </IconButton>
@@ -127,7 +146,8 @@ export default function ProvidersPageView({
             >
                 <div className="delete-text">{ t("text.approveDeletingProvider") }?</div>
             </CustomModal>
-            <CustomModal 
+            <CustomModal
+                isHidden={ modals.unsavedData }
                 isDisplay={ modals.manage }
                 title={ choosedProvider.id ? t("text.editProvider") : t("text.createProvider") }
                 typeOfActions='none'
@@ -135,11 +155,22 @@ export default function ProvidersPageView({
                 closeModal={ handleOnCloseManageProviderModal }
             >
                 <ProvidersManageForm
+                    isFormTouched={ isFormTouched }
                     choosedProvider={ choosedProvider }
+                    handleSetUnsavedChangesExist={ handleSetUnsavedChangesExist }
                     handleCancelManaging={ handleOnCloseManageProviderModal }
                     handleOnUpdateProvider={ handleOnUpdateProvider }
                     handleOnCreateProvider={ handleOnCreateProvider }
                 />
+            </CustomModal>
+            <CustomModal
+                isDisplay={ modals.unsavedData }
+                title={ t("text.approveAction") }
+                typeOfActions='default'
+                actionConfirmed={ handleCloseManageModalWithUnSavedData }
+                closeModal={ handleCloseUnsavedDataModal }
+            >
+                <div className="delete-text">{ t("text.unsavedChanges") }?</div>
             </CustomModal>
         </div>
     );

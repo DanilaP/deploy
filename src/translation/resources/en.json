@@ -87,6 +87,8 @@
         "phoneNumber": "Phone number",
         "website": "Web site",
         "contactPerson": "Contant person",
+        "status": "Status",
+        "visitWebsite": "Visit website",
         "contactPersonLabel": "Contant person (name, phone, post)",
         "dateOfCreation": "Date of creation",
         "approveDeletingProvider": "Confirm deleting provider",

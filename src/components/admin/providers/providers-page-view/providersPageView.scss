@@ -28,9 +28,18 @@
             color: var(--text-color);
         }
         .MuiTableBody-root {
-            .MuiTableCell-root {
+            .provider-row {
                 background-color: var(--bg-color-block);
                 cursor: pointer;
+                .provider-visit-website {
+                    color: var(--default-color);
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                &:hover {
+                    background-color: var(--hover-color);
+                }
             }
         }
         .provider-status {

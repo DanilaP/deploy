@@ -67,7 +67,8 @@ export interface IContactPerson {
     id?: number,
     name: string,
     phoneNumber: string,
-    post: string
+    post: string,
+    [key: string]: any,
 }
 export interface IProvider {
     id?: number,
@@ -76,5 +77,6 @@ export interface IProvider {
     dateOfCreation: string,
     contactPerson: IContactPerson,
     description: string,
-    website: string
+    website: string,
+    [key: string]: any,
 }
