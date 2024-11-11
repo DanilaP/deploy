@@ -36,11 +36,13 @@
     .products-store-header {
         display: flex;
         gap: 20px;  
+        flex-wrap: wrap;
 
         .filters {
             display: flex;
             gap: 20px;
-
+            flex-wrap: wrap;
+            
             .check-stock {
                 display: flex;
                 align-items: center;

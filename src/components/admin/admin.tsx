@@ -28,7 +28,7 @@ export default function AdminPage (props: AdminPageProps) {
 
     useEffect(() => {
         window.addEventListener("resize", () => {
-            if (window.innerWidth <= 820) {
+            if (window.innerWidth <= 1100) {
                 setIsMenuTextExists(true);
             } else {
                 setIsMenuTextExists(false);
