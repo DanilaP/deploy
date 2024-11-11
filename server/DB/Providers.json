@@ -1,0 +1,73 @@
+[
+    {
+        "id": 1,
+        "name": "ООО 'Тестовый поставщик'",
+        "active": true,
+        "dateOfCreation": "2024-01-01",
+        "contactPerson": {
+            "id": 2,
+            "name": "Иванов Иван Иванович",
+            "phoneNumber": "+7 969 333 11 10",
+            "post": "Менеджер"
+        },
+        "description": "Осуществление поставок вычислительной техники",
+        "website": "https://test.provider.computers"
+    },
+    {
+        "id": 3,
+        "name": "ООО 'Новый поставщик'",
+        "active": true,
+        "dateOfCreation": "2024-01-02",
+        "contactPerson": {
+            "id": 4,
+            "name": "Павлов Павел Павлович",
+            "phoneNumber": "+7 938 350 30 20",
+            "post": "Генеральный директор"
+        },
+        "description": "Осуществление поставок кухонного оборудования",
+        "website": "https://test.provider.kitchen"
+    },
+    {
+        "id": 5,
+        "name": "ООО 'Другой поставщик'",
+        "active": false,
+        "dateOfCreation": "2024-01-03",
+        "contactPerson": {
+            "id": 6,
+            "name": "Сергеев Сергей Сергеевич",
+            "phoneNumber": "+7 875 300 20 10",
+            "post": "Менеджер"
+        },
+        "description": "Осуществление поставок электроники разного типа",
+        "website": "https://test.provider.electronics"
+    },
+    {
+        "id": 7,
+        "name": "ООО 'Другой поставщик 2'",
+        "active": false,
+        "dateOfCreation": "2024-01-04",
+        "contactPerson": {
+            "id": 8,
+            "name": "Вадимов Вадим Вадимович",
+            "phoneNumber": "+7 875 300 20 15",
+            "post": "Менеджер"
+        },
+        "description": "Осуществление поставок электроники разного типа",
+        "website": "https://test.provider.electronics"
+    },
+    {
+        "id": 9,
+        "name": "ООО 'Другой поставщик 1'",
+        "active": false,
+        "dateOfCreation": "2023-01-05",
+        "contactPerson": {
+            "id": 10,
+            "name": "Егоров Егор Егорович",
+            "phoneNumber": "+7 875 300 20 15",
+            "post": "Менеджер"
+        },
+        "description": "Осуществление поставок электроники разного типа",
+        "website": "https://test.provider.electronics"
+    }
+
+]

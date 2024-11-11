@@ -1,0 +1,45 @@
+.providers-manage-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    row-gap: 10px;
+    .MuiInputBase-input {
+        border: none !important;
+        padding: 3px;
+    }
+    .MuiInputBase-root {
+        padding: 3px;
+    }
+    .MuiFormHelperText-root {
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        padding-left: 0px;
+        margin-left: 0px;
+        font-weight: normal;
+        letter-spacing: normal;
+    }
+    .label {
+        font-weight: 500;
+    }
+    .field {
+        display: flex;
+        flex-direction: column;
+        row-gap: 5px;
+        .checkbox {
+            width: 20px;
+            height: 20px;
+        }
+    }
+    .field-column {
+        display: grid;
+        .fields-data {
+            margin-top: 5px;
+            display: flex;
+            column-gap: 10px;
+        }
+    }
+    .form-actions {
+        display: flex;
+        column-gap: 5px;
+    }
+}

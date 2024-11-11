@@ -63,3 +63,18 @@ export interface ISelect {
     id: string,
     label: string
 }
+export interface IContactPerson {
+    id?: number,
+    name: string,
+    phoneNumber: string,
+    post: string
+}
+export interface IProvider {
+    id?: number,
+    name: string,
+    active: boolean,
+    dateOfCreation: string,
+    contactPerson: IContactPerson,
+    description: string,
+    website: string
+}

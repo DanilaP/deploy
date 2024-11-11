@@ -1,0 +1,66 @@
+.providers-page-view {
+    .title {
+        font-size: 24px;
+    }
+    .actions {
+        display: grid;
+        grid-template-columns: calc(100% - 250px) 250px;
+        margin: 10px 0 10px 0;
+        .search {
+            .MuiInputBase-input {
+                height: 3.5px;
+                border: none !important;
+            }
+        }
+        .buttons {
+            display: flex;
+            justify-content: right;
+        }
+    }
+    .content {
+        padding: 0px;
+        .MuiTableHead-root {
+            background-color: var(--bg-color-block);
+        }
+        .MuiTableCell-root {
+            padding: 10px;
+            text-align: center;
+            color: var(--text-color);
+        }
+        .MuiTableBody-root {
+            .MuiTableCell-root {
+                background-color: var(--bg-color-block);
+                cursor: pointer;
+            }
+        }
+        .provider-status {
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+            .provider-active {
+                width: 13px;
+                height: 13px;
+                background-color: green;
+                border-radius: 50%;
+            }
+            .provider-inactive {
+                width: 13px;
+                height: 13px;
+                background-color: red;
+                border-radius: 50%;
+            }
+        }
+        .provider-actions {
+            .mui-actions {
+                padding: 5px;
+                color: var(--text-color);
+                &:hover {
+                    color: gray;
+                }
+            }
+        }
+    }
+    .delete-text {
+        margin-top: 10px;
+    }
+}

@@ -14,6 +14,7 @@ import ProductPage from "./components/shop/product-page/product-page";
 import ProductReviews from "./components/shop/product-reviews-page/product-reviews-page";
 import { CategorysPage } from "./components/admin/categorys/categorys";
 import { t } from "i18next";
+import ProvidersPage from "./components/admin/providers/providers";
 
 export const routes = [
     {
@@ -102,5 +103,11 @@ export const adminRoutes = [
         component: AdminPage,
         children: CategorysPage,
         breadcrumb : t("text.categories")
+    },
+    {
+        path: '/admin/providers',
+        component: AdminPage,
+        children: ProvidersPage,
+        breadcrumb : t("text.providers")
     },
 ];
