@@ -67,8 +67,8 @@ export default function AdminPage (props: AdminPageProps) {
                     }
                     {
                         permissionsExists.CreateGroupOfPermissions || permissionsExists.DeleteGroupOfPermissions || permissionsExists.ModifyGroupOfPermissions ? 
-                        <MenuItem onClick={ () => navigate("/admin/categorys") }>
-                            <MdCategory className='icon' />{ !isMenuTextExists ? t("text.categorys") : null }
+                        <MenuItem onClick={ () => navigate("/admin/categories") }>
+                            <MdCategory className='icon' />{ !isMenuTextExists ? t("text.categories") : null }
                         </MenuItem>  : null
                     }
                 </div>

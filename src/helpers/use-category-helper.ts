@@ -37,8 +37,8 @@ export const useCategoryHelper = () => {
                 return prev;
             }
             if (item.categories) {
-                const filteredCategorys: ICategory[] = handleDeleteSubCategory(item.categories, category);
-                return [...prev, { ...item, categories: filteredCategorys }];
+                const filteredcategories: ICategory[] = handleDeleteSubCategory(item.categories, category);
+                return [...prev, { ...item, categories: filteredcategories }];
             }
             return [...prev, item];
         }, []);

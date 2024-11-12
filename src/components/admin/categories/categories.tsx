@@ -8,9 +8,9 @@ import { IoMdSearch } from "react-icons/io";
 import { validateNewCategory } from "./validators.js";
 import CategoriesTreeItems from "./CategoriesTreeItems/CategoriesTreeItems.js";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.js";
-import "./categorys.scss";
+import "./categories.scss";
 
-export const CategorysPage = () => {
+export const CategoriesPage = () => {
 
     const [currentCategory, setCurrentCategory] = useState<ICategory | null>(null);
     const [newCategoryTitle, setNewCategoryTitle] = useState<string>("");
