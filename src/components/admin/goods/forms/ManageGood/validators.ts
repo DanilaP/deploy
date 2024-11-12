@@ -39,13 +39,13 @@ export const validateAdditionalInfo = (additionalInfo: IAdditionalInfo[]) => {
     let validationData: any = { isValid: true };
     additionalInfo.forEach((info, index) => {
         if (info.name.length === 0) {
-            validationData = {
+            validationData = { 
                 ...validationData, 
                 isValid: false, 
                 [index]: {
                     ...validationData[index],
                     name: { error: "errors.requiredField" }
-                } 
+                }
             };
         }
         if (info.description.length === 0) {
@@ -66,7 +66,7 @@ export const validateGoodsForm = (goodData: IProduct) => {
     let validationData: any = { formValid: true };
 
     COMMON_FIELDS_FOR_VALIDATION.forEach((key: string) => {
-        if (goodData[key].length === 0) {
+        if (goodData[key]?.length === 0) {
             validationData = { ...validationData, [key]: { error: "errors.requiredField" }, formValid: false };
         }
     });

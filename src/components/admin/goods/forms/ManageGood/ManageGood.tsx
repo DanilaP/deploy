@@ -361,10 +361,11 @@ export const ManageGoodForm = ({
                                         />
                                     </div>
                                     <div className="dynamic-actions">
-                                        { index === newGoodData.additionalInfo.length - 1 
-                                            && <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
+                                        { (index === newGoodData.additionalInfo.length - 1) 
+                                            ? <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
                                                 <BiMessageSquareAdd />
                                             </IconButton>
+                                            : null
                                         }
                                         <IconButton className="mui-actions" onClick={ () => handleDeleteAdditionalData(index) }>
                                             <MdDelete />
@@ -427,10 +428,11 @@ export const ManageGoodForm = ({
                                     />
                                 </div>
                                 <div className="dynamic-actions">
-                                    { index === newGoodData.variations.length - 1 &&
-                                        <IconButton className="mui-actions" onClick={ handleAddVariation }>
+                                    { (index === newGoodData.variations.length - 1) 
+                                        ? <IconButton className="mui-actions" onClick={ handleAddVariation }>
                                             <BiMessageSquareAdd />
                                         </IconButton>
+                                        : null
                                     }
                                     <IconButton className="mui-actions" onClick={ () => handleDeleteVariationData(index) }>
                                         <MdDelete />
