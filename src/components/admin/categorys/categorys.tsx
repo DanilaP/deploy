@@ -36,6 +36,7 @@ export const CategorysPage = () => {
     const handleOpenAddSubCategory = (e: any, category: ICategory | null) => {
         e.stopPropagation();
         setCurrentCategory(category);
+        setNewCategoryTitle("");
         setMode("create");
         setModals(prev => {
             return { ...prev, manage: true };
