@@ -115,8 +115,10 @@
         "searchByAllFields": "Поиск по всем полям",
         "onlyNotInStock": "Только нет в наличии",
         "addStore": "Добавить склад",
+        "deleteStore": "Удалить склад",
         "storeAddress": "Адрес склада",
-        "storeName": "Наименование склада"
+        "storeName": "Наименование склада",
+        "deleteStoreConfirmation": "Вы уверены, что хотите удалить склад?"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

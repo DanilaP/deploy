@@ -115,8 +115,10 @@
         "searchByAllFields": "Search by all fields",
         "onlyNotInStock": "Only not in stock",
         "addStore": "Add store",
+        "deleteStore": "Delete store",
         "storeAddress": "Store address",
-        "storeName": "Store name"
+        "storeName": "Store name",
+        "deleteStoreConfirmation": "Are you sure you want to delete store?"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
