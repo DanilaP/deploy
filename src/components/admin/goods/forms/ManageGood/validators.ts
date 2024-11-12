@@ -39,7 +39,7 @@ export const validateAdditionalInfo = (additionalInfo: IAdditionalInfo[]) => {
     let validationData: any = { isValid: true };
     additionalInfo.forEach((info, index) => {
         if (info.name.length === 0) {
-            validationData = { 
+            validationData = {
                 ...validationData, 
                 isValid: false, 
                 [index]: {
@@ -85,4 +85,4 @@ export const validateGoodsForm = (goodData: IProduct) => {
 };
 
 export const COMMON_FIELDS_FOR_VALIDATION: string[]
-    = ["articleNumber", "name", "provider", "category", "description", "fullDescription", "images", "video"];
+    = ["partNumber", "name", "provider", "category", "description", "fullDescription", "images", "video"];

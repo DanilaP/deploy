@@ -20,7 +20,7 @@ export interface IPermissionGroup {
 }
 export interface IProduct {
     id: number,
-    articleNumber: string,
+    partNumber: string,
     name: string,
     description: string,
     fullDescription: string,
@@ -30,7 +30,7 @@ export interface IProduct {
     provider: string,
     reviews: IReview[],
     variations: IVariation[],
-    additionalInfo: IAdditionalInfo[]
+    additionalInfo: IAdditionalInfo[],
 }
 export interface IAdditionalInfo {
     id: number,

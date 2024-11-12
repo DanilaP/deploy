@@ -107,7 +107,7 @@ export const GoodsPage = () => {
                 el.description.toLowerCase().includes(searchValue) ||
                 el.fullDescription.toLowerCase().includes(searchValue) ||
                 el.provider.toLowerCase().includes(searchValue) ||
-                el.articleNumber.includes(searchValue) ||
+                el.partNumber.includes(searchValue) ||
                 String(el.variations[0].price).includes(searchValue);
         }));
     };

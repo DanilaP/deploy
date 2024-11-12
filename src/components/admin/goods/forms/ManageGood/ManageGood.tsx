@@ -145,16 +145,16 @@ export const ManageGoodForm = ({
             <div className="field">
                 <label 
                     className="label"
-                    htmlFor="update-good-articleNumber"
-                    data-error={ Boolean(validationFormData?.articleNumber) }
-                >{ t("text.articleNumber") }</label>
+                    htmlFor="update-good-partNumber"
+                    data-error={ Boolean(validationFormData?.partNumber) }
+                >{ t("text.partNumber") }</label>
                 <TextField
-                    error={ Boolean(validationFormData?.articleNumber) && isFormTouched }
-                    helperText={ isFormTouched && t(validationFormData?.articleNumber?.error) }
-                    onChange={ (e) => setNewGoodData({ ...newGoodData, articleNumber: e.target.value }) }
-                    id="update-good-articleNumber"
-                    placeholder={ t("text.articleNumber") }
-                    defaultValue={ isEdit ? newGoodData?.articleNumber : "" }
+                    error={ Boolean(validationFormData?.partNumber) && isFormTouched }
+                    helperText={ isFormTouched && t(validationFormData?.partNumber?.error) }
+                    onChange={ (e) => setNewGoodData({ ...newGoodData, partNumber: e.target.value }) }
+                    id="update-good-partNumber"
+                    placeholder={ t("text.partNumber") }
+                    defaultValue={ isEdit ? newGoodData?.partNumber : "" }
                 />
             </div>
             <div className="field">
@@ -206,8 +206,9 @@ export const ManageGoodForm = ({
                     options={ categoriesForSelect }
                     renderInput={ (params) => <TextField { ...params } /> }
                 />
-                { validationFormData.category && isFormTouched && 
-                    <span className="field-error-text">{ t(validationFormData.category.error) }</span>
+                { (validationFormData.category && isFormTouched) 
+                    ? <span className="field-error-text">{ t(validationFormData.category.error) }</span>
+                    : null
                 }
             </div>
             <div className="field">
@@ -282,8 +283,9 @@ export const ManageGoodForm = ({
                         ))
                     }
                 </div>
-                { validationFormData.images && isFormTouched && 
-                    <span className="field-error-text">{ t(validationFormData.images.error) }</span>
+                { (validationFormData.images && isFormTouched) 
+                    ? <span className="field-error-text">{ t(validationFormData.images.error) }</span>
+                    : null
                 }
             </div>
             <div className="field">
@@ -319,8 +321,9 @@ export const ManageGoodForm = ({
                         </Tooltip>
                     }
                 </div>
-                { validationFormData.video && isFormTouched && 
-                    <span className="field-error-text">{ t(validationFormData.video.error) }</span>
+                { (validationFormData.video && isFormTouched) 
+                    ? <span className="field-error-text">{ t(validationFormData.video.error) }</span>
+                    : null
                 }
             </div>
             <div className="field">
