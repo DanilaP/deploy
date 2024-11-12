@@ -58,7 +58,7 @@ const CheckoutCard: FC<CheckoutCard>  = ({ selectedPayment, selectedDelivery, ha
 
                 <Divider />
 
-                <Stack sx={ { mt: 1, mb: 1 } } direction="row" spacing={ 2 }>
+                <Stack className="payment-stack" direction="row" spacing={ 2 }>
                     <Typography gutterBottom className="checkout-total">
                         { selectedPayment
                             ? t(`text.checkout.orderPaymentMethods.${ selectedPayment }`)
@@ -70,9 +70,7 @@ const CheckoutCard: FC<CheckoutCard>  = ({ selectedPayment, selectedDelivery, ha
 
             <CardActions>
                 <Button
-                    onClick={ () => {
-                        handleConfirmCheckout();
-                    } }
+                    onClick={ handleConfirmCheckout }
                     variant="contained"
                     fullWidth
                 >

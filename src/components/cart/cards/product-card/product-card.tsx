@@ -11,7 +11,7 @@ import {
     DialogTitle,
     DialogContent,
     DialogContentText,
-    DialogActions, Tooltip,
+    DialogActions,
 } from '@mui/material';
 import {
     FaPlus as Add,
@@ -22,8 +22,8 @@ import {
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './product-card.scss';
-import { BsInfoCircle } from "react-icons/bs";
 import { useNavigate } from "react-router";
+import ProductInfoTooltip from "../../../../components-ui/product-info-tooltip/product-info-tooltip.tsx";
 
 interface ProductCardProps {
     isSelected: boolean;
@@ -63,15 +63,6 @@ const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, hand
             onQuantityChange(product.number - 1);
         }
     };
-
-    const getAdditionalInfoTooltip = () => {
-        return additionalInfo.map((info) => (
-            <div  key={ info.id } style={ { marginBottom: '8px' } }>
-                <strong>{ info.name }:</strong> { info.description }
-            </div>
-        ));
-    };
-
 
     return (
         <>
@@ -118,15 +109,10 @@ const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, hand
 
                     <Stack spacing={ 8 }>
                         <Box className="actionIcons">
-                            <Tooltip  title={ getAdditionalInfoTooltip() } arrow>
-                                <IconButton
-                                    onClick={ () => navigate(`/cart/product/${id}`) }
-                                    className="outlined"
-                                    color="inherit"
-                                >
-                                    <BsInfoCircle size={ 20 } />
-                                </IconButton>
-                            </Tooltip>
+                            <ProductInfoTooltip
+                                additionalInfo={ additionalInfo }
+                                onClickHandler={ () => navigate(`/cart/product/${id}`) }
+                            />
                             <IconButton color="inherit" size="small">
                                 <FavoriteBorder fontSize="small" />
                             </IconButton>

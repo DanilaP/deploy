@@ -58,7 +58,7 @@ const CheckoutPage = () => {
             delivery: '',
         },
     });
-    
+
     const fieldSetters = {
         name: setName,
         tel: setTel,
@@ -158,7 +158,7 @@ const CheckoutPage = () => {
                       </Typography>
                       <Typography>
                           { name
-                              ? `${name}, ${formatPhoneNumber(tel)}`
+                              ? `${name}, ${ formatPhoneNumber(tel) }`
                               : t('text.checkout.insertRecipientData') }
                       </Typography>
                       <Box display="flex" justifyContent="flex-end">

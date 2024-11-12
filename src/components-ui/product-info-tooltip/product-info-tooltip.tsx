@@ -3,7 +3,7 @@ import { FC } from "react";
 import { IconButton, Tooltip } from "@mui/material";
 import { BsInfoCircle } from "react-icons/bs";
 
-const ProductInfoTooltip: FC<any> = ({ additionalInfo }) => {
+const ProductInfoTooltip: FC<any> = ({ additionalInfo, onClickHandler }) => {
     return (
         <Tooltip
             title={
@@ -17,7 +17,7 @@ const ProductInfoTooltip: FC<any> = ({ additionalInfo }) => {
             }
             arrow
         >
-            <IconButton className="info-button">
+            <IconButton onClick={onClickHandler} className="info-button">
                 <BsInfoCircle size={ 20 } />
             </IconButton>
         </Tooltip>
