@@ -43,13 +43,51 @@ export const routes = [
     {
         path: '/cart',
         component: CartPage,
-        children: null
+        children: null,
+        breadcrumb : t("breadcrumbs.cart")
     },
     {
         path: '/checkout',
         component: CheckoutPage,
         children: null,
-        breadcrumb : t("breadcrumbs.shop")
+        breadcrumb : t("breadcrumbs.checkout")
+    },
+    {
+        path: "/checkout/product/:id",
+        component: ProductPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.shopProduct")
+    },
+    {
+        path: "/cart/checkout",
+        component: CheckoutPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.checkout")
+    },
+    {
+        path: "/cart/product/:id",
+        component: ProductPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.shopProduct")
+    },
+    {
+        path: "/cart/product/:id/reviews",
+        component: ProductReviews,
+        children: null,
+        breadcrumb : t("breadcrumbs.productReviews")
+    },
+
+    {
+        path: "/cart/checkout/product/:id",
+        component: ProductPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.shopProduct")
+    },
+    {
+        path: "/cart/checkout/product/:id/reviews",
+        component: ProductReviews,
+        children: null,
+        breadcrumb : t("breadcrumbs.productReviews")
     },
     {
         path: '/profile',

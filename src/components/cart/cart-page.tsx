@@ -71,9 +71,7 @@ const CartPage = () => {
     };
 
     const handleProceedToCheckout = () => {
-        cartStore.setCart(cart);
-        cartStore.totalBasketQuantity = totalBasketQuantity;
-        navigate('/checkout');
+        navigate('/cart/checkout');
     };
 
     return (

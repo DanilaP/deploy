@@ -31,7 +31,7 @@ const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
     const formattedProductPrice = formatCurrency(price);
 
     const handleNavigate = () => {
-        navigate(`/shop/product/${ id }`);
+        navigate(`/cart/checkout/product/${ id }`);
     };
 
     return (

@@ -500,7 +500,7 @@ app.post("/backet", async function(req, res) {
 
 // Stores
 app.get('/stores/addresses', (req, res) => {
-    const stores = JSON.parse(fs.readFileSync('DB/Stores.json', 'utf8'));
+    const stores = JSON.parse(fs.readFileSync('DB/Pickups.json', 'utf8'));
     res.status(200).json(stores);
 });
 

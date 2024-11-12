@@ -34,7 +34,11 @@ interface ValidationErrors {
 const CheckoutPage = () => {
     const { t } = useTranslation();
     const { cartStore, userStore } = useStore();
-    const { cart, totalSum, selectedTotalQuantity } = cartStore;
+    const {
+        cart,
+        totalSum,
+        selectedTotalQuantity ,
+    } = cartStore;
 
     const [deliveryData, setDeliveryData] = useState<IDeliveryData>();
     const [storesList, setStoresList] = useState<Array<IStore>>([]);
@@ -54,8 +58,7 @@ const CheckoutPage = () => {
             delivery: '',
         },
     });
-
-
+    
     const fieldSetters = {
         name: setName,
         tel: setTel,

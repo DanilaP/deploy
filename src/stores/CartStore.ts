@@ -13,6 +13,7 @@ class CartStore {
     }
     setCart(cart: IProduct[]) {
         this.cart = cart;
+        this.setTotalBasketQuantity(this.cart.length);
         this.calculateTotals();
     }
     setSelectedProductIds(ids: number[]) {

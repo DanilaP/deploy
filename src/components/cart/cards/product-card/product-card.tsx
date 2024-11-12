@@ -120,7 +120,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, hand
                         <Box className="actionIcons">
                             <Tooltip  title={ getAdditionalInfoTooltip() } arrow>
                                 <IconButton
-                                    onClick={ () => navigate(`/shop/product/${id}`) }
+                                    onClick={ () => navigate(`/cart/product/${id}`) }
                                     className="outlined"
                                     color="inherit"
                                 >
