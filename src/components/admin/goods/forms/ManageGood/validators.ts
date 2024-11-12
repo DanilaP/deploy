@@ -66,7 +66,7 @@ export const validateGoodsForm = (goodData: IProduct) => {
     let validationData: any = { formValid: true };
     
     COMMON_FIELDS_FOR_VALIDATION.forEach((key: string) => {
-        if (goodData[key].length === 0) {
+        if (goodData[key] !== null && goodData[key].length === 0) {
             validationData = { ...validationData, [key]: { error: "errors.requiredField" }, formValid: false };
         }
     });

@@ -188,10 +188,7 @@ export const ManageGoodForm = ({
                 <Autocomplete
                     id="update-good-provider"
                     onChange={ (_, value) => handleUpdateProvider(value) }
-                    value={ providersForSelect.length !== 0
-                        ? providersForSelect.filter(el => Number(el.id) === newGoodData.provider)[0]
-                        : {} as ISelect
-                    }
+                    value={ providersForSelect.filter(el => Number(el.id) === newGoodData.provider)[0] || null }
                     options={ providersForSelect }
                     renderInput={ (params) => <TextField { ...params } /> }
                 />
