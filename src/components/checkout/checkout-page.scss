@@ -2,21 +2,58 @@
   margin-top: 48px;
   margin-bottom: 48px;
 
-  .fw-bold {
+  .MuiCard-root {
+    background-color: var(--bg-color-block);
+    color: var(--text-color);
+  }
+
+  .MuiTypography-root {
+    color: var(--text-color);
+  }
+
+  .MuiCheckbox-root {
+    color: var(--text-color);
+  }
+
+  .sticky-grid {
+    @media (min-width: 960px) {
+      position: sticky;
+      top: 20px;
+      height: fit-content;
+    }
+  }
+
+  .order-title {
+    font-size: 20px;
     font-weight: bold;
   }
 
-  .fs-16 {
-    foonst-size: 16px;
+  .products-card-wrapper {
+    background-color: transparent !important;
+    box-shadow: none;
+    padding: 16px 0 0 16px;
+
+      .total-price {
+        text-transform: uppercase;
+      }
   }
 
-  .mb-2 {
-    margin-bottom: 16px;
+  .products-list-title {
+    font-weight: bold;
   }
 
   .card-wrapper {
     padding: 0 16px;
     margin-bottom: 24px;
-    borderRadius: 2;
+  }
+
+  .order-card-grid {
+    display: flex;
+    flex-direction: column;
+
+    .checkout-btn {
+      width: 50%;
+      padding: 10px;
+    }
   }
 }

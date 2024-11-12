@@ -84,6 +84,7 @@
         "deleteGroup": "Удалить группу",
         "groupName": "Наименование группы",
         "cart": {
+            "more": "Подробнее о товаре",
             "productChoose": "Выберите товары, чтобы перейти к оформлению",
             "preDeliverInfo": "Доступные способы и время доставки можно выбрать при оформлении заказа",
             "placeOrderButton": "Перейти к оформлению",
@@ -110,12 +111,22 @@
             "orderData": "Данные заказа"
         },
         "checkout": {
+            "insertRecipientData": "Добавьте данные получателя",
+            "insertDeliveryAddress": "Укажите адрес доставки",
+            "deliveryAddress": "Адрес доставки",
+            "recipient": "Получатель",
+            "editRecipient": "Изменить получателя",
             "orderCheckout": "Оформление заказа",
+            "delivery": "Доставка",
+            "free": "Бесплатно",
+            "selectAddress": "Выберите адрес",
+            "orderProcessing": "Оформляем",
+            "forTotalSum": "на сумму",
             "contactsData": "Контактная информация",
-            "deliveryVars": "Способы доставки",
+            "deliveryVars": "Способ доставки",
             "nameLabel": "Ваше имя",
             "telLabel": "Номер телефона",
-            "paymentVars": "Способы оплаты",
+            "paymentVars": "Способ оплаты",
             "shortInCity": "в г.",
             "selectedProducts": "Выбранные товары",
             "paymentMethods": {
@@ -129,14 +140,15 @@
                 "card": "Оплата банковской картой"
             },
             "orderDeliveryMethods": {
-                "courier": "Доставка курьером по Москве",
+                "courier": "Доставка курьером",
                 "pickup": "Самовывоз из магазина"
             },
             "errors": {
                 "emptyName": "Введите ваше имя",
                 "emptyTel": "Введите номер телефона",
-                "emptyDeliveryMethod": "Выберите метод доставки",
-                "emptyPaymentMethod": "Выберите способ оплаты"
+                "incorrectTel": "Некорректный номер телефона",
+                "emptyDelivery": "Выберите метод доставки",
+                "emptyPayment": "Выберите способ оплаты"
             },
             "pickup": "Самовывоз",
             "enterDeliveryAddress": "Введите адрес доставки",

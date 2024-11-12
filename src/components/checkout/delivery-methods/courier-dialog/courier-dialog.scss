@@ -1,4 +1,31 @@
+.custom-select-menu {
+  .MuiMenuItem-root {
+
+    margin-bottom: 3px;
+    .address-wrapper {
+      .address {
+        font-size: 18px !important;
+      }
+
+      .address-fields, .comment {
+        font-size: 15px !important;
+      }
+    }
+  }
+}
+
+
 .courier-dialog-wrapper {
+
+  .form-control {
+    margin: 48px 24px 0 24px;
+
+  }
+
+  .c {
+    margin-top: 48px;
+  }
+
   .dialog-content {
     margin-top: 15px;
   }

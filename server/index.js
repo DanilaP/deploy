@@ -148,12 +148,6 @@ app.put("/users", async function(req, res) {
     }
 });
 
-// personalUserData
-app.post('/user/:id', async (req, res) => {
-    const userData = req.body;
-    res.status(200).json({ message: "Данные пользователя успешно переданы", userData: userData });
-});
-
 //Profile
 app.get("/profile", async function(req, res) {
     try {
@@ -504,14 +498,25 @@ app.post("/backet", async function(req, res) {
     }
 });
 
-app.put('/backet/updateCart', (req, res) => {
-    res.status(200).json({ message: "Корзина успешно обновлена", cart: req.body });
+// Stores
+app.get('/stores/addresses', (req, res) => {
+    const stores = JSON.parse(fs.readFileSync('DB/Stores.json', 'utf8'));
+    res.status(200).json(stores);
 });
 
-// DeliveryData
-app.post('/delivery', async (req, res) => {
-    res.status(200).json({ message: "Данные о доставке успешно переданы", delivery: req.body });
-})
+// UserDeliveryData
+app.get('/user/data-delivery/:userid', async (req, res) => {
+    try {
+        const token = req.headers.authorization;
+        const userId = jwt_decode(token).id;
+        const deliveryData = JSON.parse(fs.readFileSync('DB/UserDeliveryData.json', 'utf8'));
+        const userDeliveryData = deliveryData.find((data) => data.userId === userId);
+        res.status(200).json(userDeliveryData);
+    } catch(error) {
+        res.status(400).json({ message: "Ошибка при получении данных доставки" });
+        console.error("get /delivery", error);
+    }
+});
 
 async function startApp() {
     try {

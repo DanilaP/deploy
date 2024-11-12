@@ -1,5 +1,9 @@
 export interface IUser {
     id?: string,
+    country: string,
+    city: string,
+    name: string,
+    tel: string,
     login?: string,
     password?: string,
     role?: string,
@@ -54,7 +58,8 @@ export interface IReview {
     likes?: string[]
 }
 
-export interface ICourierFormData {
+export interface IAddressForm {
+    id?: string;
     address: string;
     apartment: string;
     entrance: string;
@@ -71,15 +76,11 @@ export interface IStore {
 }
 
 export interface IDeliveryData {
-    country: string;
-    city: string;
-    paymentMethod: string;
-    paymentMethods: string[];
-    deliveryMethods: string[];
-    deliveryMethod: string;
-    deliveryData: {
+    prevPaymentMethod: string;
+    prevDeliveryMethod: string;
+    prevDelivery: {
         storeId: string;
-        stores: IStore[];
-        courier: ICourierFormData;
+        prevAddressId: string;
+        addresses: IAddressForm[];
     };
 }

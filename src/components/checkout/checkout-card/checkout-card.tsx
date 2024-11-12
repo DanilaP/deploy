@@ -1,87 +1,86 @@
 import Card from "@mui/material/Card";
-import {Button, CardActions, Divider, Stack, Typography} from "@mui/material";
+import {
+    Button,
+    CardActions,
+    Divider,
+    Stack,
+    Typography,
+} from "@mui/material";
 import "./checkout-card.scss";
 import CardContent from "@mui/material/CardContent";
 import { useTranslation } from "react-i18next";
 import { useStore } from "../../../stores";
-import { FaShoppingCart, FaTruck } from 'react-icons/fa';
+import { formatCurrency } from "../../../helpers/cart-helpers.tsx";
+import { FC } from "react";
 
 interface CheckoutCard {
     selectedPayment: string;
     selectedDelivery: string;
-    handleConfirmCheckout: () => void;
+    handleConfirmCheckout: () => boolean;
 }
 
-const CheckoutCard: React.FC<CheckoutCard>  = ({ selectedPayment, selectedDelivery, handleConfirmCheckout }) => {
+const CheckoutCard: FC<CheckoutCard>  = ({ selectedPayment, selectedDelivery, handleConfirmCheckout }) => {
     const { t } = useTranslation();
 
     const { cartStore } = useStore();
-    const { totalSum, selectedTotalQuantity } = cartStore;
+    const { totalSum, selectedTotalQuantity, totalBasketQuantity } = cartStore;
 
-    const sumToShow = totalSum.toLocaleString('ru-RU');
+    const priceToShow = formatCurrency(totalSum);
 
     return (
-        <Card className="checkout-card">
+        <Card className="checkout-card-wrapper">
             <CardContent className="checkout-content">
-                <Typography gutterBottom className="checkout-text">
-                    {t('text.cart.orderData')}
-                </Typography>
-                <Divider />
 
-                <Typography sx={{ mt: 3 }} variant="h6" className="checkout-total">
-                <span>
-                    {t('text.cart.total')}:
-                </span>
-                </Typography>
-                <Typography gutterBottom variant="subtitle1" component="div" className="checkout-products">
-                    {t('text.products')} {selectedTotalQuantity} {t('text.cart.pcs')}.
+                <Typography gutterBottom variant="subtitle1" component="div" className="checkout-info">
+                    { t('text.cart.productsCount.product', { count: totalBasketQuantity }) }
+                    { ', ' }
+                    { selectedTotalQuantity } { t('text.cart.pcs') }.
                     <Typography className="price">
-                        {`${sumToShow} ${t('text.rub')}`}
+                        { `${priceToShow} ${t('symbols.rub')}` }
+                    </Typography>
+                </Typography>
+
+                <Typography gutterBottom variant="subtitle1" component="div" className="checkout-info">
+                    { selectedDelivery
+                        ? t(`text.checkout.orderDeliveryMethods.${ selectedDelivery }`)
+                        : t('text.checkout.emptyDeliveryVar') }
+                    <Typography className="delivery-price">
+                        { t('text.checkout.free') }
+                    </Typography>
+                </Typography>
+
+                <Typography gutterBottom variant="subtitle1" component="div" className="checkout-info total-price">
+                    { t('text.cart.total') }:
+                    <Typography className="total-price">
+                        { `${priceToShow} ${t('symbols.rub')}` }
                     </Typography>
                 </Typography>
 
                 <Divider />
 
-                <Typography sx={{ mt: 3 }} variant="h6" className="checkout-total">
-                <span>
-                   {t('text.checkout.paymentVar')}:
-                </span>
-                </Typography>
-
-                <Stack sx={{ mt: 1, mb: 1}} direction="row" spacing={2}>
+                <Stack sx={ { mt: 1, mb: 1 } } direction="row" spacing={ 2 }>
                     <Typography gutterBottom className="checkout-total">
-                        {selectedPayment ? t(`text.checkout.orderPaymentMethods.${selectedPayment}`) : t('text.checkout.emptyPaymentVar')}
+                        { selectedPayment
+                            ? t(`text.checkout.orderPaymentMethods.${ selectedPayment }`)
+                            : t('text.checkout.emptyPaymentVar') }
                     </Typography>
-                </Stack>
-
-                <Divider />
-
-                <Typography sx={{ mt: 3 }} variant="h6" className="checkout-total">
-                <span>
-                   {t('text.checkout.deliveryVar')}:
-                </span>
-                </Typography>
-
-                <Stack sx={{ mt: 1}} direction="row" spacing={1}>
-                    <Typography gutterBottom className="checkout-total">
-                        {selectedDelivery ? t(`text.checkout.orderDeliveryMethods.${selectedDelivery}`) : t('text.checkout.emptyDeliveryVar')}
-                    </Typography>
-                    {selectedDelivery === 'courier' ? <FaTruck size={20}/> : <FaShoppingCart size={20}/>}
                 </Stack>
 
             </CardContent>
 
             <CardActions>
                 <Button
-                    onClick={handleConfirmCheckout}
+                    onClick={ () => {
+                        handleConfirmCheckout();
+                    } }
                     variant="contained"
                     fullWidth
                 >
-                    {t('text.checkout.placeOrder')}
+                    { t('text.checkout.placeOrder') }
                 </Button>
             </CardActions>
         </Card>
-    )
+    );
 };
 
 export default CheckoutCard;

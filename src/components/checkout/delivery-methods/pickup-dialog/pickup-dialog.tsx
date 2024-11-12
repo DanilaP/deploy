@@ -35,44 +35,48 @@ const PickupDialog: FC<PickupDialogProps> = ({
     const { t } = useTranslation();
 
     return (
-        <Dialog className="pickup-dialog-wrapper" open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-            <DialogTitle>{t('text.checkout.chooseShop')}</DialogTitle>
+        <Dialog className="pickup-dialog-wrapper" open={ open } onClose={ handleClose } maxWidth="sm" fullWidth>
+            <DialogTitle>{ t('text.checkout.chooseShop') }</DialogTitle>
             <DialogContent>
                 <RadioGroup
                     className="radio-group"
-                    value={selectedStoreId}
-                    onChange={(e) => setSelectedStoreId(e.target.value)}
+                    value={ selectedStoreId }
+                    onChange={ (e) => setSelectedStoreId(e.target.value) }
                 >
-                    {stores.map((store) => (
+                    { stores.map((store) => (
                         <Card
-                            key={store.id}
-                            className={`store-card ${selectedStoreId === store.id ? 'selected pickup-dialog-card' : 'pickup-dialog-card'}`}
+                            key={ store.id }
+                            className={ `store-card ${ selectedStoreId === store.id ? 'selected pickup-dialog-card' : 'pickup-dialog-card' }` }
                         >
                             <CardContent>
                                 <FormControlLabel
-                                    value={store.id}
-                                    control={<Radio />}
+                                    value={ store.id }
+                                    control={ <Radio /> }
                                     label={
                                         <Typography variant="h6">
-                                            {store.storeName}
+                                            { store.storeName }
                                         </Typography>
                                     }
                                 />
                                 <Typography variant="body2" color="textSecondary">
-                                    {t('text.checkout.address')}: {store.location}
+                                    { t('text.checkout.address') }: { store.location }
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary">
-                                    {t('text.checkout.storageDuration')}: {store.storageDuration}
+                                    { t('text.checkout.storageDuration') }: { store.storageDuration }
                                 </Typography>
                             </CardContent>
                         </Card>
-                    ))}
+                    )) }
                 </RadioGroup>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>{t('text.cancel')}</Button>
-                <Button onClick={() => handleConfirm('pickup')} variant="contained" disabled={!selectedStoreId}>
-                    {t('text.confirm')}
+                <Button onClick={ handleClose }>{ t('text.cancel') }</Button>
+                <Button
+                    onClick={ () => handleConfirm('pickup') }
+                    variant="contained"
+                    disabled={ !selectedStoreId }
+                >
+                    { t('text.confirm') }
                 </Button>
             </DialogActions>
         </Dialog>

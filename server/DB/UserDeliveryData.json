@@ -1,0 +1,31 @@
+[
+  {
+  "userId": 1730462293031,
+  "prevPaymentMethod": "card",
+  "prevDeliveryMethod": "pickup",
+  "prevDelivery": {
+    "storeId": "1",
+    "prevAddressId": "1",
+    "addresses": [
+      {
+        "id": "1",
+        "address": "г. Москва, Тверская улица",
+        "apartment": "12",
+        "entrance": "2",
+        "floor": "9",
+        "intercom": "1234",
+        "comment": "Код домофона: 73"
+      },
+      {
+        "id": "2",
+        "address": "г. Москва, Другая улица",
+        "apartment": "13",
+        "entrance": "1",
+        "floor": "",
+        "intercom": "1234",
+        "comment": ""
+      }
+    ]
+  }
+}
+]

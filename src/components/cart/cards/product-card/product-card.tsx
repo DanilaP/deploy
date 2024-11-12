@@ -11,7 +11,7 @@ import {
     DialogTitle,
     DialogContent,
     DialogContentText,
-    DialogActions,
+    DialogActions, Tooltip,
 } from '@mui/material';
 import {
     FaPlus as Add,
@@ -21,7 +21,9 @@ import {
 } from 'react-icons/fa';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import './product-card.scss'
+import './product-card.scss';
+import { BsInfoCircle } from "react-icons/bs";
+import { useNavigate } from "react-router";
 
 interface ProductCardProps {
     isSelected: boolean;
@@ -33,8 +35,10 @@ interface ProductCardProps {
 
 const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, handleProductRemove, onQuantityChange }) => {
     const { t } = useTranslation();
-    const { productInfo, number } = product;
+    const { productInfo, number, id } = product;
     const { variations, additionalInfo, images } = productInfo;
+
+    const navigate = useNavigate();
 
     const currentVariation = variations.find((variation: any) => variation.name === product.variation);
     const currentColor = additionalInfo.find((info: any) => info.name === 'Цвет')?.description || t('text.cart.noColor');
@@ -60,82 +64,100 @@ const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, hand
         }
     };
 
+    const getAdditionalInfoTooltip = () => {
+        return additionalInfo.map((info) => (
+            <div  key={ info.id } style={ { marginBottom: '8px' } }>
+                <strong>{ info.name }:</strong> { info.description }
+            </div>
+        ));
+    };
+
+
     return (
         <>
             <Card className="card-product">
-                <Stack direction="row" spacing={2} className="mainStack">
-                    <Stack direction="row" spacing={2}>
-                        <Checkbox className="product-checkbox" checked={isSelected} onChange={onSelect} />
-                        <CardMedia component="img" className="product-media" image={images[0]} alt={productInfo.name} />
+                <Stack direction="row" spacing={ 2 } className="mainStack">
+                    <Stack direction="row" spacing={ 2 }>
+                        <Checkbox className="product-checkbox" checked={ isSelected } onChange={ onSelect } />
+                        <CardMedia component="img" className="product-media" image={ images[0] } alt={ productInfo.name } />
                         <Stack>
-                            <Typography variant="h6" component="div" className="productName">
-                                {`${productInfo.name}, ${title} ${t('text.cart.variation')}`}
+                            <Typography sx={ { alignSelf: 'flex-start' } } variant="h6" component="div" className="productName">
+                                { `${productInfo.name}, ${ title } ${t('text.cart.variation')}` }
                             </Typography>
                             <Typography gutterBottom variant="subtitle2" className="colorDescription">
-                                {t('text.cart.color')} {currentColor}
+                                { t('text.cart.color') } { currentColor }
                             </Typography>
                             <Box className="quantityBox">
                                 <Button
-                                    disabled={product.number === 1}
+                                    disabled={ product.number === 1 }
                                     variant="outlined"
                                     color="primary"
                                     size="small"
                                     className="quantityButton"
-                                    onClick={handleDecrease}
+                                    onClick={ handleDecrease }
                                 >
                                     <Remove fontSize="small" />
                                 </Button>
-                                <Typography variant="body1">{number}</Typography>
+                                <Typography variant="body1">{ number }</Typography>
                                 <Button
-                                    disabled={product.number === stock}
+                                    disabled={ product.number === stock }
                                     variant="outlined"
                                     color="primary"
                                     size="small"
                                     className="quantityButton"
-                                    onClick={handleIncrease}
+                                    onClick={ handleIncrease }
                                 >
                                     <Add fontSize="small" />
                                 </Button>
                             </Box>
                             <Typography gutterBottom variant="subtitle2" className="stockText">
-                                {t('text.cart.stock')}: {stock} {t('text.cart.pcs')}.
+                                { t('text.cart.stock') }: { stock } { t('text.cart.pcs') }.
                             </Typography>
                         </Stack>
                     </Stack>
 
-                    <Stack spacing={8}>
+                    <Stack spacing={ 8 }>
                         <Box className="actionIcons">
+                            <Tooltip  title={ getAdditionalInfoTooltip() } arrow>
+                                <IconButton
+                                    onClick={ () => navigate(`/shop/product/${id}`) }
+                                    className="outlined"
+                                    color="inherit"
+                                >
+                                    <BsInfoCircle size={ 20 } />
+                                </IconButton>
+                            </Tooltip>
                             <IconButton color="inherit" size="small">
                                 <FavoriteBorder fontSize="small" />
                             </IconButton>
-                            <IconButton color="inherit" size="small" onClick={handleOpenDialog}>
+                            <IconButton color="inherit" size="small" onClick={ handleOpenDialog }>
                                 <DeleteOutlined fontSize="small" />
                             </IconButton>
                         </Box>
 
                         <Typography variant="h6" className="product-price">
-                            {`${price} ${t('text.rub')}`}
+                            { `${price} ${t('text.rub')}` }
                         </Typography>
                     </Stack>
                 </Stack>
 
             </Card>
 
-            <Dialog open={open} onClose={handleCloseDialog}>
+            <Dialog open={ open } onClose={ handleCloseDialog }>
                 <DialogTitle>
-                    {t('text.cart.confirmDeleteTitle')}
+                    { t('text.cart.confirmDeleteTitle') }
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {t('text.cart.confirmDeleteMessage')}
+                        { t('text.cart.confirmDeleteMessage') }
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleConfirmRemove} variant="contained" color="error" autoFocus>
-                        {t('text.cart.delete')}
+                    <Button onClick={ handleConfirmRemove } variant="contained" color="error" autoFocus>
+                        { t('text.cart.delete') }
                     </Button>
-                    <Button onClick={handleCloseDialog} color="primary">
-                        {t('text.cart.cancel')}
+                    <Button onClick={ handleCloseDialog } color="primary">
+                        { t('text.cart.cancel') }
                     </Button>
                 </DialogActions>
             </Dialog>

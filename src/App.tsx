@@ -14,6 +14,7 @@ import { adminRoutes, routes } from './routes';
 import { useStore } from './stores';
 import usePermissions from './helpers/permissions-helpers.ts';
 import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
+import cartApi from "./api/cart.ts";
 
 function App() {
     const [theme, setTheme] = useState("white-theme");
@@ -74,15 +75,14 @@ function App() {
     }, []);
 
     useEffect(() => {
-        const fetchBasketData = async () => {
-            try {
-                const { data: { backet } } = await $api.get('/backet');
-                cartStore.setCart(backet);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchBasketData();
+        const apiCart = cartApi();
+        apiCart.getUserCart()
+            .then((res) => {
+                cartStore.setCart(res);
+            })
+            .catch((error) => {
+                console.error('Ошибка загрузки данных корзины', error);
+            });
     }, []);
 
     return (
@@ -105,9 +105,9 @@ function App() {
                         userStore.user ? <BreadCrumbs /> : null
                     }
                 <div className="content">
-                    { isLoading &&  
+                    { isLoading &&
                         <Routes>
-                            { 
+                            {
                                 routes.map(({ path, component: Component, children: Children }) => (
                                     <Route
                                         key={ path }

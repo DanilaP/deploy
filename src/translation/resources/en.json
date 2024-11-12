@@ -125,6 +125,10 @@
             "cancel": "Cancel"
         },
         "checkout": {
+            "selectAddress": "Select address",
+            "orderProcessing": "Processing order",
+            "forTotalSum": "for a total amount",
+            "addresses": "Courier delivery in Moscow",
             "orderCheckout": "Order Checkout",
             "contactsData": "Contact Information",
             "deliveryVars": "Delivery Methods",
@@ -144,12 +148,13 @@
                 "card": "Payment by Bank Card"
             },
             "orderDeliveryMethods": {
-                "courier": "Courier Delivery in Moscow",
+                "addresses": "Courier Delivery",
                 "pickup": "Store Pickup"
             },
             "errors": {
                 "emptyName": "Please enter your name",
                 "emptyTel": "Please enter your phone number",
+                "incorrectTel": "Enter a valid phone number",
                 "emptyDeliveryMethod": "Please select a delivery method",
                 "emptyPaymentMethod": "Please select a payment method"
             },
