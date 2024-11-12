@@ -51,7 +51,7 @@ export const useProvidersHelper = () => {
         }
         if (inputValue.length < import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH) return;
         const searchValue = inputValue.toLowerCase();
-        setFilteredProviders(prev => prev.filter(el => {
+        setFilteredProviders(() => providers.filter(el => {
             return Number(searchValue) === el.id ||
                 el.contactPerson.name.toLowerCase().includes(searchValue) ||
                 el.contactPerson.phoneNumber.toLowerCase().includes(searchValue) ||
