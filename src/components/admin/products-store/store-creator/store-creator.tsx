@@ -5,7 +5,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { options } from './constants/constants';
 
-export default function StoreCreator (props: { setNewStoreInfo: (info: any) => void, newStoreInfo: any }) {
+export default function StoreCreator (props: { 
+    isValid: boolean, 
+    setNewStoreInfo: (info: any) => void, 
+    newStoreInfo: any 
+}) {
 
     const [addresses, setAddresses] = useState([]);
     const { t } = useTranslation();
@@ -27,6 +31,7 @@ export default function StoreCreator (props: { setNewStoreInfo: (info: any) => v
     return (
         <div className="store-creator">
             <TextField 
+                className={ props.isValid ? "valid" : "not-valid" }
                 onChange={ (e) => props.setNewStoreInfo({ ...props.newStoreInfo, name: e.target.value }) } 
                 placeholder={ t("text.storeName") }
             />

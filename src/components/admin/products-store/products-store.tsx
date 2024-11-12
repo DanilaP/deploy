@@ -21,6 +21,7 @@ export default function ProductsStore () {
         deletingStore: false
     });
     const [newStoreInfo, setNewStoreInfo] = useState<any>({});
+    const [isNameValid, setIsNameValid] = useState<boolean>(true);
 
     const changeStore = (storeId: number | string) => {
         const storeInfo = stores.find((el) => el.id === storeId);
@@ -43,6 +44,7 @@ export default function ProductsStore () {
     };
 
     const startSearching = (str: string) => {
+        setOnlyNotInStock(false);
         if (str !== "") {
             let filteredProducts = currentStoreInfo?.products.filter((product) => {
                 let info = product.productInfo;
@@ -66,13 +68,15 @@ export default function ProductsStore () {
 
     const addStore = () => {
         if (newStoreInfo.name && newStoreInfo.address) {
-            let newStore = {
-                id: Date.now(),
-                name: newStoreInfo.name,
-                address: newStoreInfo.address,
-                products: []
+            if (stores.filter(store => store.name === newStoreInfo.name).length === 0) {
+                let newStore = {
+                    id: Date.now(),
+                    name: newStoreInfo.name,
+                    address: newStoreInfo.address,
+                    products: []
+                }
+                endManipulationWithStore([...stores, newStore], newStore);
             }
-            endManipulationWithStore([...stores, newStore], newStore);
         }
     };
 
@@ -101,6 +105,12 @@ export default function ProductsStore () {
     useEffect(() => {
         setFilteredStoreInfo(currentStoreInfo);
     }, [currentStoreInfo]);
+
+    useEffect(() => {
+        if (newStoreInfo.name) {
+            setIsNameValid(stores.filter(store => store.name === newStoreInfo.name).length === 0);
+        }
+    }, [newStoreInfo.name]);
 
     return (
         <div className='products-store'> 
@@ -158,7 +168,13 @@ export default function ProductsStore () {
                 { filteredStoreInfo && <StoreTable currentStoreInfo={ filteredStoreInfo } /> }
             </div>
             <CustomModal
-                children={ <StoreCreator newStoreInfo = { newStoreInfo } setNewStoreInfo = { setNewStoreInfo } /> }
+                children={ 
+                    <StoreCreator 
+                        isValid = { isNameValid } 
+                        newStoreInfo = { newStoreInfo } 
+                        setNewStoreInfo = { setNewStoreInfo } 
+                    /> 
+                }
                 isDisplay = { modalOpen.creatingStore }
                 closeModal={ () => setModalOpen({ ...modalOpen, creatingStore: false }) }
                 actionConfirmed={ addStore }

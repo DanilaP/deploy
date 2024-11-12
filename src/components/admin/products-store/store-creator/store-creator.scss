@@ -9,4 +9,16 @@
     .MuiInputBase-root {
         height: 50px;
     }
+
+    .not-valid {
+        color: red;
+        border: 1px solid red;
+        border-radius: 5px;
+    }
+
+    .valid {
+        color: none;
+        border: none;
+        border-radius: 0px;
+    }
 }
