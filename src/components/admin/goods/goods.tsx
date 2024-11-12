@@ -230,7 +230,8 @@ export const GoodsPage = () => {
                     })
                 }
             </div>
-            <CustomModal 
+            <CustomModal
+                isHidden={ modals.unsaved }
                 isDisplay={ modals.manage }
                 title = { currentMode === 'create' ? t("text.createGoods") : t("text.editGood") }
                 typeOfActions='none'
