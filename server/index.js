@@ -495,6 +495,53 @@ app.post("/backet", async function(req, res) {
     }
 });
 
+// categories
+
+app.get("/category", async function(req, res) {
+    try {
+        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
+        res.status(200).json({ message: "Данные о категориях получены", categoryList: currentCategoryList });
+    }
+    catch(error) {
+        console.error("get /category", error);
+        res.status(400).json({ message: "Ошибка получения данных о категории!" });
+    }
+});
+
+app.post("/category", async function(req, res) {
+    try {
+        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
+        res.status(200).json({ message: "Добавлена новая категория", category: req.body });
+    }
+    catch(error) {
+        console.error("get /category", error);
+        res.status(400).json({ message: "Ошибка добавления категории!" });
+    }
+});
+
+app.put("/category", async function(req, res) {
+    try {
+        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
+        res.status(200).json({ message: "Категория обновлена", category: req.body });
+    }
+    catch(error) {
+        console.error("get /category", error);
+        res.status(400).json({ message: "Ошибка обновления данных о категории!" });
+    }
+});
+
+app.delete("/category", async function(req, res) {
+    try {
+        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
+        res.status(200).json({ message: "Категория удалена", category: req.body });
+    }
+    catch(error) {
+        console.error("get /category", error);
+        res.status(400).json({ message: "Ошибка удаления категории!" });
+    }
+});
+
+
 
 async function startApp() {
     try {

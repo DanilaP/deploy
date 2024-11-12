@@ -15,7 +15,7 @@ export default function ProductPage () {
     const [variationInfo, setVariationInfo] = useState<any>();
     const navigate = useNavigate();
     const query = useParams();
-
+    
     const changeVariation = (variationName: string) => {
         const info = product?.variations.filter((variation: any) => variation.name === variationName)[0];
         setVariationInfo(info);
@@ -47,7 +47,7 @@ export default function ProductPage () {
             <div className='product-page'>
                 <div className="product-page-main">
                     <div className="product-page-main-header">
-                        { product?.name } { ` (${ product?.category }). ` } 
+                        { product?.name } { " " }
                         { t("text.choosenVariation") }: { `"${ variationInfo?.title }"` }
                     </div>
                     <div className="product">
