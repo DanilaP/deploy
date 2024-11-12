@@ -18,6 +18,8 @@ export const useCategoryHelper = () => {
     };
 
     const handleAddRootCategory = (categoryTitle: string) => {
+        const isCategoryExist = handleCheckIsCategoryExist(categoryTitle, categories).length !== 0;
+        if (isCategoryExist) return;
         $api.post("/category", { title: categoryTitle }).then(res => {
             if (res.data) {
                 const newCategory = { id: String(Date.now()), title: categoryTitle };
@@ -64,12 +66,20 @@ export const useCategoryHelper = () => {
     ) => {
         const updatedCategory = categoryList.reduce((prev: ICategory[], item: ICategory) => {
             if (item.id === currentCategory.id) {
-                return [...prev, {
+                const createdCategory = {
                     ...item,
                     categories: item.categories 
                         ? [...item.categories, { id: String(Date.now()), title: newCategoryTitle }]
                         : [{ id: String(Date.now()), title: newCategoryTitle }]
-                }];
+                };
+                if (!item.categories) {
+                    return [...prev, createdCategory];
+                }
+                if (item.categories?.filter(el => el.title.toLowerCase() === newCategoryTitle.toLowerCase()).length !== 0) {
+                    return [...prev, item];
+                } else {
+                    return [...prev, createdCategory];
+                }
             }
             if (item.categories) {
                 const updated: ICategory[] = 
@@ -102,6 +112,24 @@ export const useCategoryHelper = () => {
         return findedCategories;
     };
 
+    const handleCheckIsCategoryExist = (
+        textValue: string,
+        categoryList: ICategory[]
+    ) => {
+        const findedCategories = categoryList.reduce((prev: ICategory[], item: ICategory) => {
+            if (item.title.toLowerCase() === textValue.toLowerCase()) {
+                return [...prev, item];
+            }
+            if (item.categories) {
+                const findedItem: ICategory[] = 
+                    handleCheckIsCategoryExist(textValue, item.categories);
+                return [...prev, ...findedItem];
+            }
+            return prev;
+        }, []);
+        return findedCategories;
+    };
+
     useEffect(() => {
         $api.get("/category").then(res => {
             if (res.data) {
@@ -122,6 +150,7 @@ export const useCategoryHelper = () => {
         handleFindCategoryAndAddIntoNewCategory, 
         handleFilterCategoriesByIncludingString,
         handleAddRootCategory,
-        handleUpdateCategory
+        handleUpdateCategory,
+        handleCheckIsCategoryExist
     };
 };
