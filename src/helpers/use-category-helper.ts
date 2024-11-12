@@ -66,12 +66,20 @@ export const useCategoryHelper = () => {
     ) => {
         const updatedCategory = categoryList.reduce((prev: ICategory[], item: ICategory) => {
             if (item.id === currentCategory.id) {
-                return [...prev, {
+                const createdCategory = {
                     ...item,
                     categories: item.categories 
                         ? [...item.categories, { id: String(Date.now()), title: newCategoryTitle }]
                         : [{ id: String(Date.now()), title: newCategoryTitle }]
-                }];
+                };
+                if (!item.categories) {
+                    return [...prev, createdCategory];
+                }
+                if (item.categories?.filter(el => el.title.toLowerCase() === newCategoryTitle.toLowerCase()).length !== 0) {
+                    return [...prev, item];
+                } else {
+                    return [...prev, createdCategory];
+                }
             }
             if (item.categories) {
                 const updated: ICategory[] = 
