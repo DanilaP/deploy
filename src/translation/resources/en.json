@@ -84,6 +84,8 @@
         "editProvider": "Edit provider",
         "isActive": "Is Active",
         "post": "Post",
+        "active": "Active",
+        "inActive": "Inactive",
         "phoneNumber": "Phone number",
         "website": "Web site",
         "contactPerson": "Contant person",

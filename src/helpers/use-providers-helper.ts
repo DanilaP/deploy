@@ -1,18 +1,28 @@
 import { useEffect, useState } from "react";
 import $api from "../configs/axiosconfig/axios.js";
-import { IProvider } from "../interfaces/interfaces.js";
+import { IProvider, ISelect } from "../interfaces/interfaces.js";
 
 export const useProvidersHelper = () => {
 
     const [providers, setProviders] = useState<IProvider[]>([]);
-    const [filteredProviders, setFilteredProviders] = useState<IProvider[]>([]);
-    
+    const [filteredProviders, setFilteredProviders] = useState<IProvider[]>([] as IProvider[]);
+    const [providersForSelect, setProvidersForSelect] = useState<ISelect[]>([] as ISelect[]);
+
     const fetchProvidersData = async () => {
         const response = await $api.get("/providers");
         if (response.data.providers) {
             setProviders(response.data.providers);
             setFilteredProviders(response.data.providers);
+            handleSetProvidersForSelect(response.data.providers);
         }
+    };
+
+    const handleSetProvidersForSelect = (providersList: IProvider[]) => {
+        const providersForSelect: any = providersList.map((provider: IProvider) => {
+            return { id: Number(provider.id), label: provider.name };
+        });
+        setProvidersForSelect(providersForSelect);
+        return providersForSelect;
     };
 
     const handleDeleteProvider = (provider: IProvider) => {
@@ -69,10 +79,12 @@ export const useProvidersHelper = () => {
 
     return { 
         providers, 
-        filteredProviders, 
+        filteredProviders,
+        providersForSelect,
         handleDeleteProvider, 
         handleUpdateProvider, 
         handleCreateProvider,
-        handleSearchProvidersByAllFields
+        handleSearchProvidersByAllFields,
+        handleSetProvidersForSelect
     };
 };

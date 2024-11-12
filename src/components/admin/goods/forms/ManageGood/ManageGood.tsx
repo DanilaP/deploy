@@ -16,12 +16,14 @@ import { useCategoryHelper } from "../../../../../helpers/use-category-helper";
 export const ManageGoodForm = ({ 
     mode,
     goodData,
+    providersForSelect,
     handleCancelUpdating,
     handleUpdateGood,
     handleUnsavedDataExist
 }: {
     mode: "edit" | "create" | null,
     goodData?: IProduct | null,
+    providersForSelect: ISelect[],
     handleUpdateGood: (goodData: IProduct) => void,
     handleCancelUpdating: () => void,
     handleUnsavedDataExist: (status: boolean) => void
@@ -31,11 +33,11 @@ export const ManageGoodForm = ({
     const [newGoodData, setNewGoodData] = useState<IProduct>(goodData || DEFAULT_PRODUCT);
     const [isFormTouched, setIsFormTouched] = useState<boolean>(false);
     const formWrapperRef = useRef<HTMLDivElement>(null);
-    const { categoriesForSelect } = useCategoryHelper();
     const isEdit = mode === "edit";
     
     const validationFormData = validateGoodsForm(newGoodData);
-
+    const { categoriesForSelect } = useCategoryHelper();
+    
     const handleAddAdditionalInfo = () => {
         setNewGoodData(prevGoodData => {
             return {
@@ -106,6 +108,10 @@ export const ManageGoodForm = ({
 
     const handleUpdateCategory = (value: ISelect[]) => {
         setNewGoodData({ ...newGoodData, category: value.map(el => el.id) });
+    };
+
+    const handleUpdateProvider = (value: ISelect | null) => {
+        setNewGoodData({ ...newGoodData, provider: value?.id || "" });
     };
 
     const handleUpdateSaveGoodData = () => {
@@ -179,14 +185,19 @@ export const ManageGoodForm = ({
                     htmlFor="update-good-provider"
                     data-error={ Boolean(validationFormData?.provider) }
                 >{ t("text.provider") }</label>
-                <TextField
-                    error={ Boolean(validationFormData?.provider) && isFormTouched }
-                    helperText={ isFormTouched && t(validationFormData?.provider?.error) }
-                    onChange={ (e) => setNewGoodData({ ...newGoodData, provider: e.target.value }) }
+                <Autocomplete
                     id="update-good-provider"
-                    placeholder={ t("text.provider") }
-                    defaultValue={ isEdit ? newGoodData?.provider : "" }
+                    onChange={ (_, value) => handleUpdateProvider(value) }
+                    value={ providersForSelect.length !== 0
+                        ? providersForSelect.filter(el => Number(el.id) === newGoodData.provider)[0]
+                        : {} as ISelect
+                    }
+                    options={ providersForSelect }
+                    renderInput={ (params) => <TextField { ...params } /> }
                 />
+                { validationFormData.provider && isFormTouched && 
+                    <span className="field-error-text">{ t(validationFormData.provider.error) }</span>
+                }
             </div>
             <div className="field">
                 <label 

@@ -109,8 +109,8 @@ export default function ProvidersPageView({
                                             </TableCell>
                                             <TableCell className="provider-status">
                                                 { el.active 
-                                                    ? <div className="provider-active"></div>
-                                                    : <div className="provider-inactive"></div>
+                                                    ? <div className="provider-active">{ t("text.active") }</div>
+                                                    : <div className="provider-inactive">{ t("text.inActive") }</div>
                                                 }
                                             </TableCell>
                                             <TableCell className="provider-actions">

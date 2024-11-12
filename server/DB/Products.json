@@ -45,7 +45,7 @@
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
     ],
-    "provider": "Поставщик 1",
+    "provider": 1,
     "reviews": [
       {
         "clientId": 1727161785732,
@@ -141,7 +141,7 @@
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
     ],
-    "provider": "Поставщик 1",
+    "provider": 1,
     "reviews": [
       {
         "clientId": 1727098679785,
@@ -220,7 +220,7 @@
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
     ],
-    "provider": "Поставщик 1",
+    "provider": 1,
     "reviews": [
       {
         "clientId": 1727098679785,
@@ -300,7 +300,7 @@
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
     ],
-    "provider": "Поставщик 2",
+    "provider": 3,
     "reviews": [],
     "variations": [
       {
@@ -371,7 +371,7 @@
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
     ],
-    "provider": "Поставщик 2",
+    "provider": 3,
     "reviews": [],
     "variations": [
       {
@@ -442,7 +442,7 @@
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
     ],
-    "provider": "Поставщик 2",
+    "provider": 3,
     "reviews": [],
     "variations": [
       {
@@ -513,7 +513,7 @@
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
     ],
-    "provider": "Поставщик 3",
+    "provider": 3,
     "reviews": [],
     "variations": [
       {
@@ -584,7 +584,7 @@
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
     ],
-    "provider": "Поставщик 3",
+    "provider": 3,
     "reviews": [],
     "variations": [
       {
@@ -655,7 +655,7 @@
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       }
     ],
-    "provider": "Поставщик 3",
+    "provider": 3,
     "reviews": [],
     "variations": [
       {

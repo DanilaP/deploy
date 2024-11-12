@@ -2,12 +2,13 @@ import { Button, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { ManageGoodForm } from "./forms/ManageGood/ManageGood";
-import { IProduct } from "../../../interfaces/interfaces";
+import { IProduct, IProvider } from "../../../interfaces/interfaces";
 import { useNavigate } from "react-router";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 import $api from '../../../configs/axiosconfig/axios.js';
 import { IoMdSearch } from "react-icons/io";
 import "./goods.scss";
+import { useProvidersHelper } from "../../../helpers/use-providers-helper.js";
 
 export const GoodsPage = () => {
 
@@ -19,7 +20,8 @@ export const GoodsPage = () => {
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
     const [unSavedDataExist, setUnsavedDataExist] = useState<boolean>(false);
     const navigate = useNavigate();
-
+    const { providersForSelect, providers } = useProvidersHelper();
+    
     const handleOpenCreatingGoodModal = () => {
         setModals(prev => {
             return { ...prev, manage: true };
@@ -106,16 +108,25 @@ export const GoodsPage = () => {
             return el.name.toLowerCase().includes(searchValue) ||
                 el.description.toLowerCase().includes(searchValue) ||
                 el.fullDescription.toLowerCase().includes(searchValue) ||
-                el.provider.toLowerCase().includes(searchValue) ||
                 el.articleNumber.includes(searchValue) ||
                 String(el.variations[0].price).includes(searchValue);
         }));
     };
 
     const handleSearchProductByProvider = (inputValue: string) => {
-        if (inputValue.length <= import.meta.env.VITE_APP_MIX_LENGTH_FOR_SEARCH && inputValue.length !== 0) return;
+        if (inputValue.length === 0) {
+            setFilteredProducts(currentProducts);
+            return;
+        } 
+        if (inputValue.length <= import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH) return;
         const searchValue = inputValue.toLowerCase();
-        setFilteredProducts(currentProducts.filter(el => el.provider.toLowerCase().includes(searchValue)));
+        const findedProviders = providers.reduce((prev: number[], provider: IProvider): number[] => {
+            if (provider.name.toLowerCase().includes(searchValue) && provider.id) {
+                return [...prev, provider.id];
+            }
+            return prev;
+        }, []);
+        setFilteredProducts(currentProducts.filter(el => findedProviders.includes(el.provider)));
     };
 
     const handleCancelUpdating = (status: boolean) => {
@@ -186,6 +197,7 @@ export const GoodsPage = () => {
             <div className="list">
                 {
                     filteredProducts.map(product => {
+                        const providerInfo = providers.filter(el => el.id === product.provider)[0];
                         return (
                             <div 
                                 className="wrapper" 
@@ -203,7 +215,7 @@ export const GoodsPage = () => {
                                     <div className="good-info-main">
                                         <div className="good-title">{ product.name }</div>
                                         <div className="good-price">{ t("text.price") }: { product.variations[0].price }</div>
-                                        <div className="good-provider">{ product.provider }</div>
+                                        <div className="good-provider">{ providerInfo?.name }</div>
                                     </div>
                                     <div className="good-info-more">
                                         <div className="good-description">
@@ -240,6 +252,7 @@ export const GoodsPage = () => {
                     handleUpdateGood={ handleUpdateGood }
                     handleCancelUpdating={ () => handleCancelUpdating(unSavedDataExist) }
                     handleUnsavedDataExist={ handleUnsavedDataExist }
+                    providersForSelect={ providersForSelect }
                     mode={ currentMode }
                     goodData={ currentProduct }
                 />

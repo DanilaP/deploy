@@ -27,7 +27,7 @@ export interface IProduct {
     images: string[],
     video: string,
     category: string[],
-    provider: string,
+    provider: number,
     reviews: IReview[],
     variations: IVariation[],
     additionalInfo: IAdditionalInfo[]
