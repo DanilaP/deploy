@@ -19,7 +19,7 @@ export interface IPermissionGroup {
     permissions: string[]
 }
 export interface IProduct {
-    id: number,
+    id?: number,
     partNumber: string,
     name: string,
     description: string,
@@ -28,7 +28,7 @@ export interface IProduct {
     video: string,
     category: string[],
     provider: string,
-    reviews: IReview[],
+    reviews?: IReview[],
     variations: IVariation[],
     additionalInfo: IAdditionalInfo[],
 }

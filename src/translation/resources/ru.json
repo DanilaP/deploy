@@ -77,7 +77,7 @@
         "good": "Товар",
         "video": "Видео",
         "additionalProductInfo": "Характеристики (название, значение)",
-        "variationsOfProduct": "Вариации (системный ключ, название, цена, остаток)",
+        "variationsOfProduct": "Вариации (системный ключ, название, остаток, цена)",
         "createGroup": "Создать группу",
         "confirmDeletingCategory": "Вы уверены, что хотите удалить категорию",
         "deleteGroup": "Удалить группу",

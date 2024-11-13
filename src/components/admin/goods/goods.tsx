@@ -81,7 +81,7 @@ export const GoodsPage = () => {
                         }
                         return el;
                     }); 
-                } else {          
+                } else {  
                     updatedProducts = [...currentProducts, { 
                         ...goodData, 
                         id: Date.now(),
@@ -235,6 +235,7 @@ export const GoodsPage = () => {
                 isDisplay={ modals.manage }
                 title = { currentMode === 'create' ? t("text.createGoods") : t("text.editGood") }
                 typeOfActions='none'
+                actionConfirmed={ () => handleCancelUpdating(unSavedDataExist) }
                 closeModal={ () => handleCancelUpdating(unSavedDataExist) }
             >
                 <ManageGoodForm 

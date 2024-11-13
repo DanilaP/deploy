@@ -62,7 +62,7 @@
         "video": "Video",
         "saveChanges": "Save changes",
         "additionalProductInfo": "Additional info (title, value)",
-        "variationsOfProduct": "Variations (title, value, price, stock)",
+        "variationsOfProduct": "Variations (title, value, stock, price)",
         "addRole": "Add role",
         "price": "Price",
         "good": "Good",

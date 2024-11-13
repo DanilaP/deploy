@@ -48,8 +48,8 @@ If you are developing a production application, we recommend updating the config
 - Add page for managing goods for admin
   - added lodash package into dependencies
   - Install `use-react-router-breadcrumbs: ^4.0.1` and add breadcrumbs to all pages
-- Add validation for managing goods form
 - Create page for managing categories
   - Install `@mui/x-tree-view`
-
+- Add validation for managing goods form
+  - Install `react-hooks-form`
 
