@@ -6,6 +6,13 @@
     justify-content: center;
     gap: 20px;
 
+    .MuiFormControl-root {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 5px;
+    }
+
     .MuiInputBase-root {
         height: 50px;
     }
@@ -20,5 +27,10 @@
         color: none;
         border: none;
         border-radius: 0px;
+    }
+
+    .control-buttons {
+        display: flex;
+        gap: 20px;
     }
 }

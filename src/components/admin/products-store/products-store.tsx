@@ -163,11 +163,12 @@ export default function ProductsStore () {
             <CustomModal
                 isDisplay = { modalOpen.creatingStore }
                 closeModal={ () => setModalOpen({ ...modalOpen, creatingStore: false }) }
-                actionConfirmed={ addStore }
                 title={ t("text.addStore") }
-                typeOfActions='default'
+                typeOfActions='none'
             >
                 <StoreCreator
+                    addStore = { addStore }
+                    close = { () => setModalOpen({ ...modalOpen, creatingStore: false }) }
                     newStoreInfo = { newStoreInfo } 
                     setNewStoreInfo = { setNewStoreInfo } 
                 /> 

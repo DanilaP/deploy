@@ -1,4 +1,4 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Button, FormControl, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import './store-creator.scss';
 import { useEffect, useState } from "react";
@@ -7,7 +7,9 @@ import { options } from './constants/constants';
 
 export default function StoreCreator (props: { 
     setNewStoreInfo: (info: any) => void, 
-    newStoreInfo: any 
+    newStoreInfo: any,
+    close: () => void,
+    addStore: () => void
 }) {
 
     const [addresses, setAddresses] = useState([]);
@@ -29,20 +31,26 @@ export default function StoreCreator (props: {
 
     return (
         <div className="store-creator">
-            <TextField 
-                onChange={ (e) => props.setNewStoreInfo({ ...props.newStoreInfo, name: e.target.value }) } 
-                placeholder={ t("text.storeName") }
-            />
-            <Autocomplete
-                options={ addresses }
-                onChange={ (_, value) => props.setNewStoreInfo({ ...props.newStoreInfo, address: value }) }
-                renderInput={ (params) => 
-                    <TextField 
-                        { ...params } label={ t("text.storeAddress") } 
-                        onChange={ (e) => props.setNewStoreInfo({ ...props.newStoreInfo, address: e.target.value }) }
-                    /> 
-                }
-            />
+            <FormControl>
+                <TextField 
+                    onChange={ (e) => props.setNewStoreInfo({ ...props.newStoreInfo, name: e.target.value }) } 
+                    placeholder={ t("text.storeName") }
+                />
+                <Autocomplete
+                    options={ addresses }
+                    onChange={ (_, value) => props.setNewStoreInfo({ ...props.newStoreInfo, address: value }) }
+                    renderInput={ (params) => 
+                        <TextField 
+                            { ...params } label={ t("text.storeAddress") } 
+                            onChange={ (e) => props.setNewStoreInfo({ ...props.newStoreInfo, address: e.target.value }) }
+                        /> 
+                    }
+                />
+                <div className="control-buttons">
+                    <Button onClick={ props.addStore } variant="contained">{ t("text.confirm") }</Button>
+                    <Button onClick={ props.close } variant="contained">{ t("text.close") }</Button>
+                </div>
+            </FormControl>
         </div>
     );
 }
