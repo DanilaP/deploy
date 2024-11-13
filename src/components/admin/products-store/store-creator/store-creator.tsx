@@ -31,7 +31,7 @@ export default function StoreCreator (props: {
 
     return (
         <div className="store-creator">
-            <FormControl>
+            <form  className="store-creator-form">
                 <TextField 
                     onChange={ (e) => props.setNewStoreInfo({ ...props.newStoreInfo, name: e.target.value }) } 
                     placeholder={ t("text.storeName") }
@@ -50,7 +50,7 @@ export default function StoreCreator (props: {
                     <Button onClick={ props.addStore } variant="contained">{ t("text.confirm") }</Button>
                     <Button onClick={ props.close } variant="contained">{ t("text.close") }</Button>
                 </div>
-            </FormControl>
+            </form>
         </div>
     );
 }
