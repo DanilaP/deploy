@@ -134,7 +134,7 @@ export const GoodsPage = () => {
     };
 
     const handleGotoProductPage = (product: IProduct) => {
-        navigate(`/product/${product.id}`);
+        navigate(`/shop/product/${product.id}`);
     };
 
     const handleUnsavedDataExist = (status: boolean) => {
