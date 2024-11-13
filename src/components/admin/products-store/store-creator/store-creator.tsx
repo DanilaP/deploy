@@ -6,7 +6,6 @@ import axios from "axios";
 import { options } from './constants/constants';
 
 export default function StoreCreator (props: { 
-    isValid: boolean, 
     setNewStoreInfo: (info: any) => void, 
     newStoreInfo: any 
 }) {
@@ -24,24 +23,23 @@ export default function StoreCreator (props: {
             })
             .catch((error) => {
                 console.log(error);
-            })
+            });
         }
     }, [props.newStoreInfo.address]);
 
     return (
         <div className="store-creator">
             <TextField 
-                className={ props.isValid ? "valid" : "not-valid" }
                 onChange={ (e) => props.setNewStoreInfo({ ...props.newStoreInfo, name: e.target.value }) } 
                 placeholder={ t("text.storeName") }
             />
             <Autocomplete
                 options={ addresses }
-                onChange={(_, value) => props.setNewStoreInfo({ ...props.newStoreInfo, address: value })}
+                onChange={ (_, value) => props.setNewStoreInfo({ ...props.newStoreInfo, address: value }) }
                 renderInput={ (params) => 
                     <TextField 
-                        {...params} label={ t("text.storeAddress") } 
-                        onChange={(e) => props.setNewStoreInfo({ ...props.newStoreInfo, address: e.target.value })}
+                        { ...params } label={ t("text.storeAddress") } 
+                        onChange={ (e) => props.setNewStoreInfo({ ...props.newStoreInfo, address: e.target.value }) }
                     /> 
                 }
             />

@@ -4,21 +4,28 @@ import './store-table.scss';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { t } from 'i18next';
+import { useCategoryHelper } from '../../../../helpers/use-category-helper';
 
 export default function StoreTable (props: { currentStoreInfo: IStore }) {
 
+    const categoriesInfo = useCategoryHelper();
     const navigate = useNavigate();
     const [totals, setTotals] = useState({
         remains: 0,
         cost: 0
     });
 
+    const getCategoryById = (id: string) => {
+        const categoryTitle = categoriesInfo.categories.find(el => el.id === id)?.title;
+        return categoryTitle;
+    };
+
     useEffect(() => {
         const totalInfo = { remains: 0, cost: 0 };
         props.currentStoreInfo.products.map(product => {
-            totalInfo.remains += product.amount,
-            totalInfo.cost += product.productInfo.variations[0].price * product.amount
-        })
+            totalInfo.remains += product.amount;
+            totalInfo.cost += product.productInfo.variations[0].price * product.amount;
+        });
         setTotals(totalInfo);
     }, [props.currentStoreInfo]);
 
@@ -51,7 +58,9 @@ export default function StoreTable (props: { currentStoreInfo: IStore }) {
                                                     <div className="name">{ product.productInfo.name }</div>
                                                     <div className="additional-info">
                                                         <div className="id">{ product.productInfo.id + "/" }</div>
-                                                        <div className="category">{ product.productInfo.category }</div>
+                                                        <div className="category">
+                                                            { getCategoryById(product.productInfo.category[0]) }
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -66,7 +75,7 @@ export default function StoreTable (props: { currentStoreInfo: IStore }) {
                                         <TableCell>{ product.productInfo.variations[0].price }</TableCell>
                                         <TableCell>{ product.amount * product.productInfo.variations[0].price }</TableCell>
                                     </TableRow>
-                                )
+                                );
                             })
                         }
                     </TableBody>

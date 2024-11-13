@@ -21,7 +21,6 @@ export default function ProductsStore () {
         deletingStore: false
     });
     const [newStoreInfo, setNewStoreInfo] = useState<any>({});
-    const [isNameValid, setIsNameValid] = useState<boolean>(true);
 
     const changeStore = (storeId: number | string) => {
         const storeInfo = stores.find((el) => el.id === storeId);
@@ -32,10 +31,10 @@ export default function ProductsStore () {
     const sortByStockNumber = () => {
         if (!onlyNotInStock) {
             setOnlyNotInStock(true);
-            let newStoreInfo = {
+            const newStoreInfo = {
                 ...currentStoreInfo,
                 products: currentStoreInfo?.products.filter((product) => product.amount === 0)
-            }
+            };
             setFilteredStoreInfo(newStoreInfo);
         } else {
             setOnlyNotInStock(false);
@@ -46,13 +45,13 @@ export default function ProductsStore () {
     const startSearching = (str: string) => {
         setOnlyNotInStock(false);
         if (str !== "") {
-            let filteredProducts = currentStoreInfo?.products.filter((product) => {
-                let info = product.productInfo;
-                let fields = [info.id.toString(), info.name, info.category, info.provider];
+            const filteredProducts = currentStoreInfo?.products.filter((product) => {
+                const info = product.productInfo;
+                const fields = [info.id.toString(), info.name, info.provider];
                 if (fields.filter(field => field.toLocaleLowerCase().includes(str.toLocaleLowerCase())).length > 0) {
                     return true;
                 }
-            })
+            });
             setFilteredStoreInfo({
                 ...currentStoreInfo,
                 products: filteredProducts
@@ -69,12 +68,12 @@ export default function ProductsStore () {
     const addStore = () => {
         if (newStoreInfo.name && newStoreInfo.address) {
             if (stores.filter(store => store.name === newStoreInfo.name).length === 0) {
-                let newStore = {
+                const newStore = {
                     id: Date.now(),
                     name: newStoreInfo.name,
                     address: newStoreInfo.address,
                     products: []
-                }
+                };
                 endManipulationWithStore([...stores, newStore], newStore);
             }
         }
@@ -99,18 +98,12 @@ export default function ProductsStore () {
         })
         .catch((error) => {
             console.error(error);
-        })
+        });
     }, []);
 
     useEffect(() => {
         setFilteredStoreInfo(currentStoreInfo);
     }, [currentStoreInfo]);
-
-    useEffect(() => {
-        if (newStoreInfo.name) {
-            setIsNameValid(stores.filter(store => store.name === newStoreInfo.name).length === 0);
-        }
-    }, [newStoreInfo.name]);
 
     return (
         <div className='products-store'> 
@@ -125,7 +118,7 @@ export default function ProductsStore () {
                             >
                                 {
                                     stores.map((store: IStore) => {
-                                        return <MenuItem key={ store.id } value = { store.id }>{ store.name }</MenuItem>
+                                        return <MenuItem key={ store.id } value = { store.id }>{ store.name }</MenuItem>;
                                     })
                                 }
                             </Select>
@@ -168,28 +161,25 @@ export default function ProductsStore () {
                 { filteredStoreInfo && <StoreTable currentStoreInfo={ filteredStoreInfo } /> }
             </div>
             <CustomModal
-                children={ 
-                    <StoreCreator 
-                        isValid = { isNameValid } 
-                        newStoreInfo = { newStoreInfo } 
-                        setNewStoreInfo = { setNewStoreInfo } 
-                    /> 
-                }
                 isDisplay = { modalOpen.creatingStore }
                 closeModal={ () => setModalOpen({ ...modalOpen, creatingStore: false }) }
                 actionConfirmed={ addStore }
                 title={ t("text.addStore") }
                 typeOfActions='default'
             >
+                <StoreCreator
+                    newStoreInfo = { newStoreInfo } 
+                    setNewStoreInfo = { setNewStoreInfo } 
+                /> 
             </CustomModal>
             <CustomModal
-                children={ <div>{ t("text.deleteStoreConfirmation") }</div> }
                 isDisplay = { modalOpen.deletingStore }
                 closeModal={ () => setModalOpen({ ...modalOpen, deletingStore: false }) }
                 actionConfirmed={ deleteStore }
                 title={ t("text.deleteStore") }
                 typeOfActions='default'
             >
+                <div>{ t("text.deleteStoreConfirmation") }</div>
             </CustomModal>
         </div>
     );
