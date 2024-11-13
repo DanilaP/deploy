@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import { DEFAULT_CATEGORIES, DEFAULT_PRODUCT } from "./constants";
 import { useTranslation } from "react-i18next";
-import { IAdditionalInfo, IProduct, IVariation } from "../../../../../interfaces/interfaces";
+import { IAdditionalInfo, ICategory, IProduct, ISelect, IVariation } from "../../../../../interfaces/interfaces";
 import { validateAdditionalInfo, validateCommonFields, validateVariations } from "./validators";
 import { convertFileListToBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
 import { BiMessageSquareAdd } from "react-icons/bi";
@@ -11,6 +11,7 @@ import InputFile from "../../../../../components-ui/custom-file-nput/file-input"
 import "./ManageGood.scss";
 import { MdDelete } from "react-icons/md";
 import lodash from "lodash";
+import { useCategoryHelper } from "../../../../../helpers/use-category-helper";
 
 export const ManageGoodForm = ({ 
     mode,
@@ -28,8 +29,8 @@ export const ManageGoodForm = ({
     
     const { t } = useTranslation();
     const [newGoodData, setNewGoodData] = useState<IProduct>(goodData || DEFAULT_PRODUCT);
-    const [categorys, setCategorys] = useState(DEFAULT_CATEGORIES);
     const [isFormValid, setIsFormValid] = useState<boolean>(false);
+    const { categoriesForSelect } = useCategoryHelper();
     const isEdit = mode === "edit";
     
     const handleAddAdditionalInfo = () => {
@@ -100,8 +101,8 @@ export const ManageGoodForm = ({
         });
     };
 
-    const handleUpdateCategory = (value) => {
-        setNewGoodData({ ...newGoodData, category: value[0]?.label });
+    const handleUpdateCategory = (value: ISelect[]) => {
+        setNewGoodData({ ...newGoodData, category: value.map(el => el.id) });
     };
 
     const handleUpdateSaveGoodData = () => {
@@ -111,7 +112,7 @@ export const ManageGoodForm = ({
             handleUpdateGood(newGoodData);
         }
     };
-    
+
     useEffect(() => {
         if (goodData) {
             setNewGoodData(goodData);
@@ -154,10 +155,11 @@ export const ManageGoodForm = ({
                     multiple
                     limitTags={ 2 }
                     onChange={ (_, value) => handleUpdateCategory(value) }
-                    defaultValue={ isEdit ? [
-                        categorys[0],
-                    ]: [] }
-                    options={ categorys }
+                    value={ categoriesForSelect.length !== 0 && isEdit 
+                        ? categoriesForSelect.filter(el => newGoodData.category.includes(el.id))
+                        : [] 
+                    }
+                    options={ categoriesForSelect }
                     renderInput={ (params) => <TextField { ...params } /> }
                 />
             </div>
