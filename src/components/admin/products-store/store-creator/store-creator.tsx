@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { options } from './constants/constants';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { validator } from "./helpers/helpers";
+import { validateRequiredField } from "../../../../helpers/validators-helper";
 
 interface formData {
     storeName: string,
@@ -49,7 +49,7 @@ export default function StoreCreator (props: {
                     helperText = { String(errors.storeName?.message || "") }
                     { 
                         ...register("storeName", { 
-                            validate: (value) => validator.validateRequiredField(value) ? true : t("text.requiredField")
+                            validate: (value) => validateRequiredField(value) ? true : t("text.requiredField")
                         }) 
                     }
                     label={ t("text.storeName") } 
