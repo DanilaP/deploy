@@ -8,6 +8,7 @@ import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 import $api from '../../../configs/axiosconfig/axios.js';
 import { IoMdSearch } from "react-icons/io";
 import "./goods.scss";
+import { useCategoryHelper } from "../../../helpers/use-category-helper.js";
 
 export const GoodsPage = () => {
 
@@ -18,6 +19,7 @@ export const GoodsPage = () => {
     const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null);
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
     const [unSavedDataExist, setUnsavedDataExist] = useState<boolean>(false);
+    const { categoriesForSelect } = useCategoryHelper();
     const navigate = useNavigate();
 
     const handleOpenCreatingGoodModal = () => {
@@ -243,6 +245,7 @@ export const GoodsPage = () => {
                     handleCancelUpdating={ () => handleCancelUpdating(unSavedDataExist) }
                     handleUnsavedDataExist={ handleUnsavedDataExist }
                     mode={ currentMode }
+                    categoriesForSelect={ categoriesForSelect }
                     goodData={ currentProduct }
                 />
             </CustomModal>

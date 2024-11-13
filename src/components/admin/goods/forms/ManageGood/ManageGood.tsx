@@ -1,17 +1,16 @@
 import { Button, Autocomplete, TextField, Tooltip } from "@mui/material";
-import { Fragment, useEffect, useState } from "react";
-import { DEFAULT_PRODUCT } from "./constants";
+import { Fragment, useEffect } from "react";
+import { DEFAULT_PRODUCT_FORM_VALUES } from "./constants";
 import { useTranslation } from "react-i18next";
 import { IAdditionalInfo, IProduct, ISelect, IVariation } from "../../../../../interfaces/interfaces";
 import { BiMessageSquareAdd } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { useForm, Controller, useFieldArray, FieldArrayWithId } from "react-hook-form";
-import { validateRequiredField } from "./validators";
+import { validateRequiredField } from "../../../../../helpers/validators-helper";
+import { convertFileListToBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
 import IconButton from "@mui/material/IconButton";
 import InputFile from "../../../../../components-ui/custom-file-nput/file-input";
 import "./ManageGood.scss";
-import { useCategoryHelper } from "../../../../../helpers/use-category-helper";
-import { convertFileListToBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
 
 interface IProductForm {
     additionalInfo: IAdditionalInfo[],
@@ -29,30 +28,38 @@ interface IProductForm {
 export const ManageGoodForm = ({ 
     mode,
     goodData,
+    categoriesForSelect,
     handleCancelUpdating,
     handleUpdateGood,
     handleUnsavedDataExist
 }: {
     mode: "edit" | "create" | null,
     goodData?: IProduct | null,
+    categoriesForSelect: ISelect[],
     handleUpdateGood: (goodData: IProduct) => void,
     handleCancelUpdating: () => void,
     handleUnsavedDataExist: (status: boolean) => void
 }) => {
     
     const { t } = useTranslation();
-    const [goodDataForForm, setGoodDataForForm] = useState<IProduct>(goodData || DEFAULT_PRODUCT);
-    const { categoriesForSelect } = useCategoryHelper();
     const isEdit = mode === "edit";
-
+    
     const { 
         handleSubmit, 
-        reset, 
         watch, 
         register,
         control, 
         formState: { errors, isValid, submitCount, isDirty } 
-    } = useForm<IProductForm>();
+    } = useForm<IProductForm>({ 
+        defaultValues: goodData 
+            ? {
+                ...goodData,
+                category: categoriesForSelect.filter(el => goodData.category.includes(el.id)),
+                additionalInfo: goodData.additionalInfo,
+                variations: goodData.variations
+            }
+            : DEFAULT_PRODUCT_FORM_VALUES
+    });
 
     const { 
         fields: additionalInfoFields, 
@@ -103,26 +110,9 @@ export const ManageGoodForm = ({
     };
 
     useEffect(() => {
-        if (goodData) {
-            setGoodDataForForm(goodData);
-        }
-    }, [goodData]);
-
-    useEffect(() => {
         handleUnsavedDataExist(isDirty);
     }, [isDirty]);
-
-    useEffect(() => {
-        reset(prev => {
-            return { 
-                ...prev,
-                additionalInfo: goodDataForForm.additionalInfo,
-                variations: goodDataForForm.variations
-            };
-        });
-    }, [goodDataForForm]);
     
-    if (categoriesForSelect?.length === 0) return <div className="loading">Loading...</div>;
     return (
         <form onSubmit={ handleSubmit(handleUpdateGoodData) }>
             <div className="update-good-form">
@@ -134,7 +124,6 @@ export const ManageGoodForm = ({
                     <TextField
                         error={ Boolean(errors.partNumber) }
                         helperText={ String(errors.partNumber?.message || "") }
-                        defaultValue={ isEdit ? goodDataForForm.partNumber : "" }
                         id="update-good-partNumber"
                         placeholder={ t("text.partNumber") }
                         { ...register("partNumber", {
@@ -150,7 +139,6 @@ export const ManageGoodForm = ({
                     <TextField
                         error={ Boolean(errors.name) }
                         helperText={ String(errors.name?.message || "") }
-                        defaultValue={ isEdit ? goodDataForForm.name : "" }
                         id="update-good-name"
                         placeholder={ t("text.name") }
                         { ...register("name", {
@@ -166,7 +154,6 @@ export const ManageGoodForm = ({
                     <TextField
                         error={ Boolean(errors.provider) }
                         helperText={ String(errors.provider?.message || "") }
-                        defaultValue={ isEdit ? goodDataForForm.provider : "" }
                         id="update-good-provider"
                         placeholder={ t("text.provider") }
                         { ...register("provider", {
@@ -179,7 +166,6 @@ export const ManageGoodForm = ({
                     <Controller
                         name="category"
                         control={ control }
-                        defaultValue={ categoriesForSelect.filter((el: ISelect) => goodDataForForm.category.includes(el.id)) }
                         rules={ { required: t("errors.requiredField") } }
                         render={ ({ field }) => (
                             <>
@@ -213,7 +199,6 @@ export const ManageGoodForm = ({
                     <TextField
                         error={ Boolean(errors.description) }
                         helperText={ String(errors.description?.message || "") }
-                        defaultValue={ isEdit ? goodDataForForm.description : "" }
                         id="update-good-description"
                         placeholder={ t("text.description") }
                         { ...register("description", {
@@ -232,7 +217,6 @@ export const ManageGoodForm = ({
                     <TextField
                         error={ Boolean(errors.fullDescription) }
                         helperText={ String(errors.fullDescription?.message || "") }
-                        defaultValue={ isEdit ? goodDataForForm.fullDescription : "" }
                         id="update-good-fullDescription"
                         placeholder={ t("text.fullDescription") }
                         { ...register("fullDescription", {
@@ -244,14 +228,13 @@ export const ManageGoodForm = ({
                     />
                 </div>
                 <div className="field">
-                    <label className="label">{ t("text.images") }</label>
-                    <Controller
-                        name="images"
-                        control={ control }
-                        defaultValue={ goodDataForForm.images }
-                        rules={ { required: t("errors.requiredField") } }
-                        render={ ({ field }) => (
-                            <>
+                    <div className="field-row-label">
+                        <label className="label">{ t("text.images") }</label>
+                        <Controller
+                            name="images"
+                            control={ control }
+                            rules={ { required: t("errors.requiredField") } }
+                            render={ ({ field }) => (
                                 <InputFile
                                     { ...field }
                                     width="25px"
@@ -264,42 +247,40 @@ export const ManageGoodForm = ({
                                         field.onChange(blobArray);
                                     } }
                                 />
-                                <span className="field-error-text">{ String(errors.images?.message || "") }</span>
-                                <div className="additions">
-                                    {
-                                        watch("images", []).map((el: string, index: number) => (
-                                            <Tooltip
-                                                key={ el + index }
-                                                title={
-                                                    <img
-                                                        width="300px"
-                                                        height="180px"
-                                                        src={ el } 
-                                                    />
-                                                }
-                                                placement="top"
-                                            >
-                                                <a href={ el } target="__blank">
-                                                    <img className="image" src={ el } />
-                                                </a>
-                                            </Tooltip>
-                                        ))
+                            ) }
+                        />
+                    </div>
+                    <span className="field-error-text">{ String(errors.images?.message || "") }</span>
+                    <div className="additions">
+                        {
+                            watch("images", []).map((el: string, index: number) => (
+                                <Tooltip
+                                    key={ el + index }
+                                    title={
+                                        <img
+                                            width="300px"
+                                            height="180px"
+                                            src={ el } 
+                                        />
                                     }
-                                </div>
-                            </>
-                            
-                        ) }
-                    />
+                                    placement="top"
+                                >
+                                    <a href={ el } target="__blank">
+                                        <img className="image" src={ el } />
+                                    </a>
+                                </Tooltip>
+                            ))
+                        }
+                    </div>
                 </div>
                 <div className="field">
-                    <label className="label">{ t("text.video") }</label>
-                    <Controller
-                        name="video"
-                        control={ control }
-                        defaultValue={ goodDataForForm.video }
-                        rules={ { required: t("errors.requiredField") } }
-                        render={ ({ field }) => (
-                            <>
+                    <div className="field-row-label">
+                        <label className="label">{ t("text.video") }</label>
+                        <Controller
+                            name="video"
+                            control={ control }
+                            rules={ { required: t("errors.requiredField") } }
+                            render={ ({ field }) => (
                                 <InputFile
                                     { ...field }
                                     width="25px"
@@ -311,30 +292,29 @@ export const ManageGoodForm = ({
                                         field.onChange(blobArray);
                                     } }
                                 />
-                                <span className="field-error-text">{ String(errors.video?.message || "") }</span>
-                                <div className="additions">
-                                    {
-                                        watch("video")?.length !== 0 && 
-                                        <Tooltip
-                                            key={ watch("video") }
-                                            title={
-                                                <video
-                                                    width="100%"
-                                                    height="100%"
-                                                    src={ watch("video") }
-                                                    controls
-                                                />
-                                            }
-                                            placement="top"
-                                        >
-                                            <video className="video" src={ watch("video") } />
-                                        </Tooltip>
-                                    }
-                                </div>
-                            </>
-                            
-                        ) }
-                    />
+                            ) }
+                        />
+                    </div>
+                    <span className="field-error-text">{ String(errors.video?.message || "") }</span>
+                    <div className="additions">
+                        {
+                            watch("video")?.length !== 0 && 
+                            <Tooltip
+                                key={ watch("video") }
+                                title={
+                                    <video
+                                        width="100%"
+                                        height="100%"
+                                        src={ watch("video") }
+                                        controls
+                                    />
+                                }
+                                placement="top"
+                            >
+                                <video className="video" src={ watch("video") } />
+                            </Tooltip>
+                        }
+                    </div>
                 </div>
                 <div className="field">
                     <label className="label">{ t("text.additionalProductInfo") }</label>
@@ -485,7 +465,7 @@ export const ManageGoodForm = ({
                         disabled={ submitCount !== 0 && !isValid }
                         variant="contained"
                     >{ t("text.confirm") }</Button>
-                     <Button 
+                    <Button 
                         type="submit"
                         onClick={ handleCancelUpdating }
                         variant="contained"

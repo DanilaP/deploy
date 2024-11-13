@@ -1,21 +1,14 @@
-import { IProduct, IReview } from "../../../../../interfaces/interfaces";
-
-export const DEFAULT_PRODUCT: IProduct = {
-    name: "",
-    partNumber: "",
+export const DEFAULT_PRODUCT_FORM_VALUES = {
+    additionalInfo: [{ name: "", description: "", id: Date.now() }],
+    category: [],
     description: "",
     fullDescription: "",
-    images: [] as string[],
+    images: [],
     video: "",
-    category: [] as string[],
+    name: "",
+    partNumber: "",
     provider: "",
-    reviews: [] as IReview[],
     variations: [
         { name: "", title: "", stock: 0, price: 0, images: [""], video: "" }
-    ],
-    additionalInfo: [{ name: "", description: "", id: Date.now() }],
+    ]
 };
-
-export const DEFAULT_CATEGORIES = [
-    { label: "Вычислительная техника", id: 1 },
-];
