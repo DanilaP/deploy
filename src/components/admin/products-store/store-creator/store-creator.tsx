@@ -1,24 +1,36 @@
-import { Autocomplete, Button, FormControl, TextField } from "@mui/material";
+import { Autocomplete, Button, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import './store-creator.scss';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { options } from './constants/constants';
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { validator } from "./helpers/helpers";
+
+interface formData {
+    storeName: string,
+    storeAddress: string
+}
 
 export default function StoreCreator (props: { 
-    setNewStoreInfo: (info: any) => void, 
-    newStoreInfo: any,
     close: () => void,
-    addStore: () => void
+    addStore: (storeName: string, storeAddress: string) => void
 }) {
 
     const [addresses, setAddresses] = useState([]);
+    const { register, handleSubmit, watch, control, formState: { errors } } = useForm<formData>();
     const { t } = useTranslation();
 
+    const onSubmit: SubmitHandler<formData> = (data) => {
+        props.addStore(data.storeName, data.storeAddress);
+    };
+
+    const currentFormValues = watch();
+
     useEffect(() => {
-        if (props.newStoreInfo?.address?.length >= import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH) {
+        if (currentFormValues.storeAddress?.length >= import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH) {
             axios.post("http://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address", 
-                JSON.stringify({ query: props.newStoreInfo.address }), 
+                JSON.stringify({ query: currentFormValues.storeAddress }), 
                 options
             ).then((res) => {
                 setAddresses(res.data.suggestions.map(el => el.value));
@@ -27,27 +39,50 @@ export default function StoreCreator (props: {
                 console.log(error);
             });
         }
-    }, [props.newStoreInfo.address]);
-
+    }, [currentFormValues]);
+    
     return (
         <div className="store-creator">
-            <form  className="store-creator-form">
+            <form onSubmit={ handleSubmit(onSubmit) } className="store-creator-form">
                 <TextField 
-                    onChange={ (e) => props.setNewStoreInfo({ ...props.newStoreInfo, name: e.target.value }) } 
-                    placeholder={ t("text.storeName") }
-                />
-                <Autocomplete
-                    options={ addresses }
-                    onChange={ (_, value) => props.setNewStoreInfo({ ...props.newStoreInfo, address: value }) }
-                    renderInput={ (params) => 
-                        <TextField 
-                            { ...params } label={ t("text.storeAddress") } 
-                            onChange={ (e) => props.setNewStoreInfo({ ...props.newStoreInfo, address: e.target.value }) }
-                        /> 
+                    error = { !!errors.storeName }
+                    helperText = { String(errors.storeName?.message || "") }
+                    { 
+                        ...register("storeName", { 
+                            validate: (value) => validator.validateRequiredField(value) ? true : t("text.requiredField")
+                        }) 
                     }
+                    label={ t("text.storeName") } 
                 />
+                <Controller
+                    name="storeAddress" 
+                    defaultValue=""
+                    control={ control }
+                    rules={ { required: true } }
+                    render={ ({ field }) => {
+                        return (
+                            <Autocomplete
+                                { ...field }
+                                options={ addresses }
+                                getOptionLabel={ (option) => option }
+                                onChange={ (_, value) => field.onChange(value) }
+                                value={ field.value }
+                                renderInput={ (params) => 
+                                    <TextField 
+                                        onChange={ (value) => field.onChange(value) }
+                                        helperText={ errors.storeAddress ? t("text.requiredField") : "" } 
+                                        error={ !!errors.storeAddress } 
+                                        { ...params } 
+                                        label={ t("text.storeAddress") } 
+                                    /> 
+                                }
+                            />
+                        );
+                    } }
+                >
+                </Controller>
                 <div className="control-buttons">
-                    <Button onClick={ props.addStore } variant="contained">{ t("text.confirm") }</Button>
+                    <Button type="submit" variant="contained">{ t("text.confirm") }</Button>
                     <Button onClick={ props.close } variant="contained">{ t("text.close") }</Button>
                 </div>
             </form>

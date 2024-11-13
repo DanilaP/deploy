@@ -5,4 +5,4 @@ export const options = {
         "Accept": "application/json",
         "Authorization": "Token " + token
     }
-}
+};

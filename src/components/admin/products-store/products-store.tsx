@@ -20,7 +20,6 @@ export default function ProductsStore () {
         creatingStore: false,
         deletingStore: false
     });
-    const [newStoreInfo, setNewStoreInfo] = useState<any>({});
 
     const changeStore = (storeId: number | string) => {
         const storeInfo = stores.find((el) => el.id === storeId);
@@ -65,13 +64,13 @@ export default function ProductsStore () {
         setModalOpen({ ...modalOpen, creatingStore: false , deletingStore: false });
     };
 
-    const addStore = () => {
-        if (newStoreInfo.name && newStoreInfo.address) {
-            if (stores.filter(store => store.name === newStoreInfo.name).length === 0) {
+    const addStore = (storeName: string, storeAddress: string) => {
+        if (storeName && storeAddress) {
+            if (stores.filter(store => store.name === storeName).length === 0) {
                 const newStore = {
                     id: Date.now(),
-                    name: newStoreInfo.name,
-                    address: newStoreInfo.address,
+                    name: storeName,
+                    address: storeAddress,
                     products: []
                 };
                 endManipulationWithStore([...stores, newStore], newStore);
@@ -169,8 +168,6 @@ export default function ProductsStore () {
                 <StoreCreator
                     addStore = { addStore }
                     close = { () => setModalOpen({ ...modalOpen, creatingStore: false }) }
-                    newStoreInfo = { newStoreInfo } 
-                    setNewStoreInfo = { setNewStoreInfo } 
                 /> 
             </CustomModal>
             <CustomModal
