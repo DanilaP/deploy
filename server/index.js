@@ -495,7 +495,7 @@ app.post("/backet", async function(req, res) {
     }
 });
 
-<<<<<<< HEAD
+
 //Favorites
 app.get("/favorites", async function(req, res) {
     try {
@@ -517,7 +517,7 @@ app.get("/favorites", async function(req, res) {
         console.error("get /favourites", error);
     }
 })
-=======
+
 // categories
 
 app.get("/category", async function(req, res) {
@@ -565,7 +565,6 @@ app.delete("/category", async function(req, res) {
 });
 
 
->>>>>>> 0f5c914a47214d8531190fcd650c2cc509a51c0b
 
 async function startApp() {
     try {
