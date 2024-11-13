@@ -1,0 +1,84 @@
+.category-page {
+    .category-page-title {
+        font-size: 24px;
+        border-radius: 5px;
+    }
+    .category-page-search {
+        display: grid;
+        grid-template-columns: calc(100% - 250px) 250px;
+        margin-top: 10px;
+        .categore-page-actions {
+            display: flex;
+            justify-content: right;
+        }
+        .MuiInputBase-input {
+            border: none !important;
+            padding: 5px 10px 5px 10px;
+        }
+    }
+    .category-page-content {
+        margin-top: 15px;
+        .category-item {
+            display: grid;
+            grid-template-columns: calc(100% - 100px) 100px;
+            align-items: center;
+            .category-actions {
+                display: flex;
+                column-gap: 10px;
+                .mui-actions {
+                    color: var(--text-color);
+                    padding: 5px 0px 5px 0px;
+                    &:hover {
+                        color: gray;
+                    }
+                }
+            }
+        }
+        .not-empty-category {
+            margin-top: 5px;
+            border-radius: 5px;
+            background-color: var(--bg-color-block);
+            .category-title {
+                font-weight: 400;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+            }
+            .Mui-selected {
+                background-color: var(--hover-color);
+            }
+        }
+        .empty-category {
+            margin: 5px 12px 5px 0px;
+            text-transform: none;
+            border-radius: 5px;
+            background-color: var(--bg-color);
+            .category-title {
+                font-weight: 400;
+                letter-spacing: normal;
+                text-transform: none;
+            }
+            .Mui-selected {
+                background-color: var(--hover-color);
+            }
+        }    
+    }
+    .MuiTreeItem-content:hover {
+        background-color: rgba(187, 235, 255, 0.203);
+    }
+    .adding-category {
+        display: grid;
+        row-gap: 3px;
+        margin-top: 15px;
+        margin-top: 15px;
+        #new-category-title {
+            padding: 5px 10px 5px 10px;
+        }
+        .adding-category-error {
+            color: red;
+            font-size: 12px;
+        }
+    }
+    .delete-text {
+        margin: 10px 0 10px 0;
+    }
+}

@@ -8,6 +8,7 @@ import { MdOutlineSecurity } from "react-icons/md";
 import './admin.scss';
 import usePermissions from "../../helpers/permissions-helpers.ts";
 import { FaShoppingCart } from "react-icons/fa";
+import { MdCategory } from "react-icons/md";
 
 interface AdminPageProps {
     children: React.ReactElement | null
@@ -64,9 +65,17 @@ export default function AdminPage (props: AdminPageProps) {
                             <FaShoppingCart className='icon' />{ !isMenuTextExists ? t("titles.goodsPage") : null }
                         </MenuItem>  : null
                     }
+                    {
                         <MenuItem onClick={ () => navigate("/admin/productsStore") }>
                             <FaWarehouse className='icon'/>{ !isMenuTextExists ? t("titles.productsStorePage") : null }
                         </MenuItem>
+                    }
+                    {
+                        permissionsExists.CreateGroupOfPermissions || permissionsExists.DeleteGroupOfPermissions || permissionsExists.ModifyGroupOfPermissions ? 
+                        <MenuItem onClick={ () => navigate("/admin/categories") }>
+                            <MdCategory className='icon' />{ !isMenuTextExists ? t("text.categories") : null }
+                        </MenuItem>  : null
+                    }
                 </div>
                 <div className="content">{ children }</div>
             </div>

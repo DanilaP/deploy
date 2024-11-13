@@ -49,6 +49,8 @@ If you are developing a production application, we recommend updating the config
   - added lodash package into dependencies
   - Install `use-react-router-breadcrumbs: ^4.0.1` and add breadcrumbs to all pages
   - Add favorites page
+- Create page for managing categories
+  - Install `@mui/x-tree-view`
 
 
 
