@@ -59,7 +59,8 @@ app.post("/auth/signup", async function(req, res) {
                 password: bcrypt.hashSync(password, 7),
                 role: "Пользователь",
                 avatar: "http://localhost:5000/avatar.jpg",
-                backet: []
+                backet: [],
+                favorites: []
             };
             let updatedUsers = JSON.stringify([...currentUsers, newUser], null, 2);
             fs.writeFileSync('DB/Users.json', updatedUsers);
@@ -86,7 +87,9 @@ app.post("/users", async function(req, res) {
                 login,
                 password: bcrypt.hashSync(password, 7),
                 role,
-                avatar: "http://localhost:5000/avatar.jpg"
+                avatar: "http://localhost:5000/avatar.jpg",
+                backet: [],
+                favorites: []
             };
             let updatedUsers = JSON.stringify([...currentUsers, newUser], null, 2);
             fs.writeFileSync('DB/Users.json', updatedUsers);
@@ -127,14 +130,11 @@ app.put("/users", async function(req, res) {
     try {
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         let updatedUsers = currentUsers.map((user) => {
-            console.log(req.body);
             if (user.id === req.body.id) {
                 return { 
+                    ...req.body,
                     id: user.id,
-                    login: req.body.login,
                     password: req.body.password ? bcrypt.hashSync(req.body.password, 7) : user.password,
-                    role: req.body.role,
-                    avatar: req.body.avatar
                 };
             } 
             return user;
