@@ -128,7 +128,7 @@
             "confirmDeleteMessage": "Are you sure you want to delete the product?",
             "delete": "Delete",
             "cancel": "Cancel"
-        }
+        },
         "uploadFiles": "Upload files",
         "deleteAll": "Delete all",
         "favoritesAreClear": "The list of favorites is empty",

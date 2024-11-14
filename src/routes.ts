@@ -50,7 +50,6 @@ export const routes = [
     {
         path: '/checkout',
         component: CheckoutPage,
-        children: null
         children: null,
         breadcrumb : t("breadcrumbs.shop")
     },
