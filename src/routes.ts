@@ -16,6 +16,7 @@ import ProductReviews from "./components/shop/product-reviews-page/product-revie
 import { CategoriesPage } from "./components/admin/categories/categories";
 import { t } from "i18next";
 import CheckoutPage from "./components/checkout/checkout-page.tsx";
+import Favorites from "./components/favorites/favorites";
 
 export const routes = [
     {
@@ -70,6 +71,12 @@ export const routes = [
         component: ProductReviews,
         children: null,
         breadcrumb : t("breadcrumbs.productReviews")
+    },
+    {
+        path: "/favorites",
+        component: Favorites,
+        children: null,
+        breadcrumb : t("breadcrumbs.favorites")
     },
     {
         path: '*',

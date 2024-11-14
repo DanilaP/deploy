@@ -1,0 +1,63 @@
+.favorites-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20px;
+
+    .title {
+        width: 80%;
+        display: flex;
+    }
+
+    .favorites-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        height: 80px;
+        background-color: var(--bg-color-block);
+        border-radius: 5px;
+        position: relative;
+
+        .sum {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: absolute;
+            left: 20px;
+            font-weight: 600;
+        }   
+
+        .settings {
+            position: absolute;
+            display: flex;
+            gap: 10px;
+            right: 20px;
+        }
+
+        .choose-all-button {
+            height: 36.5px;
+            
+            .PrivateSwitchBase-input, .MuiButtonBase-root {
+                height: 36.5px;
+                width: 36.5px;
+            }
+        }
+    }
+
+    .favorites-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 80%;
+        align-items: center;
+        height: max-content;
+        border-radius: 5px;
+        background-color: var(--bg-color-block);
+        padding: 20px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+}

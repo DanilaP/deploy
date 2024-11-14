@@ -1,0 +1,28 @@
+.modal-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;    
+    gap: 20px;
+
+    .modal-content-product {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        width: 100%;
+        position: relative;
+
+        .image {
+            width: 75px;
+            height: 75px;
+            border-radius: 5px;
+        }
+
+        .price {
+            position: absolute;
+            font-weight: 600;
+            right: 20px;
+        }
+    }
+}
