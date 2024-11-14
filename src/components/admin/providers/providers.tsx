@@ -16,29 +16,22 @@ export default function ProvidersPage() {
 
     const [modals, setModals] = useState({ manage: false, deleteConfirmation: false, unsavedData: false });
     const [choosedProvider, setChoosedProvider] = useState<IProvider>(DEFAULT_PROVIDER);
-    const [isFormTouched, setIsFormTouched] = useState<boolean>(false);
     const [formUnsavedDataExist, setFormUnsavedDataExist] = useState<boolean>(false);
 
-    const handleOnCreateProvider = (formValid: boolean, newProviderData: IProvider) => {
-        setIsFormTouched(true);
-        if (formValid) {
-            handleCreateProvider(newProviderData);
-            setModals(prev => {
-                return { ...prev, manage: false };
-            });
-            setChoosedProvider(DEFAULT_PROVIDER);
-        }
+    const handleOnCreateProvider = (newProviderData: IProvider) => {
+        handleCreateProvider(newProviderData);
+        setModals(prev => {
+            return { ...prev, manage: false };
+        });
+        setChoosedProvider(DEFAULT_PROVIDER);
     };
 
-    const handleOnUpdateProvider = (formValid: boolean, newProviderData: IProvider) => {
-        setIsFormTouched(true);
-        if (formValid) {
-            handleUpdateProvider(newProviderData);
-            setModals(prev => {
-                return { ...prev, manage: false };
-            });
-            setChoosedProvider(DEFAULT_PROVIDER);
-        }
+    const handleOnUpdateProvider = (newProviderData: IProvider) => {
+        handleUpdateProvider(newProviderData);
+        setModals(prev => {
+            return { ...prev, manage: false };
+        });
+        setChoosedProvider(DEFAULT_PROVIDER);
     };
 
     const handleOnOpenManageProviderModal = (provider: IProvider) => {
@@ -46,7 +39,6 @@ export default function ProvidersPage() {
         setModals(prev => {
             return { ...prev, manage: true };
         });
-        setIsFormTouched(false);
     };
 
     const handleOnCloseManageProviderModal = () => {
@@ -106,7 +98,6 @@ export default function ProvidersPage() {
             providers={ filteredProviders }
             modals={ modals }
             choosedProvider={ choosedProvider }
-            isFormTouched={ isFormTouched }
             handleSearchProvidersByAllFields={ handleSearchProvidersByAllFields }
             handleDeleteProvider={ handleOnDeletingProviderApprove }
             handleOnOpenDeletingProviderModal={ handleOnOpenDeletingProviderModal }

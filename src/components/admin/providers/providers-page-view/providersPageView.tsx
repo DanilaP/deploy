@@ -1,4 +1,14 @@
-import { Button, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
+import { 
+    Button, 
+    IconButton, 
+    Table, 
+    TableBody, 
+    TableCell, 
+    TableContainer, 
+    TableHead, 
+    TableRow, 
+    TextField 
+} from "@mui/material";
 import { IProvider } from "../../../../interfaces/interfaces";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
@@ -13,15 +23,14 @@ interface IProvidersPageViewProps {
     providers: IProvider[],
     modals: { manage: boolean, deleteConfirmation: boolean, unsavedData: boolean },
     choosedProvider: IProvider,
-    isFormTouched: boolean,
     handleSearchProvidersByAllFields: (value: string) => void,
     handleDeleteProvider: () => void,
     handleOnOpenDeletingProviderModal: (e: any, provider: IProvider) => void,
     handleOnCloseDeletingProviderModal: () => void,
     handleOnOpenManageProviderModal: (provider: IProvider) => void,
     handleOnCloseManageProviderModal: () => void,
-    handleOnUpdateProvider: (formValid: boolean, provider: IProvider) => void,
-    handleOnCreateProvider: (formValid: boolean, provider: IProvider) => void,
+    handleOnUpdateProvider: (provider: IProvider) => void,
+    handleOnCreateProvider: (provider: IProvider) => void,
     handleSetUnsavedChangesExist: (status: boolean) => void,
     handleCloseUnsavedDataModal: () => void,
     handleCloseManageModalWithUnSavedData: () => void,
@@ -31,7 +40,6 @@ export default function ProvidersPageView({
     providers,
     modals,
     choosedProvider,
-    isFormTouched,
     handleSearchProvidersByAllFields,
     handleDeleteProvider,
     handleOnOpenDeletingProviderModal,
@@ -155,7 +163,6 @@ export default function ProvidersPageView({
                 closeModal={ handleOnCloseManageProviderModal }
             >
                 <ProvidersManageForm
-                    isFormTouched={ isFormTouched }
                     choosedProvider={ choosedProvider }
                     handleSetUnsavedChangesExist={ handleSetUnsavedChangesExist }
                     handleCancelManaging={ handleOnCloseManageProviderModal }
