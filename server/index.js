@@ -518,7 +518,7 @@ app.get("/favorites", async function(req, res) {
     }
 })
 
-<<<<<<< HEAD
+
 //Stores
 app.get("/stores", async function (req, res) {
     try {
@@ -548,8 +548,7 @@ app.get("/stores", async function (req, res) {
     }
 })
 
-=======
->>>>>>> 27c25c25c9f91f4d268610f6c90da202732e9844
+
 // categories
 
 app.get("/category", async function(req, res) {
@@ -597,10 +596,8 @@ app.delete("/category", async function(req, res) {
 });
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 27c25c25c9f91f4d268610f6c90da202732e9844
+
 async function startApp() {
     try {
         server.listen(PORT, () => console.log('Server started at PORT' + " " + PORT));
