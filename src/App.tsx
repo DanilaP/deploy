@@ -3,7 +3,7 @@ import { useTranslation } from './translation/i18n';
 import { Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
 import { Switch } from '@mui/material';
 import $api from './configs/axiosconfig/axios';
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaShoppingBag } from "react-icons/fa";
 import { MdPersonPin } from "react-icons/md";
 import { MdSupervisorAccount } from "react-icons/md";
 import { observer } from 'mobx-react-lite';
@@ -24,7 +24,7 @@ function App() {
 
     const { t } = useTranslation();
 
-    const { userStore } = useStore();
+    const { userStore, cartStore } = useStore();
     const { checkPermissions } = usePermissions();
 
     const changeTheme = () => {
@@ -74,18 +74,31 @@ function App() {
         };
     }, []);
 
+    useEffect(() => {
+        const fetchBasketData = async () => {
+            try {
+                const { data: { backet } } = await $api.get('/backet');
+                cartStore.setCart(backet);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchBasketData();
+    }, []);
+
     return (
         <>
             <div className='home-page-main'>
                     { userStore.user && userStore.user.favorites ? (
                         <div className="header">
+                            <Link to='/cart'><FaShoppingBag className='icon' />{ !isMobile ? t('titles.cart') : null }</Link><br/>
                             <Link to='/shop'><FaShoppingCart className='icon' />{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
                             <Link to='/profile'><MdPersonPin className='icon' />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
                             <Link to='/favorites'>
                                 <MdFavoriteBorder className='icon' />
                                 { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
                             </Link><br/>
-                            { checkPermissions() ? 
+                            { checkPermissions() ?
                             (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">
                                 <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
@@ -97,9 +110,9 @@ function App() {
                         userStore.user ? <BreadCrumbs /> : null
                     }
                 <div className="content">
-                    { isLoading &&  
+                    { isLoading &&
                         <Routes>
-                            { 
+                            {
                                 routes.map(({ path, component: Component, children: Children }) => (
                                     <Route
                                         key={ path }

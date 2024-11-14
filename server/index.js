@@ -65,7 +65,7 @@ app.post("/auth/signup", async function(req, res) {
             fs.writeFileSync('DB/Users.json', updatedUsers);
             res.status(200).json({ message: "Успешная регистрация", user: newUser, token: generateAccessToken(newUserId) });
         }
-        
+
     } catch (error) {
         console.error("/auth/sigup method", error);
         res.status(400).json({ message: "Ошибка регистрации!" });
@@ -129,14 +129,14 @@ app.put("/users", async function(req, res) {
         let updatedUsers = currentUsers.map((user) => {
             console.log(req.body);
             if (user.id === req.body.id) {
-                return { 
+                return {
                     id: user.id,
                     login: req.body.login,
                     password: req.body.password ? bcrypt.hashSync(req.body.password, 7) : user.password,
                     role: req.body.role,
                     avatar: req.body.avatar
                 };
-            } 
+            }
             return user;
         });
         fs.writeFileSync('DB/Users.json', JSON.stringify(updatedUsers, null, 2));
@@ -148,10 +148,10 @@ app.put("/users", async function(req, res) {
     }
 });
 
-//Profile 
+//Profile
 app.get("/profile", async function(req, res) {
     try {
-        const token = req.headers.authorization;     
+        const token = req.headers.authorization;
         const userId = jwt_decode(token);
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         let user = currentUsers.filter((user) => user.id === userId.id);
@@ -210,7 +210,7 @@ app.delete("/permissions/groups", async function(req, res) {
         let currentGroups = JSON.parse(fs.readFileSync('DB/PermissionGroups.json', 'utf8'));
         const newGroups = currentGroups.filter((group) => group.name !== req.query.name);
         fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups, null, 2));
-        
+
         res.status(200).json({ message: "Группа разрешений успешно удалена", permissionsGroups: newGroups });
     }
     catch(error) {
@@ -222,7 +222,7 @@ app.put("/permissions/groups", async function(req, res) {
     try {
         const newGroups = req.body.permissionsGroups;
         fs.writeFileSync('DB/PermissionGroups.json', JSON.stringify(newGroups, null, 2));
-        
+
         res.status(200).json({ message: "Группа разрешений успешно обновлена", permissionsGroups: newGroups });
     }
     catch(error) {
@@ -315,7 +315,7 @@ app.post("/product", async function(req, res) {
 
 app.put("/product", async function(req, res) {
     try {
-        const token = req.headers.authorization;     
+        const token = req.headers.authorization;
         const userId = jwt_decode(token).id;
         let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
@@ -399,7 +399,7 @@ app.delete("/reviews/product", async function(req, res) {
     try {
         let currentProductId = +req.query.productId;
         let currentUserId = +req.query.userId;
-        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));  
+        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
         let updatedProducts = currentProducts.map((product) => {
             if (product.id === currentProductId) {
                 return {
@@ -420,15 +420,15 @@ app.delete("/reviews/product", async function(req, res) {
 //User Backet
 app.get("/backet", async function(req, res) {
     try {
-        const token = req.headers.authorization;     
+        const token = req.headers.authorization;
         const userId = jwt_decode(token).id;
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
         let user = currentUsers.filter((user) => user.id === userId)[0];
-        
+
         let userBacketInfo = user.backet.map((productInfoFromBacket) => {
             return currentProducts.map((product) => {
-                if (productInfoFromBacket.productId === product.id) {   
+                if (productInfoFromBacket.productId === product.id) {
                     return {
                         productInfo: { ...product },
                         number: productInfoFromBacket.number,
@@ -447,13 +447,16 @@ app.get("/backet", async function(req, res) {
 });
 app.delete("/backet", async function(req, res) {
     try {
-        const token = req.headers.authorization;     
+        const token = req.headers.authorization;
         const userId = jwt_decode(token).id;
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         let updatedBacket = [];
+        const idsToDelete = req.query.ids.split(',').map(Number);
         let updatedUsers = currentUsers.map((user) => {
             if (user.id === userId) {
-                updatedBacket = user.backet.filter((product) => product.id !== Number(req.query.id));
+                updatedBacket = user.backet.filter(
+                  (product) => !idsToDelete.includes(product.id)
+                );
                 return {
                     ...user,
                     backet: updatedBacket
@@ -470,7 +473,7 @@ app.delete("/backet", async function(req, res) {
 });
 app.post("/backet", async function(req, res) {
     try {
-        const token = req.headers.authorization;     
+        const token = req.headers.authorization;
         const userId = jwt_decode(token).id;
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         let updatedUsers = currentUsers.map((user) => {
@@ -495,11 +498,14 @@ app.post("/backet", async function(req, res) {
     }
 });
 
+app.put('/backet/updateCart', (req, res) => {
+    res.status(200).json({ message: "Корзина успешно обновлена", cart: req.body });
+});
 
 //Favorites
 app.get("/favorites", async function(req, res) {
     try {
-        const token = req.headers.authorization;     
+        const token = req.headers.authorization;
         const userId = jwt_decode(token).id;
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
