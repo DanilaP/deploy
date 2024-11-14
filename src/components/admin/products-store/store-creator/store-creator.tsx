@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import './store-creator.scss';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { options } from './constants/constants';
+import { OPTIONS } from './constants/constants';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { validateRequiredField } from "../../../../helpers/validators-helper";
 
@@ -31,7 +31,7 @@ export default function StoreCreator (props: {
         if (currentFormValues.storeAddress?.length >= import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH) {
             axios.post("http://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address", 
                 JSON.stringify({ query: currentFormValues.storeAddress }), 
-                options
+                OPTIONS
             ).then((res) => {
                 setAddresses(res.data.suggestions.map(el => el.value));
             })
