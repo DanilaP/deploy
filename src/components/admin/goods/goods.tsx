@@ -9,6 +9,7 @@ import $api from '../../../configs/axiosconfig/axios.js';
 import { IoMdSearch } from "react-icons/io";
 import "./goods.scss";
 import { useProvidersHelper } from "../../../helpers/use-providers-helper.js";
+import { useCategoryHelper } from "../../../helpers/use-category-helper.js";
 
 export const GoodsPage = () => {
 
@@ -19,6 +20,7 @@ export const GoodsPage = () => {
     const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null);
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
     const [unSavedDataExist, setUnsavedDataExist] = useState<boolean>(false);
+    const { categoriesForSelect } = useCategoryHelper();
     const navigate = useNavigate();
     const { providersForSelect, providers } = useProvidersHelper();
     
@@ -83,7 +85,7 @@ export const GoodsPage = () => {
                         }
                         return el;
                     }); 
-                } else {          
+                } else {  
                     updatedProducts = [...currentProducts, { 
                         ...goodData, 
                         id: Date.now(),
@@ -108,7 +110,8 @@ export const GoodsPage = () => {
             return el.name.toLowerCase().includes(searchValue) ||
                 el.description.toLowerCase().includes(searchValue) ||
                 el.fullDescription.toLowerCase().includes(searchValue) ||
-                el.articleNumber.includes(searchValue) ||
+                el.provider.toLowerCase().includes(searchValue) ||
+                el.partNumber.includes(searchValue) ||
                 String(el.variations[0].price).includes(searchValue);
         }));
     };
@@ -126,7 +129,7 @@ export const GoodsPage = () => {
             }
             return prev;
         }, []);
-        setFilteredProducts(currentProducts.filter(el => findedProviders.includes(el.provider)));
+        setFilteredProducts(currentProducts.filter(el => findedProviders.includes(+el.provider)));
     };
 
     const handleCancelUpdating = (status: boolean) => {
@@ -197,7 +200,7 @@ export const GoodsPage = () => {
             <div className="list">
                 {
                     filteredProducts.map(product => {
-                        const providerInfo = providers.filter(el => el.id === product.provider)[0];
+                        const providerInfo = providers.filter(el => el.id === +product.provider)[0];
                         return (
                             <div 
                                 className="wrapper" 
@@ -242,18 +245,20 @@ export const GoodsPage = () => {
                     })
                 }
             </div>
-            <CustomModal 
+            <CustomModal
+                isHidden={ modals.unsaved }
                 isDisplay={ modals.manage }
                 title = { currentMode === 'create' ? t("text.createGoods") : t("text.editGood") }
                 typeOfActions='none'
+                actionConfirmed={ () => handleCancelUpdating(unSavedDataExist) }
                 closeModal={ () => handleCancelUpdating(unSavedDataExist) }
             >
                 <ManageGoodForm 
                     handleUpdateGood={ handleUpdateGood }
                     handleCancelUpdating={ () => handleCancelUpdating(unSavedDataExist) }
                     handleUnsavedDataExist={ handleUnsavedDataExist }
-                    providersForSelect={ providersForSelect }
                     mode={ currentMode }
+                    categoriesForSelect={ categoriesForSelect }
                     goodData={ currentProduct }
                 />
             </CustomModal>

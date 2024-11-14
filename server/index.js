@@ -495,11 +495,11 @@ app.post("/backet", async function(req, res) {
     }
 });
 
-// categorys
+// categories
 
 app.get("/category", async function(req, res) {
     try {
-        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categorys.json', 'utf8'));
+        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
         res.status(200).json({ message: "Данные о категориях получены", categoryList: currentCategoryList });
     }
     catch(error) {
@@ -510,7 +510,7 @@ app.get("/category", async function(req, res) {
 
 app.post("/category", async function(req, res) {
     try {
-        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categorys.json', 'utf8'));
+        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
         res.status(200).json({ message: "Добавлена новая категория", category: req.body });
     }
     catch(error) {
@@ -521,7 +521,7 @@ app.post("/category", async function(req, res) {
 
 app.put("/category", async function(req, res) {
     try {
-        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categorys.json', 'utf8'));
+        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
         res.status(200).json({ message: "Категория обновлена", category: req.body });
     }
     catch(error) {
@@ -532,7 +532,7 @@ app.put("/category", async function(req, res) {
 
 app.delete("/category", async function(req, res) {
     try {
-        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categorys.json', 'utf8'));
+        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
         res.status(200).json({ message: "Категория удалена", category: req.body });
     }
     catch(error) {

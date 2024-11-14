@@ -7,11 +7,11 @@ const CustomModal = (props: {
     children: ReactChild, 
     isDisplay: boolean, 
     closeModal: (status: boolean) => void
-    actionConfirmed?: (status: boolean) => void,
+    actionConfirmed: (status: boolean) => void,
     title: string,
     typeOfActions: "default" | "none" | "custom"
     actionsComponent?: any,
-    isHidden?: boolean
+    isHidden?: boolean,
 }): JSX.Element | null => {
 
     const { t } = useTranslation();
@@ -24,10 +24,7 @@ const CustomModal = (props: {
         return null;
     }
     return(
-        <div 
-            className={ props.isHidden ? "custom-modal hidden" : "custom-modal" } 
-            onClick={ handleCloseModalByBackgroundClick }
-        >
+        <div className={ props.isHidden ? "custom-modal hidden" : "custom-modal" } onClick={ handleCloseModalByBackgroundClick }>
             <div className={ `${ "custom-modal-content" }` } onClick={ (e) => e.stopPropagation() }>
                 <div className={ "custom-modal-title" }>
                     <p>{ t(props.title) }</p>

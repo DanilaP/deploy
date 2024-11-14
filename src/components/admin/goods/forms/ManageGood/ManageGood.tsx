@@ -1,375 +1,363 @@
 import { Button, Autocomplete, TextField, Tooltip } from "@mui/material";
-import { Fragment, useEffect, useRef, useState } from "react";
-import IconButton from "@mui/material/IconButton";
-import { DEFAULT_PRODUCT } from "./constants";
+import { Fragment, useEffect } from "react";
+import { DEFAULT_PRODUCT_FORM_VALUES } from "./constants";
 import { useTranslation } from "react-i18next";
 import { IAdditionalInfo, IProduct, ISelect, IVariation } from "../../../../../interfaces/interfaces";
-import { validateGoodsForm } from "./validators";
-import { convertFileListToBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
 import { BiMessageSquareAdd } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
+import { useForm, Controller, useFieldArray, FieldArrayWithId } from "react-hook-form";
+import { validateRequiredField } from "../../../../../helpers/validators-helper";
+import { convertFileListToBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
+import IconButton from "@mui/material/IconButton";
 import InputFile from "../../../../../components-ui/custom-file-nput/file-input";
 import "./ManageGood.scss";
-import { MdDelete } from "react-icons/md";
-import lodash from "lodash";
-import { useCategoryHelper } from "../../../../../helpers/use-category-helper";
+
+interface IProductForm {
+    additionalInfo: IAdditionalInfo[],
+    category: ISelect[],
+    description: string,
+    fullDescription: string,
+    images: string[],
+    video: string,
+    name: string,
+    partNumber: string,
+    provider: string,
+    variations: IVariation[],
+}
 
 export const ManageGoodForm = ({ 
     mode,
     goodData,
-    providersForSelect,
+    categoriesForSelect,
     handleCancelUpdating,
     handleUpdateGood,
     handleUnsavedDataExist
 }: {
     mode: "edit" | "create" | null,
     goodData?: IProduct | null,
-    providersForSelect: ISelect[],
+    categoriesForSelect: ISelect[],
     handleUpdateGood: (goodData: IProduct) => void,
     handleCancelUpdating: () => void,
     handleUnsavedDataExist: (status: boolean) => void
 }) => {
     
     const { t } = useTranslation();
-    const [newGoodData, setNewGoodData] = useState<IProduct>(goodData || DEFAULT_PRODUCT);
-    const [isFormTouched, setIsFormTouched] = useState<boolean>(false);
-    const formWrapperRef = useRef<HTMLDivElement>(null);
     const isEdit = mode === "edit";
     
-    const validationFormData = validateGoodsForm(newGoodData);
-    const { categoriesForSelect } = useCategoryHelper();
-    
-    const handleAddAdditionalInfo = () => {
-        setNewGoodData(prevGoodData => {
-            return {
-                ...prevGoodData,
-                additionalInfo: [...prevGoodData.additionalInfo, { name: "", description: "", id: Date.now() }]
-            };
-        });
-    };
+    const { 
+        handleSubmit, 
+        watch, 
+        register,
+        control,
+        formState: { errors, isValid, submitCount, isDirty }
+    } = useForm<IProductForm>({
+        defaultValues: goodData 
+            ? {
+                ...goodData,
+                category: categoriesForSelect.filter(el => goodData.category.includes(el.id)),
+                additionalInfo: goodData.additionalInfo,
+                variations: goodData.variations
+            }
+            : DEFAULT_PRODUCT_FORM_VALUES,
+    });
 
-    const handleDeleteAdditionalData = (deleteIndex: number) => {
-        if (deleteIndex === 0 && newGoodData.additionalInfo.length === 1) return;
-        setNewGoodData(prevGoodData => {
-            return {
-                ...prevGoodData,
-                additionalInfo: prevGoodData.additionalInfo.filter((_, index) => index !== deleteIndex)
-            };
-        });
-    };
+    const { 
+        fields: additionalInfoFields, 
+        append: appendAdditionalInfo, 
+        remove: removeAdditionalInfo 
+    } = useFieldArray({
+        control,
+        name: "additionalInfo",
+    });
 
-    const handleUpdateAdditionalData = (additionalData: IAdditionalInfo, updateIndex: number) => {
-        setNewGoodData(prevGoodData => {
-            return {
-                ...prevGoodData,
-                additionalInfo: prevGoodData.additionalInfo.map((info, index) => {
-                    if (updateIndex === index) {
-                        return additionalData;
-                    }
-                    return info;
-                })
-            };
-        });
+    const { 
+        fields: variationsInfoFields,
+        append: appendVariation, 
+        remove: removeVariation, 
+    } = useFieldArray({
+        control,
+        name: "variations",
+    });
+
+    const handleUpdateGoodData = (data: IProductForm) => {
+        const goodDataForSend: IProduct = {
+            ...data,
+            category: data.category.map((el: ISelect) => el.id)
+        };
+        if (isEdit) {
+            handleUpdateGood({ ...goodDataForSend, id: goodData?.id });
+        } else {
+            handleUpdateGood(goodDataForSend);
+        }
     };
 
     const handleAddVariation = () => {
-        setNewGoodData(prevGoodData => {
-            return {
-                ...prevGoodData,
-                variations: [...prevGoodData.variations, 
-                    { name: "", title: "", stock: 1, price: 1, images: [""], video: "" }
-                ]
-            };
-        });
+        appendVariation({ name: "", title: "", stock: 1, price: 1, images: [""], video: "-" });
+    };
+    
+    const handleDeleteVariation = (index: number) => {
+        if (watch('variations')?.length === 1) return;
+        removeVariation(index);
     };
 
-    const handleDeleteVariationData = (deleteIndex: number) => {
-        if (deleteIndex === 0 && newGoodData.variations.length === 1) return;
-        setNewGoodData(prevGoodData => {
-            return {
-                ...prevGoodData,
-                variations: prevGoodData.variations.filter((_, index) => index !== deleteIndex)
-            };
-        });
+    const handleAddAdditionalInfo = () => {
+        appendAdditionalInfo({ id: Date.now(), name: '', description: '' });
     };
-
-    const handleUpdateVariationData = (variationData: IVariation, updateIndex: number) => {
-        setNewGoodData(prevGoodData => {
-            return {
-                ...prevGoodData,
-                variations: prevGoodData.variations.map((info, index) => {
-                    if (updateIndex === index) {
-                        return variationData;
-                    }
-                    return info;
-                })
-            };
-        });
-    };
-
-    const handleUpdateCategory = (value: ISelect[]) => {
-        setNewGoodData({ ...newGoodData, category: value.map(el => el.id) });
-    };
-
-    const handleUpdateProvider = (value: ISelect | null) => {
-        setNewGoodData({ ...newGoodData, provider: value?.id || "" });
-    };
-
-    const handleUpdateSaveGoodData = () => {
-        setIsFormTouched(true);
-        if (
-            validationFormData.formValid
-        ) {
-            handleUpdateGood(newGoodData);
-        }
+    
+    const handleDeleteAdditionalData = (index: number) => {
+        if (watch('additionalInfo')?.length === 1) return;
+        removeAdditionalInfo(index);
     };
 
     useEffect(() => {
-        if (goodData) {
-            setNewGoodData(goodData);
-        }
-    }, [goodData]);
-
-    useEffect(() => {
-        handleUnsavedDataExist(!lodash.isEqual(newGoodData, goodData));
-    }, [newGoodData]);
-
-    useEffect(() => {
-        if (isFormTouched && formWrapperRef.current) {
-            const formLabels = formWrapperRef.current.getElementsByClassName("label");
-            for (let i = 0, max = formLabels.length; i < max; i++) {
-                const isError = formLabels[i].getAttribute("data-error") === "true";
-                if (isError) {
-                    formLabels[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    return;
-                }
-            }
-        }
-    }, [isFormTouched]);
+        handleUnsavedDataExist(isDirty);
+    }, [isDirty]);
     
     return (
-        <div className="update-good-form" ref={ formWrapperRef }>
-            <div className="field">
-                <label 
-                    className="label"
-                    htmlFor="update-good-articleNumber"
-                    data-error={ Boolean(validationFormData?.articleNumber) }
-                >{ t("text.articleNumber") }</label>
-                <TextField
-                    error={ Boolean(validationFormData?.articleNumber) && isFormTouched }
-                    helperText={ isFormTouched && t(validationFormData?.articleNumber?.error) }
-                    onChange={ (e) => setNewGoodData({ ...newGoodData, articleNumber: e.target.value }) }
-                    id="update-good-articleNumber"
-                    placeholder={ t("text.articleNumber") }
-                    defaultValue={ isEdit ? newGoodData?.articleNumber : "" }
-                />
-            </div>
-            <div className="field">
-                <label 
-                    className="label" 
-                    htmlFor="update-good-name"
-                    data-error={ Boolean(validationFormData?.name) }
-                >{ t("text.name") }</label>
-                <TextField
-                    error={ Boolean(validationFormData?.name) && isFormTouched }
-                    helperText={ isFormTouched && t(validationFormData?.name?.error) }
-                    onChange={ (e) => setNewGoodData({ ...newGoodData, name: e.target.value }) }
-                    id="update-good-name"
-                    placeholder={ t("text.name") }
-                    className="input"
-                    defaultValue={ isEdit ? newGoodData?.name : "" }
-                />
-            </div>
-            <div className="field">
-                <label 
-                    className="label"
-                    htmlFor="update-good-provider"
-                    data-error={ Boolean(validationFormData?.provider) }
-                >{ t("text.provider") }</label>
-                <Autocomplete
-                    id="update-good-provider"
-                    onChange={ (_, value) => handleUpdateProvider(value) }
-                    value={ providersForSelect.filter(el => Number(el.id) === newGoodData.provider)[0] || null }
-                    options={ providersForSelect }
-                    renderInput={ (params) => <TextField { ...params } /> }
-                />
-                { validationFormData.provider && isFormTouched && 
-                    <span className="field-error-text">{ t(validationFormData.provider.error) }</span>
-                }
-            </div>
-            <div className="field">
-                <label 
-                    className="label" 
-                    htmlFor="update-good-category"
-                    data-error={ Boolean(validationFormData?.category) }
-                >{ t("text.category") }</label>
-                <Autocomplete
-                    id="update-good-category"
-                    multiple
-                    limitTags={ 2 }
-                    onChange={ (_, value) => handleUpdateCategory(value) }
-                    value={ categoriesForSelect.length !== 0
-                        ? categoriesForSelect.filter(el => newGoodData.category.includes(el.id))
-                        : []
-                    }
-                    options={ categoriesForSelect }
-                    renderInput={ (params) => <TextField { ...params } /> }
-                />
-                { validationFormData.category && isFormTouched && 
-                    <span className="field-error-text">{ t(validationFormData.category.error) }</span>
-                }
-            </div>
-            <div className="field">
-                <label 
-                    className="label" 
-                    htmlFor="update-good-description"
-                    data-error={ Boolean(validationFormData?.description) }
-                >{ t("text.description") }</label>
-                <TextField
-                    error={ Boolean(validationFormData?.description) && isFormTouched }
-                    helperText={ isFormTouched && t(validationFormData?.description?.error) }
-                    multiline
-                    minRows={ 3 }
-                    maxRows={ 3 }
-                    onChange={ (e) => setNewGoodData({ ...newGoodData, description: e.target.value }) }
-                    id="update-good-description"
-                    placeholder={ t("text.description") }
-                    defaultValue={ isEdit ? newGoodData?.description : "" }
-                />
-            </div>
-            <div className="field">
-                <label 
-                    className="label" 
-                    htmlFor="update-good-full-description"
-                    data-error={ Boolean(validationFormData?.fullDescription) }
-                >{ t("text.fullDescription") }</label>
-                <TextField
-                    error={ Boolean(validationFormData?.fullDescription) && isFormTouched }
-                    helperText={ isFormTouched && t(validationFormData?.fullDescription?.error) }
-                    multiline
-                    minRows={ 3 }
-                    maxRows={ 3 }
-                    onChange={ (e) => setNewGoodData({ ...newGoodData, fullDescription: e.target.value }) }
-                    id="update-good-full-description"
-                    placeholder={ t("text.fullDescription") }
-                    defaultValue={ isEdit ? newGoodData?.fullDescription : "" }
-                />
-            </div>
-            <div className="field">
-                <label 
-                    className="label" 
-                    id="update-good-images"
-                    data-error={ Boolean(validationFormData?.images) }
-                >
-                    { t("text.images") }
-                    <InputFile
-                        width="25px" 
-                        height="25px"
-                        multiple 
-                        accept=".png, .jpg, .jpeg"
-                        onChange={ (e) => setNewGoodData({ ...newGoodData, images: convertFileListToBlobArray(e.target.files) }) }
+        <form onSubmit={ handleSubmit(handleUpdateGoodData) }>
+            <div className="update-good-form">
+                <div className="field">
+                    <label 
+                        className="label"
+                        htmlFor="update-good-partNumber"
+                    >{ t("text.partNumber") }</label>
+                    <TextField
+                        error={ Boolean(errors.partNumber) }
+                        helperText={ String(errors.partNumber?.message || "") }
+                        id="update-good-partNumber"
+                        placeholder={ t("text.partNumber") }
+                        { ...register("partNumber", {
+                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                        }) }
                     />
-                </label>
-                <div className="additions">
-                    {
-                        newGoodData.images.map((el, index) => (
-                            <Tooltip
-                                key={ el + index } 
+                </div>
+                <div className="field">
+                    <label 
+                        className="label"
+                        htmlFor="update-good-name"
+                    >{ t("text.name") }</label>
+                    <TextField
+                        error={ Boolean(errors.name) }
+                        helperText={ String(errors.name?.message || "") }
+                        id="update-good-name"
+                        placeholder={ t("text.name") }
+                        { ...register("name", {
+                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                        }) }
+                    />
+                </div>
+                <div className="field">
+                    <label 
+                        className="label"
+                        htmlFor="update-good-provider"
+                    >{ t("text.provider") }</label>
+                    <TextField
+                        error={ Boolean(errors.provider) }
+                        helperText={ String(errors.provider?.message || "") }
+                        id="update-good-provider"
+                        placeholder={ t("text.provider") }
+                        { ...register("provider", {
+                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                        }) }
+                    />
+                </div>
+                <div className="field">
+                    <label 
+                        className="label"
+                    >{ t("text.category") }</label>
+                    <Controller
+                        name="category"
+                        control={ control }
+                        rules={ { required: t("errors.requiredField") } }
+                        render={ ({ field }) => (
+                            <>
+                                <Autocomplete
+                                    { ...field }
+                                    multiple
+                                    limitTags={ 3 }
+                                    options={ 
+                                        categoriesForSelect.filter(optionValue => {
+                                            return !field.value.some(selectedValue => optionValue.id === selectedValue.id );
+                                        })
+                                    }
+                                    onChange={ (_, value) => field.onChange(value) }
+                                    renderInput={ (params) => (
+                                        <TextField
+                                            { ...params }
+                                            id="update-good-category"
+                                            error={ Boolean(errors.category) }
+                                            helperText={ String(errors.category?.message || "") }
+                                        />
+                                    ) }
+                                />
+                            </>
+                        ) }
+                    />
+                </div>
+                <div className="field">
+                    <label 
+                        className="label"
+                        htmlFor="update-good-description"
+                    >{ t("text.description") }</label>
+                    <TextField
+                        error={ Boolean(errors.description) }
+                        helperText={ String(errors.description?.message || "") }
+                        id="update-good-description"
+                        placeholder={ t("text.description") }
+                        { ...register("description", {
+                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                        }) }
+                        multiline
+                        minRows={ 3 }
+                        maxRows={ 3 }
+                    />
+                </div>
+                <div className="field">
+                    <label 
+                        className="label"
+                        htmlFor="update-good-fullDescription"
+                    >{ t("text.fullDescription") }</label>
+                    <TextField
+                        error={ Boolean(errors.fullDescription) }
+                        helperText={ String(errors.fullDescription?.message || "") }
+                        id="update-good-fullDescription"
+                        placeholder={ t("text.fullDescription") }
+                        { ...register("fullDescription", {
+                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                        }) }
+                        multiline
+                        minRows={ 3 }
+                        maxRows={ 3 }
+                    />
+                </div>
+                <div className="field">
+                    <div className="field-row-label">
+                        <label className="label">{ t("text.images") }</label>
+                        <Controller
+                            name="images"
+                            control={ control }
+                            rules={ { required: t("errors.requiredField") } }
+                            render={ ({ field }) => (
+                                <InputFile
+                                    { ...field }
+                                    width="25px"
+                                    height="25px"
+                                    multiple
+                                    accept=".png, .jpg, .jpeg"
+                                    onChange={ (e) => {
+                                        const files = e.target.files;
+                                        const blobArray = convertFileListToBlobArray(files);
+                                        field.onChange(blobArray);
+                                    } }
+                                />
+                            ) }
+                        />
+                    </div>
+                    <span className="field-error-text">{ String(errors.images?.message || "") }</span>
+                    <div className="additions">
+                        {
+                            watch("images", []).map((el: string, index: number) => (
+                                <Tooltip
+                                    key={ el + index }
+                                    title={
+                                        <img
+                                            width="300px"
+                                            height="180px"
+                                            src={ el } 
+                                        />
+                                    }
+                                    placement="top"
+                                >
+                                    <a href={ el } target="__blank">
+                                        <img className="image" src={ el } />
+                                    </a>
+                                </Tooltip>
+                            ))
+                        }
+                    </div>
+                </div>
+                <div className="field">
+                    <div className="field-row-label">
+                        <label className="label">{ t("text.video") }</label>
+                        <Controller
+                            name="video"
+                            control={ control }
+                            rules={ { required: t("errors.requiredField") } }
+                            render={ ({ field }) => (
+                                <InputFile
+                                    { ...field }
+                                    width="25px"
+                                    height="25px"
+                                    accept=".mp4"
+                                    onChange={ (e) => {
+                                        const files = e.target.files;
+                                        const blobArray = convertFileListToBlobArray(files);
+                                        field.onChange(blobArray);
+                                    } }
+                                />
+                            ) }
+                        />
+                    </div>
+                    <span className="field-error-text">{ String(errors.video?.message || "") }</span>
+                    <div className="additions">
+                        {
+                            (watch("video")?.length !== 0)
+                            ? <Tooltip
+                                key={ watch("video") }
                                 title={
-                                    <img
-                                        width="300px"
-                                        height="180px"
-                                        src={ el } 
+                                    <video
+                                        width="100%"
+                                        height="100%"
+                                        src={ watch("video") }
+                                        controls
                                     />
                                 }
                                 placement="top"
                             >
-                                <a href={ el } target="__blank">
-                                    <img className="image" src={ el } />
-                                </a>
+                                <video className="video" src={ watch("video") } />
                             </Tooltip>
-                        ))
-                    }
+                            : null
+                        }
+                    </div>
                 </div>
-                { validationFormData.images && isFormTouched && 
-                    <span className="field-error-text">{ t(validationFormData.images.error) }</span>
-                }
-            </div>
-            <div className="field">
-                <label 
-                    className="label" 
-                    id="update-good-video"
-                    data-error={ Boolean(validationFormData?.video) }
-                >
-                    { t("text.video") }
-                    <InputFile 
-                        width="25px" 
-                        height="25px"
-                        accept=".mp4"
-                        onChange={ (e) => setNewGoodData({ ...newGoodData, video: convertFileListToBlobArray(e.target.files)[0] }) }
-                    />
-                </label>
-                <div className="additions">
-                    {
-                        newGoodData.video.length !== 0 && 
-                        <Tooltip
-                            key={ newGoodData.video }
-                            title={
-                                <video
-                                    width="100%"
-                                    height="100%"
-                                    src={ newGoodData.video }
-                                    controls
-                                />
-                            }
-                            placement="top"
-                        >
-                            <video className="video" src={ newGoodData.video } />
-                        </Tooltip>
-                    }
-                </div>
-                { validationFormData.video && isFormTouched && 
-                    <span className="field-error-text">{ t(validationFormData.video.error) }</span>
-                }
-            </div>
-            <div className="field">
-                <label 
-                    className="label" 
-                    id="update-good-additionalInfo"
-                    data-error={ Boolean(validationFormData?.additionalInfo) }
-                >{ t("text.additionalProductInfo") }</label>
-                {
-                    newGoodData?.additionalInfo.map((info, index) => {
-                        const validationData = validationFormData.additionalInfo && validationFormData.additionalInfo[index] || {};
-                        const isErrorShown = Boolean(validationData) && isFormTouched;
+                <div className="field">
+                    <label className="label">{ t("text.additionalProductInfo") }</label>
+                    { additionalInfoFields.map((info: FieldArrayWithId<IProductForm, "additionalInfo", "id">, index: number) => {
+
+                        const errorInfo: any = errors.additionalInfo || [];
+
                         return (
-                            <Fragment key={ info.id }>
+                            <Fragment key={ info.id + index }>
                                 <div className="field-column">
                                     <div className="fields-data">
                                         <TextField
-                                            error={ isErrorShown }
-                                            helperText={ isErrorShown ? t(validationData?.name?.error) : "" }
-                                            defaultValue={ info.name }
+                                            error={ Boolean(errorInfo[index]) }
+                                            helperText={ t(String(errorInfo[index]?.name?.message || "")) }
+                                            { ...register(`additionalInfo.${index}.name`, {
+                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                            }) }
                                             placeholder={ t("text.name") }
-                                            onChange={ (el) => {
-                                                handleUpdateAdditionalData({ ...info, name: el.target.value }, index);
-                                            } }
                                         />
+
                                         <TextField
-                                            error={ isErrorShown }
-                                            helperText={ isErrorShown ? t(validationData?.description?.error) : "" }
                                             className="variation-description"
-                                            defaultValue={ info.description }
-                                            placeholder={ t("text.value") }
-                                            onChange={ (el) => {
-                                                handleUpdateAdditionalData({ ...info, description: el.target.value }, index);
-                                            } }
+                                            error={ Boolean(errorInfo[index]) }
+                                            helperText={ t(String(errorInfo[index]?.description?.message || "")) }
+                                            { ...register(`additionalInfo.${index}.description`, {
+                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                            }) }
+                                            placeholder={ t("text.description") }
                                         />
                                     </div>
                                     <div className="dynamic-actions">
-                                        { index === newGoodData.additionalInfo.length - 1 
-                                            && <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
-                                                <BiMessageSquareAdd />
-                                            </IconButton>
+                                        { 
+                                        (index === additionalInfoFields?.length - 1) 
+                                            ? (
+                                                <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
+                                                    <BiMessageSquareAdd />
+                                                </IconButton>
+                                            ) 
+                                            : null
                                         }
                                         <IconButton className="mui-actions" onClick={ () => handleDeleteAdditionalData(index) }>
                                             <MdDelete />
@@ -378,84 +366,88 @@ export const ManageGoodForm = ({
                                 </div>
                             </Fragment>
                         );
-                    })
-                }
-            </div>
-            <div className="field">
-                <label 
-                    className="label"
-                    id="update-good-variations"
-                    data-error={ Boolean(validationFormData?.variations) }
-                >{ t("text.variationsOfProduct") }</label>
-                {
-                    newGoodData?.variations.map((info, index) => {
-                        const validationData = validationFormData.variations && validationFormData.variations[index];
-                        const isErrorShown = Boolean(validationData) && isFormTouched;
+                    }) }
+                </div>
+                <div className="field">
+                    <label className="label">{ t("text.variationsOfProduct") }</label>
+                    { variationsInfoFields.map((info: FieldArrayWithId<IProductForm, "variations", "id">, index) => {
+
+                        const errorInfo: any = errors.variations || [];
+                        const isErrorShown = Boolean(errorInfo[index]);
+
                         return (
-                            <div className="field-column" key={ info.images[0] + index }>
-                                <div className="fields-data">
-                                    <TextField
-                                        error={ isErrorShown }
-                                        helperText={ isErrorShown ? t(validationData?.name?.error) : "" }
-                                        defaultValue={ info.name }
-                                        placeholder={ t("text.systemKey") }
-                                        onChange={ (el) => {
-                                            handleUpdateVariationData({ ...info, name: el.target.value }, index);
-                                        } }
-                                    />
-                                    <TextField
-                                        error={ isErrorShown }
-                                        helperText={ isErrorShown ? t(validationData?.title?.error) : "" }
-                                        defaultValue={ info.title }
-                                        placeholder={ t("text.value") }
-                                        onChange={ (el) => {
-                                            handleUpdateVariationData({ ...info, title: el.target.value }, index);
-                                        } }
-                                    />
-                                    <TextField
-                                        error={ isErrorShown }
-                                        helperText={ isErrorShown ? t(validationData?.price?.error) : "" }
-                                        defaultValue={ info.price }
-                                        placeholder={ t("text.price") }
-                                        onChange={ (el) => {
-                                            handleUpdateVariationData({ ...info, price: +el.target.value }, index);
-                                        } }
-                                    />
-                                    <TextField
-                                        error={ isErrorShown }
-                                        helperText={ isErrorShown ? t(validationData?.stock?.error) : "" }
-                                        defaultValue={ info.stock }
-                                        placeholder={ t("text.stock") }
-                                        onChange={ (el) => {
-                                            handleUpdateVariationData({ ...info, stock: +el.target.value }, index);
-                                        } }
-                                    />
-                                </div>
-                                <div className="dynamic-actions">
-                                    { index === newGoodData.variations.length - 1 &&
-                                        <IconButton className="mui-actions" onClick={ handleAddVariation }>
-                                            <BiMessageSquareAdd />
+                            <Fragment key={ info.id + index }>
+                                <div className="field-column">
+                                    <div className="fields-data">
+                                        <TextField
+                                            error={ isErrorShown }
+                                            helperText={ t(String(errorInfo[index]?.name?.message || "")) }
+                                            { ...register(`variations.${index}.name`, {
+                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                            }) }
+                                            placeholder={ t("text.systemKey") }
+                                        />
+
+                                        <TextField
+                                            error={ isErrorShown }
+                                            helperText={ t(String(errorInfo[index]?.title?.message || "")) }
+                                            className="variation-title"
+                                            { ...register(`variations.${index}.title`, {
+                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                            }) }
+                                            placeholder={ t("text.name") }
+                                        />
+                                        <TextField
+                                            error={ isErrorShown }
+                                            helperText={ t(String(errorInfo[index]?.stock?.message || "")) }
+                                            className="variation-stock"
+                                            { ...register(`variations.${index}.stock`, {
+                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                            }) }
+                                            placeholder={ t("text.stock") }
+                                        />
+                                        <TextField
+                                            error={ isErrorShown }
+                                            helperText={ t(String(errorInfo[index]?.price?.message || "")) }
+                                            className="variation-price"
+                                            { ...register(`variations.${index}.price`, {
+                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                            }) }
+                                            placeholder={ t("text.price") }
+                                        />
+                                    </div>
+                                    <div className="dynamic-actions">
+                                        { 
+                                        (index === variationsInfoFields?.length - 1) 
+                                            ? (
+                                                <IconButton className="mui-actions" onClick={ handleAddVariation }>
+                                                    <BiMessageSquareAdd />
+                                                </IconButton>
+                                            ) 
+                                            : null
+                                        }
+                                        <IconButton className="mui-actions" onClick={ () => handleDeleteVariation(index) }>
+                                            <MdDelete />
                                         </IconButton>
-                                    }
-                                    <IconButton className="mui-actions" onClick={ () => handleDeleteVariationData(index) }>
-                                        <MdDelete />
-                                    </IconButton>
+                                    </div>
                                 </div>
-                            </div>
+                            </Fragment>
                         );
-                    })
-                }
-            </div>
-            <div className="form-actions">
-                <Button 
-                    onClick={ handleUpdateSaveGoodData }
-                    variant="contained"
-                    disabled={ !validationFormData.formValid && isFormTouched }
-                >
-                    { t("text.confirm") }
-                </Button>
-                <Button onClick={ handleCancelUpdating } variant="contained">{ t("text.close") }</Button>
-            </div>
-        </div>
+                    }) }
+                </div>
+                <div className="form-actions">
+                    <Button 
+                        type="submit"
+                        disabled={ submitCount !== 0 && !isValid }
+                        variant="contained"
+                    >{ t("text.confirm") }</Button>
+                    <Button 
+                        type="submit"
+                        onClick={ handleCancelUpdating }
+                        variant="contained"
+                    >{ t("text.close") }</Button>
+                </div>
+            </div> 
+        </form>
     );
 };
