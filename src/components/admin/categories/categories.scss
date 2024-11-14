@@ -35,28 +35,28 @@
             }
         }
         .not-empty-category {
+            margin-top: 5px;
+            border-radius: 5px;
+            background-color: var(--bg-color-block);
             .category-title {
                 font-weight: 400;
                 letter-spacing: 2px;
                 text-transform: uppercase;
             }
-            margin-top: 5px;
-            border-radius: 5px;
-            background-color: var(--bg-color-block);
             .Mui-selected {
                 background-color: var(--hover-color);
             }
         }
         .empty-category {
+            margin: 5px 12px 5px 0px;
+            text-transform: none;
+            border-radius: 5px;
+            background-color: var(--bg-color);
             .category-title {
                 font-weight: 400;
                 letter-spacing: normal;
                 text-transform: none;
             }
-            margin: 5px 12px 5px 0px;
-            text-transform: none;
-            border-radius: 5px;
-            background-color: var(--bg-color);
             .Mui-selected {
                 background-color: var(--hover-color);
             }
