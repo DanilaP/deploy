@@ -48,9 +48,9 @@ export const ManageGoodForm = ({
         handleSubmit, 
         watch, 
         register,
-        control, 
-        formState: { errors, isValid, submitCount, isDirty } 
-    } = useForm<IProductForm>({ 
+        control,
+        formState: { errors, isValid, submitCount, isDirty }
+    } = useForm<IProductForm>({
         defaultValues: goodData 
             ? {
                 ...goodData,
@@ -58,7 +58,7 @@ export const ManageGoodForm = ({
                 additionalInfo: goodData.additionalInfo,
                 variations: goodData.variations
             }
-            : DEFAULT_PRODUCT_FORM_VALUES
+            : DEFAULT_PRODUCT_FORM_VALUES,
     });
 
     const { 
@@ -162,7 +162,9 @@ export const ManageGoodForm = ({
                     />
                 </div>
                 <div className="field">
-                    <label className="label">{ t("text.category") }</label>
+                    <label 
+                        className="label"
+                    >{ t("text.category") }</label>
                     <Controller
                         name="category"
                         control={ control }
@@ -172,16 +174,17 @@ export const ManageGoodForm = ({
                                 <Autocomplete
                                     { ...field }
                                     multiple
-                                    limitTags={ 2 }
-                                    options={ categoriesForSelect.filter(
-                                        (option: ISelect) => !field.value.some((selected: ISelect) => selected.id === option.id)
-                                    ) }
-                                    getOptionLabel={ (option) => option.label }
+                                    limitTags={ 3 }
+                                    options={ 
+                                        categoriesForSelect.filter(optionValue => {
+                                            return !field.value.some(selectedValue => optionValue.id === selectedValue.id );
+                                        })
+                                    }
                                     onChange={ (_, value) => field.onChange(value) }
-                                    value={ field.value }
                                     renderInput={ (params) => (
-                                        <TextField 
+                                        <TextField
                                             { ...params }
+                                            id="update-good-category"
                                             error={ Boolean(errors.category) }
                                             helperText={ String(errors.category?.message || "") }
                                         />
@@ -326,35 +329,23 @@ export const ManageGoodForm = ({
                             <Fragment key={ info.id + index }>
                                 <div className="field-column">
                                     <div className="fields-data">
-                                        <Controller
-                                            name={ `additionalInfo.${index}.name` }
-                                            control={ control }
-                                            defaultValue={ info.name || "" }
-                                            rules={ { required: "errors.requiredField" } }
-                                            render={ ({ field }) => (
-                                                <TextField
-                                                    error={ Boolean(errorInfo[index]) }
-                                                    helperText={ t(String(errorInfo[index]?.name?.message || "")) }
-                                                    { ...field }
-                                                    placeholder={ t("text.name") }
-                                                />
-                                            ) }
+                                        <TextField
+                                            error={ Boolean(errorInfo[index]) }
+                                            helperText={ t(String(errorInfo[index]?.name?.message || "")) }
+                                            { ...register(`additionalInfo.${index}.name`, {
+                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                            }) }
+                                            placeholder={ t("text.name") }
                                         />
 
-                                        <Controller
-                                            name={ `additionalInfo.${index}.description` }
-                                            control={ control }
-                                            defaultValue={ info.description || "" }
-                                            rules={ { required: "errors.requiredField" } }
-                                            render={ ({ field }) => (
-                                                <TextField
-                                                    error={ Boolean(errorInfo[index]) }
-                                                    helperText={ t(String(errorInfo[index]?.description?.message || "")) }
-                                                    className="variation-description"
-                                                    { ...field }
-                                                    placeholder={ t("text.description") }
-                                                />
-                                            ) }
+                                        <TextField
+                                            className="variation-description"
+                                            error={ Boolean(errorInfo[index]) }
+                                            helperText={ t(String(errorInfo[index]?.description?.message || "")) }
+                                            { ...register(`additionalInfo.${index}.description`, {
+                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                            }) }
+                                            placeholder={ t("text.description") }
                                         />
                                     </div>
                                     <div className="dynamic-actions">
@@ -383,65 +374,41 @@ export const ManageGoodForm = ({
                             <Fragment key={ info.id + index }>
                                 <div className="field-column">
                                     <div className="fields-data">
-                                        <Controller
-                                            name={ `variations.${index}.name` }
-                                            control={ control }
-                                            defaultValue={ info.name || "" }
-                                            rules={ { required: "errors.requiredField" } }
-                                            render={ ({ field }) => (
-                                                <TextField
-                                                    error={ isErrorShown }
-                                                    helperText={ t(String(errorInfo[index]?.name?.message || "")) }
-                                                    { ...field }
-                                                    placeholder={ t("text.systemKey") }
-                                                />
-                                            ) }
+                                        <TextField
+                                            error={ isErrorShown }
+                                            helperText={ t(String(errorInfo[index]?.name?.message || "")) }
+                                            { ...register(`variations.${index}.name`, {
+                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                            }) }
+                                            placeholder={ t("text.systemKey") }
                                         />
 
-                                        <Controller
-                                            name={ `variations.${index}.title` }
-                                            control={ control }
-                                            defaultValue={ info.title || "" }
-                                            rules={ { required: "errors.requiredField" } }
-                                            render={ ({ field }) => (
-                                                <TextField
-                                                    error={ isErrorShown }
-                                                    helperText={ t(String(errorInfo[index]?.title?.message || "")) }
-                                                    className="variation-title"
-                                                    { ...field }
-                                                    placeholder={ t("text.name") }
-                                                />
-                                            ) }
+                                        <TextField
+                                            error={ isErrorShown }
+                                            helperText={ t(String(errorInfo[index]?.title?.message || "")) }
+                                            className="variation-title"
+                                            { ...register(`variations.${index}.title`, {
+                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                            }) }
+                                            placeholder={ t("text.name") }
                                         />
-                                        <Controller
-                                            name={ `variations.${index}.stock` }
-                                            control={ control }
-                                            defaultValue={ info.stock || 0 }
-                                            rules={ { required: "errors.requiredField" } }
-                                            render={ ({ field }) => (
-                                                <TextField
-                                                    error={ isErrorShown }
-                                                    helperText={ t(String(errorInfo[index]?.stock?.message || "")) }
-                                                    className="variation-stock"
-                                                    { ...field }
-                                                    placeholder={ t("text.stock") }
-                                                />
-                                            ) }
+                                        <TextField
+                                            error={ isErrorShown }
+                                            helperText={ t(String(errorInfo[index]?.stock?.message || "")) }
+                                            className="variation-stock"
+                                            { ...register(`variations.${index}.stock`, {
+                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                            }) }
+                                            placeholder={ t("text.stock") }
                                         />
-                                        <Controller
-                                            name={ `variations.${index}.price` }
-                                            control={ control }
-                                            defaultValue={ info.stock || 0 }
-                                            rules={ { required: "errors.requiredField" } }
-                                            render={ ({ field }) => (
-                                                <TextField
-                                                    error={ isErrorShown }
-                                                    helperText={ t(String(errorInfo[index]?.price?.message || "")) }
-                                                    className="variation-price"
-                                                    { ...field }
-                                                    placeholder={ t("text.price") }
-                                                />
-                                            ) }
+                                        <TextField
+                                            error={ isErrorShown }
+                                            helperText={ t(String(errorInfo[index]?.price?.message || "")) }
+                                            className="variation-price"
+                                            { ...register(`variations.${index}.price`, {
+                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                            }) }
+                                            placeholder={ t("text.price") }
                                         />
                                     </div>
                                     <div className="dynamic-actions">
