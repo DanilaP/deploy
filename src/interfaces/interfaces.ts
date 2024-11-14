@@ -8,7 +8,8 @@ export interface IUser {
     password?: string,
     role?: string,
     avatar?: string,
-    backet?: any[]
+    backet?: any[],
+    favorites?: number[]
 }
 export interface IPermission {
     name: string,

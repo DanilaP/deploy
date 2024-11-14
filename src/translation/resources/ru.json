@@ -196,7 +196,13 @@
         "deleteReview": "Удалить отзыв",
         "review": "Отзыв",
         "quantity": "Количество",
-        "uploadFiles": "Загрузка файлов"
+        "uploadFiles": "Загрузка файлов",
+        "deleteAll": "Удалить всё",
+        "favoritesAreClear": "Список избранных товаров пуст",
+        "addToBasket": "Добавить в корзину",
+        "selectAll": "Выбрать всё",
+        "numberOfProducts": "Количество товаров",
+        "amount": "На сумму"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",
@@ -246,6 +252,7 @@
         "adminRoles": "Роли",
         "adminPermissions": "Разрешения/права",
         "shopProduct": "Продукт",
-        "productReviews": "Отзывы о продукте"
+        "productReviews": "Отзывы о продукте",
+        "favorites": "Избранное"
     }
 }

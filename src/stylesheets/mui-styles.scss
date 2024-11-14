@@ -3,7 +3,11 @@
     .MuiInputBase-root {
         color: var(--text-color);
     }
-    
+    .css-1abvrni-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+        background-color: var(bg-color-block);
+        color: grey;
+    }
+
     input, fieldset {
         border: 1px solid rgba(128, 128, 128, 0.247);
         color: var(--text-color);

@@ -186,7 +186,14 @@
             "orderData": "Order Details",
             "emptyDeliveryVar": "Delivery method not selected",
             "emptyPaymentVar": "Payment method not selected"
-        }
+        },
+        "uploadFiles": "Upload files",
+        "deleteAll": "Delete all",
+        "favoritesAreClear": "The list of favorites is empty",
+        "addToBasket": "Add to basket",
+        "selectAll": "Select all",
+        "numberOfProducts": "Number of products",
+        "amount": "Amount"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
@@ -234,6 +241,7 @@
         "adminRoles": "Roles",
         "adminPermissions": "Permissions",
         "shopProduct": "Product",
-        "productReviews": "Reviews of the product"
+        "productReviews": "Reviews of the product",
+        "favorites": "Favorites"
     }
 }
