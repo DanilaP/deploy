@@ -17,6 +17,8 @@
         "permissionsPage": "Разрешения/права",
         "rolesPage": "Роли",
         "cart": "Корзина",
+        "productPage": "Страница продукта",
+        "productReviewsPage": "Страница отзывов о продукте",
         "goodsPage": "Товары"
 },
     "labels": {
@@ -78,7 +80,12 @@
         "additionalProductInfo": "Характеристики (название, значение)",
         "variationsOfProduct": "Вариации (системный ключ, название, цена, остаток)",
         "createGroup": "Создать группу",
+        "requiredField": "Это обязательное поле",
+        "confirmDeletingCategory": "Вы уверены, что хотите удалить категорию",
         "deleteGroup": "Удалить группу",
+        "editCategory": "Редактировать категорию",
+        "createCategory": "Создать категорию",
+        "addCategory": "Добавить категорию",
         "groupName": "Наименование группы",
         "cart": {
             "productChoose": "Выберите товары, чтобы перейти к оформлению",
@@ -160,5 +167,16 @@
     },
     "symbols": {
         "rub": "\u20BD"
+    },
+    "breadcrumbs": {
+        "about": "О проекте",
+        "shop": "Магазин",
+        "profile": "Профиль",
+        "adminPage": "Страница администрации",
+        "adminUsers": "Пользователи",
+        "adminRoles": "Роли",
+        "adminPermissions": "Разрешения/права",
+        "shopProduct": "Продукт",
+        "productReviews": "Отзывы о продукте"
     }
 }

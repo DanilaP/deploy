@@ -11,7 +11,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -61,6 +61,14 @@
         "video": "http://localhost:5000/video/video1.mp4",
         "photo": "http://localhost:5000/products/product1.jpg",
         "likes": []
+      },
+      {
+        "clientId": 1727158100336,
+        "text": "тест",
+        "evaluation": 4,
+        "video": "http://localhost:5000/video/video1.mp4",
+        "photo": "http://localhost:5000/products/product1.jpg",
+        "likes": []
       }
     ],
     "variations": [
@@ -98,7 +106,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -176,7 +184,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video2.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -255,7 +263,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -325,7 +333,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video2.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -395,7 +403,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -465,7 +473,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -535,7 +543,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,
@@ -605,7 +613,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": "Вычислительная техника",
+    "category": ["1"],
     "additionalInfo": [
       {
         "id": 1,

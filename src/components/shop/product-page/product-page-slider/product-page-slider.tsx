@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -9,9 +8,6 @@ import './product-page-slider.scss';
 export default function ProductSlider (props: { variationInfo: any }) {
 
     const { t } = useTranslation();
-    useEffect(() => {
-        document.title = t("titles.aboutPage");
-    });
     
     return (
         <div className="product-slider">

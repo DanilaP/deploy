@@ -86,8 +86,8 @@ export default function ProductReviews () {
     };
 
     useEffect(() => {
-        document.title = t("titles.aboutPage");
-    });
+        document.title = t("titles.productReviewsPage");
+    }, []);
 
     useEffect(() => {
         $api.get(`/reviews/product/?id=${ params.id }`)
@@ -121,7 +121,7 @@ export default function ProductReviews () {
                             name="half-rating"
                             precision={ 0.5 }
                             readOnly
-                            value = { productInfo ? getAverageEvaluation(productInfo.reviews) : 0 }
+                            value = { productInfo ? Number(getAverageEvaluation(productInfo.reviews)) : 0 }
                         />
                     </div>
                     <div className="reviews-settings-content">
