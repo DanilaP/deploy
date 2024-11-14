@@ -301,8 +301,8 @@ export const ManageGoodForm = ({
                     <span className="field-error-text">{ String(errors.video?.message || "") }</span>
                     <div className="additions">
                         {
-                            watch("video")?.length !== 0 && 
-                            <Tooltip
+                            (watch("video")?.length !== 0)
+                            ? <Tooltip
                                 key={ watch("video") }
                                 title={
                                     <video
@@ -316,6 +316,7 @@ export const ManageGoodForm = ({
                             >
                                 <video className="video" src={ watch("video") } />
                             </Tooltip>
+                            : null
                         }
                     </div>
                 </div>
@@ -349,11 +350,15 @@ export const ManageGoodForm = ({
                                         />
                                     </div>
                                     <div className="dynamic-actions">
-                                        { index === additionalInfoFields?.length - 1 && (
-                                        <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
-                                            <BiMessageSquareAdd />
-                                        </IconButton>
-                                        ) }
+                                        { 
+                                        (index === additionalInfoFields?.length - 1) 
+                                            ? (
+                                                <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
+                                                    <BiMessageSquareAdd />
+                                                </IconButton>
+                                            ) 
+                                            : null
+                                        }
                                         <IconButton className="mui-actions" onClick={ () => handleDeleteAdditionalData(index) }>
                                             <MdDelete />
                                         </IconButton>
@@ -412,11 +417,15 @@ export const ManageGoodForm = ({
                                         />
                                     </div>
                                     <div className="dynamic-actions">
-                                        { index === variationsInfoFields?.length - 1 && (
-                                        <IconButton className="mui-actions" onClick={ handleAddVariation }>
-                                            <BiMessageSquareAdd />
-                                        </IconButton>
-                                        ) }
+                                        { 
+                                        (index === variationsInfoFields?.length - 1) 
+                                            ? (
+                                                <IconButton className="mui-actions" onClick={ handleAddVariation }>
+                                                    <BiMessageSquareAdd />
+                                                </IconButton>
+                                            ) 
+                                            : null
+                                        }
                                         <IconButton className="mui-actions" onClick={ () => handleDeleteVariation(index) }>
                                             <MdDelete />
                                         </IconButton>
