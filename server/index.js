@@ -495,6 +495,29 @@ app.post("/backet", async function(req, res) {
     }
 });
 
+
+//Favorites
+app.get("/favorites", async function(req, res) {
+    try {
+        const token = req.headers.authorization;     
+        const userId = jwt_decode(token).id;
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+        const user = currentUsers.filter(user => user.id === userId)[0];
+        const userFavorites = currentProducts.reduce((prev, product) => {
+            if (user.favorites.includes(product.id)) {
+                return [...prev, product];
+            }
+            return prev;
+        }, []);
+        res.status(200).json({ message: "Успешное получение данных об избранных товарах!", favorites: userFavorites });
+    }
+    catch(error) {
+        res.status(400).json({ message: "Ошибка при получении избранных товаров!" });
+        console.error("get /favourites", error);
+    }
+});
+
 // categories
 
 app.get("/category", async function(req, res) {

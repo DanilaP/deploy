@@ -18,6 +18,11 @@
         "number": 12,
         "variation": "Base"
       }
+    ],
+    "favorites": [
+      1,
+      3,
+      5
     ]
   },
   {
@@ -26,7 +31,12 @@
     "password": "$2a$07$yeAFGaIvxta72M/4RzLiReAPt/hCKDPOvSB.FpG4sM/gi07HBtGL6",
     "role": "Модератор",
     "avatar": "http://localhost:5000/avatar.jpg",
-    "backet": []
+    "backet": [],
+    "favorites": [
+      1,
+      3,
+      5
+    ]
   },
   {
     "id": 1727161785732,
@@ -34,7 +44,12 @@
     "password": "$2a$07$ItQ8NTItTNk46S.PwwmdD.n.BrlwoO.Sc7ByhzR40f3quxyZUyt6S",
     "role": "Пользователь",
     "avatar": "http://localhost:5000/avatar.jpg",
-    "backet": []
+    "backet": [],
+    "favorites": [
+      1,
+      3,
+      5
+    ]
   },
   {
     "id": 1730462293031,
@@ -42,6 +57,11 @@
     "password": "$2a$07$wQA9hUv05QN12XtjpC5hJO2tsFiHTT.ZCJJAXzxhAcCbdyEvJUviW",
     "role": "Администратор",
     "avatar": "http://localhost:5000/avatar.jpg",
-    "backet": []
+    "backet": [],
+    "favorites": [
+      1,
+      3,
+      5
+    ]
   }
 ]

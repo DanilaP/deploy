@@ -103,7 +103,13 @@
         "deleteReview": "Delete review",
         "review": "Review",
         "quantity": "Quantity",
-        "uploadFiles": "Upload files"
+        "uploadFiles": "Upload files",
+        "deleteAll": "Delete all",
+        "favoritesAreClear": "The list of favorites is empty",
+        "addToBasket": "Add to basket",
+        "selectAll": "Select all",
+        "numberOfProducts": "Number of products",
+        "amount": "Amount"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
@@ -148,10 +154,12 @@
         "adminRoles": "Roles",
         "adminPermissions": "Permissions",
         "shopProduct": "Product",
-        "productReviews": "Reviews of the product"
+        "productReviews": "Reviews of the product",
+        "favorites": "Favorites"
     },
     "errors": {
         "requiredField": "This field is requiered",
-        "notZero": "This field cant be 0"
+        "notZero": "This field cant be 0",
+        "productReviews": "Reviews of the product"
     }
 }
