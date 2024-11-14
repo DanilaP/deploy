@@ -51,6 +51,5 @@ If you are developing a production application, we recommend updating the config
   - Add favorites page
 - Create page for managing categories
   - Install `@mui/x-tree-view`
-
-
+  - Add products store page
 
