@@ -45,7 +45,7 @@ export default function StoreCreator (props: {
         <div className="store-creator">
             <form onSubmit={ handleSubmit(onSubmit) } className="store-creator-form">
                 <TextField 
-                    error = { !!errors.storeName }
+                    error = { Boolean(errors.storeName) }
                     helperText = { String(errors.storeName?.message || "") }
                     { 
                         ...register("storeName", { 
@@ -71,7 +71,7 @@ export default function StoreCreator (props: {
                                     <TextField 
                                         onChange={ (value) => field.onChange(value) }
                                         helperText={ errors.storeAddress ? t("text.requiredField") : "" } 
-                                        error={ !!errors.storeAddress } 
+                                        error={ Boolean(errors.storeAddress) } 
                                         { ...params } 
                                         label={ t("text.storeAddress") } 
                                     /> 
