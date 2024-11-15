@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 import { Button, FormLabel, Link, TextField } from '@mui/material';
-import { validator } from '../../../helpers/auth-helpers';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useStore } from '../../../stores';
 import { formData } from '../auth-interfaces/auth-interfaces';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { validateRequiredField } from '../../../helpers/validators-helper';
+import { validateEmail, validateRequiredField } from '../../../helpers/validators-helper';
 
 
 export default function SignIn () {
@@ -22,17 +21,15 @@ export default function SignIn () {
     };
 
     const signUp = async (userData: formData) => {
-        if (validator.validateForm(userData)) {
-            axios.post("http://localhost:5000/auth/signin", userData)
-            .then((res) => {
-                sessionStorage.setItem("token", res.data.token);
-                userStore.setUser(res.data.user);
-                navigate("/profile");
-            })
-            .catch((error) => {
-                console.error(t("methods.signInMethod"), error);
-            });
-        }
+        axios.post("http://localhost:5000/auth/signin", userData)
+        .then((res) => {
+            sessionStorage.setItem("token", res.data.token);
+            userStore.setUser(res.data.user);
+            navigate("/profile");
+        })
+        .catch((error) => {
+            console.error(t("methods.signInMethod"), error);
+        });
     };
 
     useEffect(() => {
@@ -49,7 +46,13 @@ export default function SignIn () {
                     helperText = { String(errors.login?.message || "") }
                     {
                         ...register("login", {
-                            validate: (value: string) => validateRequiredField(value) ? true : t("text.requiredField")
+                            validate: (
+                                (value: string) => validateEmail(value) 
+                                    ? true 
+                                    : validateRequiredField(value) 
+                                        ? t("text.invalidEmail")
+                                        : t("text.requiredField")
+                            )
                         })
                     }
                     placeholder='example@gmail.com'

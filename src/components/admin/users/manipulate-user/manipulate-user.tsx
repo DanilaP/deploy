@@ -5,7 +5,7 @@ import './manipulate-user.scss';
 import $api from '../../../../configs/axiosconfig/axios.js';
 import { Autocomplete, Button, TextField } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { validateRequiredField } from '../../../../helpers/validators-helper.js';
+import { validateEmail, validateRequiredField } from '../../../../helpers/validators-helper.js';
 
 interface formData {
     role: string,
@@ -27,8 +27,8 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
             const newUser = {
                 ...props.user,
                 login: newUserData.login,
-                password: newUserData.password,
                 role: newUserData.role,
+                password: newUserData.password !== "" ? newUserData.password : props.user.password
             };
             $api.put("/users", newUser)
             .then((res) => {
@@ -96,9 +96,15 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
                     <TextField 
                         error = { Boolean(errors.login) }
                         helperText = { String(errors.login?.message || "") }
-                        {
+                        {   
                             ...register("login", {
-                                validate: (value: string) => validateRequiredField(value) ? true : t("text.requiredField")
+                                validate: (
+                                    (value: string) => validateEmail(value) 
+                                        ? true 
+                                        : validateRequiredField(value) 
+                                            ? t("text.invalidEmail")
+                                            : t("text.requiredField")
+                                )
                             })
                         }
                         placeholder='example@gmail.com'
@@ -110,7 +116,11 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
                         helperText = { String(errors.password?.message || "") }
                         {
                             ...register("password", {
-                                validate: (value: string) => validateRequiredField(value) ? true : t("text.requiredField")
+                                validate: (value: string) => props.user 
+                                    ? true
+                                    : validateRequiredField(value) 
+                                        ? true 
+                                        : t("text.requiredField")
                             })
                         }
                         placeholder='examplepassword'

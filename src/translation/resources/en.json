@@ -106,6 +106,7 @@
         "review": "Review",
         "quantity": "Quantity",
         "uploadFiles": "Upload files",
+        "invalidEmail": "Invalid email",
         "cart": {
             "productChoose": "Select products to proceed to checkout",
             "preDeliverInfo": "Available delivery methods and times can be selected when placing an order",
