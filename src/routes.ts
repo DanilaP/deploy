@@ -5,6 +5,7 @@ import SignIn from "./components/auth/sign-in/sign-in";
 import SignUp from "./components/auth/sign-up/sign-up";
 import AboutPage from "./components/about/about";
 import ShopPage from "./components/shop/shop";
+import CartPage from "./components/cart/cart-page.tsx";
 import UsersList from "./components/admin/users/users-list/users-list";
 import ProfilePage from "./components/profile/profile";
 import RolesPage from "./components/admin/roles/roles";
@@ -14,6 +15,7 @@ import ProductPage from "./components/shop/product-page/product-page";
 import ProductReviews from "./components/shop/product-reviews-page/product-reviews-page";
 import { CategoriesPage } from "./components/admin/categories/categories";
 import { t } from "i18next";
+import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import Favorites from "./components/favorites/favorites";
 import ProductsStore from "./components/admin/products-store/products-store";
 
@@ -39,6 +41,16 @@ export const routes = [
     {
         path: '/shop',
         component: ShopPage,
+        children: null
+    },
+    {
+        path: '/cart',
+        component: CartPage,
+        children: null
+    },
+    {
+        path: '/checkout',
+        component: CheckoutPage,
         children: null,
         breadcrumb : t("breadcrumbs.shop")
     },

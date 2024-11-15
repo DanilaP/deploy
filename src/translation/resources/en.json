@@ -15,6 +15,7 @@
         "manipulateUser": "User manipulation",
         "profilePage": "Profile page",
         "permissionsPage": "Permissions page",
+        "cart": "Cart",
         "productPage": "Product page",
         "productReviewsPage": "Product reviews page",
         "technics": "technics",
@@ -105,6 +106,31 @@
         "review": "Review",
         "quantity": "Quantity",
         "uploadFiles": "Upload files",
+        "cart": {
+            "productChoose": "Select products to proceed to checkout",
+            "preDeliverInfo": "Available delivery methods and times can be selected when placing an order",
+            "placeOrderButton": "Proceed to checkout",
+            "deleteProductsButton": "Delete selected",
+            "selectAll": "Select all",
+            "stock": "In stock",
+            "color": "Color",
+            "noColor": "Color not specified",
+            "emptyBasket": "Cart is empty",
+            "findProductsInfo": "Go to the catalog to find products",
+            "toCatalog": "To the catalog",
+            "variation": "equipment",
+            "total": "Total price",
+            "pcs": "pcs",
+            "productsCount": {
+                "product_one": "{{count}} item",
+                "product_other": "{{count}} items"
+            },
+            "confirmDeleteTitle": "Removing product",
+            "confirmDeleteMessage": "Are you sure you want to delete the product?",
+            "delete": "Delete",
+            "cancel": "Cancel"
+        },
+        "uploadFiles": "Upload files",
         "deleteAll": "Delete all",
         "favoritesAreClear": "The list of favorites is empty",
         "addToBasket": "Add to basket",
@@ -158,6 +184,9 @@
         "CreateGroupOfPermissions": "Create group of permissions",
         "DeleteGroupOfPermissions": "Delete group of permissions",
         "ModifyGroupOfPermissions": "Modify group of permissions"
+    },
+    "symbols": {
+        "rub": "\u20BD"
     },
     "breadcrumbs": {
         "about": "About page",
