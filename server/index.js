@@ -134,7 +134,9 @@ app.put("/users", async function(req, res) {
                 return { 
                     ...req.body,
                     id: user.id,
-                    password: req.body.password ? bcrypt.hashSync(req.body.password, 7) : user.password,
+                    password: (req.body.password === user.password) 
+                        ? user.password 
+                        : bcrypt.hashSync(req.body.password, 7)
                 };
             }
             return user;
