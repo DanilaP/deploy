@@ -14,18 +14,16 @@ import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid2";
 import ProductCard from "./product-card/product-card.tsx";
 import './checkout-page.scss';
-import { IAddressForm, IDeliveryData, IStore } from "../../interfaces/interfaces.ts";
+import { IDeliveryData, IPickUp } from "../../interfaces/interfaces.ts";
 import cartApi from "../../api/cart.ts";
 import CheckoutCard from "./checkout-card/checkout-card.tsx";
 import { formatCurrency, formatPhoneNumber } from "../../helpers/cart-helpers.tsx";
 import UserData from "./user-data-form/user-data.tsx";
-import { validateCheckout, validateUserForm } from "../../validationUtils.ts";
+import { validateCheckout } from "../../validationUtils.ts";
 
 interface ValidationErrors {
     isErrors: boolean,
     errors: {
-        name?: string;
-        tel?: string;
         payment?: string;
         delivery?: string;
     }
@@ -41,27 +39,20 @@ const CheckoutPage = () => {
     } = cartStore;
 
     const [deliveryData, setDeliveryData] = useState<IDeliveryData>();
-    const [storesList, setStoresList] = useState<Array<IStore>>([]);
-    const [userAddressesList, setUserAddressesList] = useState<IAddressForm[]>([]);
+    const [storesList, setStoresList] = useState<Array<IPickUp>>([]);
 
-    const [name, setName] = useState(userStore?.user?.name || '');
-    const [tel, setTel] = useState(userStore?.user?.tel || '');
     const [selectedPayment, setSelectedPayment] = useState('');
     const [selectedDelivery, setSelectedDelivery] = useState('');
 
     const [formErrors, setFormErrors] = useState<ValidationErrors>({
         isErrors: false,
         errors: {
-            name: '',
-            tel: '',
             payment: '',
             delivery: '',
         },
     });
 
     const fieldSetters = {
-        name: setName,
-        tel: setTel,
         payment: setSelectedPayment,
         delivery: setSelectedDelivery,
     };
@@ -81,25 +72,11 @@ const CheckoutPage = () => {
         }));
     };
 
-    const handleConfirmUserData = (): boolean => {
-        const { isValid, errors } = validateUserForm(name, tel, t);
-        if (isValid) {
-            return true;
-        }
-
-        setFormErrors({
-            isErrors: true,
-            errors: errors,
-        });
-
-        return false;
-    };
-
     const handleConfirmCheckout = (): boolean => {
         const {
             isValid,
             errors
-        } = validateCheckout(name, tel, selectedDelivery, selectedPayment, t);
+        } = validateCheckout(selectedDelivery, selectedPayment, t);
 
         if (isValid) {
             return true;
@@ -109,7 +86,6 @@ const CheckoutPage = () => {
             isErrors: true,
             errors: errors,
         });
-
         return false;
     };
 
@@ -118,10 +94,6 @@ const CheckoutPage = () => {
         const getData = async() => {
             try {
                 const userId = userStore.user?.id;
-                if (userId === null) {
-                    console.error("Пользователь не авторизован");
-                    return;
-                }
 
                 const [storesData, deliveryData] = await Promise.all([
                     api.getStoresList(),
@@ -140,7 +112,6 @@ const CheckoutPage = () => {
         if (deliveryData) {
             setSelectedPayment(deliveryData.prevPaymentMethod);
             setSelectedDelivery(deliveryData.prevDeliveryMethod);
-            setUserAddressesList(deliveryData.prevDelivery.addresses);
         }
     }, [deliveryData]);
 
@@ -154,21 +125,11 @@ const CheckoutPage = () => {
                   <Card className="card-wrapper">
                     <CardContent>
                       <Typography className="order-title" variant="h6">
-                          { userStore?.user?.name && t('text.checkout.recipient') }
+                          { t('text.checkout.recipient') }
                       </Typography>
-                      <Typography>
-                          { name
-                              ? `${name}, ${ formatPhoneNumber(tel) }`
-                              : t('text.checkout.insertRecipientData') }
-                      </Typography>
+                      <Typography> { userStore?.user?.name }, { formatPhoneNumber(userStore.user.tel) }</Typography>
                       <Box display="flex" justifyContent="flex-end">
-                        <UserData
-                          name={ name }
-                          tel={ tel }
-                          handleChange={ handleChange }
-                          errors={ formErrors.errors }
-                          handleConfirmUserData={ handleConfirmUserData }
-                        />
+                        <UserData />
                       </Box>
                     </CardContent>
                   </Card>
@@ -180,7 +141,6 @@ const CheckoutPage = () => {
                       </Typography>
                         <DeliveryForm
                           storesList={ storesList }
-                          userAddressesList={ userAddressesList }
                           deliveryData={ deliveryData.prevDelivery }
                           handleChange={ handleChange }
                           selectedDelivery={ selectedDelivery }

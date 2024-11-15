@@ -21,12 +21,11 @@ const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
     const navigate = useNavigate();
 
     const { productInfo, id } = product;
-    const { variations, additionalInfo, name, images } = productInfo;
+    const { variations, additionalInfo, name } = productInfo;
 
     const currentVariation = variations.find((variation: any) => variation.name === product.variation);
     const currentColor = additionalInfo.find((info: any) => info.name === 'Цвет')?.description || t('text.cart.noColor');
-    const price = currentVariation.price;
-    const title = currentVariation.title;
+    const { price, title, images } = currentVariation;
 
     const formattedProductPrice = formatCurrency(price);
 

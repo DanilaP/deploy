@@ -10,184 +10,213 @@ import {
     Stack,
     TextField, Typography,
 } from "@mui/material";
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { IAddressForm } from "../../../../interfaces/interfaces.ts";
+import { IAddress } from "../../../../interfaces/interfaces.ts";
 import { AddressSuggestions, DaDataAddress, DaDataSuggestion } from 'react-dadata';
 import { getFormattedAddressString } from "../../../../helpers/cart-helpers.tsx";
 import 'react-dadata/dist/react-dadata.css';
 import './courier-dialog.scss';
+import IconButton from "@mui/material/IconButton";
+import { FaTimes } from 'react-icons/fa';
+import _ from 'lodash';
+
 
 interface CourierDialogProps {
-    addressFieldsData: IAddressForm | null;
+    currentAddress: IAddress | null;
     open: boolean;
     handleClose: () => void;
-    handleChange: (field: keyof IAddressForm) => (event: ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (field: keyof IAddress) => (event: ChangeEvent<HTMLInputElement>) => void;
     handleConfirm: (data: string) => void;
-    addresses: IAddressForm[];
-    prevUserAddressId: string,
-    setPrevUserAddressId: (id: string) => void,
-}
-
-interface DaDataSuggestion<T> {
-    value: string;
-    unrestricted_value: string;
-    data: T;
+    addresses: IAddress[];
+    currentAddressId: string;
+    setCurrentAddressId: (id: string) => void;
+    handleDeleteAddress: (id: string ) => void;
+    setCurrentAddress: (e: IAddress) => void;
+    setAddresses: (addresses: any) => void;
 }
 
 const DA_DATA_API_KEY = import.meta.env.VITE_APP_DA_DATA_API_KEY;
-
-const CustomMUITextField = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
-    (props, ref) => {
-        return (
-            <TextField
-                { ...props }
-                ref={ ref }
-                variant="outlined"
-                fullWidth
-            />
-        );
-    }
-);
-
 
 const CourierDialog: FC<CourierDialogProps> = ({
   open,
   handleClose,
   addresses,
+  setAddresses,
   handleChange,
   handleConfirm,
-  addressFieldsData,
-  prevUserAddressId,
-  setPrevUserAddressId,
+  currentAddress,
+  setCurrentAddress,
+  currentAddressId,
+  setCurrentAddressId,
+  handleDeleteAddress,
 }) => {
     const { t } = useTranslation();
-    const [selectedAddress, setSelectedAddress] = useState<DaDataSuggestion<DaDataAddress> | undefined>(undefined);
+    const [prevSelectedAddress, setPrevSelectedAddress] = useState(currentAddress);
+
+    const handleSelectAddressChange = (event) => {
+        const selectedAddressId = event.target.value;
+        const newSelectedAddress = addresses
+            .find(({ id }) => id === selectedAddressId);
+
+        if (newSelectedAddress) {
+            setPrevSelectedAddress(newSelectedAddress);
+            setCurrentAddress(newSelectedAddress);
+            setCurrentAddressId(selectedAddressId);
+        }
+    };
+
+    const [daDataFieldValue, setDaDataFieldValue] = useState<DaDataSuggestion<DaDataAddress> | undefined>();
 
     useEffect(() => {
-        if (addresses && addresses.length > 0) {
-            setSelectedAddress({ value: addresses[0].address, unrestricted_value: '', data: {} });
+        if (daDataFieldValue) {
+            setCurrentAddress((prev: IAddress) => ({ ...prev, address: daDataFieldValue.value }));
         }
-    }, [addresses]);
+    }, [daDataFieldValue]);
 
-    const handleChangeAddress = (suggestionAddress?: DaDataSuggestion<DaDataAddress>) => {
-        if (suggestionAddress && suggestionAddress.value) {
-            setSelectedAddress(suggestionAddress);
-            handleChange('address')({ target: { value: suggestionAddress.value } } as ChangeEvent<HTMLInputElement>);
+
+    const filterEmptyEntries = (obj: Record<string, any>) =>
+        Object.entries(obj).filter(([, value]) => value);
+
+    const onSubmit = (e: FormEvent) => {
+        e.preventDefault();
+
+        const filteredCurrentAddressEntries = filterEmptyEntries(currentAddress);
+        const filteredPrevSelectedAddressEntries = filterEmptyEntries(prevSelectedAddress);
+
+        if (!_.isEqual(filteredCurrentAddressEntries, filteredPrevSelectedAddressEntries)) {
+            const newId = _.uniqueId('2');
+            const newAddress: IAddress = { ...currentAddress, id: newId };
+
+            setCurrentAddressId(newId);
+            setCurrentAddress(newAddress);
+            setAddresses((prevAddresses: IAddress[]) => [...prevAddresses, newAddress]);
         }
+
+        handleConfirm('courier');
     };
 
-    const handleSelectAddressChange = (event: any) => {
-        setPrevUserAddressId(event.target.value);
-        const newSelectedAddress = addresses
-            .find(({ id }) => id === event.target.value);
 
-            if (newSelectedAddress) {
-                handleChangeAddress({ value: newSelectedAddress.address, unrestricted_value: '', data: {} });
-            }
-    };
 
     return (
-        <Dialog className="courier-dialog-wrapper" open={ open } onClose={ handleClose } maxWidth="sm" fullWidth>
-            { addresses.length > 0 &&
-              <FormControl className="form-control"  variant="outlined">
-                <InputLabel>{ t('text.checkout.selectAddress') }</InputLabel>
-                <Select
-                  onChange={ handleSelectAddressChange }
-                  MenuProps={ {
-                      classes: {
-                          paper: "custom-select-menu",
-                      },
-                  } }
-                  className="select-wrapper"
-                  label={ t('text.checkout.selectAddress') }
-                  value={ prevUserAddressId }
-                  renderValue={ ( ) => '' }
-                >
-                    { addresses.map((address, index) => (
-                        <MenuItem
-                            className="select-item"
-                            key={ index }
-                            value={ address.id }
-                        >
-                            <Stack direction="column" className="address-wrapper">
-                                { getFormattedAddressString(address, t) }
-                            </Stack>
-                        </MenuItem>
-                    )) }
-                </Select>
-              </FormControl>
-            }
+            <Dialog className="courier-dialog-wrapper" open={ open } onClose={ handleClose } maxWidth="sm" fullWidth>
+                <form onSubmit={ onSubmit }>
+                { addresses.length > 0 &&
+                  <FormControl className="form-control"  variant="outlined">
+                    <InputLabel>{ t('text.checkout.selectAddress') }</InputLabel>
+                    <Select
+                      onChange={ handleSelectAddressChange }
+                      MenuProps={ {
+                          classes: {
+                              paper: "custom-select-menu",
+                          },
+                      } }
+                      className="select-wrapper"
+                      label={ t('text.checkout.selectAddress') }
+                      value={ currentAddress?.id || '' }
+                      renderValue={ () => `${currentAddress?.address}, ${currentAddress?.houseNumber || ''}, кв. ${currentAddress?.apartment}` }
+                    >
+                        { addresses.map((address, index) => (
+                            <MenuItem
+                                className="select-item"
+                                key={ index }
+                                value={ address?.id || '' }
+                            >
+                                <div className="address-wrapper">
+                                    <Stack direction="column">
+                                        { getFormattedAddressString(address, t) }
+                                    </Stack>
+                                    <IconButton
+                                        className={ `delete-icon ${ address.id === currentAddressId ? 'hidden' : 'visible' }` }
+                                        onClick={ (e) => {
+                                            e.stopPropagation();
+                                            handleDeleteAddress(address.id);
+                                        } }
+                                        size="small"
+                                    >
+                                        <FaTimes size={ 20 } />
+                                    </IconButton>
+                                </div>
+                            </MenuItem>
+                        )) }
+                    </Select>
+                  </FormControl>
+                }
 
-            <DialogContent>
-                <Typography variant="subtitle1">{ t('text.checkout.deliveryAddress') }</Typography>
-                <Stack className="dialog-content" spacing={ 2 }>
+                <DialogContent>
+                    <Typography variant="subtitle1">{ t('text.checkout.deliveryAddress') }</Typography>
+                    <Stack className="dialog-content" spacing={ 2 }>
 
-                    <AddressSuggestions
-                        token={ DA_DATA_API_KEY }
-                        defaultQuery={ addressFieldsData?.address }
-                        value={ selectedAddress }
-                        inputProps={ {
-                            label: t('text.checkout.courierFormLabels.address'),
-                        } }
-                        onChange={ handleChangeAddress }
-                        customInput={ CustomMUITextField }
-                    />
-
-                    <Stack className="c" direction="row" spacing={ 2 }>
-                        <TextField
-                            label={ t('text.checkout.courierFormLabels.apartment') }
-                            variant="outlined"
-                            value={ addressFieldsData?.apartment }
-                            onChange={ handleChange('apartment') }
-                            fullWidth
+                        <AddressSuggestions
+                            token={ DA_DATA_API_KEY }
+                            defaultQuery={ currentAddress?.address }
+                            value={ { value: currentAddress?.address } }
+                            inputProps={ {
+                                required: true,
+                                placeholder: t('text.checkout.courierFormLabels.address'),
+                                onChange: handleChange('address'),
+                                error: String(!!daDataFieldValue?.value || !currentAddress?.address)
+                            } }
+                            onChange={ setDaDataFieldValue }
                         />
+                        <Stack className="stack-wrapper" direction="row" spacing={ 2 }>
+                            <TextField
+                                label={ t('text.checkout.courierFormLabels.houseNumber') }
+                                variant="outlined"
+                                value={ currentAddress?.houseNumber || '' }
+                                onChange={ handleChange('houseNumber') }
+                                fullWidth
+                            />
+                            <TextField
+                                label={ t('text.checkout.courierFormLabels.entrance') }
+                                variant="outlined"
+                                value={ currentAddress?.entrance || '' }
+                                onChange={ handleChange('entrance') }
+                                fullWidth
+                            />
+                            <TextField
+                                label={ t('text.checkout.courierFormLabels.apartment') }
+                                variant="outlined"
+                                value={ currentAddress?.apartment || '' }
+                                onChange={ handleChange('apartment') }
+                                fullWidth
+                            />
+                        </Stack>
+                        <Stack direction="row" spacing={ 2 }>
+                            <TextField
+                                label={ t('text.checkout.courierFormLabels.floor') }
+                                variant="outlined"
+                                value={ currentAddress?.floor || '' }
+                                onChange={ handleChange('floor') }
+                                fullWidth
+                            />
+                            <TextField
+                                fullWidth
+                                label={ t('text.checkout.courierFormLabels.intercom') }
+                                variant="outlined"
+                                value={ currentAddress?.intercom || '' }
+                                onChange={ handleChange('intercom') }
+                            />
+                        </Stack>
                         <TextField
-                            label={ t('text.checkout.courierFormLabels.entrance') }
+                            label={ t('text.checkout.courierFormLabels.comment') }
                             variant="outlined"
-                            value={ addressFieldsData?.entrance }
-                            onChange={ handleChange('entrance') }
                             fullWidth
+                            multiline
+                            rows={ 4 }
+                            value={ currentAddress?.comment || '' }
+                            onChange={ handleChange('comment') }
                         />
                     </Stack>
-                    <Stack direction="row" spacing={ 2 }>
-                        <TextField
-                            label={ t('text.checkout.courierFormLabels.floor') }
-                            variant="outlined"
-                            value={ addressFieldsData?.floor }
-                            onChange={ handleChange('floor') }
-                            fullWidth
-                        />
-                        <TextField
-                            fullWidth
-                            label={ t('text.checkout.courierFormLabels.intercom') }
-                            variant="outlined"
-                            value={ addressFieldsData?.intercom }
-                            onChange={ handleChange('intercom') }
-                        />
-                    </Stack>
-                    <TextField
-                        label={ t('text.checkout.courierFormLabels.comment') }
-                        variant="outlined"
-                        fullWidth
-                        multiline
-                        rows={ 4 }
-                        value={ addressFieldsData?.comment }
-                        onChange={ handleChange('comment') }
-                    />
-                </Stack>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={ handleClose }> { t('text.cancel') }</Button>
-                <Button
-                    onClick={ () => handleConfirm('courier') }
-                    variant="contained"
-                    disabled={ !selectedAddress }
-                >
-                    { t('text.confirm') }
-                </Button>
-            </DialogActions>
-        </Dialog>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={ handleClose }> { t('text.cancel') }</Button>
+                    <Button variant="contained" type="submit">
+                        { t('text.confirm') }
+                    </Button>
+                </DialogActions>
+                </form>
+            </Dialog>
     );
 };
 

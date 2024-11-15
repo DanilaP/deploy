@@ -75,24 +75,6 @@
     "tel": "79264472217",
     "backet": [
       {
-        "id": 1,
-        "productId": 1,
-        "number": 2,
-        "variation": "Base"
-      },
-      {
-        "id": 2,
-        "productId": 2,
-        "number": 2,
-        "variation": "Full"
-      },
-      {
-        "id": 5,
-        "productId": 5,
-        "number": 2,
-        "variation": "Base"
-      },
-      {
         "id": 6,
         "productId": 6,
         "number": 4,

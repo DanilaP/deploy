@@ -35,14 +35,14 @@ interface ProductCardProps {
 
 const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, handleProductRemove, onQuantityChange }) => {
     const { t } = useTranslation();
-    const { productInfo, number, id } = product;
-    const { variations, additionalInfo, images } = productInfo;
+    const { productInfo, number, id,  } = product;
+    const { variations, additionalInfo } = productInfo;
 
     const navigate = useNavigate();
 
     const currentVariation = variations.find((variation: any) => variation.name === product.variation);
     const currentColor = additionalInfo.find((info: any) => info.name === 'Цвет')?.description || t('text.cart.noColor');
-    const { stock, price, title } = currentVariation;
+    const { stock, price, title, images } = currentVariation;
 
     const [open, setOpen] = useState<boolean>(false);
 

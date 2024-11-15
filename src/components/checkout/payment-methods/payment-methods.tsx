@@ -9,7 +9,7 @@ import { FC } from "react";
 
 interface PaymentFormProps {
     selectedPayment: string;
-    handleChange: (field: "name" | "payment" | "tel", value: string) => void;
+    handleChange: (field:  "payment" | "delivery", value: string) => void;
     paymentError?: string;
 }
 

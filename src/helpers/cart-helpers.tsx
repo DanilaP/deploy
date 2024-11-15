@@ -1,4 +1,4 @@
-import { IAddressForm } from "../interfaces/interfaces.ts";
+import { IAddress } from "../interfaces/interfaces.ts";
 import { TFunction } from "i18next";
 import { Typography } from "@mui/material";
 
@@ -14,7 +14,7 @@ export const formatPhoneNumber = (phone: string) => {
     return phone;
 };
 
-export const getFormattedAddressString = (addressFieldsData: IAddressForm, t: TFunction, excludeFields: string[] = []) => {
+export const getFormattedAddressString = (addressFieldsData: IAddress, t: TFunction, excludeFields: string[] = []) => {
     const formattedAddress = addressFieldsData.address ? addressFieldsData.address : '';
     const addressFields = Object.entries(addressFieldsData)
         .filter(([key, value]) => value && key !== 'address' && key !== 'id' && key !== 'comment')

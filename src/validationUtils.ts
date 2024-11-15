@@ -12,18 +12,6 @@ interface ValidationResult {
     errors: ValidationErrors;
 }
 
-export const validateName = (name: string, t: TFunction): ValidationResult => {
-    let isValid = true;
-    const errors: ValidationErrors = { name: '' };
-
-    if (!name) {
-        errors.name = t('text.checkout.errors.emptyName');
-        isValid = false;
-    }
-
-    return { isValid, errors };
-};
-
 export const validateTel = (tel: string, t: TFunction): ValidationResult => {
     let isValid = true;
     const errors: ValidationErrors = { tel: '' };
@@ -65,42 +53,18 @@ export const validatePayment = (payment: string, t: TFunction): ValidationResult
     return { isValid, errors };
 };
 
-export const validateUserForm = (
-    name: string,
-    tel: string,
-    t: TFunction
-): ValidationResult => {
-    const nameValidation = validateName(name, t);
-    const telValidation = validateTel(tel, t);
-
-    const isValid = nameValidation.isValid && telValidation.isValid;
-
-    const errors = {
-        ...nameValidation.errors,
-        ...telValidation.errors,
-    };
-
-    return { isValid, errors };
-};
-
 
 export const validateCheckout = (
-    name: string,
-    tel: string,
     delivery: string,
     payment: string,
     t: TFunction
 ): ValidationResult => {
-    const nameValidation = validateName(name, t);
-    const telValidation = validateTel(tel, t);
     const deliveryValidation = validateDelivery(delivery, t);
     const paymentValidation = validatePayment(payment, t);
 
-    const isValid = nameValidation.isValid && telValidation.isValid && deliveryValidation.isValid && paymentValidation.isValid;
+    const isValid =  deliveryValidation.isValid && paymentValidation.isValid;
 
     const errors = {
-        ...nameValidation.errors,
-        ...telValidation.errors,
         ...deliveryValidation.errors,
         ...paymentValidation.errors,
     };

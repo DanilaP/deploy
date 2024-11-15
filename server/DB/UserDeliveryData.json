@@ -10,6 +10,7 @@
       {
         "id": "1",
         "address": "г. Москва, Тверская улица",
+        "houseNumber": "3",
         "apartment": "12",
         "entrance": "2",
         "floor": "9",

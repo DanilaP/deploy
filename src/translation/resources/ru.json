@@ -124,7 +124,7 @@
             "orderCheckout": "Оформление заказа",
             "delivery": "Доставка",
             "free": "Бесплатно",
-            "selectAddress": "Выберите адрес",
+            "selectAddress": "Раннее введенные адреса",
             "orderProcessing": "Оформляем",
             "forTotalSum": "на сумму",
             "contactsData": "Контактная информация",
@@ -159,6 +159,7 @@
             "enterDeliveryAddress": "Введите адрес доставки",
             "courierFormLabels": {
                 "address": "Адрес",
+                "houseNumber": "Дом",
                 "apartment": "Квартира",
                 "entrance": "Подъезд",
                 "floor": "Этаж",

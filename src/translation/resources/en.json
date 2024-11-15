@@ -15,12 +15,9 @@
         "manipulateUser": "User manipulation",
         "profilePage": "Profile page",
         "permissionsPage": "Permissions page",
-<<<<<<<<< Temporary merge branch 1
         "cart": "Cart",
-=========
         "productPage": "Product page",
         "productReviewsPage": "Product reviews page",
->>>>>>>>> Temporary merge branch 2
         "technics": "technics",
         "rolesPage": "Roles page",
         "goodsPage": "Goods page"
@@ -108,7 +105,6 @@
         "review": "Review",
         "quantity": "Quantity",
         "uploadFiles": "Upload files",
-<<<<<<<<< Temporary merge branch 1
         "cart": {
             "productChoose": "Select products to proceed to checkout",
             "preDeliverInfo": "Available delivery methods and times can be selected when placing an order",
@@ -198,7 +194,6 @@
         "selectAll": "Select all",
         "numberOfProducts": "Number of products",
         "amount": "Amount"
->>>>>>>>> Temporary merge branch 2
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
@@ -234,10 +229,9 @@
         "DeleteGroupOfPermissions": "Delete group of permissions",
         "ModifyGroupOfPermissions": "Modify group of permissions"
     },
-<<<<<<<<< Temporary merge branch 1
     "symbols": {
         "rub": "\u20BD"
-=========
+    },
     "breadcrumbs": {
         "about": "About page",
         "shop": "Shop",
@@ -249,6 +243,5 @@
         "shopProduct": "Product",
         "productReviews": "Reviews of the product",
         "favorites": "Favorites"
->>>>>>>>> Temporary merge branch 2
     }
 }

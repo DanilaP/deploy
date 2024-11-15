@@ -59,17 +59,18 @@ export interface IReview {
     likes?: string[]
 }
 
-export interface IAddressForm {
+export interface IAddress {
     id?: string;
     address: string;
-    apartment: string;
-    entrance: string;
-    floor: string;
-    intercom: string;
+    houseNumber?: string;
+    apartment?: string;
+    entrance?: string;
+    floor?: string;
+    intercom?: string;
     comment?: string;
 }
 
-export interface IStore {
+export interface IPickUp {
     id: string;
     storeName: string;
     location: string;
@@ -82,7 +83,7 @@ export interface IDeliveryData {
     prevDelivery: {
         storeId: string;
         prevAddressId: string;
-        addresses: IAddressForm[];
+        addresses: IAddress[];
     };
 }
 

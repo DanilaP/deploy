@@ -14,19 +14,41 @@
   }
 }
 
-
 .courier-dialog-wrapper {
 
   .form-control {
+    width: 92%;
     margin: 48px 24px 0 24px;
 
   }
 
-  .c {
+  .stack-wrapper {
     margin-top: 48px;
   }
 
   .dialog-content {
     margin-top: 15px;
+  }
+}
+
+.address-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .delete-icon {
+    &.hidden {
+      display: none;
+    }
+
+    &.visible {
+      display: inline-flex;
+    }
+
+    &:hover {
+      background: transparent;
+      color: #b71c1c;
+    }
   }
 }

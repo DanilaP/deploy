@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC , useState } from 'react';
 import {
     Button,
     Stack,
@@ -10,16 +10,15 @@ import PickupDialog from "./pickup-dialog/pickup-dialog.tsx";
 import CourierDialog from "./courier-dialog/courier-dialog.tsx";
 import './delivery-methods.scss';
 import { useTranslation } from "react-i18next";
-import { IAddressForm, IStore } from "../../../interfaces/interfaces.ts";
+import { IAddress, IPickUp } from "../../../interfaces/interfaces.ts";
 import { getFormattedAddressString } from "../../../helpers/cart-helpers.tsx";
 
 interface DeliveryMethodsProps {
     deliveryData: any;
     selectedDelivery: string;
-    userAddressesList: any;
-    handleChange: (field: "name" | "payment" | "tel" | "delivery", value: string) => void;
+    handleChange: (field:  "payment" | "delivery", value: string) => void;
     deliveryError?: string;
-    storesList: Array<IStore>;
+    storesList: Array<IPickUp>;
 }
 
 const initialAddressFieldsData = {
@@ -34,35 +33,25 @@ const initialAddressFieldsData = {
 const DeliveryMethods: FC<DeliveryMethodsProps> = ({
   deliveryData,
   selectedDelivery,
-  userAddressesList,
   handleChange,
   deliveryError,
   storesList,
 }) => {
+    const { t } = useTranslation();
     const [openDialogs, setOpenDialogs] = useState({
         pickup: false,
         courier: false,
     });
 
-    const [prevUserAddressId, setPrevUserAddressId] = useState(deliveryData.prevAddressId);
     const [selectedStoreId, setSelectedStoreId] = useState(deliveryData.storeId);
-    const [addressFieldsData, setAddressFieldsData] = useState<IAddressForm>(initialAddressFieldsData);
+    const [currentAddressId, setCurrentAddressId] = useState<string>(deliveryData.prevAddressId || '');
+    const [addresses, setAddresses] = useState<IAddress[]>(deliveryData.addresses || []);
+    const [currentAddress, setCurrentAddress] = useState<IAddress>(
+        addresses.find((address) => address.id === deliveryData?.prevAddressId) ?? initialAddressFieldsData
+    );
 
-    useEffect(() => {
-        const prevAddressData = userAddressesList.find(({ id }: { id: string }) => id === prevUserAddressId);
-
-        if (prevAddressData) {
-            const { id, ...rest } = prevAddressData;
-            setAddressFieldsData(rest);
-        } else {
-            setAddressFieldsData(initialAddressFieldsData);
-        }
-    }, [prevUserAddressId, userAddressesList]);
-
-    const { t } = useTranslation();
     const currentStore = storesList.find(({ id }) => id === selectedStoreId);
-
-    const formattedAddress = addressFieldsData && getFormattedAddressString(addressFieldsData, t);
+    const formattedAddress = currentAddress && getFormattedAddressString(currentAddress, t);
 
     const handleOpenDialog = (dialog: 'pickup' | 'courier') => {
         setOpenDialogs((prev) => ({
@@ -78,14 +67,23 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
         }));
     };
 
-    const handleChangeAddressFieldsData = (field: keyof IAddressForm) => (event: ChangeEvent<HTMLInputElement>) => {
-        setAddressFieldsData({
-            ...addressFieldsData,
+    const handleChangeAddressFieldsData = (field: keyof IAddress) => (event: ChangeEvent<HTMLInputElement>) => {
+        setCurrentAddress({
+            ...currentAddress,
             [field]: event.target.value,
         });
     };
 
-    const handleConfirm = (deliveryMethod: string) => {
+    const handleDeleteAddress = (addressId: string) => {
+        if (currentAddressId === addressId) {
+            return;
+        }
+        const updatedAddresses = addresses
+            .filter((address: IAddress) => address.id !== addressId);
+        setAddresses(updatedAddresses);
+    };
+
+    const handleSaveAddress = (deliveryMethod: string) => {
         handleCloseDialog('pickup');
         handleCloseDialog('courier');
         handleChange('delivery', deliveryMethod);
@@ -145,19 +143,22 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
                 open={ openDialogs.pickup }
                 selectedStoreId={ selectedStoreId }
                 stores={ storesList }
-                handleConfirm={ handleConfirm }
+                handleConfirm={ handleSaveAddress }
                 setSelectedStoreId={ setSelectedStoreId }
             />
 
             <CourierDialog
+                setCurrentAddress={ setCurrentAddress }
                 handleClose={ () => handleCloseDialog('courier') }
                 open={ openDialogs.courier }
+                setAddresses={ setAddresses }
                 handleChange={ handleChangeAddressFieldsData }
-                handleConfirm={ handleConfirm }
-                addresses={ deliveryData.addresses }
-                addressFieldsData={ addressFieldsData }
-                setPrevUserAddressId={ setPrevUserAddressId }
-                prevUserAddressId={ prevUserAddressId }
+                handleConfirm={ handleSaveAddress }
+                addresses={ addresses }
+                currentAddress={ currentAddress }
+                setCurrentAddressId={ setCurrentAddressId }
+                currentAddressId={ currentAddressId }
+                handleDeleteAddress={ handleDeleteAddress }
             />
         </div>
     );
