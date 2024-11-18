@@ -8,7 +8,7 @@ export const DEFAULT_PRODUCT_FORM_VALUES = {
     price: 1,
     name: "",
     partNumber: "",
-    provider: "",
+    provider: null,
     variations: [],
     active: false,
     published: false

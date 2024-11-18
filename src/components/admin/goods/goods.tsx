@@ -304,6 +304,7 @@ export const GoodsPage = () => {
                     handleUnsavedDataExist={ handleUnsavedDataExist }
                     mode={ currentMode }
                     categoriesForSelect={ categoriesForSelect }
+                    providersForSelect={ providersForSelect }
                     goodData={ currentProduct }
                 />
             </CustomModal>
