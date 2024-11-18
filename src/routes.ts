@@ -40,12 +40,14 @@ export const routes = [
     {
         path: '/shop',
         component: ShopPage,
-        children: null
+        children: null,
+        breadcrumb : t("breadcrumbs.shop")
     },
     {
         path: '/cart',
         component: CartPage,
-        children: null
+        children: null,
+        breadcrumb : t("breadcrumbs.cart")
     },
     {
         path: '/checkout',
