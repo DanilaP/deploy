@@ -225,6 +225,7 @@ export const ManageGoodForm = ({
                                     onChange={ (_, value) => field.onChange(value) }
                                     renderInput={ (params) => (
                                         <TextField
+                                            placeholder={ t("text.search") }
                                             { ...params }
                                             id="update-good-category"
                                             error={ Boolean(errors.category) }
