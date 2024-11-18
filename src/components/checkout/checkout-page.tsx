@@ -19,7 +19,7 @@ import cartApi from "../../api/cart.ts";
 import CheckoutCard from "./checkout-card/checkout-card.tsx";
 import { formatCurrency, formatPhoneNumber } from "../../helpers/cart-helpers.tsx";
 import UserData from "./user-data-form/user-data.tsx";
-import { validateCheckout } from "../../validationUtils.ts";
+import { validateRequiredField } from "../../validators-helper.tsx";
 
 interface ValidationErrors {
     isErrors: boolean,
@@ -73,19 +73,28 @@ const CheckoutPage = () => {
     };
 
     const handleConfirmCheckout = (): boolean => {
-        const {
-            isValid,
-            errors
-        } = validateCheckout(selectedDelivery, selectedPayment, t);
+        const isValidPaymentMethod = validateRequiredField(selectedPayment);
+        const isValidDeliveryMethod = validateRequiredField(selectedDelivery);
 
-        if (isValid) {
+        if (isValidPaymentMethod && isValidDeliveryMethod) {
+            setFormErrors({
+                isErrors: false,
+                errors: {
+                    payment: '',
+                    delivery: '',
+                },
+            });
             return true;
         }
 
         setFormErrors({
             isErrors: true,
-            errors: errors,
+            errors: {
+                payment: !isValidPaymentMethod ? t('text.checkout.errors.emptyPayment') : '',
+                delivery: !isValidDeliveryMethod ? t('text.checkout.errors.emptyDelivery') : '',
+            },
         });
+
         return false;
     };
 

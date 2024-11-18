@@ -14,7 +14,7 @@ import { useForm, Controller } from "react-hook-form";
 import "./user-data.scss";
 import { observer } from 'mobx-react-lite';
 import { useStore } from "../../../stores";
-import { validateTel } from "../../../validationUtils.ts";
+import { validatePhone } from "../../../validators-helper.tsx";
 
 const ruPhoneMask = "+7 (999) 999-99-99";
 
@@ -78,8 +78,10 @@ const UserData = () => {
                                     rules={ {
                                         required: t("text.checkout.errors.emptyTel"),
                                         validate: (value) => {
-                                            const { isValid, errors } = validateTel(value, t);
-                                            return isValid || errors.tel;
+                                            if (!validatePhone(value)) {
+                                                return t("text.checkout.errors.incorrectTel");
+                                            }
+                                            return true;
                                         },
                                     } }
                                     render={ ({ field }) => (
