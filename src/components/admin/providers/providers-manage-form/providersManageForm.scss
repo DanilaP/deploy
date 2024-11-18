@@ -36,6 +36,9 @@
             margin-top: 5px;
             display: flex;
             column-gap: 10px;
+            .field-input-contact-person {
+                min-width: 250px;
+            }
         }
     }
     .form-actions {

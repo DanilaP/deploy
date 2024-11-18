@@ -8,5 +8,6 @@ export const DEFAULT_PROVIDER = {
         post: ""
     },
     description: "",
-    website: ""
+    website: "",
+    email: ""
 };

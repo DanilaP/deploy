@@ -1,6 +1,8 @@
 import { 
     Button, 
     IconButton, 
+    MenuItem, 
+    Select, 
     Table, 
     TableBody, 
     TableCell, 
@@ -34,6 +36,7 @@ interface IProvidersPageViewProps {
     handleSetUnsavedChangesExist: (status: boolean) => void,
     handleCloseUnsavedDataModal: () => void,
     handleCloseManageModalWithUnSavedData: () => void,
+    handleSearchProvidersByActive: (isActive: boolean) => void
 }
 
 export default function ProvidersPageView({
@@ -50,7 +53,8 @@ export default function ProvidersPageView({
     handleOnCreateProvider,
     handleSetUnsavedChangesExist,
     handleCloseUnsavedDataModal,
-    handleCloseManageModalWithUnSavedData
+    handleCloseManageModalWithUnSavedData,
+    handleSearchProvidersByActive
 }: IProvidersPageViewProps) {
 
     const { t } = useTranslation();
@@ -69,6 +73,14 @@ export default function ProvidersPageView({
                             ),
                         } }
                     />
+                    <Select
+                        className="provider-active-filter"
+                        onChange={ (e) => handleSearchProvidersByActive(Boolean(e.target.value)) }
+                        defaultValue={ 1 }
+                    >
+                        <MenuItem value={ 1 }>{ t("text.active") }</MenuItem>
+                        <MenuItem value={ 0 }>{ t("text.inactive") }</MenuItem>
+                    </Select>
                 </div>
                 <div className="buttons">
                     <Button
@@ -132,7 +144,7 @@ export default function ProvidersPageView({
                                             <TableCell className="provider-actions">
                                                 <IconButton
                                                     className="mui-actions"
-                                                    onClick={ (e: eny) => handleOnOpenDeletingProviderModal(e, el) }
+                                                    onClick={ (e: any) => handleOnOpenDeletingProviderModal(e, el) }
                                                 >
                                                     <MdDelete />
                                                 </IconButton>
@@ -173,9 +185,21 @@ export default function ProvidersPageView({
             <CustomModal
                 isDisplay={ modals.unsavedData }
                 title={ t("text.approveAction") }
-                typeOfActions='default'
+                typeOfActions='custom'
                 actionConfirmed={ handleCloseManageModalWithUnSavedData }
                 closeModal={ handleCloseUnsavedDataModal }
+                actionsComponent={
+                    <>
+                        <Button 
+                            variant="contained"
+                            onClick={ handleCloseManageModalWithUnSavedData }
+                        >{ t("text.close") }</Button>
+                        <Button
+                            onClick={ handleCloseUnsavedDataModal }
+                            variant="contained"
+                        >{ t("text.cancel") }</Button>
+                    </>
+                }
             >
                 <div className="delete-text">{ t("text.unsavedChanges") }?</div>
             </CustomModal>

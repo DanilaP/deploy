@@ -17,6 +17,14 @@ export const useProvidersHelper = () => {
         }
     };
 
+    const handleSearchProviderByActive = (isActive: boolean) => {
+        const filteredProviderByActive = providers.filter(provider => {
+            return provider.active === isActive;
+        });
+        setFilteredProviders(filteredProviderByActive);
+        return filteredProviderByActive;
+    };
+
     const handleSetProvidersForSelect = (providersList: IProvider[]) => {
         const providersForSelect: any = providersList.map((provider: IProvider) => {
             return { id: Number(provider.id), label: provider.name };
@@ -52,6 +60,7 @@ export const useProvidersHelper = () => {
         };
         setProviders(prev => [...prev, newProviderWithId]);
         setFilteredProviders(prev => [...prev, newProviderWithId]);
+        handleSearchProviderByActiveAndUpdateFilter(currentActiveFilter);
     };
 
     const handleSearchProvidersByAllFields = (inputValue: string) => {
@@ -85,6 +94,7 @@ export const useProvidersHelper = () => {
         handleUpdateProvider, 
         handleCreateProvider,
         handleSearchProvidersByAllFields,
-        handleSetProvidersForSelect
+        handleSetProvidersForSelect,
+        handleSearchProviderByActive
     };
 };

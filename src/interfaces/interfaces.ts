@@ -82,5 +82,6 @@ export interface IProvider {
     contactPerson: IContactPerson,
     description: string,
     website: string,
+    email: string,
     [key: string]: any,
 }

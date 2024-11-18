@@ -263,7 +263,7 @@ export const GoodsPage = () => {
                                                     : product.variations[0].price
                                             }
                                         </div>
-                                        <div className="good-provider">{ providerInfo.name }</div>
+                                        <div className="good-provider">{ providerInfo?.name }</div>
                                     </div>
                                     <div className="good-info-more">
                                         <div className="good-description">

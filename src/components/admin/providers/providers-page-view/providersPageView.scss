@@ -7,9 +7,15 @@
         grid-template-columns: calc(100% - 250px) 250px;
         margin: 10px 0 10px 0;
         .search {
+            display: flex;
+            column-gap: 5px;
             .MuiInputBase-input {
                 height: 3.5px;
                 border: none !important;
+            }
+            .provider-active-filter {
+                width: 200px;
+                height: 36px;
             }
         }
         .buttons {

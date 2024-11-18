@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useProvidersHelper } from "../../../helpers/use-providers-helper";
 import ProvidersPageView from "./providers-page-view/providersPageView";
 import { IProvider } from "../../../interfaces/interfaces";
@@ -6,17 +6,20 @@ import { DEFAULT_PROVIDER } from "./constants";
 
 export default function ProvidersPage() {
     
-    const { 
+    const {
+        providers,
         filteredProviders,
         handleDeleteProvider,
         handleUpdateProvider,
         handleCreateProvider,
-        handleSearchProvidersByAllFields
+        handleSearchProvidersByAllFields,
+        handleSearchProviderByActive
     } = useProvidersHelper();
 
     const [modals, setModals] = useState({ manage: false, deleteConfirmation: false, unsavedData: false });
     const [choosedProvider, setChoosedProvider] = useState<IProvider>(DEFAULT_PROVIDER);
     const [formUnsavedDataExist, setFormUnsavedDataExist] = useState<boolean>(false);
+    const [currentActiveFilter, setCurrentActiveFilter] = useState<boolean>(true);
 
     const handleOnCreateProvider = (newProviderData: IProvider) => {
         handleCreateProvider(newProviderData);
@@ -24,6 +27,11 @@ export default function ProvidersPage() {
             return { ...prev, manage: false };
         });
         setChoosedProvider(DEFAULT_PROVIDER);
+    };
+
+    const handleSearchProviderByActiveAndUpdateFilter = (isActive: boolean) => {
+        setCurrentActiveFilter(isActive);
+        handleSearchProviderByActive(isActive);
     };
 
     const handleOnUpdateProvider = (newProviderData: IProvider) => {
@@ -93,6 +101,10 @@ export default function ProvidersPage() {
         });
     };
 
+    useEffect(() => {
+        handleSearchProviderByActive(currentActiveFilter);
+    }, [providers]);
+
     return (
         <ProvidersPageView
             providers={ filteredProviders }
@@ -108,6 +120,7 @@ export default function ProvidersPage() {
             handleOnCreateProvider={ handleOnCreateProvider }
             handleSetUnsavedChangesExist={ handleSetUnsavedChangesExist }
             handleCloseUnsavedDataModal={ handleCloseUnsavedDataModal }
+            handleSearchProvidersByActive={ handleSearchProviderByActiveAndUpdateFilter }
             handleCloseManageModalWithUnSavedData={ handleCloseManageModalWithUnSavedData }
         />
     );
