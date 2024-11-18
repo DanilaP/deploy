@@ -4,7 +4,8 @@ export interface IUser {
     password?: string,
     role?: string,
     avatar?: string,
-    backet?: any[]
+    backet?: any[],
+    favorites?: number[]
 }
 export interface IPermission {
     name: string,
@@ -28,6 +29,9 @@ export interface IProduct {
     video: string,
     category: string[],
     provider: string,
+    price: number,
+    active: boolean,
+    published: boolean,
     reviews?: IReview[],
     variations: IVariation[],
     additionalInfo: IAdditionalInfo[],

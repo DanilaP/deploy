@@ -11,6 +11,10 @@
         .filters {
             display: flex;
             column-gap: 5px;
+            .product-active-filter {
+                width: 200px;
+                height: 36px;
+            }
         }
         .buttons {
             display: flex;

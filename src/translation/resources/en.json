@@ -15,6 +15,7 @@
         "manipulateUser": "User manipulation",
         "profilePage": "Profile page",
         "permissionsPage": "Permissions page",
+        "cart": "Cart",
         "productPage": "Product page",
         "productReviewsPage": "Product reviews page",
         "technics": "technics",
@@ -42,6 +43,14 @@
         "deletingUserConfirmation": "Do you want to delete the user?",
         "manipulateUser": "User manipulating",
         "creating": "(Creation)",
+        "save": "Save",
+        "search": "Search",
+        "cancel": "Cancel",
+        "publish": "Publish",
+        "active": "Active",
+        "inactive": "Inactive",
+        "published": "published",
+        "unPublished": "unpublished",
         "usersAdmin": "Users",
         "rolesAdmin": "Roles",
         "permitionsRules": "Permition/rules",
@@ -120,7 +129,38 @@
         "deleteReview": "Delete review",
         "review": "Review",
         "quantity": "Quantity",
-        "uploadFiles": "Upload files"
+        "uploadFiles": "Upload files",
+        "cart": {
+            "productChoose": "Select products to proceed to checkout",
+            "preDeliverInfo": "Available delivery methods and times can be selected when placing an order",
+            "placeOrderButton": "Proceed to checkout",
+            "deleteProductsButton": "Delete selected",
+            "selectAll": "Select all",
+            "stock": "In stock",
+            "color": "Color",
+            "noColor": "Color not specified",
+            "emptyBasket": "Cart is empty",
+            "findProductsInfo": "Go to the catalog to find products",
+            "toCatalog": "To the catalog",
+            "variation": "equipment",
+            "total": "Total price",
+            "pcs": "pcs",
+            "productsCount": {
+                "product_one": "{{count}} item",
+                "product_other": "{{count}} items"
+            },
+            "confirmDeleteTitle": "Removing product",
+            "confirmDeleteMessage": "Are you sure you want to delete the product?",
+            "delete": "Delete",
+            "cancel": "Cancel"
+        },
+        "uploadFiles": "Upload files",
+        "deleteAll": "Delete all",
+        "favoritesAreClear": "The list of favorites is empty",
+        "addToBasket": "Add to basket",
+        "selectAll": "Select all",
+        "numberOfProducts": "Number of products",
+        "amount": "Amount"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
@@ -156,6 +196,9 @@
         "DeleteGroupOfPermissions": "Delete group of permissions",
         "ModifyGroupOfPermissions": "Modify group of permissions"
     },
+    "symbols": {
+        "rub": "\u20BD"
+    },
     "breadcrumbs": {
         "about": "About page",
         "shop": "Shop",
@@ -165,10 +208,12 @@
         "adminRoles": "Roles",
         "adminPermissions": "Permissions",
         "shopProduct": "Product",
-        "productReviews": "Reviews of the product"
+        "productReviews": "Reviews of the product",
+        "favorites": "Favorites"
     },
     "errors": {
         "requiredField": "This field is requiered",
-        "notZero": "This field cant be 0"
+        "notZero": "This field cant be 0",
+        "productReviews": "Reviews of the product"
     }
 }

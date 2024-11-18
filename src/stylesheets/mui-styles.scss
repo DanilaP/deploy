@@ -3,7 +3,11 @@
     .MuiInputBase-root {
         color: var(--text-color);
     }
-    
+    .css-1abvrni-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+        background-color: var(bg-color-block);
+        color: grey;
+    }
+
     input, fieldset {
         border: 1px solid rgba(128, 128, 128, 0.247);
         color: var(--text-color);
@@ -15,6 +19,15 @@
         }
     }
     
+    .css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+        border-color: #d32f2f;
+    }
+    .css-1n04w30-MuiInputBase-root-MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+        border-color: #d32f2f;
+    }
+    .css-xrmkj5-MuiInputBase-root-MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+        border-color: #d32f2f;
+    }
     .icon {
         font-size: 25px;
     }

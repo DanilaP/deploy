@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, MenuItem, Select, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { ManageGoodForm } from "./forms/ManageGood/ManageGood";
@@ -20,6 +20,7 @@ export const GoodsPage = () => {
     const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null);
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
     const [unSavedDataExist, setUnsavedDataExist] = useState<boolean>(false);
+    const [currentActiveFilter, setCurrentActiveFilter] = useState<boolean>(true);
     const { categoriesForSelect } = useCategoryHelper();
     const navigate = useNavigate();
     const { providersForSelect, providers } = useProvidersHelper();
@@ -67,7 +68,10 @@ export const GoodsPage = () => {
         formData.append('reviews', JSON.stringify(goodData.reviews));
         formData.append('variations', JSON.stringify(goodData.variations));
         formData.append('video', goodData.video[0]);
-
+        formData.append('price', JSON.stringify(goodData.price));
+        formData.append('active', JSON.stringify(goodData.active));
+        formData.append('published', JSON.stringify(goodData.published));
+        
         for (let i = 0; i < goodData.images.length; i++) {
             formData.append('images', goodData.images[i]);
         }
@@ -151,9 +155,35 @@ export const GoodsPage = () => {
         navigate(`/shop/product/${product.id}`);
     };
 
+    const handleFilterProductsByActive = (active: boolean) => {
+        setCurrentActiveFilter(active);
+        setFilteredProducts(currentProducts.filter(el => el.active === active));
+    };
+
+    const handleCloseUnsavedData = () => {
+        setModals(prev => {
+            return { ...prev, unsaved: false };
+        });
+    };
+
+    const handleGetTitleForManagingGoodsModal = () => {
+        let title: string = "";
+        currentMode === "create" 
+            ? title += t("text.createGoods")
+            : title += t("text.editGood");
+        currentProduct?.published 
+            ? title += ` (${t("text.published")})`
+            : title += ` (${t("text.unPublished")})`;
+        return title;
+    };
+
     const handleUnsavedDataExist = (status: boolean) => {
         setUnsavedDataExist(status);
     };
+
+    useEffect(() => {
+        handleFilterProductsByActive(currentActiveFilter);
+    }, [currentProducts]);
 
     useEffect(() => {
         const response = $api.get("/products");
@@ -164,7 +194,7 @@ export const GoodsPage = () => {
             }
         });
     }, []);
-
+    
     return (
         <div className="goods">
             <div className="title">{ t("text.managingGoods") }</div>
@@ -189,6 +219,14 @@ export const GoodsPage = () => {
                             ),
                         } }
                     />
+                    <Select
+                        className="product-active-filter"
+                        defaultValue={ 1 }
+                        onChange={ (e) => handleFilterProductsByActive(Boolean(e.target.value)) }
+                    >
+                        <MenuItem value={ 1 }>{ t("text.active") }</MenuItem>
+                        <MenuItem value={ 0 }>{ t("text.inactive") }</MenuItem>
+                    </Select>
                 </div>
                 <div className="buttons">
                     <Button
@@ -217,8 +255,15 @@ export const GoodsPage = () => {
                                 <div className="good-info" onClick={ () => handleOpenEditingGoodModal(product) } >
                                     <div className="good-info-main">
                                         <div className="good-title">{ product.name }</div>
-                                        <div className="good-price">{ t("text.price") }: { product.variations[0].price }</div>
-                                        <div className="good-provider">{ providerInfo?.name }</div>
+                                        <div className="good-price">
+                                            { t("text.price") }:
+                                            {
+                                                product.variations.length === 0
+                                                    ? product.price
+                                                    : product.variations[0].price
+                                            }
+                                        </div>
+                                        <div className="good-provider">{ providerInfo.name }</div>
                                     </div>
                                     <div className="good-info-more">
                                         <div className="good-description">
@@ -248,7 +293,7 @@ export const GoodsPage = () => {
             <CustomModal
                 isHidden={ modals.unsaved }
                 isDisplay={ modals.manage }
-                title = { currentMode === 'create' ? t("text.createGoods") : t("text.editGood") }
+                title = { handleGetTitleForManagingGoodsModal() }
                 typeOfActions='none'
                 actionConfirmed={ () => handleCancelUpdating(unSavedDataExist) }
                 closeModal={ () => handleCancelUpdating(unSavedDataExist) }
@@ -274,12 +319,21 @@ export const GoodsPage = () => {
             <CustomModal 
                 isDisplay={ modals.unsaved }
                 title={ t("text.approveAction") }
-                typeOfActions='default'
+                typeOfActions='custom'
                 actionConfirmed={ () => handleCancelUpdating(false) }
-                closeModal={ () => setModals(prev => { 
-                    return { ...prev, unsaved: false };
-                    }
-                ) }
+                closeModal={ handleCloseUnsavedData }
+                actionsComponent={
+                    <>
+                        <Button 
+                            variant="contained"
+                            onClick={ () => handleCancelUpdating(false) }
+                        >{ t("text.close") }</Button>
+                        <Button
+                            onClick={ handleCloseUnsavedData }
+                            variant="contained"
+                        >{ t("text.cancel") }</Button>
+                    </>
+                }
             >
                 <div className="delete-text">{ t("text.unsavedChanges") }?</div>
             </CustomModal>

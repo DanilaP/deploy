@@ -16,10 +16,11 @@
         "profilePage": "Страница профиля",
         "permissionsPage": "Разрешения/права",
         "rolesPage": "Роли",
+        "cart": "Корзина",
         "productPage": "Страница продукта",
         "productReviewsPage": "Страница отзывов о продукте",
         "goodsPage": "Товары"
-    },
+},
     "labels": {
         "loading": "Загрузка..."
     },
@@ -29,11 +30,19 @@
         "password": "Пароль",
         "delete": "Удалить",
         "edit": "Редактировать",
+        "save": "Сохранить",
+        "cancel": "Отменить",
         "createUser": "Создать пользователя",
+        "search": "Поиск",
         "role": "Роль",
         "confirm": "Подтвердить",
         "close": "Закрыть",
+        "inactive": "Неактивный",
+        "publish": "Опубликовать",
+        "active": "Активный",
         "admin": "Администратор",
+        "published": "опубликован",
+        "unPublished": "неопубликован",
         "deletingUser": "Удаление пользователя",
         "deletingUserConfirmation": "Хотите удалить пользователя?",
         "manipulateUser": "Управление пользователем",
@@ -98,6 +107,31 @@
         "createProvider": "Добавить поставщика",
         "groupName": "Наименование группы",
         "providers": "Поставщики",
+        "cart": {
+            "productChoose": "Выберите товары, чтобы перейти к оформлению",
+            "preDeliverInfo": "Доступные способы и время доставки можно выбрать при оформлении заказа",
+            "placeOrderButton": "Перейти к оформлению",
+            "deleteProductsButton": "Удалить выбранные",
+            "selectAll": "Выбрать все",
+            "stock": "В наличии",
+            "color": "Цвет",
+            "noColor": "Цвет не указан",
+            "emptyBasket": "Корзина пуста",
+            "findProductsInfo": "Что бы найти товары, перейдите в каталог",
+            "toCatalog": "В каталог",
+            "variation": "комплектация",
+            "total": "Итого",
+            "pcs": "шт",
+            "productsCount": {
+                "product_one": "{{count}} товар",
+                "product_few": "{{count}} товара",
+                "product_many": "{{count}} товаров"
+            },
+            "confirmDeleteTitle": "Удаление товара",
+            "confirmDeleteMessage": "Вы уверены, что хотите удалить товар?",
+            "delete": "Удалить",
+            "cancel": "Оставить"
+        },
         "createGoods": "Создать товар",
         "unsavedChanges": "У вас есть несохраненные изменения. Вы уверены",
         "cost": "Стоимость",
@@ -119,7 +153,13 @@
         "deleteReview": "Удалить отзыв",
         "review": "Отзыв",
         "quantity": "Количество",
-        "uploadFiles": "Загрузка файлов"
+        "uploadFiles": "Загрузка файлов",
+        "deleteAll": "Удалить всё",
+        "favoritesAreClear": "Список избранных товаров пуст",
+        "addToBasket": "Добавить в корзину",
+        "selectAll": "Выбрать всё",
+        "numberOfProducts": "Количество товаров",
+        "amount": "На сумму"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",
@@ -155,6 +195,9 @@
         "DeleteGroupOfPermissions": "Удаление группы пермишнов",
         "ModifyGroupOfPermissions": "Модификация группы пермишнов"
     },
+    "symbols": {
+        "rub": "\u20BD"
+    },
     "breadcrumbs": {
         "about": "О проекте",
         "shop": "Магазин",
@@ -164,10 +207,12 @@
         "adminRoles": "Роли",
         "adminPermissions": "Разрешения/права",
         "shopProduct": "Продукт",
-        "productReviews": "Отзывы о продукте"
+        "productReviews": "Отзывы о продукте",
+        "favorites": "Избранное"
     },
     "errors": {
         "requiredField": "Это обязательное поле",
-        "notZero": "Значение не должно быть 0"
+        "notZero": "Значение не должно быть 0",
+        "productReviews": "Отзывы о продукте"
     }
 }

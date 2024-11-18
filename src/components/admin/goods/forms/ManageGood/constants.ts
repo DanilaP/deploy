@@ -1,14 +1,15 @@
 export const DEFAULT_PRODUCT_FORM_VALUES = {
-    additionalInfo: [{ name: "", description: "", id: Date.now() }],
+    additionalInfo: [],
     category: [],
     description: "",
     fullDescription: "",
     images: [],
     video: "",
+    price: 1,
     name: "",
     partNumber: "",
     provider: "",
-    variations: [
-        { name: "", title: "", stock: 0, price: 0, images: [""], video: "" }
-    ]
+    variations: [],
+    active: false,
+    published: false
 };
