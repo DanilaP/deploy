@@ -1,4 +1,4 @@
-import { Button, Autocomplete, TextField, Tooltip } from "@mui/material";
+import { Button, Autocomplete, TextField, Tooltip, Checkbox } from "@mui/material";
 import { Fragment, useEffect } from "react";
 import { DEFAULT_PRODUCT_FORM_VALUES } from "./constants";
 import { useTranslation } from "react-i18next";
@@ -22,6 +22,9 @@ interface IProductForm {
     name: string,
     partNumber: string,
     provider: string,
+    price: number,
+    active: boolean,
+    published: boolean,
     variations: IVariation[],
 }
 
@@ -48,6 +51,9 @@ export const ManageGoodForm = ({
         handleSubmit, 
         watch, 
         register,
+        clearErrors,
+        setError,
+        trigger,
         control,
         formState: { errors, isValid, submitCount, isDirty }
     } = useForm<IProductForm>({
@@ -60,7 +66,7 @@ export const ManageGoodForm = ({
             }
             : DEFAULT_PRODUCT_FORM_VALUES,
     });
-
+    
     const { 
         fields: additionalInfoFields, 
         append: appendAdditionalInfo, 
@@ -69,7 +75,7 @@ export const ManageGoodForm = ({
         control,
         name: "additionalInfo",
     });
-
+    
     const { 
         fields: variationsInfoFields,
         append: appendVariation, 
@@ -90,29 +96,65 @@ export const ManageGoodForm = ({
             handleUpdateGood(goodDataForSend);
         }
     };
-
+    
     const handleAddVariation = () => {
         appendVariation({ name: "", title: "", stock: 1, price: 1, images: [""], video: "-" });
+        if (submitCount !== 0) {
+            setError(`variations.${variationsInfoFields .length}.name`, {
+                type: "custom",
+                message: "errors.requiredField"
+            });
+            setError(`variations.${variationsInfoFields.length}.title`, {
+                type: "custom",
+                message: "errors.requiredField"
+            });
+            trigger("variations");
+        }
     };
     
     const handleDeleteVariation = (index: number) => {
-        if (watch('variations')?.length === 1) return;
         removeVariation(index);
     };
-
+    
     const handleAddAdditionalInfo = () => {
         appendAdditionalInfo({ id: Date.now(), name: '', description: '' });
+        if (submitCount !== 0) {
+            setError(`additionalInfo.${additionalInfoFields.length}.name`, {
+                type: "custom",
+                message: "errors.requiredField"
+            });
+            setError(`additionalInfo.${additionalInfoFields.length}.description`, {
+                type: "custom",
+                message: "errors.requiredField"
+            });
+            trigger("additionalInfo");
+        }
     };
     
     const handleDeleteAdditionalData = (index: number) => {
-        if (watch('additionalInfo')?.length === 1) return;
         removeAdditionalInfo(index);
+    };
+
+    const handleClearPriceError = () => {
+        clearErrors('price');
+        return true;
     };
 
     useEffect(() => {
         handleUnsavedDataExist(isDirty);
     }, [isDirty]);
     
+    useEffect(() => {
+        if (!watch('price') && submitCount !== 0 && variationsInfoFields.length === 0) {
+            setError('price', {
+                type: 'custom',
+                message: t("errors.requiredField")
+            });
+        } else {
+            clearErrors('price');
+        }
+    }, [variationsInfoFields]);
+
     return (
         <form onSubmit={ handleSubmit(handleUpdateGoodData) }>
             <div className="update-good-form">
@@ -282,7 +324,6 @@ export const ManageGoodForm = ({
                         <Controller
                             name="video"
                             control={ control }
-                            rules={ { required: t("errors.requiredField") } }
                             render={ ({ field }) => (
                                 <InputFile
                                     { ...field }
@@ -321,7 +362,18 @@ export const ManageGoodForm = ({
                     </div>
                 </div>
                 <div className="field">
-                    <label className="label">{ t("text.additionalProductInfo") }</label>
+                    <label className="label">
+                        { t("text.additionalProductInfo") }
+                        { 
+                            additionalInfoFields.length === 0
+                            ? (
+                                <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
+                                    <BiMessageSquareAdd />
+                                </IconButton>
+                            ) 
+                            : null
+                        }
+                    </label>
                     { additionalInfoFields.map((info: FieldArrayWithId<IProductForm, "additionalInfo", "id">, index: number) => {
 
                         const errorInfo: any = errors.additionalInfo || [];
@@ -331,21 +383,25 @@ export const ManageGoodForm = ({
                                 <div className="field-column">
                                     <div className="fields-data">
                                         <TextField
-                                            error={ Boolean(errorInfo[index]) }
+                                            error={ Boolean(errorInfo[index]?.name) }
                                             helperText={ t(String(errorInfo[index]?.name?.message || "")) }
-                                            { ...register(`additionalInfo.${index}.name`, {
-                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                                            }) }
+                                            { ...register(
+                                                `additionalInfo.${index}.name`, {
+                                                    validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                                }) 
+                                            }
                                             placeholder={ t("text.name") }
                                         />
 
                                         <TextField
                                             className="variation-description"
-                                            error={ Boolean(errorInfo[index]) }
+                                            error={ Boolean(errorInfo[index]?.description) }
                                             helperText={ t(String(errorInfo[index]?.description?.message || "")) }
-                                            { ...register(`additionalInfo.${index}.description`, {
-                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                                            }) }
+                                            { ...register(
+                                                `additionalInfo.${index}.description`, {
+                                                    validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                                }) 
+                                            }
                                             placeholder={ t("text.description") }
                                         />
                                     </div>
@@ -369,50 +425,68 @@ export const ManageGoodForm = ({
                     }) }
                 </div>
                 <div className="field">
-                    <label className="label">{ t("text.variationsOfProduct") }</label>
+                    <label className="label">
+                        { t("text.variationsOfProduct") }
+                        { 
+                            variationsInfoFields.length === 0 
+                            ? (
+                                <IconButton className="mui-actions" onClick={ handleAddVariation }>
+                                    <BiMessageSquareAdd />
+                                </IconButton>
+                            ) 
+                            : null
+                        }
+                    </label>
                     { variationsInfoFields.map((info: FieldArrayWithId<IProductForm, "variations", "id">, index) => {
 
                         const errorInfo: any = errors.variations || [];
-                        const isErrorShown = Boolean(errorInfo[index]);
 
                         return (
                             <Fragment key={ info.id + index }>
                                 <div className="field-column">
                                     <div className="fields-data">
                                         <TextField
-                                            error={ isErrorShown }
+                                            error={ Boolean(errorInfo[index]?.name) }
                                             helperText={ t(String(errorInfo[index]?.name?.message || "")) }
-                                            { ...register(`variations.${index}.name`, {
-                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                                            }) }
+                                            { ...register(
+                                                `variations.${index}.name`, {
+                                                    validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                                }) 
+                                            }
                                             placeholder={ t("text.systemKey") }
                                         />
 
                                         <TextField
-                                            error={ isErrorShown }
+                                            error={ Boolean(errorInfo[index]?.title) }
                                             helperText={ t(String(errorInfo[index]?.title?.message || "")) }
                                             className="variation-title"
-                                            { ...register(`variations.${index}.title`, {
-                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                                            }) }
+                                            { ...register(
+                                                `variations.${index}.title`, {
+                                                    validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                                }) 
+                                            }
                                             placeholder={ t("text.name") }
                                         />
                                         <TextField
-                                            error={ isErrorShown }
+                                            error={ Boolean(errorInfo[index]?.stock) }
                                             helperText={ t(String(errorInfo[index]?.stock?.message || "")) }
                                             className="variation-stock"
-                                            { ...register(`variations.${index}.stock`, {
-                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                                            }) }
+                                            { ...register(
+                                                `variations.${index}.stock`, {
+                                                    validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                                }) 
+                                            }
                                             placeholder={ t("text.stock") }
                                         />
                                         <TextField
-                                            error={ isErrorShown }
+                                            error={ Boolean(errorInfo[index]?.price) }
                                             helperText={ t(String(errorInfo[index]?.price?.message || "")) }
                                             className="variation-price"
-                                            { ...register(`variations.${index}.price`, {
-                                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                                            }) }
+                                            { ...register(
+                                                `variations.${index}.price`, {
+                                                    validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                                                }) 
+                                            }
                                             placeholder={ t("text.price") }
                                         />
                                     </div>
@@ -435,17 +509,70 @@ export const ManageGoodForm = ({
                         );
                     }) }
                 </div>
+                <div className="field gap">
+                    <label 
+                        className="label"
+                        htmlFor="update-good-price"
+                    >{ t("text.price") }</label>
+                    <TextField
+                        error={ Boolean(errors.price) }
+                        helperText={ String(errors.price?.message || "") }
+                        id="update-good-price"
+                        placeholder={ t("text.price") }
+                        { ...register("price", {
+                            validate: (value) => watch('variations').length === 0 
+                                ? validateRequiredField(value) ? true : t("errors.requiredField")
+                                : handleClearPriceError()
+                        }) }
+                    />
+                </div>
+                <div className="field">
+                    <div className="field-column">
+                        <div className="fields-half">
+                            <div className="column">
+                                <label className="label">{ t("text.publish") }</label>
+                                <Controller
+                                    name="published"
+                                    control={ control }
+                                    render={ ({ field }) => (
+                                        <Checkbox
+                                            className="field-checkbox"
+                                            { ...field }
+                                            defaultChecked={ goodData?.published }
+                                            onChange={ e => field.onChange(e.target.checked) }
+                                        />
+                                    ) }
+                                />
+                            </div>
+                            <div className="column">
+                                <label className="label">{ t("text.active") }</label>
+                                <Controller
+                                    name="active"
+                                    control={ control }
+                                    render={ ({ field }) => (
+                                        <Checkbox
+                                            className="field-checkbox"
+                                            { ...field }
+                                            defaultChecked={ goodData?.active }
+                                            onChange={ e => field.onChange(e.target.checked) }
+                                        />
+                                    ) }
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="form-actions">
                     <Button 
                         type="submit"
                         disabled={ submitCount !== 0 && !isValid }
                         variant="contained"
-                    >{ t("text.confirm") }</Button>
+                    >{ t("text.save") }</Button>
                     <Button 
                         type="submit"
                         onClick={ handleCancelUpdating }
                         variant="contained"
-                    >{ t("text.close") }</Button>
+                    >{ t("text.cancel") }</Button>
                 </div>
             </div> 
         </form>

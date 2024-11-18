@@ -2,6 +2,8 @@
   {
     "id": 1,
     "partNumber": "100001",
+    "active": true,
+    "published": true,
     "name": "Product 1",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
@@ -11,6 +13,7 @@
       "http://localhost:5000/products/product3.jpg",
       "http://localhost:5000/products/product4.jpg"
     ],
+    "price": 1000,
     "video": "http://localhost:5000/video/video1.mp4",
     "category": ["1"],
     "additionalInfo": [
@@ -98,6 +101,9 @@
   {
     "id": 2,
     "partNumber": "100002",
+    "active": true,
+    "published": true,
+    "price": 1000,
     "name": "Product 2",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -177,6 +183,9 @@
   {
     "id": 3,
     "partNumber": "100003",
+    "active": true,
+    "published": true,
+    "price": 1000,
     "name": "Product 3",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -257,6 +266,9 @@
   {
     "id": 4,
     "partNumber": "100004",
+    "active": true,
+    "published": true,
+    "price": 1000,
     "name": "Product 4",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -328,6 +340,9 @@
   {
     "id": 5,
     "partNumber": "100006",
+    "active": true,
+    "published": true,
+    "price": 1000,
     "name": "Product 5",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -399,6 +414,9 @@
   {
     "id": 6,
     "partNumber": "100007",
+    "active": true,
+    "published": true,
+    "price": 1000,
     "name": "Product 6",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -470,6 +488,9 @@
   {
     "id": 7,
     "partNumber": "100008",
+    "active": true,
+    "published": true,
+    "price": 1000,
     "name": "Product 7",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -541,6 +562,9 @@
   {
     "id": 8,
     "partNumber": "100009",
+    "active": true,
+    "published": true,
+    "price": 1000,
     "name": "Product 8",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -612,6 +636,9 @@
   {
     "id": 9,
     "partNumber": "100010",
+    "active": true,
+    "published": true,
+    "price": 1000,
     "name": "Product 9",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
