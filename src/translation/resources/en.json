@@ -150,7 +150,10 @@
         "deleteStore": "Delete store",
         "storeAddress": "Store address",
         "storeName": "Store name",
-        "deleteStoreConfirmation": "Are you sure you want to delete store?"
+        "deleteStoreConfirmation": "Are you sure you want to delete store?",
+        "confirmed": "Confirmed",
+        "unConfirmed": "Unconfirmed",
+        "deleted": "Deleted"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",

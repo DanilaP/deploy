@@ -150,7 +150,10 @@
         "deleteStore": "Удалить склад",
         "storeAddress": "Адрес склада",
         "storeName": "Наименование склада",
-        "deleteStoreConfirmation": "Вы уверены, что хотите удалить склад?"
+        "deleteStoreConfirmation": "Вы уверены, что хотите удалить склад?",
+        "confirmed": "Подтвержденный",
+        "unConfirmed": "Неподтвержденный",
+        "deleted": "Удаленный"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

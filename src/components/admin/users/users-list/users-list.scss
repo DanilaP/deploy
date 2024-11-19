@@ -49,6 +49,11 @@
             min-width: 250px;
         }
 
+        .user-status {
+            display: flex;
+            flex-direction: column;
+        }
+
         .user-settings {
             display: flex;
             justify-content: center;
@@ -60,6 +65,15 @@
                 padding: 5px;
             }
         }
+    }
+    .confirmed {
+        color: green;
+    }
+    .unconfirmed {
+        color: orange;
+    }
+    .deleted {
+        color: red;
     }
 }
 

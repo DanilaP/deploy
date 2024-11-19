@@ -1,5 +1,7 @@
 export interface IUser {
     id?: string,
+    isActive?: boolean,
+    isVerified?: boolean,
     login?: string,
     password?: string,
     role?: string,

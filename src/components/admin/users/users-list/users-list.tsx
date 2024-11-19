@@ -84,6 +84,19 @@ export default function UsersList () {
                                 <div className="user-role">
                                     <strong>{ t("text.role") }</strong>: { user.role }
                                 </div>
+                                <div className='user-status'>
+                                    <strong className='deleted'>{ !user.isActive && t("text.deleted") }</strong>
+                                    <strong>
+                                        { user.isActive 
+                                            ? (
+                                                user.isVerified 
+                                                    ? <p className='confirmed'>{ t("text.confirmed") }</p>
+                                                    : <p className='unconfirmed'>{ t("text.unConfirmed") }</p>
+                                            )
+                                            : null
+                                        }
+                                    </strong>
+                                </div>
                             </div>
                             <div className="user-settings">
                                 {
