@@ -20,7 +20,7 @@ const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
-    const { productInfo, id } = product;
+    const { productInfo, id, number } = product;
     const { variations, additionalInfo, name } = productInfo;
 
     const currentVariation = variations.find((variation: any) => variation.name === product.variation);
@@ -63,7 +63,7 @@ const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
                         { t('text.cart.color') }: { currentColor }
                     </Typography>
                     <Typography component="div" className="card-price" variant="h6" color="text.primary">
-                        { formattedProductPrice } { t('text.rub') }
+                        ({ number } { t('text.cart.pcs') }) { formattedProductPrice } { t('text.rub') }
                     </Typography>
                 </CardContent>
             </Card>

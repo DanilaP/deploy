@@ -1,7 +1,6 @@
 import { Button, Checkbox, Container, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
 
 import ProductCard from './cards/product-card/product-card.tsx';
 import OrderCard from './cards/order-card/order-card.tsx';
@@ -28,18 +27,13 @@ const CartPage = () => {
     const isBasketEmpty = cart.length === 0;
     const isSomeSelected = selectedProductIds.length > 0;
 
-    useEffect(() => {
-        if (cart.length > 0) {
-            const allProductIds = cart.map((product) => product.id);
-            cartStore.setSelectedProductIds(allProductIds);
-            cartStore.setTotalBasketQuantity(cart.length);
-        }
-    }, [cart]);
-
     const handleSelectAllChange = () => {
-        const newSelectedIds = isAllSelected ? [] : cart.map((product) => product.id);
-        cartStore.setSelectedProductIds(newSelectedIds);
-        cartStore.setIsAllSelected(!isAllSelected);
+        if (isAllSelected) {
+            cartStore.setSelectedProductIds([]);
+        } else {
+            const newSelectedIds = cart.map(product => product.id);
+            cartStore.setSelectedProductIds(newSelectedIds);
+        }
     };
 
     const handleProductSelect = (productId: number) => {
@@ -53,7 +47,6 @@ const CartPage = () => {
                     const filteredIds = updatedCart.map((product: IProduct) => product.id);
                     const filteredBasket = cart.filter((item) => filteredIds.includes(item.id));
                     cartStore.setCart(filteredBasket);
-                    handleSelectAllChange();
                 })
                 .catch((error) => console.error('Ошибка удаления товаров из корзины', error));
     };
@@ -95,7 +88,7 @@ const CartPage = () => {
                                 <Checkbox
                                     className="cart-page-checkbox"
                                     onChange={ handleSelectAllChange }
-                                    checked={ isAllSelected }
+                                    checked={ cart.length === selectedProductIds.length }
                                 />
                                 <Typography
                                     className="cart-page-checkbox-text"

@@ -9,34 +9,48 @@ class CartStore {
     selectedTotalQuantity: number = 0
     totalBasketQuantity: number = 0
     constructor() {
+        if (typeof window !== 'undefined') {
+            const storedIds = localStorage.getItem('selectedProductsIds');
+            this.selectedProductIds = storedIds ? JSON.parse(storedIds) : [];
+        } else {
+            this.selectedProductIds = [];
+        }
         makeAutoObservable(this);
     }
     setCart(cart: IProduct[]) {
         this.cart = cart;
         this.setTotalBasketQuantity(this.cart.length);
+        const validIds = cart.map(product => product.id);
+        this.selectedProductIds = this.selectedProductIds.filter(id => validIds.includes(id));
         this.calculateTotals();
     }
     setSelectedProductIds(ids: number[]) {
         this.selectedProductIds = ids;
+        this.isAllSelected = ids.length === this.cart.length;
+        localStorage.setItem('selectedProductsIds', JSON.stringify(this.selectedProductIds));
         this.calculateTotals();
     }
+
     setIsAllSelected(flag: boolean) {
         this.isAllSelected = flag;
+        this.selectedProductIds = flag ? this.cart.map(product => product.id) : [];
+        localStorage.setItem('selectedProductsIds', JSON.stringify(this.selectedProductIds));
         this.calculateTotals();
     }
+
     setTotalBasketQuantity(totalBasketQuantity: number) {
         this.totalBasketQuantity = totalBasketQuantity;
     }
 
     toggleProductSelection(productId: number) {
-        const { selectedProductIds, totalBasketQuantity } = this;
-        const isSelected = selectedProductIds.includes(productId);
+        const isSelected = this.selectedProductIds.includes(productId);
 
         this.selectedProductIds = isSelected
-            ? selectedProductIds.filter(id => id !== productId)
-            : [...selectedProductIds, productId];
+            ? this.selectedProductIds.filter(id => id !== productId)
+            : [...this.selectedProductIds, productId];
 
-        this.isAllSelected = this.selectedProductIds.length === totalBasketQuantity;
+        this.isAllSelected = this.selectedProductIds.length === this.cart.length;
+        localStorage.setItem('selectedProductsIds', JSON.stringify(this.selectedProductIds));
         this.calculateTotals();
     }
 

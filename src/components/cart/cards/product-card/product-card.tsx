@@ -72,7 +72,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, hand
                         <Checkbox className="product-checkbox" checked={ isSelected } onChange={ onSelect } />
                         <CardMedia component="img" className="product-media" image={ images[0] } alt={ productInfo.name } />
                         <Stack>
-                            <Typography sx={ { alignSelf: 'flex-start' } } variant="h6" component="div" className="productName">
+                            <Typography variant="h6" component="div" className="productName">
                                 { `${productInfo.name}, ${ title } ${t('text.cart.variation')}` }
                             </Typography>
                             <Typography gutterBottom variant="subtitle2" className="colorDescription">

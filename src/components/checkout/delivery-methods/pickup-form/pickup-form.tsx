@@ -1,32 +1,28 @@
 import {
     Button,
     Card,
-    CardContent, Dialog, DialogActions,
-    DialogContent,
-    DialogTitle,
+    CardContent,
     FormControlLabel,
     Radio,
     RadioGroup,
     Typography
 } from "@mui/material";
 import { FC } from "react";
-import './pickup-dialog.scss';
+import './pickup-form.scss';
 import { useTranslation } from "react-i18next";
 import { IPickUp } from "../../../../interfaces/interfaces.ts";
 
 
 interface PickupDialogProps {
     handleClose: () => void;
-    open: boolean;
     selectedStoreId: string;
     setSelectedStoreId: (id: string) => void;
     stores: IPickUp[];
     handleConfirm: (deliveryMethod: string) => void;
 }
 
-const PickupDialog: FC<PickupDialogProps> = ({
+const PickupForm: FC<PickupDialogProps> = ({
   handleClose,
-  open,
   selectedStoreId,
   setSelectedStoreId,
   stores,
@@ -35,9 +31,7 @@ const PickupDialog: FC<PickupDialogProps> = ({
     const { t } = useTranslation();
 
     return (
-        <Dialog className="pickup-dialog-wrapper" open={ open } onClose={ handleClose } maxWidth="sm" fullWidth>
-            <DialogTitle>{ t('text.checkout.chooseShop') }</DialogTitle>
-            <DialogContent>
+        <form onSubmit={() => handleConfirm('pickup')} className="pickup-form-wrapper">
                 <RadioGroup
                     className="radio-group"
                     value={ selectedStoreId }
@@ -68,19 +62,19 @@ const PickupDialog: FC<PickupDialogProps> = ({
                         </Card>
                     )) }
                 </RadioGroup>
-            </DialogContent>
-            <DialogActions>
+            <div className="btn-wrapper">
                 <Button onClick={ handleClose }>{ t('text.cancel') }</Button>
                 <Button
-                    onClick={ () => handleConfirm('pickup') }
+                    type="submit"
                     variant="contained"
                     disabled={ !selectedStoreId }
                 >
                     { t('text.confirm') }
                 </Button>
-            </DialogActions>
-        </Dialog>
+            </div>
+
+        </form>
     );
 };
 
-export default PickupDialog;
+export default PickupForm;

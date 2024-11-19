@@ -132,6 +132,7 @@
         "checkout": {
             "selectAddress": "Select address",
             "orderProcessing": "Processing order",
+            "deleteAddress": "Delete this address",
             "forTotalSum": "for a total amount",
             "addresses": "Courier delivery in Moscow",
             "orderCheckout": "Order Checkout",

@@ -14,6 +14,17 @@ export const formatPhoneNumber = (phone: string) => {
     return phone;
 };
 
+export const getFormatAddressStringForSelect = (addressFieldsData: IAddress, t: TFunction) => {
+    return Object.entries(addressFieldsData)
+        .filter(([key]) => key !== 'id')
+        .map(([key, value]) => {
+            const text = t(`text.checkout.courierFormLabels.${ key }`);
+            return `${ text }: ${ value }`;
+        })
+        .join(', ')
+        .slice(0, 50)
+};
+
 export const getFormattedAddressString = (addressFieldsData: IAddress, t: TFunction, excludeFields: string[] = []) => {
     const formattedAddress = addressFieldsData.address ? addressFieldsData.address : '';
     const addressFields = Object.entries(addressFieldsData)

@@ -1,33 +1,50 @@
 .custom-select-menu {
   .MuiMenuItem-root {
-
     margin-bottom: 3px;
     .address-wrapper {
       .address {
-        font-size: 18px !important;
+        font-size: 18px;
       }
-
       .address-fields, .comment {
-        font-size: 15px !important;
+        font-size: 15px;
       }
     }
   }
 }
 
 .courier-dialog-wrapper {
-
-  .form-control {
-    width: 92%;
-    margin: 48px 24px 0 24px;
-
+  width: 100%;
+  .address-suggestion-wrapper {
+    .da-data-field {
+      width: 100%;
+      height: 40px;
+      padding-left: 3px;
+    }
+    .error {
+      border: 1px solid #b71c1c;
+    }
+    .error:focus {
+      outline: 1px solid #b71c1c;
+    }
+    .error-text {
+      color: #b71c1c;
+    }
   }
-
+  .form-control {
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 16px;
+  }
   .stack-wrapper {
     margin-top: 48px;
   }
-
   .dialog-content {
     margin-top: 15px;
+    padding-left: 3px;
+  }
+  .buttons-wrapper {
+    text-align: end;
+    margin-top: 24px;
   }
 }
 
@@ -36,16 +53,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
   .delete-icon {
     &.hidden {
       display: none;
     }
-
     &.visible {
       display: inline-flex;
     }
-
     &:hover {
       background: transparent;
       color: #b71c1c;

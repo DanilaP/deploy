@@ -6,12 +6,13 @@ import {
     CardContent,
     Typography,
 } from '@mui/material';
-import PickupDialog from "./pickup-dialog/pickup-dialog.tsx";
-import CourierDialog from "./courier-dialog/courier-dialog.tsx";
+import PickupForm from "./pickup-form/pickup-form.tsx";
+import CourierForm from "./courier-form/courier-form.tsx";
 import './delivery-methods.scss';
 import { useTranslation } from "react-i18next";
 import { IAddress, IPickUp } from "../../../interfaces/interfaces.ts";
 import { getFormattedAddressString } from "../../../helpers/cart-helpers.tsx";
+import CustomModal from "../../../components-ui/custom-modal/custom-modal.tsx";
 
 interface DeliveryMethodsProps {
     deliveryData: any;
@@ -138,28 +139,40 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
                 </Typography>
             ) }
 
-            <PickupDialog
-                handleClose={ () => handleCloseDialog('pickup') }
-                open={ openDialogs.pickup }
-                selectedStoreId={ selectedStoreId }
-                stores={ storesList }
-                handleConfirm={ handleSaveAddress }
-                setSelectedStoreId={ setSelectedStoreId }
-            />
+            <CustomModal
+                isDisplay={ openDialogs.pickup }
+                title = { t("text.checkout.chooseShop")  }
+                typeOfActions='none'
+                closeModal={ () => handleCloseDialog('pickup') }
+            >
+                <PickupForm
+                    handleClose={ () => handleCloseDialog('pickup') }
+                    selectedStoreId={ selectedStoreId }
+                    stores={ storesList }
+                    handleConfirm={ handleSaveAddress }
+                    setSelectedStoreId={ setSelectedStoreId }
+                />
+            </CustomModal>
 
-            <CourierDialog
-                setCurrentAddress={ setCurrentAddress }
-                handleClose={ () => handleCloseDialog('courier') }
-                open={ openDialogs.courier }
-                setAddresses={ setAddresses }
-                handleChange={ handleChangeAddressFieldsData }
-                handleConfirm={ handleSaveAddress }
-                addresses={ addresses }
-                currentAddress={ currentAddress }
-                setCurrentAddressId={ setCurrentAddressId }
-                currentAddressId={ currentAddressId }
-                handleDeleteAddress={ handleDeleteAddress }
-            />
+            <CustomModal
+                isDisplay={ openDialogs.courier }
+                title = ""
+                typeOfActions='none'
+                closeModal={ () => handleCloseDialog('courier') }
+            >
+                <CourierForm
+                    setCurrentAddress={ setCurrentAddress }
+                    handleClose={ () => handleCloseDialog('courier') }
+                    setAddresses={ setAddresses }
+                    handleChange={ handleChangeAddressFieldsData }
+                    handleConfirm={ handleSaveAddress }
+                    addresses={ addresses }
+                    currentAddress={ currentAddress }
+                    setCurrentAddressId={ setCurrentAddressId }
+                    currentAddressId={ currentAddressId }
+                    handleDeleteAddress={ handleDeleteAddress }
+                />
+            </CustomModal>
         </div>
     );
 };

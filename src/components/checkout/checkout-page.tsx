@@ -36,6 +36,7 @@ const CheckoutPage = () => {
         cart,
         totalSum,
         selectedTotalQuantity ,
+        selectedProductIds,
     } = cartStore;
 
     const [deliveryData, setDeliveryData] = useState<IDeliveryData>();
@@ -126,10 +127,12 @@ const CheckoutPage = () => {
 
     const formattedTotalSum = formatCurrency(totalSum);
 
+    const filteredCart = cart.filter((product) => selectedProductIds.includes(product.id));
+
     return (deliveryData &&
         <Container className="checkout-wrapper" maxWidth="lg">
             <Grid container rowSpacing={ 1 } columnSpacing={ 2 }>
-                <Grid size={ { sm: 12, md: 7, lg: 7, xl: 6 } } gap={ 2 } className="sticky-grid">
+                <Grid size={ { sm: 12, md: 7, lg: 7, xl: 6 } } gap={ 2 }>
 
                   <Card className="card-wrapper">
                     <CardContent>
@@ -179,7 +182,7 @@ const CheckoutPage = () => {
                         { t('text.checkout.forTotalSum') } { formattedTotalSum } <span className="total-price">{ t('text.rub') }</span>
                     </Typography>
                     <Grid container>
-                        { cart.map((product) => (
+                        { filteredCart.map((product) => (
                             <ProductCard
                                 key={ product.id }
                                 product={ product }

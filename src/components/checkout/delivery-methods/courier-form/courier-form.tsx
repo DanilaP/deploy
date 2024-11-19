@@ -1,30 +1,27 @@
 import {
     Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
     FormControl,
     InputLabel,
     MenuItem,
     Select,
     Stack,
-    TextField, Typography,
+    TextField,
+    Typography,
 } from "@mui/material";
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IAddress } from "../../../../interfaces/interfaces.ts";
 import { AddressSuggestions, DaDataAddress, DaDataSuggestion } from 'react-dadata';
-import { getFormattedAddressString } from "../../../../helpers/cart-helpers.tsx";
+import {getFormatAddressStringForSelect, getFormattedAddressString} from "../../../../helpers/cart-helpers.tsx";
 import 'react-dadata/dist/react-dadata.css';
-import './courier-dialog.scss';
+import './courier-form.scss';
 import IconButton from "@mui/material/IconButton";
 import { FaTimes } from 'react-icons/fa';
+import CustomModal from "../../../../components-ui/custom-modal/custom-modal.tsx";
 import _ from 'lodash';
-
 
 interface CourierDialogProps {
     currentAddress: IAddress | null;
-    open: boolean;
     handleClose: () => void;
     handleChange: (field: keyof IAddress) => (event: ChangeEvent<HTMLInputElement>) => void;
     handleConfirm: (data: string) => void;
@@ -38,8 +35,7 @@ interface CourierDialogProps {
 
 const DA_DATA_API_KEY = import.meta.env.VITE_APP_DA_DATA_API_KEY;
 
-const CourierDialog: FC<CourierDialogProps> = ({
-  open,
+const CourierForm: FC<CourierDialogProps> = ({
   handleClose,
   addresses,
   setAddresses,
@@ -53,7 +49,7 @@ const CourierDialog: FC<CourierDialogProps> = ({
 }) => {
     const { t } = useTranslation();
     const [prevSelectedAddress, setPrevSelectedAddress] = useState(currentAddress);
-
+    const [addressIdToDelete, setAddressIdToDelete] = useState<string>('');
     const handleSelectAddressChange = (event) => {
         const selectedAddressId = event.target.value;
         const newSelectedAddress = addresses
@@ -74,7 +70,6 @@ const CourierDialog: FC<CourierDialogProps> = ({
         }
     }, [daDataFieldValue]);
 
-
     const filterEmptyEntries = (obj: Record<string, any>) =>
         Object.entries(obj).filter(([, value]) => value);
 
@@ -90,17 +85,16 @@ const CourierDialog: FC<CourierDialogProps> = ({
 
             setCurrentAddressId(newId);
             setCurrentAddress(newAddress);
-            setAddresses((prevAddresses: IAddress[]) => [...prevAddresses, newAddress]);
+            setAddresses((prevAddresses: IAddress[]) => [ newAddress, ...prevAddresses ]);
         }
 
         handleConfirm('courier');
     };
 
-
+    const [open, setOpen] = useState(false);
 
     return (
-            <Dialog className="courier-dialog-wrapper" open={ open } onClose={ handleClose } maxWidth="sm" fullWidth>
-                <form onSubmit={ onSubmit }>
+                <form className="courier-dialog-wrapper" onSubmit={ onSubmit }>
                 { addresses.length > 0 &&
                   <FormControl className="form-control"  variant="outlined">
                     <InputLabel>{ t('text.checkout.selectAddress') }</InputLabel>
@@ -114,7 +108,7 @@ const CourierDialog: FC<CourierDialogProps> = ({
                       className="select-wrapper"
                       label={ t('text.checkout.selectAddress') }
                       value={ currentAddress?.id || '' }
-                      renderValue={ () => `${currentAddress?.address}, ${currentAddress?.houseNumber || ''}, кв. ${currentAddress?.apartment}` }
+                      renderValue={ () => `${ getFormatAddressStringForSelect(currentAddress, t)}...` }
                     >
                         { addresses.map((address, index) => (
                             <MenuItem
@@ -130,12 +124,26 @@ const CourierDialog: FC<CourierDialogProps> = ({
                                         className={ `delete-icon ${ address.id === currentAddressId ? 'hidden' : 'visible' }` }
                                         onClick={ (e) => {
                                             e.stopPropagation();
-                                            handleDeleteAddress(address.id);
+                                            setOpen(true);
+                                            address.id && setAddressIdToDelete(address.id);
                                         } }
                                         size="small"
                                     >
                                         <FaTimes size={ 20 } />
                                     </IconButton>
+
+                                    <CustomModal
+                                        title={ `${ t('text.checkout.deleteAddress') }?` }
+                                        isDisplay={ open }
+                                        typeOfActions='default'
+                                        actionConfirmed={ () => {
+                                            handleDeleteAddress(addressIdToDelete);
+                                            setOpen(false);
+                                        } }
+                                        closeModal={ () => setOpen(false) }
+                                    >
+                                        <></>
+                                    </CustomModal>
                                 </div>
                             </MenuItem>
                         )) }
@@ -143,24 +151,31 @@ const CourierDialog: FC<CourierDialogProps> = ({
                   </FormControl>
                 }
 
-                <DialogContent>
                     <Typography variant="subtitle1">{ t('text.checkout.deliveryAddress') }</Typography>
                     <Stack className="dialog-content" spacing={ 2 }>
 
-                        <AddressSuggestions
-                            token={ DA_DATA_API_KEY }
-                            defaultQuery={ currentAddress?.address }
-                            value={ { value: currentAddress?.address } }
-                            inputProps={ {
-                                required: true,
-                                placeholder: t('text.checkout.courierFormLabels.address'),
-                                onChange: handleChange('address'),
-                                error: String(!!daDataFieldValue?.value || !currentAddress?.address)
-                            } }
-                            onChange={ setDaDataFieldValue }
-                        />
+                        <div className="address-suggestion-wrapper">
+                            <AddressSuggestions
+                                token={ DA_DATA_API_KEY }
+                                defaultQuery={ currentAddress?.address }
+                                value={ { value: currentAddress?.address } }
+                                inputProps={ {
+                                    placeholder: t('text.checkout.courierFormLabels.address'),
+                                    onChange: handleChange('address'),
+                                    className:  !!currentAddress?.address ? `da-data-field` : `da-data-field error`,
+                                } }
+                                onChange={ setDaDataFieldValue }
+                            />
+                            {!currentAddress?.address && (
+                                <Typography className="error-text" variant="caption">
+                                    {t('text.requiredField')}
+                                </Typography>
+                            )}
+                        </div>
+
                         <Stack className="stack-wrapper" direction="row" spacing={ 2 }>
                             <TextField
+                                size="small"
                                 label={ t('text.checkout.courierFormLabels.houseNumber') }
                                 variant="outlined"
                                 value={ currentAddress?.houseNumber || '' }
@@ -170,6 +185,7 @@ const CourierDialog: FC<CourierDialogProps> = ({
                             <TextField
                                 label={ t('text.checkout.courierFormLabels.entrance') }
                                 variant="outlined"
+                                size="small"
                                 value={ currentAddress?.entrance || '' }
                                 onChange={ handleChange('entrance') }
                                 fullWidth
@@ -177,6 +193,7 @@ const CourierDialog: FC<CourierDialogProps> = ({
                             <TextField
                                 label={ t('text.checkout.courierFormLabels.apartment') }
                                 variant="outlined"
+                                size="small"
                                 value={ currentAddress?.apartment || '' }
                                 onChange={ handleChange('apartment') }
                                 fullWidth
@@ -184,6 +201,7 @@ const CourierDialog: FC<CourierDialogProps> = ({
                         </Stack>
                         <Stack direction="row" spacing={ 2 }>
                             <TextField
+                                size="small"
                                 label={ t('text.checkout.courierFormLabels.floor') }
                                 variant="outlined"
                                 value={ currentAddress?.floor || '' }
@@ -191,6 +209,7 @@ const CourierDialog: FC<CourierDialogProps> = ({
                                 fullWidth
                             />
                             <TextField
+                                size="small"
                                 fullWidth
                                 label={ t('text.checkout.courierFormLabels.intercom') }
                                 variant="outlined"
@@ -199,6 +218,7 @@ const CourierDialog: FC<CourierDialogProps> = ({
                             />
                         </Stack>
                         <TextField
+                            size="small"
                             label={ t('text.checkout.courierFormLabels.comment') }
                             variant="outlined"
                             fullWidth
@@ -208,16 +228,22 @@ const CourierDialog: FC<CourierDialogProps> = ({
                             onChange={ handleChange('comment') }
                         />
                     </Stack>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={ handleClose }> { t('text.cancel') }</Button>
-                    <Button variant="contained" type="submit">
+                <div className="buttons-wrapper">
+                    <Button
+                        onClick={ handleClose }
+                    >
+                        { t('text.cancel') }
+                    </Button>
+                    <Button
+                        variant="contained"
+                        disabled={!currentAddress?.address}
+                        type="submit"
+                    >
                         { t('text.confirm') }
                     </Button>
-                </DialogActions>
+                </div>
                 </form>
-            </Dialog>
     );
 };
 
-export default CourierDialog;
+export default CourierForm;

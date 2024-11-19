@@ -119,6 +119,7 @@
             "insertRecipientData": "Добавьте данные получателя",
             "insertDeliveryAddress": "Укажите адрес доставки",
             "deliveryAddress": "Адрес доставки",
+            "deleteAddress": "Удалить этот адрес",
             "recipient": "Получатель",
             "editRecipient": "Изменить получателя",
             "orderCheckout": "Оформление заказа",

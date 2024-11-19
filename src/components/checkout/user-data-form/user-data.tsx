@@ -1,20 +1,14 @@
 import { useState } from "react";
 import Grid from "@mui/material/Grid2";
-import {
-    TextField,
-    Dialog,
-    DialogContent,
-    DialogActions,
-    Button,
-    Typography,
-} from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import InputMask from "react-input-mask";
 import { useForm, Controller } from "react-hook-form";
-import "./user-data.scss";
 import { observer } from 'mobx-react-lite';
 import { useStore } from "../../../stores";
 import { validatePhone } from "../../../validators-helper.tsx";
+import CustomModal from "../../../components-ui/custom-modal/custom-modal.tsx";
+import "./user-data.scss";
 
 const ruPhoneMask = "+7 (999) 999-99-99";
 
@@ -42,15 +36,15 @@ const UserData = () => {
                 { t("text.checkout.editRecipient") }
             </Button>
 
-            <Dialog maxWidth="sm" fullWidth open={ open } onClose={ () => setOpen(false) }>
+            <CustomModal
+                isDisplay={ open }
+                title = { t("text.checkout.editRecipient")  }
+                typeOfActions='none'
+                closeModal={ () => setOpen(false) }
+            >
+
                 <form onSubmit={ handleSubmit(onSubmit) }>
-                    <DialogContent>
-                        <Typography>
-                            { t("text.checkout.editRecipient") }
-                        </Typography>
-                    </DialogContent>
-                    <DialogContent>
-                        <Grid container spacing={ 2 }>
+                        <Grid container spacing={ 2 } className="form-grid">
                             <Grid size={ { xs: 6 } }>
                                 <Controller
                                     name="name"
@@ -106,17 +100,16 @@ const UserData = () => {
                                 />
                             </Grid>
                         </Grid>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={ () => setOpen(false) } color="secondary">
-                            { t("text.cancel") }
-                        </Button>
-                        <Button type="submit" color="primary">
-                            { t("text.confirm") }
-                        </Button>
-                    </DialogActions>
+                        <div className="buttons-wrapper">
+                            <Button onClick={ () => setOpen(false) } color="secondary">
+                                { t("text.cancel") }
+                            </Button>
+                            <Button type="submit" color="primary">
+                                { t("text.confirm") }
+                            </Button>
+                        </div>
                 </form>
-            </Dialog>
+            </CustomModal>
         </div>
     );
 };

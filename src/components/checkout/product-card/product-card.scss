@@ -1,38 +1,31 @@
 .product-grid-wrapper {
   width: 100%;
-
-
   .card-wrapper {
     display: flex;
     align-items: center;
-    margin-bottom: 10px !important;
-      .card-title {
-        font-weight: bold;
-        font-size: 14px;
-      }
-
-      .card-number {
-        font-size: 12px;
-      }
+    margin-bottom: 10px;
+    .card-title {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .card-number {
+      font-size: 12px;
+    }
   }
-
   .card-img {
     width: 70px;
     height: 70px;
     margin-right: 10px;
   }
-
   .card-content {
     flex-grow: 1;
     flex-shrink: 0;
     flex-basis: auto;
   }
-
   .card-price {
     text-transform: uppercase;
     color: #1976d2;
     font-size: 15px;
-
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -40,12 +33,10 @@
     min-width: 0;
     white-space: nowrap;
   }
-
   .product-color-text {
     margin-bottom: 8px;
     font-size: 12px;
   }
-
   .more-info-btn {
     font-size: 10px;
     margin-left: 3px;

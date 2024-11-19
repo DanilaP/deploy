@@ -23,7 +23,7 @@ const CheckoutCard: FC<CheckoutCard>  = ({ selectedPayment, selectedDelivery, ha
     const { t } = useTranslation();
 
     const { cartStore } = useStore();
-    const { totalSum, selectedTotalQuantity, totalBasketQuantity } = cartStore;
+    const { totalSum, selectedTotalQuantity } = cartStore;
 
     const priceToShow = formatCurrency(totalSum);
 
@@ -32,9 +32,7 @@ const CheckoutCard: FC<CheckoutCard>  = ({ selectedPayment, selectedDelivery, ha
             <CardContent className="checkout-content">
 
                 <Typography gutterBottom variant="subtitle1" component="div" className="checkout-info">
-                    { t('text.cart.productsCount.product', { count: totalBasketQuantity }) }
-                    { ', ' }
-                    { selectedTotalQuantity } { t('text.cart.pcs') }.
+                    { t('text.products') }, { selectedTotalQuantity } { t('text.cart.pcs') }.
                     <Typography className="price">
                         { `${priceToShow} ${t('symbols.rub')}` }
                     </Typography>
