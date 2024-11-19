@@ -1,7 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
 import { DEFAULT_CATEGORY_FORM } from "../constants";
 import { ICategory } from "../../../../interfaces/interfaces";
-import { Button, TextField, Tooltip } from "@mui/material";
+import { Box, Button, FormControl, FormLabel, TextField, Tooltip } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { validateRequiredField } from "../../../../helpers/validators-helper";
 import "./CategoryManageForm.scss";
@@ -49,11 +49,11 @@ export default function CategoryManageForm(props: ICategoryManageFormProps) {
 
     return (
         <form className="category-form" onSubmit={ handleSubmit(handleUpdateGoodData) }>
-            <div className="field">
-                <label 
-                    className="label"
+            <FormControl>
+                <FormLabel 
+                    className="category-field-label"
                     htmlFor="update-category-title"
-                >{ t("text.name") }</label>
+                >{ t("text.name") }</FormLabel>
                 <TextField
                     error={ Boolean(errors.title) }
                     helperText={ String(errors.title?.message || "") }
@@ -63,12 +63,12 @@ export default function CategoryManageForm(props: ICategoryManageFormProps) {
                         validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
                     }) }
                 />
-            </div>
-            <div className="field">
-                <label 
-                    className="label"
+            </FormControl>
+            <FormControl>
+                <FormLabel 
+                    className="category-field-label"
                     htmlFor="update-category-description"
-                >{ t("text.description") }</label>
+                >{ t("text.description") }</FormLabel>
                 <TextField
                     error={ Boolean(errors.description) }
                     helperText={ String(errors.description?.message || "") }
@@ -78,10 +78,10 @@ export default function CategoryManageForm(props: ICategoryManageFormProps) {
                         validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
                     }) }
                 />
-            </div>
-            <div className="field">
-                <div className="field-row-label">
-                    <label className="label">{ t("text.images") }</label>
+            </FormControl>
+            <FormControl>
+                <div className="form-horizontal-field">
+                    <FormLabel className="category-field-label">{ t("text.images") }</FormLabel>
                     <Controller
                         name="image"
                         control={ control }
@@ -102,7 +102,7 @@ export default function CategoryManageForm(props: ICategoryManageFormProps) {
                     />
                 </div>
                 <span className="field-error-text">{ String(errors.image?.message || "") }</span>
-                <div className="additions">
+                <Box className="additions">
                     {
                         (watch("image")?.length !== 0)
                         ? <Tooltip
@@ -118,15 +118,15 @@ export default function CategoryManageForm(props: ICategoryManageFormProps) {
                         >
                             <a href={ watch("image") } target="__blank">
                                 <img 
-                                    className="image" 
+                                    className="category-image" 
                                     src={ watch("image") }
                                 />
                             </a>
                         </Tooltip>
                         : null
                     }
-                </div>
-            </div>
+                </Box>
+            </FormControl>
             <div className="form-actions">
                 <Button 
                     type="submit"

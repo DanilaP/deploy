@@ -19,6 +19,7 @@ export const CategoriesPage = () => {
     const [unsavedDataExist, setUnsavedDataExist] = useState<boolean>(false);
     const [draggableCategory, setDraggableCategory] = useState<ICategory | null>(null);
     const [categoryForAdding, setCategoryForAdding] = useState<ICategory | null>(null);
+
     const { t } = useTranslation();
     const { 
         categories,
@@ -142,6 +143,14 @@ export const CategoriesPage = () => {
         setFilteredCategories(findedCategories);
     };
 
+    const handleUpdateDraggableCategory = (category: ICategory | null) => {
+        setDraggableCategory(category);
+    };
+
+    const handleUpdateCategoryForAdding = (category: ICategory | null) => {
+        setCategoryForAdding(category);
+    };
+
     return (
         <div className="category-page">
             <div className="category-page-title">Управление категориями</div>
@@ -172,6 +181,8 @@ export const CategoriesPage = () => {
                         handleOpenAddSubCategory={ handleOpenAddSubCategory }
                         handleOpenConfirmDeletion={ handleOpenConfirmDeletion }
                         handleOpenEditCategory={ handleOpenEditCategory }
+                        handleUpdateDraggableCategory={ handleUpdateDraggableCategory }
+                        handleUpdateAddingCategory={ handleUpdateAddingCategory }
                     />
                 </SimpleTreeView>
             </div>
@@ -183,15 +194,13 @@ export const CategoriesPage = () => {
                 actionConfirmed={ handleCloseWithUnsavedData }
                 closeModal={ handleCancelAddingCategory }
             >
-                <div className="adding-category">
-                    <CategoryManageForm
-                        currentCategory={ currentCategory }
-                        handleApproveAddingCategory={ handleApproveAddingCategory }
-                        handleUpdateUnsavedData={ handleUpdateUnsavedData }
-                        handleCancelAddingCategory={ handleCancelAddingCategory }
-                        mode={ mode }
-                    />
-                </div>
+                <CategoryManageForm
+                    currentCategory={ currentCategory }
+                    handleApproveAddingCategory={ handleApproveAddingCategory }
+                    handleUpdateUnsavedData={ handleUpdateUnsavedData }
+                    handleCancelAddingCategory={ handleCancelAddingCategory }
+                    mode={ mode }
+                />
             </CustomModal>
             <CustomModal
                 isDisplay={ modals.unsavedData }

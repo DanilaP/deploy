@@ -11,6 +11,8 @@ interface ICategoriesTreeItemsProps {
     handleOpenEditCategory: (e: any, category: ICategory) => void,
     handleOpenAddSubCategory: (e: any, category: ICategory) => void,
     handleOpenConfirmDeletion: (e: any, category: ICategory) => void,
+    handleUpdateDraggableCategory: (category: ICategory | null) => void,
+    handleUpdateAddingCategory: (category: ICategory | null) => void
 }
 
 export default function CategoriesTreeItems({
@@ -18,15 +20,20 @@ export default function CategoriesTreeItems({
     handleClickTreeItem,
     handleOpenEditCategory,
     handleOpenAddSubCategory,
-    handleOpenConfirmDeletion
+    handleOpenConfirmDeletion,
+    handleUpdateDraggableCategory,
+    handleUpdateAddingCategory
 }: ICategoriesTreeItemsProps) {
 
     return items.map((category: ICategory) => (
         <TreeItem
             draggable
+            onDragStart={ () => {
+                handleUpdateDraggableCategory(category);
+            } }
             onDragEnter={ (e) => {
                 e.stopPropagation();
-                console.log(category.title);
+                handleUpdateAddingCategory(category);
             } }
             onClick={ () => handleClickTreeItem(category) }
             key={ category.id }
