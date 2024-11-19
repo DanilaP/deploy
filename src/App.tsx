@@ -24,7 +24,7 @@ function App() {
 
     const { t } = useTranslation();
 
-    const { userStore, cartStore } = useStore();
+    const { userStore } = useStore();
     const { checkPermissions } = usePermissions();
 
     const changeTheme = () => {
@@ -72,18 +72,6 @@ function App() {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
-
-    useEffect(() => {
-        const fetchBasketData = async () => {
-            try {
-                const { data: { backet } } = await $api.get('/backet');
-                cartStore.setCart(backet);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchBasketData();
     }, []);
 
     return (

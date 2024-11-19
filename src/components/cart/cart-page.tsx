@@ -34,6 +34,18 @@ const CartPage = () => {
         }
     }, [cart]);
 
+    useEffect(() => {
+        const fetchBasketData = async () => {
+            try {
+                const { data: { backet } } = await $api.get('/backet');
+                cartStore.setCart(backet);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchBasketData();
+    }, []);
+
     const handleSelectAllChange = () => {
         const newSelectedIds = isAllSelected ? [] : cart.map((product) => product.id);
         cartStore.setSelectedProductIds(newSelectedIds);
@@ -61,10 +73,12 @@ const CartPage = () => {
 
     const handleProductRemove = (productId: number) => {
         removeProducts([productId]);
+        cartStore.setIsAllSelected(true);
     };
 
     const handleRemoveProducts = () => {
         removeProducts(selectedProductIds);
+        cartStore.setIsAllSelected(true);
     };
 
     const handleProductQuantityChange = async(productId: number, newQuantity: number) => {
@@ -84,8 +98,8 @@ const CartPage = () => {
             { isBasketEmpty ? (
                 <EmptyCartCard />
             ) : (
-                <Grid container rowSpacing={1} columnSpacing={2}>
-                    <Grid size={{ sm: 12, md: 8, lg: 8, xl: 6 }} gap={2}>
+                <Grid container rowSpacing={ 1 } columnSpacing={ 2 }>
+                    <Grid size={ { sm: 12, md: 8, lg: 8, xl: 6 } } gap={2}>
                         <Stack direction='row' spacing={2} className="header-stack">
                             <Typography variant='h5' className="fw-bold">
                                 {t('titles.cart')}
@@ -138,7 +152,7 @@ const CartPage = () => {
                         <OrderCard isSomeSelected={isSomeSelected} />
                     </Grid>
                 </Grid>
-            )}
+            ) }
         </Container>
     );
 };

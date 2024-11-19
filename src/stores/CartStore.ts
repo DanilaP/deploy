@@ -15,6 +15,7 @@ class CartStore {
         this.cart = cart;
         this.calculateTotals();
     }
+
     setSelectedProductIds(ids: number[]) {
         this.selectedProductIds = ids;
         this.calculateTotals();
