@@ -185,6 +185,7 @@
     "breadcrumbs": {
         "about": "About page",
         "shop": "Shop",
+        "cart": "Cart",
         "profile": "Profile",
         "adminPage": "Admin page",
         "adminUsers": "Users",
