@@ -90,6 +90,7 @@ export default function ProvidersManageForm({
                                 return validationData === true ? true : t(validationData);
                             }
                         }) }
+                        placeholder={ t("text.email") }
                         id="update-provider-email"
                     />
                 </div>
