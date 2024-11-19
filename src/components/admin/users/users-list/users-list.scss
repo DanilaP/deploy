@@ -56,11 +56,11 @@
 
         .user-settings {
             display: flex;
-            justify-content: center;
-            gap: 5px;
-            min-width: 250px;
+            gap: 20px;
+            min-width: 300px;
 
             .MuiButton-root {
+                width: 139.69px;
                 font-size: 15px;
                 padding: 5px;
             }

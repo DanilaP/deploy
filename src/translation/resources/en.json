@@ -153,7 +153,9 @@
         "deleteStoreConfirmation": "Are you sure you want to delete store?",
         "confirmed": "Confirmed",
         "unConfirmed": "Unconfirmed",
-        "deleted": "Deleted"
+        "deleted": "Deleted",
+        "recover": "Recover",
+        "recoverUserConfirmation": "Are you sure you want to recover user?"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
