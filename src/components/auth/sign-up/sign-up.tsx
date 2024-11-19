@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useStore } from '../../../stores';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { validateEmail, validateRequiredField } from '../../../helpers/validators-helper';
+import { validateEmail, validateRequiredEmail, validateRequiredField } from '../../../helpers/validators-helper';
 import { formData } from '../auth-interfaces/auth-interfaces';
 
 export default function SignUp () {
@@ -46,11 +46,7 @@ export default function SignUp () {
                     {
                         ...register("login", {
                             validate: (
-                                (value: string) => validateEmail(value) 
-                                    ? true 
-                                    : validateRequiredField(value) 
-                                        ? t("text.invalidEmail")
-                                        : t("text.requiredField")
+                                (value: string) => validateRequiredEmail(value)
                             )
                         })
                     }

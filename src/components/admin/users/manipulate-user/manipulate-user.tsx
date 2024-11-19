@@ -5,7 +5,7 @@ import './manipulate-user.scss';
 import $api from '../../../../configs/axiosconfig/axios.js';
 import { Autocomplete, Button, TextField } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { validateEmail, validateRequiredField } from '../../../../helpers/validators-helper.js';
+import { validateEmail, validateRequiredEmail, validateRequiredField } from '../../../../helpers/validators-helper.js';
 
 interface formData {
     role: string,
@@ -99,11 +99,7 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
                         {   
                             ...register("login", {
                                 validate: (
-                                    (value: string) => validateEmail(value) 
-                                        ? true 
-                                        : validateRequiredField(value) 
-                                            ? t("text.invalidEmail")
-                                            : t("text.requiredField")
+                                    (value: string) => validateRequiredEmail(value)
                                 )
                             })
                         }
