@@ -25,7 +25,7 @@ function App() {
 
     const { t } = useTranslation();
 
-    const { userStore, cartStore } = useStore();
+    const { userStore } = useStore();
     const { checkPermissions } = usePermissions();
 
     const changeTheme = () => {
@@ -73,17 +73,6 @@ function App() {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
-
-    useEffect(() => {
-        const apiCart = cartApi();
-        apiCart.getUserCart()
-            .then((res) => {
-                cartStore.setCart(res);
-            })
-            .catch((error) => {
-                console.error('Ошибка загрузки данных корзины', error);
-            });
     }, []);
 
     return (

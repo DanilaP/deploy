@@ -24,6 +24,7 @@ class CartStore {
         this.selectedProductIds = this.selectedProductIds.filter(id => validIds.includes(id));
         this.calculateTotals();
     }
+
     setSelectedProductIds(ids: number[]) {
         this.selectedProductIds = ids;
         this.isAllSelected = ids.length === this.cart.length;
