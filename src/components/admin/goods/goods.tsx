@@ -114,7 +114,6 @@ export const GoodsPage = () => {
             return el.name.toLowerCase().includes(searchValue) ||
                 el.description.toLowerCase().includes(searchValue) ||
                 el.fullDescription.toLowerCase().includes(searchValue) ||
-                el.provider.toLowerCase().includes(searchValue) ||
                 el.partNumber.includes(searchValue) ||
                 String(el.variations[0].price).includes(searchValue);
         }));
