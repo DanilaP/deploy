@@ -23,6 +23,11 @@ export default function CategoriesTreeItems({
 
     return items.map((category: ICategory) => (
         <TreeItem
+            draggable
+            onDragEnter={ (e) => {
+                e.stopPropagation();
+                console.log(category.title);
+            } }
             onClick={ () => handleClickTreeItem(category) }
             key={ category.id }
             itemId={ category.id }

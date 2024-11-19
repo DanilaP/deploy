@@ -17,6 +17,8 @@ export const CategoriesPage = () => {
     const [mode, setMode] = useState<"edit" | "create" | "">("");
     const [modals, setModals] = useState({ manage: false, deletionConfirm: false, unsavedData: false });
     const [unsavedDataExist, setUnsavedDataExist] = useState<boolean>(false);
+    const [draggableCategory, setDraggableCategory] = useState<ICategory | null>(null);
+    const [categoryForAdding, setCategoryForAdding] = useState<ICategory | null>(null);
     const { t } = useTranslation();
     const { 
         categories,
@@ -45,22 +47,6 @@ export const CategoriesPage = () => {
         setMode("edit");
         setModals(prev => {
             return { ...prev, manage: true };
-        });
-    };
-
-    const handleUpdateUnsavedData = (status: boolean) => {
-        setUnsavedDataExist(status);
-    };
-
-    const handleCloseWithUnsavedData = () => {
-        setModals(prev => {
-            return { ...prev, unsavedData: false, manage: false };
-        });
-    };
-
-    const handleCloseUnsavedData = () => {
-        setModals(prev => {
-            return { ...prev, unsavedData: false };
         });
     };
 
@@ -114,6 +100,22 @@ export const CategoriesPage = () => {
         }
     };
 
+    const handleUpdateUnsavedData = (status: boolean) => {
+        setUnsavedDataExist(status);
+    };
+
+    const handleCloseWithUnsavedData = () => {
+        setModals(prev => {
+            return { ...prev, unsavedData: false, manage: false };
+        });
+    };
+
+    const handleCloseUnsavedData = () => {
+        setModals(prev => {
+            return { ...prev, unsavedData: false };
+        });
+    };
+    
     const handleClickTreeItem = (category: ICategory) => {
         if (expandedItems.filter(el => el === category.id).length !== 0) {
             setExpandedItems(items => items.filter(el => el !== category.id));
