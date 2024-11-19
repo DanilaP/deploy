@@ -12,6 +12,7 @@ import { observer } from 'mobx-react-lite';
 import { IProduct } from "../../interfaces/interfaces.ts";
 import { useNavigate } from "react-router";
 import cartApi from "../../api/cart.ts";
+import $api from "../../configs/axiosconfig/axios.js";
 
 const CartPage = () => {
     const { t } = useTranslation();
@@ -26,14 +27,6 @@ const CartPage = () => {
 
     const isBasketEmpty = cart.length === 0;
     const isSomeSelected = selectedProductIds.length > 0;
-
-    useEffect(() => {
-        if (cart.length > 0) {
-            const allProductIds = cart.map((product) => product.id);
-            cartStore.setSelectedProductIds(allProductIds);
-            cartStore.setTotalBasketQuantity(cart.length);
-        }
-    }, [cart]);
 
     useEffect(() => {
         const fetchBasketData = async () => {

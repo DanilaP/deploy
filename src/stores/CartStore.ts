@@ -22,19 +22,13 @@ class CartStore {
         this.setTotalBasketQuantity(this.cart.length);
         const validIds = cart.map(product => product.id);
         this.selectedProductIds = this.selectedProductIds.filter(id => validIds.includes(id));
+        this.isAllSelected = this.cart.length ===  this.selectedProductIds.length;
         this.calculateTotals();
     }
 
     setSelectedProductIds(ids: number[]) {
         this.selectedProductIds = ids;
         this.isAllSelected = ids.length === this.cart.length;
-        localStorage.setItem('selectedProductsIds', JSON.stringify(this.selectedProductIds));
-        this.calculateTotals();
-    }
-
-    setIsAllSelected(flag: boolean) {
-        this.isAllSelected = flag;
-        this.selectedProductIds = flag ? this.cart.map(product => product.id) : [];
         localStorage.setItem('selectedProductsIds', JSON.stringify(this.selectedProductIds));
         this.calculateTotals();
     }
