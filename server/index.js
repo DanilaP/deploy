@@ -55,6 +55,8 @@ app.post("/auth/signup", async function(req, res) {
             let newUserId = Date.now();
             let newUser = {
                 id: newUserId,
+                isActive: true,
+                isVerified: false,
                 login,
                 password: bcrypt.hashSync(password, 7),
                 role: "Пользователь",
@@ -76,7 +78,7 @@ app.post("/auth/signup", async function(req, res) {
 //Users routes
 app.post("/users", async function(req, res) {
     try {
-        const { login, password, role } = req.body;
+        const { login, password, role, isActive, isVerified } = req.body;
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         if (currentUsers.filter((user) => user.login === login).length > 0) {
             res.status(200).json({ message: "Данный  пользователь уже существует!" });
@@ -84,6 +86,8 @@ app.post("/users", async function(req, res) {
             let newUserId = Date.now();
             let newUser = {
                 id: newUserId,
+                isActive,
+                isVerified,
                 login,
                 password: bcrypt.hashSync(password, 7),
                 role,
@@ -106,7 +110,14 @@ app.delete("/users", async function(req, res) {
         const userId  = req.query.id;
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         if (currentUsers.length !== 0) {
-            let newUsersArray = currentUsers.filter((user) => user.id !== +userId);
+            let newUsersArray = currentUsers.map((user) => {
+                if (user.id === Number(userId)) {
+                    return {
+                        ...user,
+                        isActive: false
+                    };
+                } else return user;
+            });
             fs.writeFileSync('DB/Users.json', JSON.stringify(newUsersArray, null, 2));
             res.status(200).json({ message: "Успешное удаление пользователя!", users: newUsersArray });
         }
