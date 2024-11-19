@@ -5,21 +5,19 @@ import { useTranslation } from "react-i18next";
 import { Button, TextField } from "@mui/material";
 import { useCategoryHelper } from "../../../helpers/use-category-helper.js";
 import { IoMdSearch } from "react-icons/io";
-import { validateNewCategory } from "./validators.js";
 import CategoriesTreeItems from "./CategoriesTreeItems/CategoriesTreeItems.js";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.js";
 import "./categories.scss";
+import CategoryManageForm, { ICategoryForm } from './CategoryManageForm/CategoryManageForm.js';
 
 export const CategoriesPage = () => {
 
     const [currentCategory, setCurrentCategory] = useState<ICategory | null>(null);
-    const [newCategoryTitle, setNewCategoryTitle] = useState<string>("");
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
-    const [mode, setMode] = useState<"edit" | "create" | null>(null);
-    const [isFormChecked, setIsFormChecked] = useState<boolean>(false);
-    const [modals, setModals] = useState({ manage: false, deletionConfirm: false });
+    const [mode, setMode] = useState<"edit" | "create" | "">("");
+    const [modals, setModals] = useState({ manage: false, deletionConfirm: false, unsavedData: false });
+    const [unsavedDataExist, setUnsavedDataExist] = useState<boolean>(false);
     const { t } = useTranslation();
-    const validatorFormData = validateNewCategory(newCategoryTitle);
     const { 
         categories,
         filteredCategories,
@@ -32,11 +30,9 @@ export const CategoriesPage = () => {
         handleUpdateCategory
     } = useCategoryHelper();
     
-
     const handleOpenAddSubCategory = (e: any, category: ICategory | null) => {
         e.stopPropagation();
         setCurrentCategory(category);
-        setNewCategoryTitle("");
         setMode("create");
         setModals(prev => {
             return { ...prev, manage: true };
@@ -47,9 +43,24 @@ export const CategoriesPage = () => {
         e.stopPropagation();
         setCurrentCategory(category);
         setMode("edit");
-        setNewCategoryTitle(category?.title || "");
         setModals(prev => {
             return { ...prev, manage: true };
+        });
+    };
+
+    const handleUpdateUnsavedData = (status: boolean) => {
+        setUnsavedDataExist(status);
+    };
+
+    const handleCloseWithUnsavedData = () => {
+        setModals(prev => {
+            return { ...prev, unsavedData: false, manage: false };
+        });
+    };
+
+    const handleCloseUnsavedData = () => {
+        setModals(prev => {
+            return { ...prev, unsavedData: false };
         });
     };
 
@@ -61,25 +72,26 @@ export const CategoriesPage = () => {
         setCurrentCategory(category);
     };
 
-    const handleApproveAddingCategory = () => {
-        if (!validatorFormData.formValid) {
-            setIsFormChecked(true);
-            return;
-        }
+    const handleApproveAddingCategory = (formData: ICategoryForm) => {
+        const { image, title, description } = formData;
         if (mode === "create") {
             if (currentCategory) {
-                const updatedCategory = handleFindCategoryAndAddIntoNewCategory(currentCategory, newCategoryTitle, categories);
-                const updatedFiltered = handleFindCategoryAndAddIntoNewCategory(currentCategory, newCategoryTitle, filteredCategories);
+                const updatedCategory = handleFindCategoryAndAddIntoNewCategory(
+                    currentCategory, image, title, description, categories
+                );
+                const updatedFiltered = handleFindCategoryAndAddIntoNewCategory(
+                    currentCategory, image, title, description, filteredCategories
+                );
                 setCategories(updatedCategory);
                 setFilteredCategories(updatedFiltered);
             } else {
-                handleAddRootCategory(newCategoryTitle);
+                handleAddRootCategory(title, description, image);
             }
         } 
         if (mode === "edit") {
             if (currentCategory) {
-                const updatedCategory = handleUpdateCategory(categories, { ...currentCategory, title: newCategoryTitle });
-                const updatedFiltered = handleUpdateCategory(filteredCategories, { ...currentCategory, title: newCategoryTitle });
+                const updatedCategory = handleUpdateCategory(categories, { ...currentCategory, title, description, image });
+                const updatedFiltered = handleUpdateCategory(filteredCategories, { ...currentCategory, title, description, image });
                 setCategories(updatedCategory);
                 setFilteredCategories(updatedFiltered);
             }
@@ -87,9 +99,19 @@ export const CategoriesPage = () => {
         setModals(prev => {
             return { ...prev, manage: false };
         });
-        setIsFormChecked(false);
-        setNewCategoryTitle("");
         setCurrentCategory(null);
+    };
+
+    const handleCancelAddingCategory = () => {
+        if (unsavedDataExist) {
+            setModals(prev => {
+                return { ...prev, unsavedData: true };
+            });
+        } else {
+            setModals(prev => {
+                return { ...prev, manage: false };
+            });
+        }
     };
 
     const handleClickTreeItem = (category: ICategory) => {
@@ -151,25 +173,44 @@ export const CategoriesPage = () => {
                     />
                 </SimpleTreeView>
             </div>
-            <CustomModal 
+            <CustomModal
+                isHidden={ modals.unsavedData }
                 isDisplay={ modals.manage }
                 title = { mode === "edit" ? t("text.editCategory") : t("text.addCategory") }
-                typeOfActions='default'
-                actionConfirmed={ handleApproveAddingCategory }
-                closeModal={ () => setModals({ ...modals, manage: false }) }
+                typeOfActions='none'
+                actionConfirmed={ handleCloseWithUnsavedData }
+                closeModal={ handleCancelAddingCategory }
             >
                 <div className="adding-category">
-                    <label className="label" htmlFor="update-good-providernew-category-title">{ t("text.name") }</label>
-                    <TextField
-                        defaultValue={ mode === "edit" ? currentCategory?.title : "" }
-                        onChange={ (e) => setNewCategoryTitle(e.target.value) }
-                        id="new-category-title"
-                        placeholder={ t("text.name") }
+                    <CategoryManageForm
+                        currentCategory={ currentCategory }
+                        handleApproveAddingCategory={ handleApproveAddingCategory }
+                        handleUpdateUnsavedData={ handleUpdateUnsavedData }
+                        handleCancelAddingCategory={ handleCancelAddingCategory }
+                        mode={ mode }
                     />
-                    { !validatorFormData.title.valid && isFormChecked
-                        && <span className="adding-category-error">{ t(validatorFormData.title.error) }</span> 
-                    }
                 </div>
+            </CustomModal>
+            <CustomModal
+                isDisplay={ modals.unsavedData }
+                title={ t("text.approveAction") }
+                typeOfActions='custom'
+                actionConfirmed={ handleCancelAddingCategory }
+                closeModal={ handleCancelAddingCategory }
+                actionsComponent={
+                    <>
+                        <Button 
+                            variant="contained"
+                            onClick={ handleCloseWithUnsavedData }
+                        >{ t("text.close") }</Button>
+                        <Button
+                            onClick={ handleCloseUnsavedData }
+                            variant="contained"
+                        >{ t("text.cancel") }</Button>
+                    </>
+                }
+            >
+                <div className="delete-text">{ t("text.unsavedChanges") }?</div>
             </CustomModal>
             <CustomModal 
                 isDisplay={ modals.deletionConfirm }
