@@ -81,7 +81,7 @@ export default function CategoryManageForm(props: ICategoryManageFormProps) {
             </FormControl>
             <FormControl>
                 <div className="form-horizontal-field">
-                    <FormLabel className="category-field-label">{ t("text.images") }</FormLabel>
+                    <FormLabel className="category-field-label">{ t("text.image") }</FormLabel>
                     <Controller
                         name="image"
                         control={ control }

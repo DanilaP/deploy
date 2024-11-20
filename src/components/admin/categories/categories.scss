@@ -1,4 +1,5 @@
 .category-page {
+    height: 100%;
     .category-page-title {
         font-size: 24px;
         border-radius: 5px;
@@ -20,8 +21,13 @@
         margin-top: 15px;
         .category-item {
             display: grid;
-            grid-template-columns: calc(100% - 100px) 100px;
+            grid-template-columns: 50px calc(100% - 165px) 100px;
+            column-gap: 5px;
             align-items: center;
+            .category-image {
+                display: flex;
+                align-items: center;
+            }
             .category-actions {
                 display: flex;
                 column-gap: 10px;
@@ -29,13 +35,12 @@
                     color: var(--text-color);
                     padding: 5px 0px 5px 0px;
                     &:hover {
-                        color: gray;
+                        color: var(--default-color);
                     }
                 }
             }
         }
         .not-empty-category {
-            margin-top: 5px;
             border-radius: 5px;
             background-color: var(--bg-color-block);
             .category-title {
@@ -43,12 +48,8 @@
                 letter-spacing: 2px;
                 text-transform: uppercase;
             }
-            .Mui-selected {
-                background-color: var(--hover-color);
-            }
         }
         .empty-category {
-            margin: 5px 12px 5px 0px;
             text-transform: none;
             border-radius: 5px;
             background-color: var(--bg-color);
@@ -57,13 +58,22 @@
                 letter-spacing: normal;
                 text-transform: none;
             }
-            .Mui-selected {
-                background-color: var(--hover-color);
-            }
-        }    
-    }
-    .MuiTreeItem-content:hover {
-        background-color: rgba(187, 235, 255, 0.203);
+        }
+        .MuiTreeItem-content:hover {
+            background-color: var(--hover-color);
+        }
+        .shown-category {
+            opacity: 1;
+        }
+        .hidden-category {
+            opacity: .1;
+        }
+        .current-drag-over-category {
+            border: 2px solid var(--default-color);
+        }
+        .current-default-category {
+            border: 2px solid var(--bg-color-block);
+        }
     }
     .delete-text {
         margin: 10px 0 10px 0;

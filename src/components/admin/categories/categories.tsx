@@ -26,11 +26,13 @@ export const CategoriesPage = () => {
         filteredCategories,
         setCategories, 
         setFilteredCategories,
-        handleDeleteSubCategory,
+        handleDeleteCategory,
         handleFindCategoryAndAddIntoNewCategory,
         handleFilterCategoriesByIncludingString,
         handleAddRootCategory,
-        handleUpdateCategory
+        handleUpdateCategory,
+        handleMoveCategoryIntoNewCategory,
+        handleMoveCategoryAsRoot
     } = useCategoryHelper();
     
     const handleOpenAddSubCategory = (e: any, category: ICategory | null) => {
@@ -64,10 +66,10 @@ export const CategoriesPage = () => {
         if (mode === "create") {
             if (currentCategory) {
                 const updatedCategory = handleFindCategoryAndAddIntoNewCategory(
-                    currentCategory, image, title, description, categories
+                    currentCategory, title, image, description, categories
                 );
                 const updatedFiltered = handleFindCategoryAndAddIntoNewCategory(
-                    currentCategory, image, title, description, filteredCategories
+                    currentCategory, title, image, description, filteredCategories
                 );
                 setCategories(updatedCategory);
                 setFilteredCategories(updatedFiltered);
@@ -127,8 +129,8 @@ export const CategoriesPage = () => {
 
     const handleApproveDeleteSubCategory = (category: ICategory | null) => {
         if (!category) return;
-        const updatedCategories = handleDeleteSubCategory(categories, category);
-        const updatedFiltered = handleDeleteSubCategory(filteredCategories, category);
+        const updatedCategories = handleDeleteCategory(categories, category);
+        const updatedFiltered = handleDeleteCategory(filteredCategories, category);
         setCategories(updatedCategories);
         setFilteredCategories(updatedFiltered);
         setModals((prev) => {
@@ -138,7 +140,10 @@ export const CategoriesPage = () => {
     };
 
     const handleStartSearchingCategories = (textValue: string) => {
-        if (textValue.length < import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH && textValue.length !== 0) return;
+        if (textValue.length === 0) {
+            setFilteredCategories(categories);
+        }
+        if (textValue.length < import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH) return;
         const findedCategories = handleFilterCategoriesByIncludingString(textValue, categories);
         setFilteredCategories(findedCategories);
     };
@@ -147,12 +152,40 @@ export const CategoriesPage = () => {
         setDraggableCategory(category);
     };
 
-    const handleUpdateCategoryForAdding = (category: ICategory | null) => {
+    const handleUpdateAddingCategory = (category: ICategory | null) => {
         setCategoryForAdding(category);
     };
 
+    const handleMoveCategoryIntoNewCategoryWithFiltered = () => {
+        let updatedCategories: ICategory[] = [];
+        let updatedFilteredCategories: ICategory[] = [];
+
+        if (draggableCategory && !categoryForAdding) {
+            updatedCategories = handleMoveCategoryAsRoot(draggableCategory, categories);
+            updatedFilteredCategories = handleMoveCategoryAsRoot(draggableCategory, filteredCategories);
+        }
+        if (draggableCategory && categoryForAdding && draggableCategory.id !== categoryForAdding.id) {
+            updatedFilteredCategories = handleMoveCategoryIntoNewCategory(draggableCategory, categoryForAdding, filteredCategories);
+            updatedCategories = handleMoveCategoryIntoNewCategory(draggableCategory, categoryForAdding, categories);
+        }
+        if (updatedCategories.length !== 0 && updatedFilteredCategories.length !== 0) {
+            setFilteredCategories(updatedFilteredCategories);
+            setCategories(updatedCategories);
+        }
+        setDraggableCategory(null);
+        setCategoryForAdding(null);
+    };
+
+    const handleDragEnterToCategoriesPage = (e: any) => {
+        e.stopPropagation();
+        setCategoryForAdding(null);
+    };
+
     return (
-        <div className="category-page">
+        <div 
+            className="category-page"
+            onDragEnter={ handleDragEnterToCategoriesPage }
+        >
             <div className="category-page-title">Управление категориями</div>
             <div className="category-page-search">
                 <div className="category-page-search-value">
@@ -177,12 +210,15 @@ export const CategoriesPage = () => {
                 <SimpleTreeView expandedItems={ expandedItems }>
                     <CategoriesTreeItems
                         items={ filteredCategories }
+                        categoryForAdding={ categoryForAdding }
+                        draggableCategory={ draggableCategory }
                         handleClickTreeItem={ handleClickTreeItem }
                         handleOpenAddSubCategory={ handleOpenAddSubCategory }
                         handleOpenConfirmDeletion={ handleOpenConfirmDeletion }
                         handleOpenEditCategory={ handleOpenEditCategory }
                         handleUpdateDraggableCategory={ handleUpdateDraggableCategory }
                         handleUpdateAddingCategory={ handleUpdateAddingCategory }
+                        handleMoveCategoryIntoNewCategoryWithFiltered={ handleMoveCategoryIntoNewCategoryWithFiltered }
                     />
                 </SimpleTreeView>
             </div>

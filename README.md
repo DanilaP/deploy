@@ -53,4 +53,7 @@ If you are developing a production application, we recommend updating the config
   - Install `@mui/x-tree-view`
 - Add validation for managing goods form
   - Install `react-hooks-form`
-
+- Fix bugs for categories page and add new functionality
+  - integrate form with RHK
+  - moving categories with DnD
+  - create new fields for each category

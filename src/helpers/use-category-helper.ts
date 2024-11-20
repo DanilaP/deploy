@@ -31,13 +31,13 @@ export const useCategoryHelper = () => {
         });
     };
 
-    const handleDeleteSubCategory = (categoryList: ICategory[], category: ICategory) => {
+    const handleDeleteCategory = (categoryList: ICategory[], category: ICategory) => {
         const updatedCategory = categoryList.reduce((prev: ICategory[], item: ICategory) => {
             if (item.id === category.id) {
                 return prev;
             }
             if (item.categories) {
-                const filteredcategories: ICategory[] = handleDeleteSubCategory(item.categories, category);
+                const filteredcategories: ICategory[] = handleDeleteCategory(item.categories, category);
                 return [...prev, { ...item, categories: filteredcategories }];
             }
             return [...prev, item];
@@ -106,6 +106,45 @@ export const useCategoryHelper = () => {
         return updatedCategory;
     };
 
+    const handleMoveCategoryIntoNewCategory = (
+        categoryForAdding: ICategory,
+        categoryToAdding: ICategory,
+        categoryList: ICategory[]
+    ) => {
+        const updatedCategoriesList = handleDeleteCategory(categoryList, categoryForAdding);
+        const updatedCategories = updatedCategoriesList.reduce((prev: ICategory[], item: ICategory) => {
+            if (item.id === categoryToAdding.id) {
+                if (item.categories) {
+                    return [...prev, { 
+                        ...item,
+                        categories: [...item.categories, categoryForAdding]
+                    }];
+                } else {
+                    return [...prev, { 
+                        ...item,
+                        categories: [categoryForAdding]
+                    }];
+                }
+            }
+            if (item.categories) {
+                const updated: ICategory[] = 
+                handleMoveCategoryIntoNewCategory(categoryForAdding, categoryToAdding, item.categories);
+                return [...prev, { ...item, categories: updated }];
+            }
+            return [...prev, item];
+        }, []);
+        return updatedCategories;
+    };
+
+    const handleMoveCategoryAsRoot = (
+        categoryForAdding: ICategory,
+        categoryList: ICategory[]
+    ) => {
+        const updatedCategoriesList = handleDeleteCategory(categoryList, categoryForAdding);
+        const updatedCategories = [...updatedCategoriesList, categoryForAdding];
+        return updatedCategories;
+    };
+
     const handleFilterCategoriesByIncludingString = (
         textValue: string,
         categoryList: ICategory[]
@@ -161,11 +200,13 @@ export const useCategoryHelper = () => {
         categoriesForSelect,
         setCategories,
         setFilteredCategories,
-        handleDeleteSubCategory, 
+        handleDeleteCategory, 
         handleFindCategoryAndAddIntoNewCategory, 
         handleFilterCategoriesByIncludingString,
         handleAddRootCategory,
         handleUpdateCategory,
-        handleCheckIsCategoryExist
+        handleCheckIsCategoryExist,
+        handleMoveCategoryIntoNewCategory,
+        handleMoveCategoryAsRoot
     };
 };
