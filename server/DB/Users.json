@@ -44,7 +44,7 @@
   },
   {
     "id": 1727161785732,
-    "isActive": true,
+    "isActive": false,
     "isVerified": true,
     "login": "newuser@gmail.com",
     "password": "$2a$07$ItQ8NTItTNk46S.PwwmdD.n.BrlwoO.Sc7ByhzR40f3quxyZUyt6S",
@@ -78,7 +78,7 @@
     "isVerified": false,
     "login": "danila555@gmail.com",
     "password": "$2a$07$/XHe1TE4gIxJg6r2jsmhTe1fFEfuY.5h7gxW1/o7VNTV3hNJ7QOhG",
-    "role": "Пользователь",
+    "role": "Администратор",
     "avatar": "http://localhost:5000/avatar.jpg",
     "backet": [],
     "favorites": []

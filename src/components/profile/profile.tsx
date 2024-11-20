@@ -46,6 +46,12 @@ export default function ProfilePage () {
                         <img src={ user?.avatar }></img>
                         <div className="user-login">{ user?.login }</div>
                         <div className="user-role">{ user?.role }</div>
+                        <div className="user-status">
+                            {  (!user?.isVerified) && (
+                                    <p>{ t("text.confirmAccount") }</p>
+                                )  
+                            }
+                        </div>
                         <InputFile />
                     </div>
                     <div className="user-settings">

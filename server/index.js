@@ -34,10 +34,14 @@ app.post("/auth/signin", async function(req, res) {
         const { login, password } = req.body;
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         let findedUser = currentUsers.filter((user) => user.login === login && bcrypt.compareSync(password, user.password));
+        if (!findedUser[0].isActive) {
+            res.status(400).json({ message: "Пользователь не существует!" });
+        }
         if (findedUser.length > 0) {
             let token = generateAccessToken(findedUser[0].id);
             res.status(200).json({ message: "Успешный вход", user: findedUser[0], token });
-        } else {
+        } 
+        else {
             res.status(400).json({ message: "Неверные данные" });
         }
     } catch (error) {
