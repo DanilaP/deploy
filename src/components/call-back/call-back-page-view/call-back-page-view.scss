@@ -1,0 +1,57 @@
+.call-back-page {
+    padding: 25px;
+    display: grid;
+    color: var(--text-color) !important;
+    justify-content: center;
+    .title {
+        text-align: center;
+        font-size: 22px;
+    }
+    .content {
+        margin-top: 20px;
+        .call-back-table {
+            color: var(--text-color);
+            .call-back-table-header {
+                background-color: var(--bg-color-block);
+            }
+            .call-back-block {
+                column-gap: 10px;
+                margin: 5px;
+                padding: 10px;
+                border-radius: 5px;
+                background-color: var(--bg-color-block);
+                cursor: pointer;
+                &:hover {
+                    background-color: var(--hover-color);
+                }
+                .status {
+                    font-weight: 600;
+                    .success-text {
+                        color: green;
+                    }
+                    .waiting-text {
+                        color: orange;
+                    }
+                }
+                .actions {
+                    .icon-action {
+                        color: var(--text-color);
+                        font-size: 20px;
+                        &:hover {
+                            color: var(--default-color);
+                        }
+                    }
+                }
+            }
+            .helper-text {
+                margin-top: 15px;
+                text-align: center;
+                color: gray;
+            }
+        }
+        .MuiTableCell-root {
+            color: var(--text-color);
+            text-align: center;
+        }
+    }
+}

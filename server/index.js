@@ -522,7 +522,7 @@ app.get("/favorites", async function(req, res) {
         res.status(400).json({ message: "Ошибка при получении избранных товаров!" });
         console.error("get /favourites", error);
     }
-})
+});
 
 // categories
 
@@ -567,6 +567,21 @@ app.delete("/category", async function(req, res) {
     catch(error) {
         console.error("get /category", error);
         res.status(400).json({ message: "Ошибка удаления категории!" });
+    }
+});
+
+// callbacks
+
+app.get("/callbacks", async function(req, res) {
+    try {
+        const callbacksList = JSON.parse(fs.readFileSync('DB/Callbacks.json', 'utf8'));
+        const userId = +req.query.userId;
+        const userCallbacks = callbacksList.filter(callback => callback.userId === userId);
+        res.status(200).json({ message: "Данные о заявках обратной связи получены", callbacks: userCallbacks });
+    }
+    catch(error) {
+        console.error("get /callbacks", error);
+        res.status(400).json({ message: "Ошибка получения данных о заявках обратной связи!" });
     }
 });
 

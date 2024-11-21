@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "userId": 1727098679785,
+        "firstName": "Egor",
+        "secondName": "Platonov",
+        "phoneNumber": "8 969 346 36 19",
+        "description": "Жалоба на качество полученного товара.",
+        "typeOfBid": "Жалоба",
+        "email": "eplat0220@gmail.com",
+        "solved": false,
+        "moderatorAnswer": null,
+        "dateOfCreation": "10-06-2024",
+        "dateOfAnswer": null
+    },
+    {
+        "id": 2,
+        "userId": 1727098679785,
+        "firstName": "Egor",
+        "secondName": "Platonov",
+        "phoneNumber": "8 969 346 36 19",
+        "description": "Долго не могу получить ответ по предыдущей заявке",
+        "typeOfBid": "Отзыв",
+        "email": "eplat0220@gmail.com",
+        "solved": true,
+        "moderatorAnswer": "Извините, из - за большого количества обращений может быть задержка с ответом. В скором времени Вам ответят.",
+        "dateOfCreation": "10-06-2024",
+        "dateOfAnswer": "10-06-2024"
+    }
+]

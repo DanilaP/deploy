@@ -99,7 +99,21 @@
         "yourReview": "Your review",
         "sendReview": "Send review",
         "variations": "Variations",
+        "yourName": "Your name",
+        "yourPhone": "Your phone",
+        "typeOfBid": "Type of bid",
+        "yourSecondName": "Your second name",
+        "moderatorAnswer": "Moderator answer",
+        "dateOfAnswer": "Date of answer",
+        "status": "Status",
         "choosenVariation": "Choosen variation",
+        "solved": "Solved",
+        "waiting": "Waiting for answer",
+        "callbackInfo": "Callback info",
+        "callbackForm": "Callback form",
+        "callback": "Callback",
+        "yourActiveCallbacks": "Your active callbacks",
+        "youHaveNoCallbacksYet": "You have not callbacks yet",
         "changeReview": "Change review",
         "deleteReview": "Delete review",
         "review": "Review",
@@ -185,6 +199,7 @@
         "adminPermissions": "Permissions",
         "shopProduct": "Product",
         "productReviews": "Reviews of the product",
-        "favorites": "Favorites"
+        "favorites": "Favorites",
+        "callback": "Callback"
     }
 }

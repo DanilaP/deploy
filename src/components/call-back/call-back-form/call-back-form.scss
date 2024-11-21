@@ -1,0 +1,16 @@
+.call-back-form {
+    margin: 15px 0px 15px 0px;
+    display: grid;
+    row-gap: 10px;
+    .MuiInputBase-input {
+        padding: 3px;
+    }
+    .MuiFormControl-root {
+        display: grid;
+        row-gap: 5px;
+    }
+    .form-actions {
+        display: flex;
+        column-gap: 5px;
+    }
+}

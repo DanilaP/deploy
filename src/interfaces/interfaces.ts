@@ -63,3 +63,17 @@ export interface ISelect {
     id: string,
     label: string
 }
+export interface ICallBack {
+    id: number,
+    userId: number,
+    firstName: string,
+    secondName: string,
+    phoneNumber: string,
+    description: string,
+    typeOfBid: string,
+    email: string,
+    solved: boolean,
+    moderatorAnswer: string | null,
+    dateOfCreation: string,
+    dateOfAnswer: string | null
+}

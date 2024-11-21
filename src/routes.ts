@@ -17,6 +17,7 @@ import { CategoriesPage } from "./components/admin/categories/categories";
 import { t } from "i18next";
 import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import Favorites from "./components/favorites/favorites";
+import CallBackPage from "./components/call-back/call-back.tsx";
 
 export const routes = [
     {
@@ -78,6 +79,12 @@ export const routes = [
         component: Favorites,
         children: null,
         breadcrumb : t("breadcrumbs.favorites")
+    },
+    {
+        path: "/callback",
+        component: CallBackPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.callback")
     },
     {
         path: '*',

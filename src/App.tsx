@@ -15,6 +15,7 @@ import { useStore } from './stores';
 import usePermissions from './helpers/permissions-helpers.ts';
 import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
 import { MdFavoriteBorder } from "react-icons/md";
+import { MdPhoneCallback } from "react-icons/md";
 
 function App() {
     const [theme, setTheme] = useState("white-theme");
@@ -86,6 +87,7 @@ function App() {
                                 <MdFavoriteBorder className='icon' />
                                 { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
                             </Link><br/>
+                            <Link to='/callback'><MdPhoneCallback className='icon' />{ !isMobile ? t('text.callback') : null }</Link><br/>
                             { checkPermissions() ?
                             (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">

@@ -50,7 +50,17 @@
         "details": "Детали",
         "products": "Товары",
         "logout": "Выйти из аккаунта",
+        "callbackInfo": "Информация о заявке",
+        "yourName": "Ваше имя",
+        "yourPhone": "Ваш телефон",
+        "yourSecondName": "Ваша фамилия",
+        "typeOfBid": "Тип",
+        "moderatorAnswer": "Ответ модератора",
+        "dateOfAnswer": "Дата ответа",
+        "status": "Статус",
         "adminPanel": "Панель администратора",
+        "solved": "Вопрос решён",
+        "waiting": "В ожидании ответа",
         "name": "Наименование",
         "roles": "Роли",
         "saveChanges": "Сохранить изменения",
@@ -85,7 +95,11 @@
         "deleteGroup": "Удалить группу",
         "editCategory": "Редактировать категорию",
         "createCategory": "Создать категорию",
+        "callbackForm": "Форма обратной связи",
+        "callback": "Обратная связь",
         "addCategory": "Добавить категорию",
+        "yourActiveCallbacks": "Ваши активные заявки обратной связи",
+        "youHaveNoCallbacksYet": "Вы пока не оставляли заявки с обратной связью",
         "groupName": "Наименование группы",
         "cart": {
             "productChoose": "Выберите товары, чтобы перейти к оформлению",
@@ -185,6 +199,7 @@
         "adminPermissions": "Разрешения/права",
         "shopProduct": "Продукт",
         "productReviews": "Отзывы о продукте",
-        "favorites": "Избранное"
+        "favorites": "Избранное",
+        "callback": "Обратная связь"
     }
 }

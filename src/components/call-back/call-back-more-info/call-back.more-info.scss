@@ -1,0 +1,18 @@
+.call-back-more-info {
+    margin: 15px 0px 15px 0px;
+    display: grid;
+    row-gap: 10px;
+    text-align: justify;
+    .moderator-answer {
+        max-width: 600px;
+    }
+    .status {
+        font-weight: 600;
+        .solved {
+            color: green;
+        }
+        .waiting {
+            color: orange;
+        }
+    }
+}
