@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwt_decode = require('jwt-decode');
 const path = require('path');
+const WebSocket = require('ws');
 
 const generateAccessToken = (id) => {
     const payload = {
@@ -621,6 +622,90 @@ app.delete("/category", async function(req, res) {
 });
 
 
+//Chat endpoints
+app.get("/chats", async function(req, res) {
+    try {
+        const token = req.headers.authorization;
+        const userId = jwt_decode(token).id;
+        let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        let chats = currentChats.filter((chat) => chat.members.includes(userId));
+
+        res.status(200).json({ message: "Данные о чатах успешно получены", chats: chats });
+    }
+    catch(error) {
+        console.error("get /chats", error);
+        res.status(400).json({ message: "Ошибка получения данных о чатах!" });
+    }
+});
+
+//Chat websocket
+const wss = new WebSocket.Server({ server });
+let clients = [];
+
+wss.on('connection', (ws) => {
+    clients = [...clients, { userws: ws, userId: jwt_decode(ws.protocol).id }];
+
+    ws.on('message', async (message) => {
+        try {
+            const newMessageData = JSON.parse(message);
+            const senderId = jwt_decode(newMessageData.senderToken).id;
+            const recipientId = newMessageData.recipientId;
+            let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+
+            let isChatExists = currentChats.filter((chat) => {
+                if (chat.members.includes(senderId) && chat.members.includes(recipientId)) {
+                    return true;
+                }
+                return false;
+            });
+
+            if (isChatExists > 0) {
+                currentChats.map((chat) => {
+                    if (isChatExists[0].id === chat.id) {
+                        return {
+                            ...chat,
+                            messages: [ ...chat.messages, {
+                                senderId,
+                                recipientId,
+                                text: newMessageData.message,
+                            } ]
+                        };
+                    } else return chat;
+                });
+                fs.writeFileSync('DB/Chats.json', JSON.stringify(currentChats, null, 2));
+            } 
+            else {
+                currentChats = [ ...currentChats, {
+                    id: Date.now(),
+                    members: [senderId, recipientId],
+                    messages: [{
+                        senderId,
+                        recipientId,
+                        text: newMessageData.message,
+                    }]
+                } ];
+                fs.writeFileSync('DB/Chats.json', JSON.stringify(currentChats, null, 2));
+            }
+
+            clients.map((client) => {
+                if (client.userId === recipientId || client.userId === senderId) {
+                    client.userws.send(JSON.stringify([...isChatExists[0].messages, {
+                        senderId: senderId,
+                        recipientId: recipientId,
+                        text: newMessageData.message,
+                    }]));
+                }
+            });
+        } 
+        catch (error) {
+            console.log(error);
+        }
+    });
+
+    ws.on('close', () => {
+        console.log("Соединение закрыто!");
+    });
+});
 
 async function startApp() {
     try {

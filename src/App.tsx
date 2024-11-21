@@ -20,6 +20,7 @@ function App() {
     const [theme, setTheme] = useState("white-theme");
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [socketState, setSocketState] = useState<WebSocket>();
     const navigate = useNavigate();
 
     const { t } = useTranslation();
@@ -72,6 +73,37 @@ function App() {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
+    }, []);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            const socket = new WebSocket('ws://localhost:5000', token);
+            setSocketState(socket);
+
+            socket.onopen = function() {
+                console.log('Соединение установлено');
+            };
+
+            socket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                console.log(data);
+            };
+
+            socket.onerror = function(error) {
+                console.log(`Ошибка: ${ error }`);
+            };
+        }
+    }, []);
+
+    useEffect(() => {
+        $api.get("chats")
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     }, []);
 
     return (
