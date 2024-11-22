@@ -505,7 +505,6 @@ app.put('/backet/updateCart', (req, res) => {
     res.status(200).json({ message: "Корзина успешно обновлена", cart: req.body });
 });
 
-
 //Favorites
 app.get("/favorites", async function(req, res) {
     try {
@@ -529,10 +528,10 @@ app.get("/favorites", async function(req, res) {
 });
 
 
-//Stores
-app.get("/stores", async function (req, res) {
+//Warehouses
+app.get("/warehouses", async function (req, res) {
     try {
-        let currentStores = JSON.parse(fs.readFileSync('DB/Stores.json', 'utf8'));
+        let currentStores = JSON.parse(fs.readFileSync('DB/Warehouses.json', 'utf8'));
         let currentProducts= JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
         
         let storesInfo = currentStores.map((store) => {
@@ -554,7 +553,7 @@ app.get("/stores", async function (req, res) {
     } 
     catch (error) {
         res.status(400).json({ message: "Ошибка при получении информации о складах" });
-        console.error("get /stores", error);
+        console.error("get /warehouses", error);
     }
 })
 
