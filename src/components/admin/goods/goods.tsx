@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, MenuItem, Select, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { ManageGoodForm } from "./forms/ManageGood/ManageGood";
@@ -8,6 +8,7 @@ import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 import $api from '../../../configs/axiosconfig/axios.js';
 import { IoMdSearch } from "react-icons/io";
 import "./goods.scss";
+import { useCategoryHelper } from "../../../helpers/use-category-helper.js";
 
 export const GoodsPage = () => {
 
@@ -18,6 +19,8 @@ export const GoodsPage = () => {
     const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null);
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
     const [unSavedDataExist, setUnsavedDataExist] = useState<boolean>(false);
+    const [currentActiveFilter, setCurrentActiveFilter] = useState<boolean>(true);
+    const { categoriesForSelect } = useCategoryHelper();
     const navigate = useNavigate();
 
     const handleOpenCreatingGoodModal = () => {
@@ -63,7 +66,10 @@ export const GoodsPage = () => {
         formData.append('reviews', JSON.stringify(goodData.reviews));
         formData.append('variations', JSON.stringify(goodData.variations));
         formData.append('video', goodData.video[0]);
-
+        formData.append('price', JSON.stringify(goodData.price));
+        formData.append('active', JSON.stringify(goodData.active));
+        formData.append('published', JSON.stringify(goodData.published));
+        
         for (let i = 0; i < goodData.images.length; i++) {
             formData.append('images', goodData.images[i]);
         }
@@ -81,7 +87,7 @@ export const GoodsPage = () => {
                         }
                         return el;
                     }); 
-                } else {          
+                } else {  
                     updatedProducts = [...currentProducts, { 
                         ...goodData, 
                         id: Date.now(),
@@ -104,16 +110,15 @@ export const GoodsPage = () => {
         const searchValue = inputValue.toLowerCase();
         setFilteredProducts(currentProducts.filter(el => {
             return el.name.toLowerCase().includes(searchValue) ||
-                el.category.toLowerCase().includes(searchValue) ||
                 el.description.toLowerCase().includes(searchValue) ||
                 el.fullDescription.toLowerCase().includes(searchValue) ||
-                el.provider.toLowerCase().includes(searchValue) ||
+                el.partNumber.includes(searchValue) ||
                 String(el.variations[0].price).includes(searchValue);
         }));
     };
 
     const handleSearchProductByProvider = (inputValue: string) => {
-        if (inputValue.length <= import.meta.env.VITE_APP_MIX_LENGTH_FOR_SEARCH && inputValue.length !== 0) return;
+        if (inputValue.length <= import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH && inputValue.length !== 0) return;
         const searchValue = inputValue.toLowerCase();
         setFilteredProducts(currentProducts.filter(el => el.provider.toLowerCase().includes(searchValue)));
     };
@@ -137,9 +142,35 @@ export const GoodsPage = () => {
         navigate(`/shop/product/${product.id}`);
     };
 
+    const handleFilterProductsByActive = (active: boolean) => {
+        setCurrentActiveFilter(active);
+        setFilteredProducts(currentProducts.filter(el => el.active === active));
+    };
+
+    const handleCloseUnsavedData = () => {
+        setModals(prev => {
+            return { ...prev, unsaved: false };
+        });
+    };
+
+    const handleGetTitleForManagingGoodsModal = () => {
+        let title: string = "";
+        currentMode === "create" 
+            ? title += t("text.createGoods")
+            : title += t("text.editGood");
+        currentProduct?.published 
+            ? title += ` (${t("text.published")})`
+            : title += ` (${t("text.unPublished")})`;
+        return title;
+    };
+
     const handleUnsavedDataExist = (status: boolean) => {
         setUnsavedDataExist(status);
     };
+
+    useEffect(() => {
+        handleFilterProductsByActive(currentActiveFilter);
+    }, [currentProducts]);
 
     useEffect(() => {
         const response = $api.get("/products");
@@ -150,7 +181,7 @@ export const GoodsPage = () => {
             }
         });
     }, []);
-
+    
     return (
         <div className="goods">
             <div className="title">{ t("text.managingGoods") }</div>
@@ -175,6 +206,14 @@ export const GoodsPage = () => {
                             ),
                         } }
                     />
+                    <Select
+                        className="product-active-filter"
+                        defaultValue={ 1 }
+                        onChange={ (e) => handleFilterProductsByActive(Boolean(e.target.value)) }
+                    >
+                        <MenuItem value={ 1 }>{ t("text.active") }</MenuItem>
+                        <MenuItem value={ 0 }>{ t("text.inactive") }</MenuItem>
+                    </Select>
                 </div>
                 <div className="buttons">
                     <Button
@@ -202,7 +241,14 @@ export const GoodsPage = () => {
                                 <div className="good-info" onClick={ () => handleOpenEditingGoodModal(product) } >
                                     <div className="good-info-main">
                                         <div className="good-title">{ product.name }</div>
-                                        <div className="good-price">{ t("text.price") }: { product.variations[0].price }</div>
+                                        <div className="good-price">
+                                            { t("text.price") }:
+                                            {
+                                                product.variations.length === 0
+                                                    ? product.price
+                                                    : product.variations[0].price
+                                            }
+                                        </div>
                                         <div className="good-provider">{ product.provider }</div>
                                     </div>
                                     <div className="good-info-more">
@@ -230,10 +276,12 @@ export const GoodsPage = () => {
                     })
                 }
             </div>
-            <CustomModal 
+            <CustomModal
+                isHidden={ modals.unsaved }
                 isDisplay={ modals.manage }
-                title = { currentMode === 'create' ? t("text.createGoods") : t("text.editGood") }
+                title = { handleGetTitleForManagingGoodsModal() }
                 typeOfActions='none'
+                actionConfirmed={ () => handleCancelUpdating(unSavedDataExist) }
                 closeModal={ () => handleCancelUpdating(unSavedDataExist) }
             >
                 <ManageGoodForm 
@@ -241,6 +289,7 @@ export const GoodsPage = () => {
                     handleCancelUpdating={ () => handleCancelUpdating(unSavedDataExist) }
                     handleUnsavedDataExist={ handleUnsavedDataExist }
                     mode={ currentMode }
+                    categoriesForSelect={ categoriesForSelect }
                     goodData={ currentProduct }
                 />
             </CustomModal>
@@ -256,12 +305,21 @@ export const GoodsPage = () => {
             <CustomModal 
                 isDisplay={ modals.unsaved }
                 title={ t("text.approveAction") }
-                typeOfActions='default'
+                typeOfActions='custom'
                 actionConfirmed={ () => handleCancelUpdating(false) }
-                closeModal={ () => setModals(prev => { 
-                    return { ...prev, unsaved: false };
-                    }
-                ) }
+                closeModal={ handleCloseUnsavedData }
+                actionsComponent={
+                    <>
+                        <Button 
+                            variant="contained"
+                            onClick={ () => handleCancelUpdating(false) }
+                        >{ t("text.close") }</Button>
+                        <Button
+                            onClick={ handleCloseUnsavedData }
+                            variant="contained"
+                        >{ t("text.cancel") }</Button>
+                    </>
+                }
             >
                 <div className="delete-text">{ t("text.unsavedChanges") }?</div>
             </CustomModal>

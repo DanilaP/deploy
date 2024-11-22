@@ -11,7 +11,7 @@ export const validateNewCategory = (newCategoryTitle: string) => {
             ...formValidData, 
             title: {
                 valid: false,
-                error: "text.requiredField"
+                error: "errors.requiredField"
             },
             formValid: false
         };
