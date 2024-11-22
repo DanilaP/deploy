@@ -17,10 +17,16 @@ export const useProvidersHelper = () => {
         }
     };
 
-    const handleSearchProviderByActive = (isActive: boolean) => {
-        const filteredProviderByActive = providers.filter(provider => {
-            return provider.active === isActive;
-        });
+    const handleSearchProviderByTypesNumber = (typeNumber: number) => {
+        let filteredProviderByActive: IProvider[] = [];
+        if (typeNumber === 0 || typeNumber === 1) {
+            filteredProviderByActive = providers.filter(provider => {
+                return provider.active === Boolean(typeNumber) && !provider.deletedAt;
+            });
+        }
+        if (typeNumber === 2) {
+            filteredProviderByActive = providers.filter(provider => provider.deletedAt);
+        }
         setFilteredProviders(filteredProviderByActive);
         return filteredProviderByActive;
     };
@@ -34,8 +40,27 @@ export const useProvidersHelper = () => {
     };
 
     const handleDeleteProvider = (provider: IProvider) => {
-        setProviders(prev => prev.filter(el => el.id !== provider.id));
-        setFilteredProviders(prev => prev.filter(el => el.id !== provider.id));
+        setProviders(prev => prev.map(el => {
+            if (el.id === provider.id) {
+                return { ...el, deletedAt: new Date().toISOString(), active: false };
+            }
+            return el;
+        }));
+        setFilteredProviders(prev => prev.map(el => {
+            if (el.id === provider.id) {
+                return { ...el, deletedAt: new Date().toISOString(), active: false };
+            }
+            return el;
+        }));
+    };
+
+    const handleRestoreProviderAnywhere = (provider: IProvider) => {
+        setProviders(prev => prev.map(el => {
+            if (el.id === provider.id) return { ...el, deletedAt: null }; return el;
+        }));
+        setFilteredProviders(prev => prev.map(el => {
+            if (el.id === provider.id) return { ...el, deletedAt: null }; return el;
+        } ));
     };
 
     const handleUpdateProvider = (newProviderData: IProvider) => {
@@ -50,8 +75,10 @@ export const useProvidersHelper = () => {
     };
 
     const handleCreateProvider = (newProviderData: IProvider) => {
-        const newProviderWithId = {
+        const date = new Date();
+        const newProviderWithId: IProvider = {
             ...newProviderData,
+            dateOfCreation: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
             id: Date.now(),
             contactPerson: {
                 ...newProviderData.contactPerson,
@@ -94,6 +121,7 @@ export const useProvidersHelper = () => {
         handleCreateProvider,
         handleSearchProvidersByAllFields,
         handleSetProvidersForSelect,
-        handleSearchProviderByActive
+        handleSearchProviderByTypesNumber,
+        handleRestoreProviderAnywhere
     };
 };

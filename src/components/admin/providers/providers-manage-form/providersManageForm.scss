@@ -30,6 +30,10 @@
             height: 20px;
         }
     }
+    .field-with-checkbox {
+        display: flex;
+        align-items: center;
+    }
     .field-column {
         display: grid;
         .fields-data {

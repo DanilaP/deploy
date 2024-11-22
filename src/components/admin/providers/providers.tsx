@@ -13,13 +13,19 @@ export default function ProvidersPage() {
         handleUpdateProvider,
         handleCreateProvider,
         handleSearchProvidersByAllFields,
-        handleSearchProviderByActive
+        handleSearchProviderByTypesNumber,
+        handleRestoreProviderAnywhere
     } = useProvidersHelper();
 
-    const [modals, setModals] = useState({ manage: false, deleteConfirmation: false, unsavedData: false });
+    const [modals, setModals] = useState({ 
+        manage: false, 
+        deleteConfirmation: false, 
+        unsavedData: false,
+        restoreConfirmation: false
+    });
     const [choosedProvider, setChoosedProvider] = useState<IProvider>(DEFAULT_PROVIDER);
     const [formUnsavedDataExist, setFormUnsavedDataExist] = useState<boolean>(false);
-    const [currentActiveFilter, setCurrentActiveFilter] = useState<boolean>(true);
+    const [currentActiveFilter, setCurrentActiveFilter] = useState<number>(1);
 
     const handleOnCreateProvider = (newProviderData: IProvider) => {
         handleCreateProvider(newProviderData);
@@ -29,9 +35,9 @@ export default function ProvidersPage() {
         setChoosedProvider(DEFAULT_PROVIDER);
     };
 
-    const handleSearchProviderByActiveAndUpdateFilter = (isActive: boolean) => {
-        setCurrentActiveFilter(isActive);
-        handleSearchProviderByActive(isActive);
+    const handleSearchProvidersByTypes = (type: number) => {
+        setCurrentActiveFilter(type);
+        handleSearchProviderByTypesNumber(type);
     };
 
     const handleOnUpdateProvider = (newProviderData: IProvider) => {
@@ -68,6 +74,28 @@ export default function ProvidersPage() {
             return { ...prev, manage: false, unsavedData: false };
         });
     };
+    
+    const handleOnRestoreProviderModal = (e: any, provider: IProvider) => {
+        e.stopPropagation();
+        setChoosedProvider(provider);
+        setModals(prev => {
+            return { ...prev, restoreConfirmation: true };
+        });
+    };
+
+    const handleOnCloseRestoreProviderModal = () => {
+        setChoosedProvider(DEFAULT_PROVIDER);
+        setModals(prev => {
+            return { ...prev, restoreConfirmation: false };
+        });
+    };
+
+    const handleRestoreProvider = () => {
+        handleRestoreProviderAnywhere(choosedProvider);
+        setModals(prev => {
+            return { ...prev, restoreConfirmation: false };
+        });
+    };
 
     const handleOnOpenDeletingProviderModal = (e: any, provider: IProvider) => {
         e.stopPropagation();
@@ -102,7 +130,7 @@ export default function ProvidersPage() {
     };
 
     useEffect(() => {
-        handleSearchProviderByActive(currentActiveFilter);
+        handleSearchProviderByTypesNumber(currentActiveFilter);
     }, [providers]);
 
     return (
@@ -110,6 +138,8 @@ export default function ProvidersPage() {
             providers={ filteredProviders }
             modals={ modals }
             choosedProvider={ choosedProvider }
+            currentActiveFilter={ currentActiveFilter }
+            handleOnRestoreProviderModal={ handleOnRestoreProviderModal }
             handleSearchProvidersByAllFields={ handleSearchProvidersByAllFields }
             handleDeleteProvider={ handleOnDeletingProviderApprove }
             handleOnOpenDeletingProviderModal={ handleOnOpenDeletingProviderModal }
@@ -120,8 +150,10 @@ export default function ProvidersPage() {
             handleOnCreateProvider={ handleOnCreateProvider }
             handleSetUnsavedChangesExist={ handleSetUnsavedChangesExist }
             handleCloseUnsavedDataModal={ handleCloseUnsavedDataModal }
-            handleSearchProvidersByActive={ handleSearchProviderByActiveAndUpdateFilter }
+            handleSearchProvidersByTypes={ handleSearchProvidersByTypes }
             handleCloseManageModalWithUnSavedData={ handleCloseManageModalWithUnSavedData }
+            handleOnCloseRestoreProviderModal={ handleOnCloseRestoreProviderModal }
+            handleRestoreProvider={ handleRestoreProvider }
         />
     );
 }

@@ -85,5 +85,8 @@ export interface IProvider {
     description: string,
     website: string,
     email: string,
+    deletedAt: string | null,
+    ogrn: string,
+    inn: string,
     [key: string]: any,
 }

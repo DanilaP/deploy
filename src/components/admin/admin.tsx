@@ -73,6 +73,7 @@ export default function AdminPage (props: AdminPageProps) {
                         </MenuItem>  : null
                     }
                     {
+                        permissionsExists.WathingProviders &&
                         <MenuItem onClick={ () => navigate("/admin/providers") }>
                             <TbTruckDelivery className='icon' />{ !isMenuTextExists ? t("text.providers") : null }
                         </MenuItem>

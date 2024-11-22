@@ -75,11 +75,13 @@
         "additionalProductInfo": "Additional info (title, value)",
         "variationsOfProduct": "Variations (title, value, stock, price)",
         "addRole": "Add role",
+        "restoreProvider": "Restore provider",
         "price": "Price",
         "good": "Good",
         "approveDeletingGood": "Approve deleting good",
         "deleteRole": "Delete",
         "alreadyHaveAcc": "Already have an account?",
+        "restore": "Restore",
         "stillNotReg": "Not registered yet?",
         "filters": "Filters",
         "find": "Find",
@@ -106,6 +108,9 @@
         "approveDeletingProvider": "Confirm deleting provider",
         "createProvider": "Create provider",
         "articleNumber": "Article number",
+        "deleted": "Delted",
+        "inn": "INN",
+        "ogrn": "OGRN",
         "partNumber": "Part number",
         "unsavedChanges": "You have an unsaved changes. Are you sure",
         "groupName": "Group name",
@@ -197,7 +202,10 @@
         "ModifyRoles": "Modify roles",
         "CreateGroupOfPermissions": "Create group of permissions",
         "DeleteGroupOfPermissions": "Delete group of permissions",
-        "ModifyGroupOfPermissions": "Modify group of permissions"
+        "ModifyGroupOfPermissions": "Modify group of permissions",
+        "CreatingNewProviders": "Creating new providers",
+        "ManagingProviders": "Managing providers",
+        "WathingProviders": "Watching providers"
     },
     "symbols": {
         "rub": "\u20BD"
@@ -218,6 +226,8 @@
     "errors": {
         "requiredField": "This field is requiered",
         "notZero": "This field cant be 0",
-        "email": "Incorrect email address"
+        "email": "Incorrect email address",
+        "website": "Inccorect website ref",
+        "phone": "Incorrect phone number"
     }
 }

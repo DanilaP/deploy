@@ -5,12 +5,15 @@
         "active": true,
         "dateOfCreation": "2024-01-01",
         "email": "test@gmail.com",
+        "inn": "56003460265",
         "contactPerson": {
             "id": 2,
             "name": "Иванов Иван Иванович",
             "phoneNumber": "+7 969 333 11 10",
             "post": "Менеджер"
         },
+        "ogrn": "45673683567678",
+        "deletedAt": null,
         "description": "Осуществление поставок вычислительной техники",
         "website": "https://test.provider.computers"
     },
@@ -19,7 +22,10 @@
         "name": "ООО 'Новый поставщик'",
         "active": true,
         "email": "test1@gmail.com",
+        "inn": "56003460265",
         "dateOfCreation": "2024-01-02",
+        "deletedAt": null,
+        "ogrn": "45673683567678",
         "contactPerson": {
             "id": 4,
             "name": "Павлов Павел Павлович",
@@ -35,6 +41,9 @@
         "active": true,
         "email": "test2@gmail.com",
         "dateOfCreation": "2024-01-03",
+        "ogrn": "45673683567678",
+        "inn": "56003460265",
+        "deletedAt": null,
         "contactPerson": {
             "id": 6,
             "name": "Сергеев Сергей Сергеевич",
@@ -50,6 +59,9 @@
         "active": true,
         "email": "test3@gmail.com",
         "dateOfCreation": "2024-01-04",
+        "ogrn": "45673683567678",
+        "inn": "56003460265",
+        "deletedAt": null,
         "contactPerson": {
             "id": 8,
             "name": "Вадимов Вадим Вадимович",
@@ -63,8 +75,11 @@
         "id": 9,
         "name": "ООО 'Другой поставщик 1'",
         "active": true,
+        "ogrn": "45673683567678",
+        "inn": "56003460265",
         "email": "test4@gmail.com",
         "dateOfCreation": "2023-01-05",
+        "deletedAt": null,
         "contactPerson": {
             "id": 10,
             "name": "Егоров Егор Егорович",

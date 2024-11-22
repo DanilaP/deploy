@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Button, Checkbox } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-import { validateEmail, validateRequiredField } from "../../../../helpers/validators-helper";
+import InputMask from 'react-input-mask';
+import { validateEmail, validatePhone, validateRequiredField, validateWebsiteRef } from "../../../../helpers/validators-helper";
 import "./providersManageForm.scss";
 
 interface IProvidersManageFormProps {
@@ -33,7 +34,7 @@ export default function ProvidersManageForm({
         formState: { errors, isValid, submitCount, isDirty }
     } = useForm<IProvider>({ defaultValues: {
         ...choosedProvider,
-        active: choosedProvider.active
+        active: isEdit ? choosedProvider.active : true
     } });
     
     const handleUpdateProvider = (data: IProvider) => {
@@ -45,11 +46,17 @@ export default function ProvidersManageForm({
     };
 
     const handleValidateEmailField = (value: string) => {
-        if (!validateRequiredField(value)) return "errors.requiredField";
+        if (value.length === 0) return true;
         if (!validateEmail(value)) return "errors.email";
         return true;
     };
 
+    const handleValidateWebsiteField = (value: string) => {
+        if (value.length === 0) return true;
+        if (!validateWebsiteRef(value)) return t("errors.website");
+        return true;
+    };
+    
     useEffect(() => {
         handleSetUnsavedChangesExist(isDirty);
     }, [isDirty]);
@@ -95,23 +102,6 @@ export default function ProvidersManageForm({
                     />
                 </div>
                 <div className="field">
-                    <label 
-                        htmlFor="update-provider-dateOfCreation"
-                        className="label"
-                    >
-                        { t("text.dateOfCreation") }
-                    </label>
-                    <TextField
-                        error={ Boolean(errors.dateOfCreation) }
-                        helperText={ String(errors.dateOfCreation?.message || "") }
-                        { ...register("dateOfCreation", {
-                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                        }) }
-                        type="date"
-                        id="update-provider-dateOfCreation"
-                    />
-                </div>
-                <div className="field">
                     <label
                         className="label"
                         htmlFor="update-provider-description"
@@ -142,13 +132,47 @@ export default function ProvidersManageForm({
                         error={ Boolean(errors.website) }
                         helperText={ String(errors.website?.message || "") }
                         { ...register("website", {
-                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                            validate: (value) => handleValidateWebsiteField(value)
                         }) }
                         id="update-provider-website"
                         placeholder={ t("text.website") }
                     />
                 </div>
                 <div className="field">
+                    <label
+                        className="label"
+                        htmlFor="update-provider-ogrn"
+                    >
+                        { t("text.ogrn") }
+                    </label>
+                    <TextField
+                        error={ Boolean(errors.ogrn) }
+                        helperText={ String(errors.ogrn?.message || "") }
+                        { ...register("ogrn", {
+                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                        }) }
+                        id="update-provider-ogrn"
+                        placeholder={ t("text.ogrn") }
+                    />
+                </div>
+                <div className="field">
+                    <label
+                        className="label"
+                        htmlFor="update-provider-inn"
+                    >
+                        { t("text.inn") }
+                    </label>
+                    <TextField
+                        error={ Boolean(errors.inn) }
+                        helperText={ String(errors.inn?.message || "") }
+                        { ...register("inn", {
+                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                        }) }
+                        id="update-provider-inn"
+                        placeholder={ t("text.inn") }
+                    />
+                </div>
+                <div className="field-with-checkbox">
                     <label
                         className="label"
                         htmlFor="update-provider-active"
@@ -183,7 +207,31 @@ export default function ProvidersManageForm({
                             }) }
                             placeholder={ t("text.name") }
                         />
-                        <TextField
+                        <Controller
+                            name="contactPerson.phoneNumber"
+                            control={ control }
+                            rules={ {
+                                required: t("errors.requiredField"),
+                                validate: (value) => validatePhone(value) ? true : t("errors.phone")
+                            } }
+                            render={ ({ field }) => (
+                                <InputMask
+                                    { ...field }
+                                    mask="+7 (999) 999-99-99"
+                                    maskChar=" "
+                                    alwaysShowMask={ true }
+                                >
+                                { (inputProps: any) => (
+                                    <TextField
+                                        error={ Boolean(errors.contactPerson?.phoneNumber) }
+                                        helperText={ String(errors.contactPerson?.phoneNumber?.message || "") }
+                                        { ...inputProps }
+                                    />
+                                ) }
+                                </InputMask>
+                            ) }
+                        />
+                        { /*<TextField
                             className="field-input-contact-person"
                             error={ Boolean(errors.contactPerson?.phoneNumber) }
                             helperText={ String(errors.contactPerson?.phoneNumber?.message || "") }
@@ -191,14 +239,13 @@ export default function ProvidersManageForm({
                                 validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
                             }) }
                             placeholder={ t("text.phoneNumber") }
-                        />
+                        />*/ }
                         <TextField
                             className="field-input-contact-person"
                             error={ Boolean(errors.contactPerson?.post) }
                             helperText={ String(errors.contactPerson?.post?.message || "") }
-                            { ...register("contactPerson.post", {
-                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                            }) }
+                            defaultValue={ "" }
+                            { ...register("contactPerson.post") }
                             placeholder={ t("text.post") }
                         />
                     </div>

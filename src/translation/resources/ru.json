@@ -59,7 +59,10 @@
         "buy": "Купить",
         "details": "Детали",
         "products": "Товары",
+        "inn": "ИНН",
+        "ogrn": "ОГРН",
         "logout": "Выйти из аккаунта",
+        "deleted": "Удаленные",
         "adminPanel": "Панель администратора",
         "name": "Наименование",
         "roles": "Роли",
@@ -73,8 +76,10 @@
         "categories": "Категории",
         "fullDescription": "Полное описание",
         "category": "Категория",
+        "restoreProvider": "Восстановить поставщика",
         "value": "Значение",
         "price": "Цена",
+        "restore": "Восстановить",
         "goto": "Перейти",
         "stock": "Остаток",
         "systemKey": "Системный ключ",
@@ -196,7 +201,10 @@
         "ModifyRoles": "Модификация ролей",
         "CreateGroupOfPermissions": "Создание группы пермишнов",
         "DeleteGroupOfPermissions": "Удаление группы пермишнов",
-        "ModifyGroupOfPermissions": "Модификация группы пермишнов"
+        "ModifyGroupOfPermissions": "Модификация группы пермишнов",
+        "CreatingNewProviders": "Создание поставщиков",
+        "ManagingProviders": "Редактирование постащиков",
+        "WathingProviders": "Просмотр поставщиков"
     },
     "symbols": {
         "rub": "\u20BD"
@@ -217,6 +225,8 @@
     "errors": {
         "requiredField": "Это обязательное поле",
         "notZero": "Значение не должно быть 0",
-        "email": "Некорректная эл.почта"
+        "email": "Некорректная эл.почта",
+        "website": "Некорректная ссылка на сайт",
+        "phone": "Некорректный номер телефона"
     }
 }
