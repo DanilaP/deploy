@@ -51,5 +51,6 @@ If you are developing a production application, we recommend updating the config
   - Add favorites page
 - Create page for managing categories
   - Install `@mui/x-tree-view`
-
+- Add validation for managing goods form
+  - Install `react-hooks-form`
 
