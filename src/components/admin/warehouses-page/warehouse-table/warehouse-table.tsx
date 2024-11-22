@@ -3,6 +3,7 @@ import './warehouse-table.scss';
 import { useEffect, useState } from 'react';
 import { t } from 'i18next';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { ruRU } from '@mui/x-data-grid/locales';
 
 export default function WarehouseTable (props: { currentStoreInfo: IStore }) {
     
@@ -61,6 +62,7 @@ export default function WarehouseTable (props: { currentStoreInfo: IStore }) {
     return (
         <div className='table'>
             <DataGrid
+                localeText={ ruRU.components.MuiDataGrid.defaultProps.localeText }
                 rows={ rows }
                 columns={ columns }
                 initialState={ {
