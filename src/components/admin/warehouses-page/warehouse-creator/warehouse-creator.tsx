@@ -1,6 +1,6 @@
 import { Autocomplete, Button, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import './store-creator.scss';
+import './warehouse-creator.scss';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { OPTIONS } from './constants/constants';
@@ -12,7 +12,7 @@ interface formData {
     storeAddress: string
 }
 
-export default function StoreCreator (props: { 
+export default function WarehouseCreator (props: { 
     close: () => void,
     addStore: (storeName: string, storeAddress: string) => void
 }) {

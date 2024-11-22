@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import $api from '../../../configs/axiosconfig/axios';
-import './products-store.scss';
+import './products-warehouse.scss';
 import { IStore } from '../../../interfaces/interfaces';
 import { Button, Checkbox, MenuItem, Select, TextField } from '@mui/material';
 import { IoMdSearch } from 'react-icons/io';
-import StoreTable from './store-table/store-table';
+import WarehouseTable from './warehouse-table/warehouse-table';
 import CustomModal from '../../../components-ui/custom-modal/custom-modal';
-import StoreCreator from './store-creator/store-creator';
+import WarehouseCreator from './warehouse-creator/warehouse-creator';
 
-export default function ProductsStore () {
+export default function ProductsWarehouse () {
 
     const { t } = useTranslation();
     const [stores, setStores] = useState<IStore[]>([]);
@@ -20,7 +20,7 @@ export default function ProductsStore () {
         creatingStore: false,
         deletingStore: false
     });
-
+    
     const changeStore = (storeId: number | string) => {
         const storeInfo = stores.find((el) => el.id === storeId);
         setCurrentStoreInfo(storeInfo);
@@ -89,7 +89,7 @@ export default function ProductsStore () {
     }, []);
 
     useEffect(() => {
-        $api.get("/stores")
+        $api.get("/warehouses")
         .then((res) => {
             setStores(res.data.stores);
             setCurrentStoreInfo(res.data.stores[0]);
@@ -157,7 +157,7 @@ export default function ProductsStore () {
                 <div className="address">{ t("text.storeAddress") }: { currentStoreInfo?.address }</div>
             </div>
             <div className="products-store-content">
-                { filteredStoreInfo && <StoreTable currentStoreInfo={ filteredStoreInfo } /> }
+                { filteredStoreInfo && <WarehouseTable currentStoreInfo={ filteredStoreInfo } /> }
             </div>
             <CustomModal
                 isDisplay = { modalOpen.creatingStore }
@@ -165,7 +165,7 @@ export default function ProductsStore () {
                 title={ t("text.addStore") }
                 typeOfActions='none'
             >
-                <StoreCreator
+                <WarehouseCreator
                     addStore = { addStore }
                     close = { () => setModalOpen({ ...modalOpen, creatingStore: false }) }
                 /> 
