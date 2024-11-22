@@ -15,15 +15,16 @@ export const useCallbacksHelper = (userId: string | null) => {
 
     const handleSetCallbacksDataForDataGrid = (callbacks: ICallBack[]) => {
         const rows = callbacks.map(el => {
-            const { id, firstName, secondName, dateOfCreation, phoneNumber, solved } = el;
-            return { id, firstName, secondName, dateOfCreation, phoneNumber, solved };
+            const { id, firstName, secondName, dateOfCreation, typeOfBid, phoneNumber, solved } = el;
+            return { id, firstName, secondName, typeOfBid, dateOfCreation, phoneNumber, solved };
         });
         const columns: GridColDef<(typeof rows)[number]>[] = [
-            { field: "id", headerName: "ID", flex: 1 },
-            { field: "firstName", headerName: t("text.firstName"), flex: 1 },
-            { field: "secondName", headerName: t("text.secondName"), flex: 1 },
+            { field: "id", headerName: "ID", minWidth: 50 },
+            { field: "firstName", headerName: t("text.firstName"), minWidth: 50 },
+            { field: "secondName", headerName: t("text.secondName"), minWidth: 50 },
             { field: "dateOfCreation", headerName: t("text.dateOfCreation"), flex: 1 },
             { field: "phoneNumber", headerName: t("text.phoneNumber"), flex: 1 },
+            { field: "typeOfBid", headerName: t("text.typeOfBid"), minWidth: 50 },
             { field: "solved", headerName: t("text.status"), flex: 1 }
         ];
         
