@@ -13,6 +13,7 @@ export default function UsersList () {
     const [users, setUsers] = useState<IUser[]>();
     const [modalState, setModalState] = useState({ manipulateModal: false, deleteModal: false, recoverModal: false });
     const [choosenUser, setChoosenUser] = useState<IUser | null>(null);
+    const [linkSended, setLinkSended] = useState<boolean>(false);
 
     const { checkConcretePermissions } = usePermissions();
     const permissionsExists = checkConcretePermissions();
@@ -107,7 +108,16 @@ export default function UsersList () {
                                             user.isActive &&
                                                 (user.isVerified 
                                                     ? <p className='confirmed'>{ t("text.confirmed") }</p>
-                                                    : <p className='unconfirmed'>{ t("text.unConfirmed") }</p>)
+                                                    : 
+                                                        <>
+                                                            <p className='unconfirmed'>{ t("text.unConfirmed") }</p>
+                                                            <p 
+                                                                onClick={ () => setLinkSended(true) } 
+                                                                className='send-link-text'>
+                                                                    { t("text.sendLink") }
+                                                            </p>
+                                                        </>
+                                                )
                                             
                                         }
                                     </strong>
@@ -143,6 +153,15 @@ export default function UsersList () {
                 closeModal={ () => setModalState({ ...modalState, deleteModal: false }) }
             >
                 <div>{ t("text.deletingUserConfirmation") }</div>
+            </CustomModal>
+            <CustomModal
+                isDisplay={ linkSended }
+                title = { t("text.sendingLink") }
+                typeOfActions='none'
+                actionConfirmed={ () => setLinkSended(false) }
+                closeModal={ () => setLinkSended(false) }
+            >
+                <div>{ t("text.sendLinkSuccessfully") }</div>
             </CustomModal>
             <CustomModal
                 isDisplay={ modalState.recoverModal }

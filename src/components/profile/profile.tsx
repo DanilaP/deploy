@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import $api from '../../configs/axiosconfig/axios';
 import { useNavigate } from 'react-router';
@@ -6,11 +6,13 @@ import { Button } from '@mui/material';
 import './profile.scss';
 import InputFile from '../../components-ui/custom-file-nput/file-input';
 import { useStore } from '../../stores';
+import CustomModal from '../../components-ui/custom-modal/custom-modal';
 
 export default function ProfilePage () {
     const { t } = useTranslation();
 
     const { userStore } = useStore();
+    const [linkSended, setLinkSended] = useState<boolean>(false);
     const user = userStore.user;
 
     const navigate = useNavigate();
@@ -48,7 +50,10 @@ export default function ProfilePage () {
                         <div className="user-role">{ user?.role }</div>
                         <div className="user-status">
                             {  (!user?.isVerified) && (
-                                    <p>{ t("text.confirmAccount") }</p>
+                                    <>
+                                        <p className='confirmation'>{ t("text.confirmAccount") }</p>
+                                        <p onClick={ () => setLinkSended(true) } className='send-link-text'>{ t("text.sendLink") }</p>
+                                    </>
                                 )  
                             }
                         </div>
@@ -67,6 +72,15 @@ export default function ProfilePage () {
                     <div className="item town">Lorem, ipsum dolor.</div>
                 </div>
             </div>
+            <CustomModal
+                isDisplay={ linkSended }
+                title = { t("text.sendingLink") }
+                typeOfActions='none'
+                actionConfirmed={ () => setLinkSended(false) }
+                closeModal={ () => setLinkSended(false) }
+            >
+                <div>{ t("text.sendLinkSuccessfully") }</div>
+            </CustomModal>
         </div>
     );
 }
