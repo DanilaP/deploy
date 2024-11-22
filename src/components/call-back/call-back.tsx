@@ -34,6 +34,19 @@ export default function CallBackPage() {
         });
     };
 
+    const handleOpenCreatingNewCallback = () => {
+        setModals(prev => {
+            return { ...prev, create: true };
+        });
+    };
+
+    const handleCloseCreatingNewCallback = () => {
+        setCurrentCallback(null);
+        setModals(prev => {
+            return { ...prev, create: false };
+        });
+    };
+
     useEffect(() => {
         $api.get(`/callbacks?userId=${userId}`)
             .then(res => {
@@ -51,6 +64,7 @@ export default function CallBackPage() {
             <CallBackPageView
                 userCallbacksData={ userCallbacksData }
                 handleOpenCallbackMoreInfo={ handleOpenCallbackMoreInfo }
+                handleOpenCreatingNewCallback={ handleOpenCreatingNewCallback }
             />
             <CustomModal 
                 isDisplay={ modals.moreInfo }
@@ -70,10 +84,12 @@ export default function CallBackPage() {
                 isDisplay={ modals.create }
                 title={ t("text.callbackInfo") }
                 typeOfActions='none'
-                actionConfirmed={ handleCloseCallbackMoreInfo }
-                closeModal={ handleCloseCallbackMoreInfo }
+                actionConfirmed={ handleCloseCreatingNewCallback }
+                closeModal={ handleCloseCreatingNewCallback }
             >
-                <CallBackForm />
+                <CallBackForm
+                    handleCloseCreatingNewCallback={ handleCloseCreatingNewCallback }
+                />
             </CustomModal>
         </>
     ); 

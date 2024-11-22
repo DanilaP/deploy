@@ -6,6 +6,12 @@
     .title {
         text-align: center;
         font-size: 22px;
+        .title-actions {
+            color: var(--text-color);
+            &:hover {
+                color: var(--default-color);
+            }
+        }
     }
     .content {
         margin-top: 20px;

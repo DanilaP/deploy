@@ -4,25 +4,36 @@ import "./call-back-page-view.scss";
 import { ICallBack } from "../../../interfaces/interfaces";
 import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { BsFillInfoSquareFill } from "react-icons/bs";
+import { BiMessageSquareAdd } from "react-icons/bi";
 
 interface ICallBackPageViewProps {
     userCallbacksData: ICallBack[],
     handleOpenCallbackMoreInfo: (callback: ICallBack) => void
+    handleOpenCreatingNewCallback: () => void
 }
 
 export default function CallBackPageView({ 
     userCallbacksData,
-    handleOpenCallbackMoreInfo
+    handleOpenCallbackMoreInfo,
+    handleOpenCreatingNewCallback
 }: ICallBackPageViewProps) {
 
     const { t } = useTranslation();
 
     return (
         <div className="call-back-page">
-            <div className="title">{ t("text.yourActiveCallbacks") }</div>
+            <div className="title">
+                { t("text.yourActiveCallbacks") }
+                <IconButton className="title-actions" onClick={ handleOpenCreatingNewCallback }>
+                    <BiMessageSquareAdd />
+                </IconButton>
+            </div>
             <div className="content">
                 { userCallbacksData.length === 0 
-                    ? <span className="helper-text">{ t("text.youHaveNoCallbacksYet") }</span>
+                    ? 
+                    <div className="helper-text">
+                        { t("text.youHaveNoCallbacksYet") }
+                    </div>
                     : 
                     <TableContainer>
                         <Table className="call-back-table">

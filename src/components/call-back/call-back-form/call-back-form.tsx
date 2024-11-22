@@ -4,15 +4,21 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 interface ICallBackFormProps {
-    
+    handleCloseCreatingNewCallback: () => void
 }
 
 interface ICallFormData {
     firstName: string,
-    secondName: string
+    secondName: string,
+    email: string,
+    phone: string,
+    description: string,
+    typeOfBid: string
 }
 
-export default function CallBackForm(props: ICallBackFormProps) {
+export default function CallBackForm({
+    handleCloseCreatingNewCallback
+}: ICallBackFormProps) {
 
     const {
         register,
@@ -30,22 +36,53 @@ export default function CallBackForm(props: ICallBackFormProps) {
     return (
         <form className="call-back-form" onSubmit={ handleSubmit(handleCreateNewCallback) }>
             <FormControl>
-                <FormLabel>{ t("text.yourName") }</FormLabel>
+                <FormLabel className="label">{ t("text.yourName") }</FormLabel>
                 <TextField
                     placeholder={ t("text.yourName") }
                     { ...register("firstName") }
                 />
             </FormControl>
             <FormControl>
-                <FormLabel>{ t("text.yourSecondName") }</FormLabel>
+                <FormLabel className="label">{ t("text.yourSecondName") }</FormLabel>
                 <TextField
                     placeholder={ t("text.yourSecondName") }
                     { ...register("secondName") }
                 />
             </FormControl>
+            <FormControl>
+                <FormLabel className="label">{ t("text.email") }</FormLabel>
+                <TextField
+                    placeholder={ t("text.email") }
+                    { ...register("email") }
+                />
+            </FormControl>
+            <FormControl>
+                <FormLabel className="label">{ t("text.typeOfBid") }</FormLabel>
+                <TextField
+                    placeholder={ t("text.typeOfBid") }
+                    { ...register("typeOfBid") }
+                />
+            </FormControl>
+            <FormControl>
+                <FormLabel className="label">{ t("text.phone") }</FormLabel>
+                <TextField
+                    placeholder={ t("text.phone") }
+                    { ...register("phone") }
+                />
+            </FormControl>
+            <FormControl>
+                <FormLabel className="label">{ t("text.description") }</FormLabel>
+                <TextField
+                    multiline
+                    minRows={ 3 }
+                    maxRows={ 3 }
+                    placeholder={ t("text.description") }
+                    { ...register("description") }
+                />
+            </FormControl>
             <div className="form-actions">
                 <Button type="submit" variant="contained">{ t("text.save") }</Button>
-                <Button variant="contained">{ t("text.close") }</Button>
+                <Button variant="contained" onClick={ handleCloseCreatingNewCallback }>{ t("text.close") }</Button>
             </div>
         </form>
     );
