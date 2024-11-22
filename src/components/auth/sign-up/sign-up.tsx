@@ -58,7 +58,7 @@ export default function SignUp () {
                     helperText = { String(errors.password?.message || "") }
                     {
                         ...register("password", {
-                            validate: (value: string) => validateRequiredField(value) ? true : t("text.requiredField")
+                            validate: (value: string) => validateRequiredField(value) ? true : t("errors.requiredField")
                         })
                     }
                     autoComplete="on"

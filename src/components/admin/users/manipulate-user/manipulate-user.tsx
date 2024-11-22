@@ -81,7 +81,7 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
                                     value={ field.value }
                                     renderInput={ (params) => 
                                         <TextField 
-                                            helperText={ errors.role ? t("text.requiredField") : "" } 
+                                            helperText={ errors.role ? t("errors.requiredField") : "" } 
                                             error={ Boolean(errors.role) } 
                                             { ...params }  
                                     /> 
@@ -115,7 +115,7 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
                                     ? true
                                     : validateRequiredField(value) 
                                         ? true 
-                                        : t("text.requiredField")
+                                        : t("errors.requiredField")
                             })
                         }
                         placeholder='examplepassword'
