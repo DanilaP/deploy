@@ -81,7 +81,6 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
                                     value={ field.value }
                                     renderInput={ (params) => 
                                         <TextField 
-                                            onChange={ (value) => field.onChange(value) }
                                             helperText={ errors.role ? t("text.requiredField") : "" } 
                                             error={ Boolean(errors.role) } 
                                             { ...params }  
@@ -122,7 +121,7 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
                         placeholder='examplepassword'
                     />
                     <div className="settings">
-                        <Button type='submit' variant="contained">{ t("text.confirm") }</Button>
+                        <Button disabled = { Boolean(errors.role) || Boolean(errors.login || Boolean(errors.password)) } type='submit' variant="contained">{ t("text.confirm") }</Button>
                         <Button onClick={ props.cancel } variant="contained">{ t("text.close") }</Button>
                     </div>
                 </form>
