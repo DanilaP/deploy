@@ -9,5 +9,8 @@ export const DEFAULT_PROVIDER = {
     },
     description: "",
     website: "",
-    email: ""
+    email: "",
+    ogrn: "",
+    inn: "",
+    deletedAt: null
 };

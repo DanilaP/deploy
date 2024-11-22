@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { IProvider } from "../../../../interfaces/interfaces";
 import { MdDelete } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrashRestoreAlt } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { IoMdSearch } from "react-icons/io";
 import { DEFAULT_PROVIDER } from "../constants";
@@ -23,10 +23,12 @@ import "./providersPageView.scss";
 
 interface IProvidersPageViewProps {
     providers: IProvider[],
-    modals: { manage: boolean, deleteConfirmation: boolean, unsavedData: boolean },
+    modals: { manage: boolean, deleteConfirmation: boolean, unsavedData: boolean, restoreConfirmation: boolean },
     choosedProvider: IProvider,
+    currentActiveFilter: number,
     handleSearchProvidersByAllFields: (value: string) => void,
     handleDeleteProvider: () => void,
+    handleOnRestoreProviderModal: (e: any, provider: IProvider) => void,
     handleOnOpenDeletingProviderModal: (e: any, provider: IProvider) => void,
     handleOnCloseDeletingProviderModal: () => void,
     handleOnOpenManageProviderModal: (provider: IProvider) => void,
@@ -36,13 +38,16 @@ interface IProvidersPageViewProps {
     handleSetUnsavedChangesExist: (status: boolean) => void,
     handleCloseUnsavedDataModal: () => void,
     handleCloseManageModalWithUnSavedData: () => void,
-    handleSearchProvidersByActive: (isActive: boolean) => void
+    handleSearchProvidersByTypes: (type: number) => void,
+    handleOnCloseRestoreProviderModal: () => void,
+    handleRestoreProvider: () => void
 }
 
 export default function ProvidersPageView({
     providers,
     modals,
     choosedProvider,
+    currentActiveFilter,
     handleSearchProvidersByAllFields,
     handleDeleteProvider,
     handleOnOpenDeletingProviderModal,
@@ -50,11 +55,14 @@ export default function ProvidersPageView({
     handleOnOpenManageProviderModal,
     handleOnCloseManageProviderModal,
     handleOnUpdateProvider,
+    handleOnRestoreProviderModal,
     handleOnCreateProvider,
     handleSetUnsavedChangesExist,
     handleCloseUnsavedDataModal,
     handleCloseManageModalWithUnSavedData,
-    handleSearchProvidersByActive
+    handleSearchProvidersByTypes,
+    handleOnCloseRestoreProviderModal,
+    handleRestoreProvider
 }: IProvidersPageViewProps) {
 
     const { t } = useTranslation();
@@ -75,11 +83,12 @@ export default function ProvidersPageView({
                     />
                     <Select
                         className="provider-active-filter"
-                        onChange={ (e) => handleSearchProvidersByActive(Boolean(e.target.value)) }
+                        onChange={ (e) => handleSearchProvidersByTypes(Number(e.target.value)) }
                         defaultValue={ 1 }
                     >
                         <MenuItem value={ 1 }>{ t("text.active") }</MenuItem>
                         <MenuItem value={ 0 }>{ t("text.inactive") }</MenuItem>
+                        <MenuItem value={ 2 }>{ t("text.deleted") }</MenuItem>
                     </Select>
                 </div>
                 <div className="buttons">
@@ -102,7 +111,12 @@ export default function ProvidersPageView({
                                 <TableCell>{ t("text.website") }</TableCell>
                                 <TableCell>{ t("text.status") }</TableCell>
                                 <TableCell>{ t("text.edit") }</TableCell>
-                                <TableCell>{ t("text.delete") }</TableCell>
+                                <TableCell>
+                                    { currentActiveFilter === 2
+                                       ? t("text.restore") 
+                                       : t("text.delete") 
+                                    }
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -144,9 +158,16 @@ export default function ProvidersPageView({
                                             <TableCell className="provider-actions">
                                                 <IconButton
                                                     className="mui-actions"
-                                                    onClick={ (e: any) => handleOnOpenDeletingProviderModal(e, el) }
+                                                    onClick={ (e: any) => {
+                                                        currentActiveFilter !== 2
+                                                            ? handleOnOpenDeletingProviderModal(e, el)
+                                                            : handleOnRestoreProviderModal(e, el);
+                                                    } }
                                                 >
-                                                    <MdDelete />
+                                                    { currentActiveFilter === 2
+                                                        ? <FaTrashRestoreAlt fontSize={ 20 } />
+                                                        : <MdDelete fontSize={ 25 } />
+                                                    }
                                                 </IconButton>
                                             </TableCell>
                                         </TableRow>
@@ -202,6 +223,27 @@ export default function ProvidersPageView({
                 }
             >
                 <div className="delete-text">{ t("text.unsavedChanges") }?</div>
+            </CustomModal>
+            <CustomModal
+                isDisplay={ modals.restoreConfirmation }
+                title={ t("text.approveAction") }
+                typeOfActions='custom'
+                actionConfirmed={ handleOnCloseRestoreProviderModal }
+                closeModal={ handleOnCloseRestoreProviderModal }
+                actionsComponent={
+                    <>
+                        <Button 
+                            variant="contained"
+                            onClick={ handleRestoreProvider }
+                        >{ t("text.confirm") }</Button>
+                        <Button
+                            onClick={ handleOnCloseRestoreProviderModal }
+                            variant="contained"
+                        >{ t("text.cancel") }</Button>
+                    </>
+                }
+            >
+                <div className="delete-text">{ t("text.restoreProvider") }?</div>
             </CustomModal>
         </div>
     );
