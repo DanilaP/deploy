@@ -26,6 +26,7 @@ export default function CallbackMoreInfo({
             <div className="type-of-bid">
                 <b>{ t("text.typeOfBid") }</b>: { callback?.typeOfBid }
             </div>
+            <hr className="answer-border" />
             <div className="moderator-answer">
                 <b>{ t("text.moderatorAnswer") }</b>: { callback?.moderatorAnswer ? callback.moderatorAnswer : "Нет" }
             </div>

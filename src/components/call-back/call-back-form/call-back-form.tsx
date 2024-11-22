@@ -2,22 +2,25 @@ import { Autocomplete, Button, FormControl, FormLabel, TextField } from "@mui/ma
 import "./call-back-form.scss";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { ICallBack } from "../../../interfaces/interfaces";
 
 interface ICallBackFormProps {
-    handleCloseCreatingNewCallback: () => void
+    handleCloseCreatingNewCallback: () => void,
+    handleSaveNewCallback: (callback: ICallFormData) => void
 }
 
-interface ICallFormData {
+export interface ICallFormData {
     firstName: string,
     secondName: string,
     email: string,
-    phone: string,
+    phoneNumber: string,
     description: string,
     typeOfBid: string
 }
 
 export default function CallBackForm({
-    handleCloseCreatingNewCallback
+    handleCloseCreatingNewCallback,
+    handleSaveNewCallback
 }: ICallBackFormProps) {
 
     const {
@@ -31,7 +34,7 @@ export default function CallBackForm({
     const { t } = useTranslation();
 
     const handleCreateNewCallback = (data: ICallFormData) => {
-        console.log(data);
+        handleSaveNewCallback(data);
     };
 
     return (
@@ -85,7 +88,7 @@ export default function CallBackForm({
                 <FormLabel className="label">{ t("text.phone") }</FormLabel>
                 <TextField
                     placeholder={ t("text.phone") }
-                    { ...register("phone") }
+                    { ...register("phoneNumber") }
                 />
             </FormControl>
             <FormControl>

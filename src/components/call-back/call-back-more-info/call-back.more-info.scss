@@ -3,6 +3,9 @@
     display: grid;
     row-gap: 10px;
     text-align: justify;
+    .answer-border {
+        margin-top: 25px;
+    }
     .moderator-answer {
         max-width: 600px;
     }

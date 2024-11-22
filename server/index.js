@@ -585,6 +585,16 @@ app.get("/callbacks", async function(req, res) {
     }
 });
 
+app.post("/callbacks", async function(req, res) {
+    try {
+        res.status(200).json({ message: "Данные о заявке с обратной связью сохранены", callbacks: req.body });
+    }
+    catch(error) {
+        console.error("post /callbacks", error);
+        res.status(400).json({ message: "Ошибка сохранения данных о заявке с обратной связью!" });
+    }
+});
+
 
 
 async function startApp() {

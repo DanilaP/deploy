@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useStore } from "../../stores";
-import $api from '../../configs/axiosconfig/axios';
 import CallBackPageView from "./call-back-page-view/call-back.page-view";
 import { ICallBack } from "../../interfaces/interfaces";
 import CustomModal from "../../components-ui/custom-modal/custom-modal";
 import { useTranslation } from "react-i18next";
 import CallbackMoreInfo from "./call-back-more-info/call-back-more.info";
 import { Button } from "@mui/material";
-import CallBackForm from "./call-back-form/call-back-form";
+import CallBackForm, { ICallFormData } from "./call-back-form/call-back-form";
+import { useCallbacksHelper } from "../../helpers/use-callbacks-helper";
 
 export default function CallBackPage() {
 
     const { userStore } = useStore();
     const userId = userStore.user?.id;
 
-    const [userCallbacksData, setUserCallbacksData] = useState<ICallBack[]>([]);
+    const { 
+        userCallBacks,
+        handleCreateNewUserCallBack
+    } = useCallbacksHelper(userId ? userId : null);
+
     const [currentCallback, setCurrentCallback] = useState<ICallBack | null>(null);
     const [modals, setModals] = useState({ moreInfo: false, create: false });
 
@@ -47,22 +51,15 @@ export default function CallBackPage() {
         });
     };
 
-    useEffect(() => {
-        $api.get(`/callbacks?userId=${userId}`)
-            .then(res => {
-                if (res.data.callbacks) {
-                    setUserCallbacksData(res.data.callbacks);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, [userId]);
+    const handleCreateNewCallback = (formData: ICallFormData) => {
+        handleCreateNewUserCallBack(formData);
+        handleCloseCreatingNewCallback();
+    };
 
     return (
         <>
             <CallBackPageView
-                userCallbacksData={ userCallbacksData }
+                userCallbacksData={ userCallBacks }
                 handleOpenCallbackMoreInfo={ handleOpenCallbackMoreInfo }
                 handleOpenCreatingNewCallback={ handleOpenCreatingNewCallback }
             />
@@ -89,6 +86,7 @@ export default function CallBackPage() {
             >
                 <CallBackForm
                     handleCloseCreatingNewCallback={ handleCloseCreatingNewCallback }
+                    handleSaveNewCallback={ handleCreateNewCallback }
                 />
             </CustomModal>
         </>
