@@ -541,7 +541,7 @@ app.get("/favorites", async function(req, res) {
         res.status(400).json({ message: "Ошибка при получении избранных товаров!" });
         console.error("get /favourites", error);
     }
-})
+});
 
 
 //Stores
