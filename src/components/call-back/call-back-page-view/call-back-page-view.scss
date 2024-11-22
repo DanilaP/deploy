@@ -1,7 +1,7 @@
 .call-back-page {
     padding: 25px;
     display: grid;
-    color: var(--text-color) !important;
+    color: var(--text-color);
     justify-content: center;
     .title {
         text-align: center;
@@ -15,49 +15,30 @@
     }
     .content {
         margin-top: 20px;
-        .call-back-table {
+        .callback-data-table {
+            width: 65vw;
             color: var(--text-color);
-            .call-back-table-header {
+            cursor: pointer;
+            .MuiDataGrid-columnHeader {
+                outline: none;
                 background-color: var(--bg-color-block);
             }
-            .call-back-block {
-                column-gap: 10px;
-                margin: 5px;
-                padding: 10px;
-                border-radius: 5px;
+            .MuiToolbar-root {
                 background-color: var(--bg-color-block);
-                cursor: pointer;
-                &:hover {
-                    background-color: var(--hover-color);
-                }
-                .status {
-                    font-weight: 600;
-                    .success-text {
-                        color: green;
-                    }
-                    .waiting-text {
-                        color: orange;
-                    }
-                }
-                .actions {
-                    .icon-action {
-                        color: var(--text-color);
-                        font-size: 20px;
-                        &:hover {
-                            color: var(--default-color);
-                        }
-                    }
-                }
+                color: var(--text-color);
             }
-            .helper-text {
-                margin-top: 15px;
-                text-align: center;
-                color: gray;
+            .MuiDataGrid-cell {
+                outline: none;
             }
         }
-        .MuiTableCell-root {
-            color: var(--text-color);
-            text-align: center;
+        .MuiDataGrid-row {
+            background-color: var(--bg-color-block);
+        }
+        .waiting-status {
+            color: orange;
+        }
+        .done-status {
+            color: green;
         }
     }
 }

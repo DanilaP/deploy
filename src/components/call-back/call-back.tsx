@@ -16,6 +16,7 @@ export default function CallBackPage() {
 
     const { 
         userCallBacks,
+        userCallbacksDataGrid,
         handleCreateNewUserCallBack
     } = useCallbacksHelper(userId ? userId : null);
 
@@ -24,11 +25,14 @@ export default function CallBackPage() {
 
     const { t } = useTranslation();
 
-    const handleOpenCallbackMoreInfo = (callback: ICallBack) => {
-        setCurrentCallback(callback);
-        setModals(prev => {
-            return { ...prev, moreInfo: true };
-        });
+    const handleOpenCallbackMoreInfo = (callbackId: number) => {
+        const findedCallback = userCallBacks.find(el => el.id === callbackId);
+        if (findedCallback) {
+            setCurrentCallback(findedCallback);
+            setModals(prev => {
+                return { ...prev, moreInfo: true };
+            });
+        }
     };
 
     const handleCloseCallbackMoreInfo = () => {
@@ -60,6 +64,7 @@ export default function CallBackPage() {
         <>
             <CallBackPageView
                 userCallbacksData={ userCallBacks }
+                userCallbacksDataGrid={ userCallbacksDataGrid }
                 handleOpenCallbackMoreInfo={ handleOpenCallbackMoreInfo }
                 handleOpenCreatingNewCallback={ handleOpenCreatingNewCallback }
             />

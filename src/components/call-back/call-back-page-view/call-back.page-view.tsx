@@ -1,25 +1,27 @@
 import { useTranslation } from "react-i18next";
-import CallBackForm from "../call-back-form/call-back-form";
+import { DataGrid } from '@mui/x-data-grid';
 import "./call-back-page-view.scss";
 import { ICallBack } from "../../../interfaces/interfaces";
-import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { BsFillInfoSquareFill } from "react-icons/bs";
+import { IconButton } from "@mui/material";
 import { BiMessageSquareAdd } from "react-icons/bi";
+import { ruRU } from '@mui/x-data-grid/locales';
 
 interface ICallBackPageViewProps {
     userCallbacksData: ICallBack[],
-    handleOpenCallbackMoreInfo: (callback: ICallBack) => void
+    userCallbacksDataGrid: { columns: any[], rows: any[] },
+    handleOpenCallbackMoreInfo: (callbackId: number) => void
     handleOpenCreatingNewCallback: () => void
 }
 
 export default function CallBackPageView({ 
     userCallbacksData,
+    userCallbacksDataGrid,
     handleOpenCallbackMoreInfo,
     handleOpenCreatingNewCallback
 }: ICallBackPageViewProps) {
 
     const { t } = useTranslation();
-
+    
     return (
         <div className="call-back-page">
             <div className="title">
@@ -35,64 +37,38 @@ export default function CallBackPageView({
                         { t("text.youHaveNoCallbacksYet") }
                     </div>
                     : 
-                    <TableContainer>
-                        <Table className="call-back-table">
-                            <TableHead className="call-back-table-header">
-                                <TableRow>
-                                    <TableCell>ID</TableCell>
-                                    <TableCell>Имя</TableCell>
-                                    <TableCell>Email</TableCell>
-                                    <TableCell>Дата заявки</TableCell>
-                                    <TableCell>Номер</TableCell>
-                                    <TableCell>Статус</TableCell>
-                                    <TableCell>Действия</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {
-                                    userCallbacksData.map(callback => {
+                    <DataGrid   
+                        className="callback-data-table"
+                        rows={ userCallbacksDataGrid.rows }
+                        onRowClick={ (el) => handleOpenCallbackMoreInfo(el.row.id) }
+                        columns={ userCallbacksDataGrid.columns.map(el => {
+                            if (el.field === "solved") {
+                                return {
+                                    ...el,
+                                    renderCell: (params) => {
                                         return (
-                                            <TableRow 
-                                                className="call-back-block" 
-                                                key={ callback.id }
-                                                onClick={ () => handleOpenCallbackMoreInfo(callback) }
+                                            <div
+                                                className={ params.value ? "done-status" : "waiting-status" }
                                             >
-                                                <TableCell className="id">
-                                                    ID: { callback.id }
-                                                </TableCell>
-                                                <TableCell className="name">
-                                                    { callback.firstName } { callback.secondName }
-                                                </TableCell>
-                                                <TableCell className="email">
-                                                    { callback.email }
-                                                </TableCell>
-                                                <TableCell className="date-of-creation">
-                                                    { callback.dateOfCreation }
-                                                </TableCell>
-                                                <TableCell className="phone">
-                                                    { callback.phoneNumber }
-                                                </TableCell>
-                                                <TableCell className="status">
-                                                    { callback.solved 
-                                                        ? <span className="success-text">{ t("text.solved") }</span> 
-                                                        : <span className="waiting-text">{ t("text.waiting") }</span>
-                                                    }
-                                                </TableCell>
-                                                <TableCell className="actions">
-                                                    <IconButton 
-                                                        className="icon-action"
-                                                        onClick={ () => handleOpenCallbackMoreInfo(callback) }
-                                                    >
-                                                        <BsFillInfoSquareFill />
-                                                    </IconButton>
-                                                </TableCell>
-                                            </TableRow>
+                                                { params.value ? t("text.solved") : t("text.waiting") }
+                                            </div>
                                         );
-                                    })
-                                }
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                    }
+                                };
+                            }
+                            return el;
+                        }) }
+                        initialState={ {
+                            pagination: {
+                                paginationModel: {
+                                    pageSize: 5,
+                                },
+                            },
+                        } }
+                        pageSizeOptions={ [5] }
+                        disableRowSelectionOnClick
+                        localeText={ ruRU.components.MuiDataGrid.defaultProps.localeText }
+                    />
                 }
             </div>
         </div>

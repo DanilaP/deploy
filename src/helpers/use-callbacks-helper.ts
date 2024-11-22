@@ -2,10 +2,33 @@ import { useEffect, useState } from "react";
 import $api from "../configs/axiosconfig/axios.js";
 import { ICallBack } from "../interfaces/interfaces.js";
 import { ICallFormData } from "../components/call-back/call-back-form/call-back-form.js";
+import { GridColDef } from "@mui/x-data-grid";
+import { useTranslation } from "react-i18next";
 
 export const useCallbacksHelper = (userId: string | null) => {
 
     const [userCallBacks, setUserCallbacks] = useState<ICallBack[]>([]);
+    const [userCallbacksDataGrid, setUserCallbacksDataGrid] = useState<{ columns: any[], rows: any[]} >({
+        columns: [], rows: []
+    });
+    const { t } = useTranslation();
+
+    const handleSetCallbacksDataForDataGrid = (callbacks: ICallBack[]) => {
+        const rows = callbacks.map(el => {
+            const { id, firstName, secondName, dateOfCreation, phoneNumber, solved } = el;
+            return { id, firstName, secondName, dateOfCreation, phoneNumber, solved };
+        });
+        const columns: GridColDef<(typeof rows)[number]>[] = [
+            { field: "id", headerName: "ID", flex: 1 },
+            { field: "firstName", headerName: t("text.firstName"), flex: 1 },
+            { field: "secondName", headerName: t("text.secondName"), flex: 1 },
+            { field: "dateOfCreation", headerName: t("text.dateOfCreation"), flex: 1 },
+            { field: "phoneNumber", headerName: t("text.phoneNumber"), flex: 1 },
+            { field: "solved", headerName: t("text.status"), flex: 1 }
+        ];
+        
+        setUserCallbacksDataGrid({ columns, rows });
+    };
 
     const handleCreateNewUserCallBack = (callBackFormData: ICallFormData) => {
         const dateNow = new Date();
@@ -38,8 +61,13 @@ export const useCallbacksHelper = (userId: string | null) => {
         }
     }, [userId]);
 
+    useEffect(() => {
+        handleSetCallbacksDataForDataGrid(userCallBacks);
+    }, [userCallBacks]);
+
     return { 
-        userCallBacks, 
-        handleCreateNewUserCallBack 
+        userCallBacks,
+        userCallbacksDataGrid,
+        handleCreateNewUserCallBack
     };
 };
