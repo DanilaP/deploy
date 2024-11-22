@@ -49,7 +49,7 @@ export default function StoreCreator (props: {
                     helperText = { String(errors.storeName?.message || "") }
                     { 
                         ...register("storeName", { 
-                            validate: (value) => validateRequiredField(value) ? true : t("text.requiredField")
+                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
                         }) 
                     }
                     label={ t("text.storeName") } 
@@ -70,7 +70,7 @@ export default function StoreCreator (props: {
                                 renderInput={ (params) => 
                                     <TextField 
                                         onChange={ (value) => field.onChange(value) }
-                                        helperText={ errors.storeAddress ? t("text.requiredField") : "" } 
+                                        helperText={ errors.storeAddress ? t("errors.requiredField") : "" } 
                                         error={ Boolean(errors.storeAddress) } 
                                         { ...params } 
                                         label={ t("text.storeAddress") } 
