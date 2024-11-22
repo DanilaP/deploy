@@ -59,14 +59,14 @@ export default function SignIn () {
                     helperText = { String(errors.password?.message || "") }
                     {
                         ...register("password", {
-                            validate: (value: string) => validateRequiredField(value) ? true : t("text.requiredField")
+                            validate: (value: string) => validateRequiredField(value) ? true : t("errors.requiredField")
                         })
                     }
                     autoComplete="on"
                     type='password'
                     placeholder='password123'
                 />
-                <Button type='submit' variant='contained'>{ t("titles.signInButton") }</Button>
+                <Button disabled = { Boolean(errors.login) || Boolean(errors.password) } type='submit' variant='contained'>{ t("titles.signInButton") }</Button>
             </form>
             <Link onClick={ () => navigate("/auth/signUp") } className="footer-links">{ t("text.stillNotReg") }</Link>
         </div>

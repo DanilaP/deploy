@@ -622,7 +622,6 @@ app.delete("/category", async function(req, res) {
 
 
 
-
 async function startApp() {
     try {
         server.listen(PORT, () => console.log('Server started at PORT' + " " + PORT));
