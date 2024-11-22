@@ -1,6 +1,6 @@
-import { Button, FormControl, FormLabel, TextField } from "@mui/material";
+import { Autocomplete, Button, FormControl, FormLabel, TextField } from "@mui/material";
 import "./call-back-form.scss";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 interface ICallBackFormProps {
@@ -24,6 +24,7 @@ export default function CallBackForm({
         register,
         handleSubmit,
         watch,
+        control,
         formState: { errors },
     } = useForm<ICallFormData>();
 
@@ -58,9 +59,26 @@ export default function CallBackForm({
             </FormControl>
             <FormControl>
                 <FormLabel className="label">{ t("text.typeOfBid") }</FormLabel>
-                <TextField
-                    placeholder={ t("text.typeOfBid") }
-                    { ...register("typeOfBid") }
+                <Controller
+                    name="typeOfBid"
+                    control={ control }
+                    defaultValue="Отзыв"
+                    rules={ { required: t("errors.requiredField") } }
+                    render={ ({ field }) => (
+                        <Autocomplete
+                            { ...field }
+                            options={ [
+                                "Жалоба", "Отзыв", "Другое"
+                            ] }
+                            onChange={ (_, value) => field.onChange(value) }
+                            renderInput={ (params) => (
+                                <TextField
+                                    placeholder={ t("text.search") }
+                                    { ...params }
+                                />
+                            ) }
+                        />
+                    ) }
                 />
             </FormControl>
             <FormControl>
