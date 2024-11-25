@@ -126,7 +126,7 @@ export default function UsersList () {
                             <div className="user-settings">
                                 {
                                     permissionsExists.ModifyUsers ?
-                                    <Button onClick={ () => startManipulating(user) } variant="contained">
+                                    <Button onClick={ () => startManipulating(user) } variant="outlined">
                                         { t("text.edit") }
                                     </Button> : null
                                 }
@@ -136,7 +136,7 @@ export default function UsersList () {
                                         onClick={ 
                                             user.isActive ? () => startDeleteUser(user): () => startRecovering(user)
                                         } 
-                                        variant="contained">
+                                        variant="outlined">
                                         { user.isActive ? t("text.delete") : t("text.recover") }
                                     </Button> : null
                                 }
