@@ -44,7 +44,7 @@
   },
   {
     "id": 1727161785732,
-    "isActive": false,
+    "isActive": true,
     "isVerified": true,
     "login": "newuser@gmail.com",
     "password": "$2a$07$ItQ8NTItTNk46S.PwwmdD.n.BrlwoO.Sc7ByhzR40f3quxyZUyt6S",
@@ -82,5 +82,15 @@
     "avatar": "http://localhost:5000/avatar.jpg",
     "backet": [],
     "favorites": []
+  },
+  {
+    "id": 1732528796810,
+    "login": "chattester@gmail.com",
+    "password": "$2a$07$GjmSFzJ3L/UX2jek6XsNiuGe4HCKE/iSM4dhkB31DYE6r5LEiD77u",
+    "role": "Пользователь",
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": [],
+    "favorites": [],
+    "isActive": true
   }
 ]

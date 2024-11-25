@@ -4,20 +4,21 @@
     align-items: center;
     box-sizing: border-box;
     padding-left: 20px;
-    width: 300px;
+    min-width: 300px;
     min-height: 50px;
     max-height: max-content;
+    max-width: max-content;
     background-color: var(--bg-color);
     border-radius: 5px;
     border: 1px solid rgba(128, 128, 128, 0.247);
 }
 
-.user {
+.user-msg {
     position: relative;
     left: 50px;
 }
 
-.opponent {
+.opponent-msg {
     position: relative;
     left: 0px;
 }

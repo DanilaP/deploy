@@ -139,7 +139,7 @@ function App() {
                         </Routes>
                     }
                 </div>
-                { isLoading && userStore.user && <ChatWrapper /> }
+                { (isLoading && userStore.user && !checkPermissions()) ? <ChatWrapper /> : null }
             </div>
         </>
     );

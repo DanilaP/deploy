@@ -2,17 +2,16 @@ import { useTranslation } from 'react-i18next';
 import './chat.scss';
 import { useStore } from '../../../stores';
 import { useEffect, useState } from 'react';
-import $api from '../../../configs/axiosconfig/axios';
 import { IChat } from '../../../interfaces/interfaces';
 import { Button, TextField } from '@mui/material';
 import MessageList from './message-list/message-list';
 
-export default function Chat (props: { close: () => void }) {
+export default function Chat (props: { close: () => void, chatInfo: IChat }) {
 
     const { userStore } = useStore();
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [userMessage, setUserMessage] = useState<string>("");
-    const [chat, setChat] = useState<IChat>();
+    const [chat, setChat] = useState<IChat>(props.chatInfo);
     const { t } = useTranslation();
     
     const sendMessage = () => {
@@ -41,16 +40,6 @@ export default function Chat (props: { close: () => void }) {
             setSocket(updatedSocketConnection);
             userStore.setSocketConnection(updatedSocketConnection);
         }
-    }, []);
-
-    useEffect(() => {
-        $api.get("chats")
-        .then((res) => {
-            setChat(res.data.chats[0]);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
     }, []);
 
     return (
