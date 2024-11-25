@@ -5,10 +5,11 @@ import { MenuItem } from '@mui/material';
 import { MdSupervisedUserCircle } from "react-icons/md";
 import { FaUsersCog } from "react-icons/fa";
 import { MdOutlineSecurity } from "react-icons/md";
-import './admin.scss';
-import usePermissions from "../../helpers/permissions-helpers.ts";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
+import { FaListCheck } from "react-icons/fa6";
+import './admin.scss';
+import usePermissions from "../../helpers/permissions-helpers.ts";
 
 interface AdminPageProps {
     children: React.ReactElement | null
@@ -70,6 +71,11 @@ export default function AdminPage (props: AdminPageProps) {
                         <MenuItem onClick={ () => navigate("/admin/categories") }>
                             <MdCategory className='icon' />{ !isMenuTextExists ? t("text.categories") : null }
                         </MenuItem>  : null
+                    }
+                    {
+                        <MenuItem onClick={ () => navigate("/admin/callback") }>
+                            <FaListCheck className='icon' />{ !isMenuTextExists ? t("text.callback") : null }
+                        </MenuItem>
                     }
                 </div>
                 <div className="content">{ children }</div>

@@ -7,13 +7,17 @@ import { useTranslation } from "react-i18next";
 
 export const useCallbacksHelper = (userId: string | null) => {
 
+    const [loading, setLoading] = useState<boolean>(true);
     const [userCallBacks, setUserCallbacks] = useState<ICallBack[]>([]);
     const [userCallbacksDataGrid, setUserCallbacksDataGrid] = useState<{ columns: any[], rows: any[]} >({
         columns: [], rows: []
     });
+    const [fitleredUserCallbacksDataGrid, setFilteredUserCallbacksDataGrid] = useState<{ columns: any[], rows: any[]} >({
+        columns: [], rows: []
+    });
     const { t } = useTranslation();
 
-    const handleSetCallbacksDataForDataGrid = (callbacks: ICallBack[]) => {
+    const handleUpdateCallbacksDataForDataGrid = (callbacks: ICallBack[]) => {
         const rows = callbacks.map(el => {
             const { id, firstName, secondName, dateOfCreation, typeOfBid, phoneNumber, solved } = el;
             return { id, firstName, secondName, typeOfBid, dateOfCreation, phoneNumber, solved };
@@ -27,8 +31,16 @@ export const useCallbacksHelper = (userId: string | null) => {
             { field: "typeOfBid", headerName: t("text.typeOfBid"), minWidth: 50 },
             { field: "solved", headerName: t("text.status"), flex: 1 }
         ];
-        
-        setUserCallbacksDataGrid({ columns, rows });
+        return { columns, rows };
+    };
+
+    const handleFilterUserCallbacksDataGridByStatus = (isSolved: boolean) => {
+        setFilteredUserCallbacksDataGrid(() => {
+            return {
+                ...userCallbacksDataGrid,
+                rows: userCallbacksDataGrid.rows.filter(el => el.solved === isSolved)
+            };
+        });
     };
 
     const handleCreateNewUserCallBack = (callBackFormData: ICallFormData) => {
@@ -52,27 +64,40 @@ export const useCallbacksHelper = (userId: string | null) => {
         }
     };
 
+    const handleUpdateCallbackData = (updatedCallback: ICallBack) => {
+        const updatedCallbacks = userCallBacks.map(el => el.id === updatedCallback.id ? updatedCallback : el);
+        const callbackDataForGrid = handleUpdateCallbacksDataForDataGrid(updatedCallbacks);
+        const filteredCallbackDataForGrid = handleUpdateCallbacksDataForDataGrid(updatedCallbacks);
+        setUserCallbacks(updatedCallbacks);
+        setUserCallbacksDataGrid(callbackDataForGrid);
+        setFilteredUserCallbacksDataGrid(filteredCallbackDataForGrid);
+    };
+
     useEffect(() => {
-        if (userId) {
-            $api.get(`/callbacks?userId=${Number(userId)}`)
+        const userIdQuery = userId ? Number(userId) : null;
+        $api.get(`/callbacks?userId=${userIdQuery}`)
             .then(res => {
                 if (res.data.callbacks) {
+                    const callbackDataForGrid = handleUpdateCallbacksDataForDataGrid(res.data.callbacks);
                     setUserCallbacks(res.data.callbacks);
+                    setUserCallbacksDataGrid(callbackDataForGrid);
+                    setFilteredUserCallbacksDataGrid(callbackDataForGrid);
                 }
+                setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
+                setLoading(false);
             });
-        }
     }, [userId]);
 
-    useEffect(() => {
-        handleSetCallbacksDataForDataGrid(userCallBacks);
-    }, [userCallBacks]);
-
-    return { 
-        userCallBacks,
-        userCallbacksDataGrid,
-        handleCreateNewUserCallBack
+    return {
+        loading,
+        callbacks: userCallBacks,
+        callbacksDataGrid: userCallbacksDataGrid,
+        fitleredCallbacksDataGrid: fitleredUserCallbacksDataGrid,
+        handleCreateNewUserCallBack,
+        handleUpdateCallbackData,
+        handleFilterUserCallbacksDataGridByStatus
     };
 };

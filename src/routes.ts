@@ -18,6 +18,7 @@ import { t } from "i18next";
 import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import Favorites from "./components/favorites/favorites";
 import CallBackPage from "./components/call-back/call-back.tsx";
+import AdminCallbackPage from "./components/admin/call-back/call-back.tsx";
 
 export const routes = [
     {
@@ -130,5 +131,11 @@ export const adminRoutes = [
         component: AdminPage,
         children: CategoriesPage,
         breadcrumb : t("text.categories")
+    },
+    {
+        path: '/admin/callback',
+        component: AdminPage,
+        children: AdminCallbackPage,
+        breadcrumb : t("text.callback")
     },
 ];
