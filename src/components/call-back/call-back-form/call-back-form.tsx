@@ -1,8 +1,8 @@
 import { Autocomplete, Button, FormControl, FormLabel, TextField } from "@mui/material";
-import "./call-back-form.scss";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { ICallBack } from "../../../interfaces/interfaces";
+import { validateRequiredField } from "../../../helpers/validators-helper";
+import "./call-back-form.scss";
 
 interface ICallBackFormProps {
     handleCloseCreatingNewCallback: () => void,
@@ -28,7 +28,7 @@ export default function CallBackForm({
         handleSubmit,
         watch,
         control,
-        formState: { errors },
+        formState: { errors , submitCount, isValid },
     } = useForm<ICallFormData>();
 
     const { t } = useTranslation();
@@ -42,22 +42,34 @@ export default function CallBackForm({
             <FormControl>
                 <FormLabel className="label">{ t("text.yourName") }</FormLabel>
                 <TextField
+                    error={ Boolean(errors.firstName) }
+                    helperText={ String(errors.firstName?.message || "") }
                     placeholder={ t("text.yourName") }
-                    { ...register("firstName") }
+                    { ...register("firstName", { 
+                        validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                    }) }
                 />
             </FormControl>
             <FormControl>
                 <FormLabel className="label">{ t("text.yourSecondName") }</FormLabel>
                 <TextField
+                    error={ Boolean(errors.secondName) }
+                    helperText={ String(errors.secondName?.message || "") }
                     placeholder={ t("text.yourSecondName") }
-                    { ...register("secondName") }
+                    { ...register("secondName", { 
+                        validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                    }) }
                 />
             </FormControl>
             <FormControl>
                 <FormLabel className="label">{ t("text.email") }</FormLabel>
                 <TextField
+                    error={ Boolean(errors.email) }
+                    helperText={ String(errors.email?.message || "") }
                     placeholder={ t("text.email") }
-                    { ...register("email") }
+                    { ...register("email", { 
+                        validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                    }) }
                 />
             </FormControl>
             <FormControl>
@@ -78,6 +90,8 @@ export default function CallBackForm({
                                 <TextField
                                     placeholder={ t("text.search") }
                                     { ...params }
+                                    error={ Boolean(errors.typeOfBid) }
+                                    helperText={ String(errors.typeOfBid?.message || "") }
                                 />
                             ) }
                         />
@@ -85,25 +99,40 @@ export default function CallBackForm({
                 />
             </FormControl>
             <FormControl>
-                <FormLabel className="label">{ t("text.phone") }</FormLabel>
+                <FormLabel className="label">{ t("text.phoneNumber") }</FormLabel>
                 <TextField
-                    placeholder={ t("text.phone") }
-                    { ...register("phoneNumber") }
+                    error={ Boolean(errors.phoneNumber) }
+                    helperText={ String(errors.phoneNumber?.message || "") }
+                    placeholder={ t("text.phoneNumber") }
+                    { ...register("phoneNumber", { 
+                        validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                    }) }
                 />
             </FormControl>
             <FormControl>
                 <FormLabel className="label">{ t("text.description") }</FormLabel>
                 <TextField
+                    error={ Boolean(errors.description) }
+                    helperText={ String(errors.description?.message || "") }
                     multiline
                     minRows={ 3 }
                     maxRows={ 3 }
                     placeholder={ t("text.description") }
-                    { ...register("description") }
+                    { ...register("description", { 
+                        validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                    }) }
                 />
             </FormControl>
             <div className="form-actions">
-                <Button type="submit" variant="contained">{ t("text.save") }</Button>
-                <Button variant="contained" onClick={ handleCloseCreatingNewCallback }>{ t("text.close") }</Button>
+                <Button 
+                    type="submit" 
+                    variant="contained"
+                    disabled={ submitCount !== 0 && !isValid }
+                >{ t("text.save") }</Button>
+                <Button 
+                    variant="contained" 
+                    onClick={ handleCloseCreatingNewCallback }
+                >{ t("text.close") }</Button>
             </div>
         </form>
     );

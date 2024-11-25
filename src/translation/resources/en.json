@@ -43,6 +43,14 @@
         "deletingUserConfirmation": "Do you want to delete the user?",
         "manipulateUser": "User manipulating",
         "creating": "(Creation)",
+        "save": "Save",
+        "search": "Search",
+        "cancel": "Cancel",
+        "publish": "Publish",
+        "active": "Active",
+        "inactive": "Inactive",
+        "published": "published",
+        "unPublished": "unpublished",
         "usersAdmin": "Users",
         "rolesAdmin": "Roles",
         "permitionsRules": "Permition/rules",
@@ -63,7 +71,7 @@
         "video": "Video",
         "saveChanges": "Save changes",
         "additionalProductInfo": "Additional info (title, value)",
-        "variationsOfProduct": "Variations (title, value, price, stock)",
+        "variationsOfProduct": "Variations (title, value, stock, price)",
         "addRole": "Add role",
         "price": "Price",
         "good": "Good",
@@ -80,6 +88,7 @@
         "createCategory": "Create category",
         "deleteGroup": "Delete group",
         "addCategory": "Add category",
+        "partNumber": "Part number",
         "unsavedChanges": "You have an unsaved changes. Are you sure",
         "groupName": "Group name",
         "approveAction": "Approve action",
@@ -90,9 +99,9 @@
         "stock": "In stock",
         "rub": "rub.",
         "pcs": "pcs.",
+        "email": "Email",
         "toBacket": "To backet",
         "category": "Category",
-        "requiredField": "This field is requiered",
         "editCategory": "Edit category",
         "productReviews": "Product reviews",
         "averageEvaluation": "Average evaluation",
@@ -205,5 +214,10 @@
         "productReviews": "Reviews of the product",
         "favorites": "Favorites",
         "callback": "Callback"
+    },
+    "errors": {
+        "requiredField": "This field is requiered",
+        "notZero": "This field cant be 0",
+        "productReviews": "Reviews of the product"
     }
 }

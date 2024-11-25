@@ -10,7 +10,7 @@
         "email": "eplat0220@gmail.com",
         "solved": false,
         "moderatorAnswer": null,
-        "dateOfCreation": "10-06-2024",
+        "dateOfCreation": "10-06-2024 15:45",
         "dateOfAnswer": null
     },
     {
@@ -24,7 +24,21 @@
         "email": "eplat0220@gmail.com",
         "solved": true,
         "moderatorAnswer": "Извините, из - за большого количества обращений может быть задержка с ответом. В скором времени Вам ответят.",
-        "dateOfCreation": "10-06-2024",
+        "dateOfCreation": "10-06-2024 14:45",
+        "dateOfAnswer": "10-06-2024"
+    },
+    {
+        "id": 3,
+        "userId": 1727161785732,
+        "firstName": "New",
+        "secondName": "User",
+        "phoneNumber": "8 800 333 25 45",
+        "description": "Долго не могу получить ответ по предыдущей заявке",
+        "typeOfBid": "Другое",
+        "email": "newuser@gmail.com",
+        "solved": true,
+        "moderatorAnswer": "Извините, из - за большого количества обращений может быть задержка с ответом. В скором времени Вам ответят.",
+        "dateOfCreation": "10-06-2024 14:45",
         "dateOfAnswer": "10-06-2024"
     }
 ]
