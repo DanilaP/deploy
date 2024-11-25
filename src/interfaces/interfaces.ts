@@ -24,7 +24,8 @@ export interface IPermissionGroup {
     permissions: string[]
 }
 export interface IProduct {
-    id: number,
+    id?: number,
+    partNumber: string,
     name: string,
     description: string,
     fullDescription: string,
@@ -32,9 +33,12 @@ export interface IProduct {
     video: string,
     category: string[],
     provider: string,
-    reviews: IReview[],
+    price: number,
+    active: boolean,
+    published: boolean,
+    reviews?: IReview[],
     variations: IVariation[],
-    additionalInfo: IAdditionalInfo[]
+    additionalInfo: IAdditionalInfo[],
 }
 export interface IAdditionalInfo {
     id: number,
