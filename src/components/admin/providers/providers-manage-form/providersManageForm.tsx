@@ -148,9 +148,7 @@ export default function ProvidersManageForm({
                     <TextField
                         error={ Boolean(errors.ogrn) }
                         helperText={ String(errors.ogrn?.message || "") }
-                        { ...register("ogrn", {
-                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                        }) }
+                        { ...register("ogrn") }
                         id="update-provider-ogrn"
                         placeholder={ t("text.ogrn") }
                     />
@@ -165,9 +163,7 @@ export default function ProvidersManageForm({
                     <TextField
                         error={ Boolean(errors.inn) }
                         helperText={ String(errors.inn?.message || "") }
-                        { ...register("inn", {
-                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                        }) }
+                        { ...register("inn") }
                         id="update-provider-inn"
                         placeholder={ t("text.inn") }
                     />
@@ -231,15 +227,6 @@ export default function ProvidersManageForm({
                                 </InputMask>
                             ) }
                         />
-                        { /*<TextField
-                            className="field-input-contact-person"
-                            error={ Boolean(errors.contactPerson?.phoneNumber) }
-                            helperText={ String(errors.contactPerson?.phoneNumber?.message || "") }
-                            { ...register("contactPerson.phoneNumber", {
-                                validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                            }) }
-                            placeholder={ t("text.phoneNumber") }
-                        />*/ }
                         <TextField
                             className="field-input-contact-person"
                             error={ Boolean(errors.contactPerson?.post) }
