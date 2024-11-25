@@ -33,7 +33,11 @@ export const useCallbacksHelper = (userId: string | null) => {
 
     const handleCreateNewUserCallBack = (callBackFormData: ICallFormData) => {
         const dateNow = new Date();
-        const dateOfCreation = `${dateNow.getDate()}-${dateNow.getMonth()}-${dateNow.getFullYear()}`;
+        const dateOfCreation = `
+            ${dateNow.getDate()}-
+            ${dateNow.getMonth()}-
+            ${dateNow.getFullYear()} ${dateNow.getHours()}:${dateNow.getMinutes()}
+        `;
         if (userId) {
             const newUserCallback: ICallBack = {
                 ...callBackFormData,
