@@ -120,6 +120,20 @@
             "delete": "Удалить",
             "cancel": "Оставить"
         },
+        "checkout": {
+            "orderDeliveryMethods": {
+                "courier": "Доставка курьером",
+                "pickup": "Самовывоз"
+            }
+        },
+        "vendorsLogistic": {
+            "shippingStatuses": {
+                "waiting": "Ожидает",
+                "delivered": "Доставлен",
+                "in-transit": "В пути",
+                "cancelled": "Отменен"
+            }
+        },
         "createGoods": "Создать товар",
         "unsavedChanges": "У вас есть несохраненные изменения. Вы уверены",
         "cost": "Стоимость",
@@ -143,7 +157,10 @@
         "addToBasket": "Добавить в корзину",
         "selectAll": "Выбрать всё",
         "numberOfProducts": "Количество товаров",
-        "amount": "На сумму"
+        "amount": "На сумму",
+        "orderPrice": "Сумма заказа",
+        "delivery": "Доставка",
+        "deliveryDate": "Дата доставки"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",
@@ -193,7 +210,9 @@
         "adminPermissions": "Разрешения/права",
         "shopProduct": "Продукт",
         "productReviews": "Отзывы о продукте",
-        "favorites": "Избранное"
+        "favorites": "Избранное",
+        "orders": "Заказы",
+        "order": "Заказ"
     },
     "errors": {
         "requiredField": "Это обязательное поле",

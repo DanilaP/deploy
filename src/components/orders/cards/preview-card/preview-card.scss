@@ -1,0 +1,40 @@
+.preview-card {
+  width: 100%;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  border: 1px solid darkgray;
+  .preview-card-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    cursor: pointer;
+    .order-number {
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .order-price {
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
+  .delivery-status-wrapper {
+    display: flex;
+    justify-content: space-between;
+    .delivery-status {
+      display: flex;
+      gap: 7px;
+      margin-bottom: 7px;
+    }
+  }
+  .product-images-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    .product-image {
+      border-radius: 3px;
+      height: 100px;
+      width: 100px;
+    }
+  }
+}

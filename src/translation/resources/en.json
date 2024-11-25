@@ -143,7 +143,10 @@
         "addToBasket": "Add to basket",
         "selectAll": "Select all",
         "numberOfProducts": "Number of products",
-        "amount": "Amount"
+        "amount": "Amount",
+        "orderPrice": "Order Price",
+        "delivery": "Delivery",
+        "deliveryDate": "Delivery Date"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
@@ -193,7 +196,9 @@
         "adminPermissions": "Permissions",
         "shopProduct": "Product",
         "productReviews": "Reviews of the product",
-        "favorites": "Favorites"
+        "favorites": "Favorites",
+        "orders": "Orders",
+        "order": "Order"
     },
     "errors": {
         "requiredField": "This field is requiered",

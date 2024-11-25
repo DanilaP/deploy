@@ -17,6 +17,7 @@ import { CategoriesPage } from "./components/admin/categories/categories";
 import { t } from "i18next";
 import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import Favorites from "./components/favorites/favorites";
+import OrdersPage from "./components/orders/orders-page.tsx";
 
 export const routes = [
     {
@@ -54,6 +55,18 @@ export const routes = [
         component: CheckoutPage,
         children: null,
         breadcrumb : t("breadcrumbs.shop")
+    },
+    {
+        path: '/orders',
+        component: OrdersPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.orders")
+    },
+    {
+        path: "/orders/order/:id",
+        component: OrdersPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.order")
     },
     {
         path: '/profile',
