@@ -1,0 +1,23 @@
+.message {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    box-sizing: border-box;
+    padding-left: 20px;
+    width: 300px;
+    min-height: 50px;
+    max-height: max-content;
+    background-color: var(--bg-color);
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.247);
+}
+
+.user {
+    position: relative;
+    left: 50px;
+}
+
+.opponent {
+    position: relative;
+    left: 0px;
+}

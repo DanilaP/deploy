@@ -76,3 +76,13 @@ export interface ISelect {
     id: string,
     label: string
 }
+export interface IMessage {
+    senderId: number,
+    recipientId: number,
+    text: string
+}
+export interface IChat {
+    id: number,
+    members: number[],
+    messages: IMessage[]
+}

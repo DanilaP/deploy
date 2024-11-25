@@ -659,8 +659,8 @@ wss.on('connection', (ws) => {
                 return false;
             });
 
-            if (isChatExists > 0) {
-                currentChats.map((chat) => {
+            if (isChatExists.length > 0) {
+                const newChats = currentChats.map((chat) => {
                     if (isChatExists[0].id === chat.id) {
                         return {
                             ...chat,
@@ -672,7 +672,7 @@ wss.on('connection', (ws) => {
                         };
                     } else return chat;
                 });
-                fs.writeFileSync('DB/Chats.json', JSON.stringify(currentChats, null, 2));
+                fs.writeFileSync('DB/Chats.json', JSON.stringify(newChats, null, 2));
             } 
             else {
                 currentChats = [ ...currentChats, {

@@ -15,12 +15,12 @@ import { useStore } from './stores';
 import usePermissions from './helpers/permissions-helpers.ts';
 import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
 import { MdFavoriteBorder } from "react-icons/md";
+import ChatWrapper from './components/chat/chat-wrapper.tsx';
 
 function App() {
     const [theme, setTheme] = useState("white-theme");
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [socketState, setSocketState] = useState<WebSocket>();
     const navigate = useNavigate();
 
     const { t } = useTranslation();
@@ -76,34 +76,19 @@ function App() {
     }, []);
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         if (token) {
             const socket = new WebSocket('ws://localhost:5000', token);
-            setSocketState(socket);
-
+            userStore.setSocketConnection(socket);
+            
             socket.onopen = function() {
                 console.log('Соединение установлено');
             };
 
-            socket.onmessage = function(event) {
-                const data = JSON.parse(event.data);
-                console.log(data);
-            };
-
             socket.onerror = function(error) {
-                console.log(`Ошибка: ${ error }`);
+                console.error(`Ошибка: ${ error }`);
             };
         }
-    }, []);
-
-    useEffect(() => {
-        $api.get("chats")
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
     }, []);
 
     return (
@@ -154,6 +139,7 @@ function App() {
                         </Routes>
                     }
                 </div>
+                { isLoading && userStore.user && <ChatWrapper /> }
             </div>
         </>
     );

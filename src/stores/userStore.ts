@@ -6,6 +6,7 @@ class UserStore {
     permissions: string[] = []
     allPermissions: IPermission[] = []
     draggablePermission = null
+    socketConnection: WebSocket | null = null
     constructor() {
         makeAutoObservable(this);
     }
@@ -20,6 +21,9 @@ class UserStore {
     }
     setDraggablePermission(draggablePermission: any) {
         this.draggablePermission = draggablePermission;
+    }
+    setSocketConnection(socket: WebSocket | null) {
+        this.socketConnection = socket;
     }
 }
 
