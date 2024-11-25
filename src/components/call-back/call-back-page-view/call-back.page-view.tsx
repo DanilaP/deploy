@@ -5,6 +5,7 @@ import { ICallBack } from "../../../interfaces/interfaces";
 import { IconButton } from "@mui/material";
 import { BiMessageSquareAdd } from "react-icons/bi";
 import { ruRU } from '@mui/x-data-grid/locales';
+import { FiPlusCircle } from "react-icons/fi";
 
 interface ICallBackPageViewProps {
     userCallbacksData: ICallBack[],
@@ -27,7 +28,7 @@ export default function CallBackPageView({
             <div className="title">
                 { t("text.yourActiveCallbacks") }
                 <IconButton className="title-actions" onClick={ handleOpenCreatingNewCallback }>
-                    <BiMessageSquareAdd />
+                    <FiPlusCircle />
                 </IconButton>
             </div>
             <div className="content">
