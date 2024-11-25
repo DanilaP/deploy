@@ -46,7 +46,12 @@ export const GoodsPage = () => {
     };
 
     const handleApproveDeletingGood = () => {
-        const updatedProducts = currentProducts.filter(el => el.id !== currentProduct?.id);
+        const updatedProducts = currentProducts.map(el => {
+            if (el.id === currentProduct?.id) {
+                return { ...el, active: false };
+            }
+            return el;
+        });
         setCurrentProducts(updatedProducts);
         setFilteredProducts(updatedProducts);
         setModals(prev => {

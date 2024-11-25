@@ -60,6 +60,8 @@ export const ManageGoodForm = ({
         defaultValues: goodData 
             ? {
                 ...goodData,
+                active: goodData?.active,
+                published: goodData.published,
                 category: categoriesForSelect.filter(el => goodData.category.includes(el.id)),
                 additionalInfo: goodData.additionalInfo,
                 variations: goodData.variations
@@ -528,40 +530,25 @@ export const ManageGoodForm = ({
                     />
                 </div>
                 <div className="field">
-                    <div className="field-column">
-                        <div className="fields-half">
-                            <div className="column">
-                                <label className="label">{ t("text.publish") }</label>
-                                <Controller
-                                    name="published"
-                                    control={ control }
-                                    render={ ({ field }) => (
-                                        <Checkbox
-                                            className="field-checkbox"
-                                            { ...field }
-                                            defaultChecked={ goodData?.published }
-                                            onChange={ e => field.onChange(e.target.checked) }
-                                        />
-                                    ) }
-                                />
-                            </div>
-                            <div className="column">
-                                <label className="label">{ t("text.active") }</label>
-                                <Controller
-                                    name="active"
-                                    control={ control }
-                                    render={ ({ field }) => (
-                                        <Checkbox
-                                            className="field-checkbox"
-                                            { ...field }
-                                            defaultChecked={ goodData?.active }
-                                            onChange={ e => field.onChange(e.target.checked) }
-                                        />
-                                    ) }
-                                />
-                            </div>
-                        </div>
+                    <div className="column">
+                        <Checkbox
+                            className="field-checkbox"
+                            { ...register("published") }
+                            checked={ watch("published") }
+                        />
+                        <label className="label">{ t("text.publish") }</label>
                     </div>
+                    {
+                        isEdit ?
+                            <div className="column">
+                                <Checkbox
+                                    className="field-checkbox"
+                                    { ...register("active") }
+                                    checked={ watch("active") }
+                                />
+                                <label className="label">{ t("text.active") }</label>
+                        </div> : null
+                    }
                 </div>
                 <div className="form-actions">
                     <Button 
