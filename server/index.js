@@ -577,7 +577,10 @@ app.get("/callbacks", async function(req, res) {
         const callbacksList = JSON.parse(fs.readFileSync('DB/Callbacks.json', 'utf8'));
         const userId = +req.query.userId;
         const userCallbacks = callbacksList.filter(callback => callback.userId === userId);
-        res.status(200).json({ message: "Данные о заявках обратной связи получены", callbacks: userCallbacks });
+
+        res.status(200).json({ message: "Данные о заявках обратной связи получены", callbacks: 
+            JSON.parse(req.query.userId) ? userCallbacks : callbacksList
+        });
     }
     catch(error) {
         console.error("get /callbacks", error);
@@ -592,6 +595,16 @@ app.post("/callbacks", async function(req, res) {
     catch(error) {
         console.error("post /callbacks", error);
         res.status(400).json({ message: "Ошибка сохранения данных о заявке с обратной связью!" });
+    }
+});
+
+app.put("/callbacks", async function(req, res) {
+    try {
+        res.status(200).json({ message: "Данные о заявке с обратной связью обновлены", callbacks: req.body });
+    }
+    catch(error) {
+        console.error("post /callbacks", error);
+        res.status(400).json({ message: "Ошибка обновления данных о заявке с обратной связью!" });
     }
 });
 
