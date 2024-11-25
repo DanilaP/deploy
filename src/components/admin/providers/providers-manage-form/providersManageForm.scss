@@ -31,8 +31,13 @@
         }
     }
     .field-with-checkbox {
+        margin: 5px 0 5px 0;
         display: flex;
+        column-gap: 5px;
         align-items: center;
+        .MuiButtonBase-root {
+            padding: 0px;
+        }
     }
     .field-column {
         display: grid;

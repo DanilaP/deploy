@@ -169,12 +169,6 @@ export default function ProvidersManageForm({
                     />
                 </div>
                 <div className="field-with-checkbox">
-                    <label
-                        className="label"
-                        htmlFor="update-provider-active"
-                    >
-                        { t("text.isActive") }
-                    </label>
                     <Controller
                         name="active"
                         control={ control }
@@ -187,7 +181,13 @@ export default function ProvidersManageForm({
                                 id="update-provider-active"
                             />
                         ) }
-                    />  
+                    />
+                    <label
+                        className="label"
+                        htmlFor="update-provider-active"
+                    >
+                        { t("text.isActive") }
+                    </label>
                 </div>
                 <div className="field-column">
                     <label className="label">
