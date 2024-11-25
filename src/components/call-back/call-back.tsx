@@ -14,7 +14,7 @@ export default function CallBackPage() {
     const { userStore } = useStore();
     const userId = userStore.user?.id;
 
-    const { 
+    const {
         callbacks: userCallBacks,
         callbacksDataGrid: userCallbacksDataGrid,
         handleCreateNewUserCallBack

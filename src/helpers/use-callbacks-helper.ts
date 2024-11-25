@@ -45,11 +45,7 @@ export const useCallbacksHelper = (userId: string | null) => {
 
     const handleCreateNewUserCallBack = (callBackFormData: ICallFormData) => {
         const dateNow = new Date();
-        const dateOfCreation = `
-            ${dateNow.getDate()}-
-            ${dateNow.getMonth()}-
-            ${dateNow.getFullYear()} ${dateNow.getHours()}:${dateNow.getMinutes()}
-        `;
+        const dateOfCreation = `${dateNow.getDate()}-${dateNow.getMonth()}-${dateNow.getFullYear()} ${dateNow.getHours()}:${dateNow.getMinutes()}`;
         if (userId) {
             const newUserCallback: ICallBack = {
                 ...callBackFormData,
@@ -60,10 +56,12 @@ export const useCallbacksHelper = (userId: string | null) => {
                 dateOfCreation: dateOfCreation,
                 dateOfAnswer: null
             };
-            setUserCallbacks((prev) => [...prev, newUserCallback]);
+            const updatedCallbaks = [...userCallBacks, newUserCallback];
+            setUserCallbacks(updatedCallbaks);
+            setUserCallbacksDataGrid(handleUpdateCallbacksDataForDataGrid(updatedCallbaks));
         }
     };
-
+    
     const handleUpdateCallbackData = (updatedCallback: ICallBack) => {
         const updatedCallbacks = userCallBacks.map(el => el.id === updatedCallback.id ? updatedCallback : el);
         const callbackDataForGrid = handleUpdateCallbacksDataForDataGrid(updatedCallbacks);
