@@ -62,7 +62,7 @@ const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
                     <Typography className="product-color-text" color="text.secondary">
                         { t('text.cart.color') }: { currentColor }
                     </Typography>
-                    <Typography component="div" className="card-price" variant="h6" color="text.primary">
+                    <Typography component="div" className="card-price" variant="h6">
                         ({ number } { t('text.cart.pcs') }) { formattedProductPrice } { t('text.rub') }
                     </Typography>
                 </CardContent>

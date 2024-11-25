@@ -1,4 +1,4 @@
-import { ChangeEvent, FC , useState } from 'react';
+import { FC , useState } from 'react';
 import {
     Button,
     Stack,
@@ -66,13 +66,6 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
             ...prev,
             [dialog]: false,
         }));
-    };
-
-    const handleChangeAddressFieldsData = (field: keyof IAddress) => (event: ChangeEvent<HTMLInputElement>) => {
-        setCurrentAddress({
-            ...currentAddress,
-            [field]: event.target.value,
-        });
     };
 
     const handleDeleteAddress = (addressId: string) => {
@@ -164,7 +157,6 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
                     setCurrentAddress={ setCurrentAddress }
                     handleClose={ () => handleCloseDialog('courier') }
                     setAddresses={ setAddresses }
-                    handleChange={ handleChangeAddressFieldsData }
                     handleConfirm={ handleSaveAddress }
                     addresses={ addresses }
                     currentAddress={ currentAddress }

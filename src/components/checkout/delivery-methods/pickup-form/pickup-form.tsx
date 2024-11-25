@@ -31,7 +31,7 @@ const PickupForm: FC<PickupDialogProps> = ({
     const { t } = useTranslation();
 
     return (
-        <form onSubmit={() => handleConfirm('pickup')} className="pickup-form-wrapper">
+        <form onSubmit={ () => handleConfirm('pickup') } className="pickup-form-wrapper">
                 <RadioGroup
                     className="radio-group"
                     value={ selectedStoreId }

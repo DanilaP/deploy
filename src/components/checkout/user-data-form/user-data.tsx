@@ -1,16 +1,14 @@
 import { useState } from "react";
-import Grid from "@mui/material/Grid2";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, FormControl, FormHelperText } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import InputMask from "react-input-mask";
 import { useForm, Controller } from "react-hook-form";
-import { observer } from 'mobx-react-lite';
+import { observer } from "mobx-react-lite";
 import { useStore } from "../../../stores";
 import { validatePhone } from "../../../validators-helper.tsx";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.tsx";
 import "./user-data.scss";
-
-const ruPhoneMask = "+7 (999) 999-99-99";
+import Grid from "@mui/material/Grid2";
 
 const UserData = () => {
     const { t } = useTranslation();
@@ -18,16 +16,21 @@ const UserData = () => {
 
     const { userStore } = useStore();
 
-    const { control, handleSubmit, formState: { errors } } = useForm({
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+        reset,
+    } = useForm({
         defaultValues: {
-            name: userStore?.user?.name || '',
-            tel: userStore?.user?.tel || '',
+            name: userStore?.user?.name || "",
+            tel: userStore?.user?.tel || "",
         },
     });
 
     const onSubmit = (data: { name: string; tel: string }) => {
-            userStore.updateUserData({ name: data.name, tel: data.tel });
-            setOpen(false);
+        userStore.updateUserData({ name: data.name, tel: data.tel });
+        setOpen(false);
     };
 
     return (
@@ -38,14 +41,14 @@ const UserData = () => {
 
             <CustomModal
                 isDisplay={ open }
-                title = { t("text.checkout.editRecipient")  }
-                typeOfActions='none'
+                title={ t("text.checkout.editRecipient") }
+                typeOfActions="none"
                 closeModal={ () => setOpen(false) }
             >
-
                 <form onSubmit={ handleSubmit(onSubmit) }>
-                        <Grid container spacing={ 2 } className="form-grid">
-                            <Grid size={ { xs: 6 } }>
+                    <Grid container spacing={ 2 } className="form-grid">
+                        <Grid size={ { xs: 6 } }>
+                            <FormControl fullWidth error={ !!errors.name }>
                                 <Controller
                                     name="name"
                                     control={ control }
@@ -58,31 +61,29 @@ const UserData = () => {
                                             label={ t("text.checkout.nameLabel") }
                                             variant="outlined"
                                             fullWidth
-                                            required
-                                            error={ !!errors.name }
-                                            helperText={ errors.name?.message }
                                         />
                                     ) }
                                 />
-                            </Grid>
-                            <Grid size={ { xs: 6 } }>
+                                <FormHelperText>{ errors.name?.message }</FormHelperText>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid size={ { xs: 6 } }>
+                            <FormControl fullWidth error={ !!errors.tel }>
                                 <Controller
                                     name="tel"
                                     control={ control }
                                     rules={ {
                                         required: t("text.checkout.errors.emptyTel"),
-                                        validate: (value) => {
-                                            if (!validatePhone(value)) {
-                                                return t("text.checkout.errors.incorrectTel");
-                                            }
-                                            return true;
-                                        },
+                                        validate: (value) =>
+                                            validatePhone(value) || t("text.checkout.errors.incorrectTel"),
                                     } }
                                     render={ ({ field }) => (
                                         <InputMask
-                                            mask={ ruPhoneMask }
-                                            value={ field.value }
+                                            mask={ "+7 (999) 999-99-99" }
+                                            value={ field.value || "" }
                                             onChange={ field.onChange }
+                                            onBlur={ field.onBlur }
                                         >
                                             { (inputProps) => (
                                                 <TextField
@@ -90,24 +91,30 @@ const UserData = () => {
                                                     label={ t("text.checkout.telLabel") }
                                                     variant="outlined"
                                                     fullWidth
-                                                    required
-                                                    error={ !!errors.tel }
-                                                    helperText={ errors.tel?.message }
                                                 />
                                             ) }
                                         </InputMask>
                                     ) }
                                 />
-                            </Grid>
+                                <FormHelperText>{ errors.tel?.message }</FormHelperText>
+                            </FormControl>
                         </Grid>
-                        <div className="buttons-wrapper">
-                            <Button onClick={ () => setOpen(false) } color="secondary">
-                                { t("text.cancel") }
-                            </Button>
-                            <Button type="submit" color="primary">
-                                { t("text.confirm") }
-                            </Button>
-                        </div>
+                    </Grid>
+
+                    <div className="buttons-wrapper">
+                        <Button
+                            onClick={ () => {
+                                setOpen(false);
+                                reset();
+                            } }
+                            color="secondary"
+                        >
+                            { t("text.cancel") }
+                        </Button>
+                        <Button type="submit" color="primary">
+                            { t("text.confirm") }
+                        </Button>
+                    </div>
                 </form>
             </CustomModal>
         </div>

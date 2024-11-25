@@ -1,34 +1,66 @@
 .custom-select-menu {
+  .MuiMenu-paper-root {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+
   .MuiMenuItem-root {
+    background-color: var(--bg-color);
+    color: var(--text-color);
     margin-bottom: 3px;
-    .address-wrapper {
-      .address {
-        font-size: 18px;
-      }
-      .address-fields, .comment {
-        font-size: 15px;
+    &:hover {
+      background-color: var(--hover-color);
+      color: black;
+    }
+
+    &.Mui-selected {
+      background-color: var(--bg-color-block);
+      color: var(--text-color);
+      &:hover {
+        background-color: var(--hover-color);
+        color: black;
       }
     }
   }
 }
-
-.courier-dialog-wrapper {
-  width: 100%;
+.courier-form-wrapper {
+  padding: 5px;
   .address-suggestion-wrapper {
     .da-data-field {
       width: 100%;
-      height: 40px;
+      height: 50px;
       padding-left: 3px;
+      font-size: 18px;
+      background-color: var(--bg-color-block);
+      color: var(--text-color);
     }
     .error {
-      border: 1px solid #b71c1c;
+      border: 1px solid #f44336 !important;
     }
     .error:focus {
       outline: 1px solid #b71c1c;
     }
-    .error-text {
-      color: #b71c1c;
-    }
+  }
+  .error-text {
+    margin: 0;
+  }
+
+  .da-data-suggestion {
+    padding: 5px;
+    width: 100%;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    border: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .c:hover {
+    background-color: var(--hover-color);
+  }
+
+  .da-data-suggestions {
+    background-color: var(--bg-color);
   }
   .form-control {
     width: 100%;
@@ -47,7 +79,6 @@
     margin-top: 24px;
   }
 }
-
 .address-wrapper {
   width: 100%;
   display: flex;
