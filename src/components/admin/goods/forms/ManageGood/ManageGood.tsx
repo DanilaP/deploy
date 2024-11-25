@@ -11,6 +11,7 @@ import { convertFileListToBlobArray } from "../../../../../helpers/convert-file-
 import IconButton from "@mui/material/IconButton";
 import InputFile from "../../../../../components-ui/custom-file-nput/file-input";
 import "./ManageGood.scss";
+import { FiPlusCircle } from "react-icons/fi";
 
 interface IProductForm {
     additionalInfo: IAdditionalInfo[],
@@ -371,7 +372,7 @@ export const ManageGoodForm = ({
                             additionalInfoFields.length === 0
                             ? (
                                 <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
-                                    <BiMessageSquareAdd />
+                                    <FiPlusCircle />
                                 </IconButton>
                             ) 
                             : null
@@ -413,7 +414,7 @@ export const ManageGoodForm = ({
                                         (index === additionalInfoFields?.length - 1) 
                                             ? (
                                                 <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
-                                                    <BiMessageSquareAdd />
+                                                    <FiPlusCircle />
                                                 </IconButton>
                                             ) 
                                             : null
@@ -434,7 +435,7 @@ export const ManageGoodForm = ({
                             variationsInfoFields.length === 0 
                             ? (
                                 <IconButton className="mui-actions" onClick={ handleAddVariation }>
-                                    <BiMessageSquareAdd />
+                                    <FiPlusCircle />
                                 </IconButton>
                             ) 
                             : null
@@ -498,7 +499,7 @@ export const ManageGoodForm = ({
                                         (index === variationsInfoFields?.length - 1) 
                                             ? (
                                                 <IconButton className="mui-actions" onClick={ handleAddVariation }>
-                                                    <BiMessageSquareAdd />
+                                                    <FiPlusCircle />
                                                 </IconButton>
                                             ) 
                                             : null
