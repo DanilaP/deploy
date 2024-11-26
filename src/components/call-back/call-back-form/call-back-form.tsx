@@ -3,10 +3,12 @@ import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { validateRequiredField } from "../../../helpers/validators-helper";
 import "./call-back-form.scss";
+import { useEffect } from "react";
 
 interface ICallBackFormProps {
     handleCloseCreatingNewCallback: () => void,
-    handleSaveNewCallback: (callback: ICallFormData) => void
+    handleSaveNewCallback: (callback: ICallFormData) => void,
+    handleUpdateUnsavedDataExist: (unsavedDataExists: boolean) => void
 }
 
 export interface ICallFormData {
@@ -20,7 +22,8 @@ export interface ICallFormData {
 
 export default function CallBackForm({
     handleCloseCreatingNewCallback,
-    handleSaveNewCallback
+    handleSaveNewCallback,
+    handleUpdateUnsavedDataExist
 }: ICallBackFormProps) {
 
     const {
@@ -28,7 +31,7 @@ export default function CallBackForm({
         handleSubmit,
         watch,
         control,
-        formState: { errors , submitCount, isValid },
+        formState: { errors , submitCount, isValid, isDirty },
     } = useForm<ICallFormData>();
 
     const { t } = useTranslation();
@@ -36,6 +39,10 @@ export default function CallBackForm({
     const handleCreateNewCallback = (data: ICallFormData) => {
         handleSaveNewCallback(data);
     };
+
+    useEffect(() => {
+        handleUpdateUnsavedDataExist(isDirty);
+    }, [isDirty]);
 
     return (
         <form className="call-back-form" onSubmit={ handleSubmit(handleCreateNewCallback) }>

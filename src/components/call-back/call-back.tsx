@@ -21,7 +21,8 @@ export default function CallBackPage() {
     } = useCallbacksHelper(userId ? userId : null);
 
     const [currentCallback, setCurrentCallback] = useState<ICallBack | null>(null);
-    const [modals, setModals] = useState({ moreInfo: false, create: false });
+    const [modals, setModals] = useState({ moreInfo: false, create: false, unsavedData: false });
+    const [unsavedDataExists, setUnsavedDataExists] = useState<boolean>(false);
 
     const { t } = useTranslation();
 
@@ -49,6 +50,12 @@ export default function CallBackPage() {
     };
 
     const handleCloseCreatingNewCallback = () => {
+        if (unsavedDataExists) {
+            setModals(prev => {
+                return { ...prev, unsavedData: true };
+            });
+            return;
+        }
         setCurrentCallback(null);
         setModals(prev => {
             return { ...prev, create: false };
@@ -60,6 +67,23 @@ export default function CallBackPage() {
         handleCloseCreatingNewCallback();
     };
 
+    const handleUpdateUnsavedDataExist = (unsavedDataExists: boolean) => {
+        setUnsavedDataExists(unsavedDataExists);
+    };
+
+    const handleCancelCreatingCallback = () => {
+        setCurrentCallback(null);
+        setModals(prev => {
+            return { ...prev, create: false, unsavedData: false };
+        });
+    };
+
+    const handleCloseUnsavedDataModal = () => {
+        setModals(prev => {
+            return { ...prev, unsavedData: false };
+        });
+    };
+
     return (
         <>
             <CallBackPageView
@@ -68,7 +92,7 @@ export default function CallBackPage() {
                 handleOpenCallbackMoreInfo={ handleOpenCallbackMoreInfo }
                 handleOpenCreatingNewCallback={ handleOpenCreatingNewCallback }
             />
-            <CustomModal 
+            <CustomModal
                 isDisplay={ modals.moreInfo }
                 title={ t("text.callbackInfo") }
                 typeOfActions='custom'
@@ -82,7 +106,8 @@ export default function CallBackPage() {
                     callback={ currentCallback }
                 />
             </CustomModal>
-            <CustomModal 
+            <CustomModal
+                isHidden={ modals.unsavedData }
                 isDisplay={ modals.create }
                 title={ t("text.callbackInfo") }
                 typeOfActions='none'
@@ -92,7 +117,29 @@ export default function CallBackPage() {
                 <CallBackForm
                     handleCloseCreatingNewCallback={ handleCloseCreatingNewCallback }
                     handleSaveNewCallback={ handleCreateNewCallback }
+                    handleUpdateUnsavedDataExist={ handleUpdateUnsavedDataExist }
                 />
+            </CustomModal>
+            <CustomModal 
+                isDisplay={ modals.unsavedData }
+                title={ t("text.approveAction") }
+                typeOfActions='custom'
+                actionConfirmed={ handleCancelCreatingCallback }
+                closeModal={ handleCancelCreatingCallback }
+                actionsComponent={
+                    <>
+                        <Button 
+                            variant="contained"
+                            onClick={ handleCancelCreatingCallback }
+                        >{ t("text.close") }</Button>
+                        <Button
+                            onClick={ handleCloseUnsavedDataModal }
+                            variant="contained"
+                        >{ t("text.cancel") }</Button>
+                    </>
+                }
+            >
+                <div className="delete-text">{ t("text.unsavedChanges") }?</div>
             </CustomModal>
         </>
     ); 
