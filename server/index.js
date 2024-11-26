@@ -730,7 +730,7 @@ wss.on('connection', (ws) => {
             else {
                 currentChats = [ ...currentChats, {
                     id: Date.now(),
-                    members: [senderId, recipientId],
+                    members: [senderId, null],
                     messages: [{
                         senderId,
                         recipientId: null,
@@ -743,17 +743,23 @@ wss.on('connection', (ws) => {
             clients.map((client) => {
                 if (client.userId === recipientId || client.userId === senderId) {
                     if (isChatExists.length > 0) {
-                        client.userws.send(JSON.stringify([...isChatExists[0].messages, {
-                            senderId: senderId,
-                            recipientId: recipientId,
-                            text: newMessageData.message,
-                        }]));
+                        client.userws.send(JSON.stringify({
+                            ...isChatExists[0],
+                            messages: [...isChatExists[0].messages, {
+                                senderId: senderId,
+                                recipientId: recipientId,
+                                text: newMessageData.message,
+                            }]
+                        }));
                     } else {
-                        client.userws.send(JSON.stringify([{
-                            senderId: senderId,
-                            recipientId: recipientId,
-                            text: newMessageData.message,
-                        }]));
+                        client.userws.send(JSON.stringify({
+                            ...currentChats[currentChats.length - 1],
+                            messages: [{
+                                senderId: senderId,
+                                recipientId: null,
+                                text: newMessageData.message,
+                            }]
+                        }));
                     }
                 }
             });

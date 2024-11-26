@@ -75,40 +75,26 @@
         "senderId": 1727098679785,
         "recipientId": 1732528796810,
         "text": "admin message"
-      }
-    ]
-  },
-  {
-    "id": 1732605032992,
-    "members": [
-      1732604379612,
-      1727098679785
-    ],
-    "messages": [
-      {
-        "senderId": 1732604379612,
-        "recipientId": 1727098679785,
-        "text": "еще один тестер чата (пользователь)"
       },
       {
-        "senderId": 1732604379612,
+        "senderId": 1732528796810,
         "recipientId": 1727098679785,
-        "text": "еще одно сообщение от тестера"
+        "text": "user"
+      },
+      {
+        "senderId": 1732528796810,
+        "recipientId": 1727098679785,
+        "text": "user"
       },
       {
         "senderId": 1727098679785,
-        "recipientId": 1732604379612,
-        "text": "admin message"
-      },
-      {
-        "senderId": 1732604379612,
-        "recipientId": 1727098679785,
-        "text": "user msg"
+        "recipientId": 1732528796810,
+        "text": "admin"
       },
       {
         "senderId": 1727098679785,
-        "recipientId": 1732604379612,
-        "text": "admin msg"
+        "recipientId": 1732528796810,
+        "text": "admin"
       }
     ]
   }

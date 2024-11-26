@@ -30,18 +30,16 @@ export default function Chat (props: { close: () => void, chatInfo: IChat | null
             const updatedSocketConnection = userStore.socketConnection;
             updatedSocketConnection.onmessage = function(event) {
                 const data = JSON.parse(event.data);
-                setChat((prev) => {
-                    return {
-                        ...prev,
-                        messages: data
-                    };
-                });
+                setChat(data);
             };
             setSocket(updatedSocketConnection);
             userStore.setSocketConnection(updatedSocketConnection);
         }
     }, []);
 
+    useEffect(() => {
+        console.log(chat);
+    }, [chat]);
     return (
         <div className='chat'>
             <div className="chat-header">
