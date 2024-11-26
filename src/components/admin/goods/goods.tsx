@@ -271,10 +271,15 @@ export const GoodsPage = () => {
                                         variant='outlined'
                                         onClick={ () => handleOpenEditingGoodModal(product) }
                                     >{ t("text.edit") }</Button>
-                                    <Button
-                                        variant='outlined'
-                                        onClick={ () => handleOpenDeleteGoodModal(product) }
-                                    >{ t("text.delete") }</Button>
+                                    {
+                                        product.active
+                                        ? 
+                                        <Button
+                                            variant='outlined'
+                                            onClick={ () => handleOpenDeleteGoodModal(product) }
+                                        >{ t("text.delete") }</Button>
+                                        : null
+                                    }
                                 </div>
                             </div>
                         );
