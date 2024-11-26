@@ -37,9 +37,6 @@ export default function Chat (props: { close: () => void, chatInfo: IChat | null
         }
     }, []);
 
-    useEffect(() => {
-        console.log(chat);
-    }, [chat]);
     return (
         <div className='chat'>
             <div className="chat-header">

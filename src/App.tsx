@@ -89,7 +89,7 @@ function App() {
                 console.error(`Ошибка: ${ error }`);
             };
         }
-    }, []);
+    }, [userStore.user]);
 
     return (
         <>
