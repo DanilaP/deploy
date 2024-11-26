@@ -36,6 +36,9 @@
         }
         .MuiDataGrid-row {
             background-color: var(--bg-color-block);
+            &:hover {
+                background-color: var(--hover-color);
+            }
         }
         .waiting-status {
             color: orange;

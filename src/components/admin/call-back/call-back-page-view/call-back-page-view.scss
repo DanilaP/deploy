@@ -19,6 +19,7 @@
         display: grid;
         row-gap: 10px;
         .callback-data-table {
+            color: var(--text-color);
             .MuiDataGrid-columnHeader {
                 outline: none;
                 background-color: var(--bg-color-block);
@@ -40,6 +41,9 @@
         .MuiDataGrid-row {
             cursor: pointer;
             background-color: var(--bg-color-block);
+            &:hover {
+                background-color: var(--hover-color);
+            }
         }
     }
 }

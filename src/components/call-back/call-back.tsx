@@ -56,7 +56,7 @@ export default function CallBackPage() {
             });
             return;
         }
-        setCurrentCallback(null);
+        
         setModals(prev => {
             return { ...prev, create: false };
         });
@@ -64,7 +64,10 @@ export default function CallBackPage() {
 
     const handleCreateNewCallback = (formData: ICallFormData) => {
         handleCreateNewUserCallBack(formData);
-        handleCloseCreatingNewCallback();
+        setModals(prev => {
+            return { ...prev, create: false };
+        });
+        setCurrentCallback(null);
     };
 
     const handleUpdateUnsavedDataExist = (unsavedDataExists: boolean) => {
