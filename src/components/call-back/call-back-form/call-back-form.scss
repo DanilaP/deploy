@@ -13,6 +13,9 @@
         display: grid;
         row-gap: 5px;
     }
+    .MuiInputBase-input {
+        padding: 0px !important;
+    }
     .form-actions {
         margin-top: 20px;
         display: flex;
