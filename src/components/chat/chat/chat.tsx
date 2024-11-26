@@ -6,12 +6,12 @@ import { IChat } from '../../../interfaces/interfaces';
 import { Button, TextField } from '@mui/material';
 import MessageList from './message-list/message-list';
 
-export default function Chat (props: { close: () => void, chatInfo: IChat }) {
+export default function Chat (props: { close: () => void, chatInfo: IChat | null }) {
 
     const { userStore } = useStore();
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [userMessage, setUserMessage] = useState<string>("");
-    const [chat, setChat] = useState<IChat>(props.chatInfo);
+    const [chat, setChat] = useState<IChat | null>(props.chatInfo);
     const { t } = useTranslation();
     
     const sendMessage = () => {

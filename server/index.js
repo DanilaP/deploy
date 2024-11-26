@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 const jwt_decode = require('jwt-decode');
 const path = require('path');
 const WebSocket = require('ws');
+const { error } = require('console');
 
 const generateAccessToken = (id) => {
     const payload = {
@@ -638,6 +639,58 @@ app.get("/chats", async function(req, res) {
     }
 });
 
+app.get("/admin/chats", async function(req, res) {
+    try {
+        let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        res.status(200).json({ message: "Данные о чатах успешно получены", chats: currentChats });
+    }
+    catch(error) {
+        console.error("get /admin/chats", error);
+        res.status(400).json({ message: "Ошибка получения данных о чатах!" });
+    }
+});
+
+app.post("/admin/chat", async function(req, res) {
+    try {
+        const token = req.headers.authorization;
+        const userId = jwt_decode(token).id;
+        const choosenChat = req.body;
+        const currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+
+        let updatedChats = currentChats.map((chat) => {
+            if (chat.id === choosenChat.id && !chat.members.includes(userId)) {
+                return {
+                    ...chat,
+                    members: chat.members.map(id => {
+                        if (id === null) {
+                            return userId;
+                        } 
+                        return id;
+                    }),
+                    messages: chat.messages.map((message) => {
+                        return {
+                            ...message,
+                            recipientId: userId
+                        };
+                    })
+                };
+            }
+            return chat;
+        });
+        fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
+
+        res.status(200).json({ message: "Успешное закрепление за чатом", chat: updatedChats.filter(chat => {
+            if (chat.id === choosenChat.id) {
+                return true;
+            } return false;
+        })[0] });
+    }   
+    catch (error) {
+        res.status(400).json({ message: "Ошибка закрепления админа за чатом" });
+        console.error("post /admin/chat", error);
+    }
+});
+
 //Chat websocket
 const wss = new WebSocket.Server({ server });
 let clients = [];
@@ -680,7 +733,7 @@ wss.on('connection', (ws) => {
                     members: [senderId, recipientId],
                     messages: [{
                         senderId,
-                        recipientId,
+                        recipientId: null,
                         text: newMessageData.message,
                     }]
                 } ];
@@ -689,11 +742,19 @@ wss.on('connection', (ws) => {
 
             clients.map((client) => {
                 if (client.userId === recipientId || client.userId === senderId) {
-                    client.userws.send(JSON.stringify([...isChatExists[0].messages, {
-                        senderId: senderId,
-                        recipientId: recipientId,
-                        text: newMessageData.message,
-                    }]));
+                    if (isChatExists.length > 0) {
+                        client.userws.send(JSON.stringify([...isChatExists[0].messages, {
+                            senderId: senderId,
+                            recipientId: recipientId,
+                            text: newMessageData.message,
+                        }]));
+                    } else {
+                        client.userws.send(JSON.stringify([{
+                            senderId: senderId,
+                            recipientId: recipientId,
+                            text: newMessageData.message,
+                        }]));
+                    }
                 }
             });
         } 

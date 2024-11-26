@@ -10,7 +10,7 @@ export default function ChatWrapper () {
 
     const { t } = useTranslation();
     const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
-    const [chat, setChat] = useState<IChat>();
+    const [chat, setChat] = useState<IChat | null>(null);
 
     useEffect(() => {
         $api.get("/chats")
@@ -25,7 +25,7 @@ export default function ChatWrapper () {
     return (
         <div className='chat-wrapper'>
             {
-                isChatOpen && chat 
+                isChatOpen 
                     ? <Chat chatInfo = { chat } close = { () => setIsChatOpen(false) } />
                     : <Button onClick={ () => setIsChatOpen(true) } variant='contained'>Чат</Button>
             }

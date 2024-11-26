@@ -3,6 +3,7 @@ import $api from '../../../configs/axiosconfig/axios';
 import { useEffect, useState } from 'react';
 import { IChat } from '../../../interfaces/interfaces';
 import { useStore } from '../../../stores';
+import Chat from '../../chat/chat/chat';
 
 export default function Chats () {
     
@@ -10,15 +11,21 @@ export default function Chats () {
     const [currentChatInfo, setCurrentChatInfo] = useState<IChat | null>(null);
     const { userStore } = useStore();
     
-    useEffect(() => {
-        $api.get("/chats")
+
+    const changeChat = (chat: IChat) => {
+        $api.post("/admin/chat", chat)
         .then((res) => {
-            const filteredChats = res.data.chats.filter((chat: IChat) => {
-                if (chat.messages[0].senderId !== Number(userStore.user?.id)) {
-                    return true;
-                } return false;
-            });
-            setAdminChats(filteredChats);
+            setCurrentChatInfo(res.data.chat);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    };
+
+    useEffect(() => {
+        $api.get("/admin/chats")
+        .then((res) => {
+            setAdminChats(res.data.chats);
         })
         .catch((error) => {
             console.error(error);
@@ -31,7 +38,7 @@ export default function Chats () {
                 {
                     adminChats?.map((chat: IChat) => {
                         return (
-                            <div onClick={ () => setCurrentChatInfo(chat) } key={ chat.id } className="chat-preview">
+                            <div onClick={ () => changeChat(chat) } key={ chat.id } className="chat-preview">
                                 { chat.messages[0].text }
                             </div>
                         );
@@ -39,7 +46,7 @@ export default function Chats () {
                 }
             </div>
             <div className="chat-info">
-                
+                { currentChatInfo && <Chat chatInfo={ currentChatInfo } close = { () => setCurrentChatInfo(null) } /> }
             </div>
         </div>
     );

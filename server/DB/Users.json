@@ -92,5 +92,16 @@
     "backet": [],
     "favorites": [],
     "isActive": true
+  },
+  {
+    "id": 1732604379612,
+    "isActive": true,
+    "isVerified": false,
+    "login": "chattester1@gmail.com",
+    "password": "$2a$07$jPCUw..FpZuq2Z4lkrHk4uIblMfdre1mzFuwXNi.1dD5U9qewCtte",
+    "role": "Пользователь",
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": [],
+    "favorites": []
   }
 ]
