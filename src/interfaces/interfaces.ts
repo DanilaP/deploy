@@ -80,7 +80,7 @@ export interface IProvider {
     id?: number,
     name: string,
     active: boolean,
-    dateOfCreation: string,
+    createdAt: string,
     contactPerson: IContactPerson,
     description: string,
     website: string,

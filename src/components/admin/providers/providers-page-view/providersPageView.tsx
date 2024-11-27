@@ -130,16 +130,20 @@ export default function ProvidersPageView({
                                         >
                                             <TableCell>{ el.id }</TableCell>
                                             <TableCell>{ el.name }</TableCell>
-                                            <TableCell>{ el.dateOfCreation }</TableCell>
+                                            <TableCell>{ el.createdAt }</TableCell>
                                             <TableCell>{ el.description }</TableCell>
                                             <TableCell>{ el.contactPerson.name }</TableCell>
                                             <TableCell>
-                                                <a 
-                                                    href={ el.website } 
-                                                    target="__blank"
-                                                    className="provider-visit-website"
-                                                    onClick={ e => e.stopPropagation() }
-                                                >{ t("text.visitWebsite") }</a>
+                                                {
+                                                    el.website.length === 0
+                                                    ? <span>Сайт не указан</span>
+                                                    : <a 
+                                                        href={ el.website } 
+                                                        target="__blank"
+                                                        className="provider-visit-website"
+                                                        onClick={ e => e.stopPropagation() }
+                                                    >{ t("text.visitWebsite") }</a>
+                                                }
                                             </TableCell>
                                             <TableCell className="provider-status">
                                                 { el.active 
