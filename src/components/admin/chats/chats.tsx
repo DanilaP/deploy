@@ -9,13 +9,14 @@ export default function Chats () {
     
     const [adminChats, setAdminChats] = useState<IChat[]>();
     const [currentChatInfo, setCurrentChatInfo] = useState<IChat | null>(null);
+    const [opponentInfo, setOpponentInfo] = useState<{ id: number, avatar: string }>({ id: 0, avatar: "" });
     const { userStore } = useStore();
     
-
     const changeChat = (chat: IChat) => {
         $api.post("/admin/chat", chat)
         .then((res) => {
             setCurrentChatInfo(res.data.chat);
+            setOpponentInfo(res.data.opponentInfo);
         })
         .catch((error) => {
             console.error(error);
@@ -46,7 +47,7 @@ export default function Chats () {
                 }
             </div>
             <div className="chat-info">
-                { currentChatInfo && <Chat chatInfo={ currentChatInfo } close = { () => setCurrentChatInfo(null) } /> }
+                { currentChatInfo && <Chat opponentInfo = { opponentInfo } chatInfo={ currentChatInfo } close = { () => setCurrentChatInfo(null) } /> }
             </div>
         </div>
     );

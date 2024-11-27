@@ -629,9 +629,14 @@ app.get("/chats", async function(req, res) {
         const token = req.headers.authorization;
         const userId = jwt_decode(token).id;
         let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         let chats = currentChats.filter((chat) => chat.members.includes(userId));
+        let opponentInfo = currentUsers.find(user => (user.id !== userId && chats[0].members.includes(user.id)));
 
-        res.status(200).json({ message: "Данные о чатах успешно получены", chats: chats });
+        res.status(200).json({ message: "Данные о чатах успешно получены", chats: chats, opponentInfo: {
+            id: opponentInfo.id,
+            avatar: opponentInfo.avatar
+        } });
     }
     catch(error) {
         console.error("get /chats", error);
@@ -656,6 +661,7 @@ app.post("/admin/chat", async function(req, res) {
         const userId = jwt_decode(token).id;
         const choosenChat = req.body;
         const currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        const currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
 
         let updatedChats = currentChats.map((chat) => {
             if (chat.id === choosenChat.id && !chat.members.includes(userId)) {
@@ -679,11 +685,10 @@ app.post("/admin/chat", async function(req, res) {
         });
         fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
 
-        res.status(200).json({ message: "Успешное закрепление за чатом", chat: updatedChats.filter(chat => {
-            if (chat.id === choosenChat.id) {
-                return true;
-            } return false;
-        })[0] });
+        let chat = updatedChats.find(chat => chat.id === choosenChat.id);
+        let opponentInfo = currentUsers.find(user => (user.id !== userId && chat.members.includes(user.id)));
+
+        res.status(200).json({ message: "Успешное закрепление за чатом", chat: chat, opponentInfo: opponentInfo });
     }   
     catch (error) {
         res.status(400).json({ message: "Ошибка закрепления админа за чатом" });

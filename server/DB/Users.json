@@ -6,7 +6,7 @@
     "login": "danila@gmail.com",
     "password": "$2a$07$iJxbcrqGHQTYajyfktQwIuLYb7xRGeumn4p3fFr8WaK8Uune5vWMq",
     "role": "Администратор",
-    "avatar": "http://localhost:5000/avatar.jpg",
+    "avatar": "http://localhost:5000/test.jpg",
     "backet": [
       {
         "id": 1730194673098,

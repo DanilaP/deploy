@@ -7,7 +7,10 @@ import { Button, TextField } from '@mui/material';
 import MessageList from './message-list/message-list';
 import { transformDateToString } from './chat-helpers/helpers';
 
-export default function Chat (props: { close: () => void, chatInfo: IChat | null }) {
+export default function Chat (props: { close: () => void, chatInfo: IChat | null, opponentInfo: {
+    id: number,
+    avatar: string
+} }) {
 
     const { userStore } = useStore();
     const [socket, setSocket] = useState<WebSocket | null>(null);
@@ -48,7 +51,7 @@ export default function Chat (props: { close: () => void, chatInfo: IChat | null
             <div className="chat-content">
                 {
                     (chat && userStore.user) 
-                        ? <MessageList messages={ chat.messages } user={ userStore.user } />
+                        ? <MessageList opponentInfo = { props.opponentInfo } messages={ chat.messages } user={ userStore.user } />
                         : null
                 }
             </div>

@@ -11,11 +11,13 @@ export default function ChatWrapper () {
     const { t } = useTranslation();
     const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
     const [chat, setChat] = useState<IChat | null>(null);
+    const [opponentInfo, setOpponentInfo] = useState<{ id: number, avatar: string }>({ id: 0, avatar: "" });
 
     useEffect(() => {
         $api.get("/chats")
         .then((res) => {
             setChat(res.data.chats[0]);
+            setOpponentInfo(res.data.opponentInfo);
         })
         .catch((error) => {
             console.error(error);
@@ -26,7 +28,7 @@ export default function ChatWrapper () {
         <div className='chat-wrapper'>
             {
                 isChatOpen 
-                    ? <Chat chatInfo = { chat } close = { () => setIsChatOpen(false) } />
+                    ? <Chat opponentInfo = { opponentInfo } chatInfo = { chat } close = { () => setIsChatOpen(false) } />
                     : <Button onClick={ () => setIsChatOpen(true) } variant='contained'>Чат</Button>
             }
         </div>
