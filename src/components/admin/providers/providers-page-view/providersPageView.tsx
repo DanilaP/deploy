@@ -130,7 +130,7 @@ export default function ProvidersPageView({
                                         >
                                             <TableCell>{ el.id }</TableCell>
                                             <TableCell>{ el.name }</TableCell>
-                                            <TableCell>{ el.dateOfCreation }</TableCell>
+                                            <TableCell>{ el.createdAt }</TableCell>
                                             <TableCell>{ el.description }</TableCell>
                                             <TableCell>{ el.contactPerson.name }</TableCell>
                                             <TableCell>

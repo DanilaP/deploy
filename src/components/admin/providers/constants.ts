@@ -1,7 +1,7 @@
 export const DEFAULT_PROVIDER = {
     name: "",
     active: false,
-    dateOfCreation: "",
+    createdAt: "",
     contactPerson: {
         name: "",
         phoneNumber: "",

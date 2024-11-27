@@ -84,7 +84,7 @@ export const useProvidersHelper = () => {
         const date = new Date();
         const newProviderWithId: IProvider = {
             ...newProviderData,
-            dateOfCreation: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+            createdAt: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
             id: Date.now(),
             contactPerson: {
                 ...newProviderData.contactPerson,
