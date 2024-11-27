@@ -1,0 +1,20 @@
+.order-data-card {
+  padding: 5px;
+  height: 250px;
+  .order-status-wrapper {
+    padding-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    .order-number {
+      font-weight: bold;
+    }
+    .status-text {
+      font-size: 16px;
+      color: #9e9e9e;
+    }
+  }
+  .address, .address-fields, .comment, .recipient {
+    font-size: 16px;
+    color: slategrey;
+  }
+}

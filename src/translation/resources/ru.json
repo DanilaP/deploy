@@ -121,10 +121,26 @@
             "cancel": "Оставить"
         },
         "checkout": {
+            "free": "Бесплатно",
             "orderDeliveryMethods": {
                 "courier": "Доставка курьером",
                 "pickup": "Самовывоз"
-            }
+            },
+            "orderPaymentMethods": {
+                "cash": "Оплата наличными при получении",
+                "spb": "Оплата по QR-коду СБП",
+                "card": "Оплата банковской картой"
+            },
+            "courierFormLabels": {
+                "address": "Адрес",
+                "houseNumber": "Дом",
+                "apartment": "Квартира",
+                "entrance": "Подъезд",
+                "floor": "Этаж",
+                "intercom": "Код домофона",
+                "comment": "Комментарий курьеру"
+            },
+            "recipient": "Получатель"
         },
         "vendorsLogistic": {
             "shippingStatuses": {
@@ -160,7 +176,11 @@
         "amount": "На сумму",
         "orderPrice": "Сумма заказа",
         "delivery": "Доставка",
-        "deliveryDate": "Дата доставки"
+        "deliveryDate": "Дата доставки",
+        "toOrdersList": "К списку заказов",
+        "repeatOrder": "Повторить заказ",
+        "paid": "Оплачено",
+        "rateOrder": "Оценить заказ"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

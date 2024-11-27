@@ -1,0 +1,19 @@
+.payment-details-card {
+  height: 250px;
+  padding: 5px;
+  .payment-details-content {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+  }
+  .payment-details-actions {
+   margin-top: 20px;
+  }
+  .payment-method {
+    padding-top: 0;
+    color: slategrey;
+  }
+  .delivery-price {
+    color: green;
+  }
+}

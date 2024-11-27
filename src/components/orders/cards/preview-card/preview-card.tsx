@@ -3,7 +3,7 @@ import { CardMedia, Chip, Typography, Card, CardContent } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { IProduct, IVariation } from "../../../../interfaces/interfaces.ts";
 import { useNavigate } from "react-router";
-import { formatDate, getStatusColor } from "../../../../helpers/common-helpers.tsx";
+import { formatCurrency, formatDate, getStatusColor } from "../../../../helpers/common-helpers.tsx";
 import "./preview-card.scss";
 const PreviewCard: FC<any> = ({ order, products }) => {
     const { t } = useTranslation();
@@ -24,17 +24,17 @@ const PreviewCard: FC<any> = ({ order, products }) => {
         <Card className="preview-card">
             <CardContent
                 className="preview-card-header"
-                onClick={ () => navigate(`/orders/order/${order.orderNumber}`) }
+                onClick={ () => navigate(`/orders/order/${ order.orderNumber }`) }
             >
                     <Typography className="order-number">
                         { t('breadcrumbs.order') } №{ order.orderNumber } от { formatDate(order.createdAt) }
                     </Typography>
                     <Typography>
-                        { t ('text.orderPrice') }: <span className="order-price">{ order.orderPrice } { t('text.rub') }</span>
+                        { t ('text.orderPrice') }: <span className="order-price">{ formatCurrency(order.orderPrice) } { t('text.rub') }</span>
                     </Typography>
             </CardContent>
 
-            <CardContent className="delivery-status-wrapper">
+            <CardContent className="delivery-details-wrapper">
                 <div>
                     <div className="delivery-status">
                         <Typography>
@@ -46,13 +46,14 @@ const PreviewCard: FC<any> = ({ order, products }) => {
                         />
                     </div>
                     <Typography>
-                        { order.orderStatus === "delivered" ? `${ t('text.deliveryDate') }: ${formatDate(order.deliveredAt) }` : "" }
+                        { order.orderStatus === "delivered" ? `${ t('text.deliveryDate') }: ${ formatDate(order.deliveredAt) }` : "" }
                     </Typography>
                 </div>
 
                 <div className="product-images-wrapper">
                     { productImagesData.map(({ img, productId, name }) => (
                         <CardMedia
+                            onClick={ () => navigate(`/shop/product/${ productId }`) }
                             className="product-image"
                             key={ productId }
                             image={ img }

@@ -137,6 +137,35 @@
             "delete": "Delete",
             "cancel": "Cancel"
         },
+        "checkout": {
+            "free": "Free",
+            "orderDeliveryMethods": {
+                "addresses": "Courier Delivery",
+                "pickup": "Store Pickup"
+            },
+            "orderPaymentMethods": {
+                "cash": "Cash on Delivery",
+                "spb": "Payment via SBP QR code",
+                "card": "Payment by Bank Card"
+            },
+            "courierFormLabels": {
+                "address": "Address",
+                "apartment": "Apartment",
+                "entrance": "Entrance",
+                "floor": "Floor",
+                "intercom": "Intercom Code",
+                "comment": "Comment for Courier"
+            },
+            "recipient": "Recipient"
+        },
+        "vendorsLogistic": {
+            "shippingStatuses": {
+                "waiting": "Waiting",
+                "delivered": "Delivered",
+                "in-transit": "In transit",
+                "cancelled": "Cancelled"
+            }
+        },
         "uploadFiles": "Upload files",
         "deleteAll": "Delete all",
         "favoritesAreClear": "The list of favorites is empty",
@@ -146,7 +175,11 @@
         "amount": "Amount",
         "orderPrice": "Order Price",
         "delivery": "Delivery",
-        "deliveryDate": "Delivery Date"
+        "deliveryDate": "Delivery Date",
+        "toOrdersList": "To orders list",
+        "repeatOrder": "Repeat order",
+        "paid": "Paid",
+        "rateOrder": "Rate order"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",

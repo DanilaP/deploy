@@ -1,14 +1,14 @@
 .preview-card {
   width: 100%;
   color: var(--text-color);
-  background-color: var(--bg-color);
-  border: 1px solid darkgray;
+  border: 1px solid rgba(128, 128, 128, 0.247);
   .preview-card-header {
     display: flex;
     justify-content: space-between;
     background-color: var(--bg-color);
     color: var(--text-color);
     cursor: pointer;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.247);
     .order-number {
       font-size: 25px;
       font-weight: bold;
@@ -18,7 +18,8 @@
       font-weight: bold;
     }
   }
-  .delivery-status-wrapper {
+  .delivery-details-wrapper {
+    background-color: var(--bg-color);
     display: flex;
     justify-content: space-between;
     .delivery-status {
@@ -35,6 +36,7 @@
       border-radius: 3px;
       height: 100px;
       width: 100px;
+      cursor: pointer;
     }
   }
 }
