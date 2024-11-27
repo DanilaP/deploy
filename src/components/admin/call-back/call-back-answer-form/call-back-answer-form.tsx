@@ -56,7 +56,7 @@ export default function CallBackAnswerForm({
     return (
         <>
             <div className="current-call-back-data">
-                <div className="name">{ currentCallback?.firstName } { currentCallback?.secondName } ({ currentCallback?.phoneNumber })</div>
+                <div className="name">{ currentCallback?.firstName } { currentCallback?.secondName } { currentCallback?.phoneNumber }</div>
                 <div className="type">{ currentCallback?.typeOfBid }</div>
                 <div className="description">{ currentCallback?.description }</div>
                 <div className="date">{ currentCallback?.dateOfCreation }</div>

@@ -98,6 +98,7 @@
         "sendAnswer": "Send answer",
         "description": "Description",
         "callbackAnswer": "Callback answer",
+        "no": "No",
         "statusSearch": "Search by status",
         "answer": "Answer",
         "managingCallbacks": "Managing callbacks",

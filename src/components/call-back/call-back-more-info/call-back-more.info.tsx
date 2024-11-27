@@ -31,10 +31,10 @@ export default function CallbackMoreInfo({
             </div>
             <hr className="answer-border" />
             <div className="moderator-answer">
-                <b>{ t("text.moderatorAnswer") }</b>: { callback?.moderatorAnswer ? callback.moderatorAnswer : "Нет" }
+                <b>{ t("text.moderatorAnswer") }</b>: { callback?.moderatorAnswer ? callback.moderatorAnswer : t("text.no") }
             </div>
             <div className="date-of-answer">
-                <b>{ t("text.dateOfAnswer") }</b>: { callback?.dateOfAnswer ? callback.dateOfAnswer : "Нет" }
+                <b>{ t("text.dateOfAnswer") }</b>: { callback?.dateOfAnswer ? callback.dateOfAnswer : t("text.no") }
             </div>
             <div className="status">
                 <b>{ t("text.status") }</b>: 
