@@ -36,6 +36,9 @@
     }
     .MuiInputBase-root {
         padding: 7px;
+        .Mui-disabled {
+            -webkit-text-fill-color: gray;
+        }
     }
     .MuiFormControl-root {
         display: grid;
