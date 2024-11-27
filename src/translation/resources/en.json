@@ -223,6 +223,8 @@
     "errors": {
         "requiredField": "This field is requiered",
         "notZero": "This field cant be 0",
-        "productReviews": "Reviews of the product"
+        "productReviews": "Reviews of the product",
+        "phoneNumber": "Incorrect phone number",
+        "email": "Incorrect email address"
     }
 }

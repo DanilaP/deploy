@@ -14,7 +14,8 @@ export default function AdminCallbackPage() {
         callbacks, 
         fitleredCallbacksDataGrid,
         handleUpdateCallbackData,
-        handleFilterUserCallbacksDataGridByStatus
+        handleFilterUserCallbacksDataGridByStatus,
+        handleSearchCallbacksByAllFields
     } = useCallbacksHelper(null);
     
     const [choosedCallback, setChoosedCallback] = useState<ICallBack | null>(null);
@@ -74,6 +75,9 @@ export default function AdminCallbackPage() {
         });
     };
 
+    const handleSearchCallbacksByInputValue = (value: string) => {
+        handleSearchCallbacksByAllFields(callbacks, value);
+    };
 
     useEffect(() => {
         if (choosedStatusFilter !== null) {
@@ -87,6 +91,7 @@ export default function AdminCallbackPage() {
                 callbacksDataGrid={ fitleredCallbacksDataGrid }
                 handleOpenCallbackAsnwerModal={ handleOpenCallbackAnswerModal }
                 handleFilterUserCallbacksDataGridByStatus={ handleFilterUserCallbacksDataGridBySelectedStatus }
+                handleSearchCallbacksByInputValue={ handleSearchCallbacksByInputValue }
             />
             <CustomModal
                 isHidden={ modals.unsaved }

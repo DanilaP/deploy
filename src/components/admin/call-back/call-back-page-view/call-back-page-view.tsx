@@ -8,13 +8,15 @@ import { ruRU } from '@mui/x-data-grid/locales';
 interface IAdminCallackPageViewProps {
     callbacksDataGrid: { columns: any[], rows: any[] },
     handleOpenCallbackAsnwerModal: (callbackId: number) => void,
-    handleFilterUserCallbacksDataGridByStatus: (status: boolean) => void
+    handleFilterUserCallbacksDataGridByStatus: (status: boolean) => void,
+    handleSearchCallbacksByInputValue: (value: string) => void
 }
 
 export default function AdminCallbackPageView({ 
     callbacksDataGrid,
     handleOpenCallbackAsnwerModal,
-    handleFilterUserCallbacksDataGridByStatus
+    handleFilterUserCallbacksDataGridByStatus,
+    handleSearchCallbacksByInputValue
 }: IAdminCallackPageViewProps) {
 
     const { t } = useTranslation();
@@ -26,7 +28,7 @@ export default function AdminCallbackPageView({
             </div>
             <div className="call-back-search">
                 <TextField
-                    onChange={ (e) => console.log(e.target.value) } 
+                    onChange={ (e) => handleSearchCallbacksByInputValue(e.target.value) } 
                     placeholder={ t("text.searchAll") }
                     InputProps={ {
                         startAdornment: (

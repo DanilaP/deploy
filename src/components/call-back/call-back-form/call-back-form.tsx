@@ -1,9 +1,10 @@
 import { Autocomplete, Button, FormControl, FormLabel, TextField } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { validateRequiredField } from "../../../helpers/validators-helper";
+import { validateEmail, validatePhone, validateRequiredField } from "../../../helpers/validators-helper";
 import "./call-back-form.scss";
 import { useEffect } from "react";
+import InputMask from 'react-input-mask';
 
 interface ICallBackFormProps {
     handleCloseCreatingNewCallback: () => void,
@@ -40,6 +41,12 @@ export default function CallBackForm({
         handleSaveNewCallback(data);
     };
 
+    const handleValidateEmailField = (value: string) => {
+        if (value.length === 0) return t("errors.requiredField");
+        if (!validateEmail(value)) return t("errors.email");
+        return true;
+    };
+    
     useEffect(() => {
         handleUpdateUnsavedDataExist(isDirty);
     }, [isDirty]);
@@ -75,7 +82,7 @@ export default function CallBackForm({
                     helperText={ String(errors.email?.message || "") }
                     placeholder={ t("text.email") }
                     { ...register("email", { 
-                        validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
+                        validate: (value) => handleValidateEmailField(value)
                     }) }
                 />
             </FormControl>
@@ -107,13 +114,38 @@ export default function CallBackForm({
             </FormControl>
             <FormControl>
                 <FormLabel className="label">{ t("text.phoneNumber") }</FormLabel>
-                <TextField
+                { /*<TextField
                     error={ Boolean(errors.phoneNumber) }
                     helperText={ String(errors.phoneNumber?.message || "") }
                     placeholder={ t("text.phoneNumber") }
                     { ...register("phoneNumber", { 
                         validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
                     }) }
+                />*/ }
+                
+                <Controller
+                    name="phoneNumber"
+                    control={ control }
+                    rules={ {
+                        required: t("errors.requiredField"),
+                        validate: (value) => validatePhone(value) ? true : t("errors.phoneNumber")
+                    } }
+                    render={ ({ field }) => (
+                        <InputMask
+                            { ...field }
+                            mask="+7 (999) 999-99-99"
+                            maskChar=" "
+                            alwaysShowMask={ true }
+                        >
+                        { (inputProps: any) => (
+                            <TextField
+                                error={ Boolean(errors.phoneNumber) }
+                                helperText={ String(errors.phoneNumber?.message || "") }
+                                { ...inputProps }
+                            />
+                        ) }
+                        </InputMask>
+                    ) }
                 />
             </FormControl>
             <FormControl>
