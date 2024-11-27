@@ -7,10 +7,15 @@ import { Button, TextField } from '@mui/material';
 import MessageList from './message-list/message-list';
 import { transformDateToString } from './chat-helpers/helpers';
 
-export default function Chat (props: { close: () => void, chatInfo: IChat | null, opponentInfo: {
-    id: number,
-    avatar: string
-} }) {
+export default function Chat (props: { 
+    close: () => void, 
+    chatInfo: IChat | null, 
+    opponentInfo: {
+        id: number,
+        avatar: string
+    },
+    updateChatData?: () => void 
+}) {
 
     const { userStore } = useStore();
     const [socket, setSocket] = useState<WebSocket | null>(null);
@@ -37,11 +42,18 @@ export default function Chat (props: { close: () => void, chatInfo: IChat | null
             updatedSocketConnection.onmessage = function(event) {
                 const data = JSON.parse(event.data);
                 setChat(data);
+                if (props.updateChatData) {
+                    props.updateChatData();
+                }
             };
             setSocket(updatedSocketConnection);
             userStore.setSocketConnection(updatedSocketConnection);
         }
     }, []);
+
+    useEffect(() => {
+        setChat(props.chatInfo);
+    }, [props.chatInfo]);
 
     return (
         <div className='chat'>
