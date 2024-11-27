@@ -47,13 +47,13 @@ export default function ProvidersManageForm({
 
     const handleValidateInn = (value: string) => {
         if (value.length === 0) return true;
-        if (!validateInn(value)) return "errors.inn";
+        if (!validateInn(value)) return t("errors.inn");
         return true;
     };
 
     const handleValidateOgrn = (value: string) => {
         if (value.length === 0) return true;
-        if (!validateOgrn(value)) return "errors.ogrn";
+        if (!validateOgrn(value)) return t("errors.ogrn");
         return true;
     };
 
@@ -219,30 +219,22 @@ export default function ProvidersManageForm({
                             }) }
                             placeholder={ t("text.name") }
                         />
-                        <Controller
-                            name="contactPerson.phoneNumber"
-                            control={ control }
-                            rules={ {
-                                required: t("errors.requiredField"),
+                        <InputMask
+                            mask="+7 (999) 999-99-99"
+                            maskChar=" "
+                            alwaysShowMask={ true }
+                            { ...register("contactPerson.phoneNumber", {
                                 validate: (value) => validatePhone(value) ? true : t("errors.phone")
-                            } }
-                            render={ ({ field }) => (
-                                <InputMask
-                                    { ...field }
-                                    mask="+7 (999) 999-99-99"
-                                    maskChar=" "
-                                    alwaysShowMask={ true }
-                                >
-                                { (inputProps: any) => (
-                                    <TextField
-                                        error={ Boolean(errors.contactPerson?.phoneNumber) }
-                                        helperText={ String(errors.contactPerson?.phoneNumber?.message || "") }
-                                        { ...inputProps }
-                                    />
-                                ) }
-                                </InputMask>
+                            }) }
+                        >
+                            { (inputProps: any) => (
+                                <TextField
+                                    error={ Boolean(errors.contactPerson?.phoneNumber) }
+                                    helperText={ String(errors.contactPerson?.phoneNumber?.message || "") }
+                                    { ...inputProps }
+                                />
                             ) }
-                        />
+                        </InputMask>
                         <TextField
                             className="field-input-contact-person"
                             error={ Boolean(errors.contactPerson?.post) }

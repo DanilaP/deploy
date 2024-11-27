@@ -227,6 +227,8 @@
         "notZero": "This field cant be 0",
         "email": "Incorrect email address",
         "website": "Inccorect website ref",
-        "phone": "Incorrect phone number"
+        "phone": "Incorrect phone number",
+        "ogrn": "Incorrect format for OGRN",
+        "inn": "Incorrect format for INN"
     }
 }
