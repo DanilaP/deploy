@@ -79,6 +79,7 @@ export interface ISelect {
 export interface IMessage {
     senderId: number,
     recipientId: number,
+    date: string,
     text: string
 }
 export interface IChat {

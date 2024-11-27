@@ -720,6 +720,7 @@ wss.on('connection', (ws) => {
                             messages: [ ...chat.messages, {
                                 senderId,
                                 recipientId,
+                                date: newMessageData.date,
                                 text: newMessageData.message,
                             } ]
                         };
@@ -734,6 +735,7 @@ wss.on('connection', (ws) => {
                     messages: [{
                         senderId,
                         recipientId: null,
+                        date: newMessageData.date,
                         text: newMessageData.message,
                     }]
                 } ];
@@ -748,6 +750,7 @@ wss.on('connection', (ws) => {
                             messages: [...isChatExists[0].messages, {
                                 senderId: senderId,
                                 recipientId: recipientId,
+                                date: newMessageData.date,
                                 text: newMessageData.message,
                             }]
                         }));
@@ -757,6 +760,7 @@ wss.on('connection', (ws) => {
                             messages: [{
                                 senderId: senderId,
                                 recipientId: null,
+                                date: newMessageData.date,
                                 text: newMessageData.message,
                             }]
                         }));

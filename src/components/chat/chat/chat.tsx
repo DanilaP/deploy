@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { IChat } from '../../../interfaces/interfaces';
 import { Button, TextField } from '@mui/material';
 import MessageList from './message-list/message-list';
+import { transformDateToString } from './chat-helpers/helpers';
 
 export default function Chat (props: { close: () => void, chatInfo: IChat | null }) {
 
@@ -13,10 +14,12 @@ export default function Chat (props: { close: () => void, chatInfo: IChat | null
     const [userMessage, setUserMessage] = useState<string>("");
     const [chat, setChat] = useState<IChat | null>(props.chatInfo);
     const { t } = useTranslation();
-    
+
     const sendMessage = () => {
         if (userMessage !== "") {
+            const date = transformDateToString(Date.now());
             const messageData = {
+                date: date,
                 senderToken: sessionStorage.getItem("token"),
                 recipientId: chat?.members.filter((memberId: number) => memberId !== Number(userStore.user?.id))[0],
                 message: userMessage,
@@ -50,7 +53,7 @@ export default function Chat (props: { close: () => void, chatInfo: IChat | null
                 }
             </div>
             <div className="chat-footer">
-                <TextField onChange={ (e) => setUserMessage(e.target.value) } placeholder='Ваше сообщение' className='item' />
+                <TextField fullWidth onChange={ (e) => setUserMessage(e.target.value) } placeholder='Ваше сообщение' className='item' />
                 <Button onClick={ sendMessage } className='item' variant='contained'>Отправить</Button>
             </div>
         </div>
