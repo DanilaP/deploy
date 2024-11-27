@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Button, Checkbox } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import InputMask from 'react-input-mask';
-import { validateEmail, validatePhone, validateRequiredField, validateWebsiteRef } from "../../../../helpers/validators-helper";
+import { validateEmail, validateInn, validateOgrn, validatePhone, validateRequiredField, validateWebsiteRef } from "../../../../helpers/validators-helper";
 import "./providersManageForm.scss";
 
 interface IProvidersManageFormProps {
@@ -43,6 +43,18 @@ export default function ProvidersManageForm({
         } else {
             handleOnCreateProvider(data);
         }
+    };
+
+    const handleValidateInn = (value: string) => {
+        if (value.length === 0) return true;
+        if (!validateInn(value)) return "errors.inn";
+        return true;
+    };
+
+    const handleValidateOgrn = (value: string) => {
+        if (value.length === 0) return true;
+        if (!validateOgrn(value)) return "errors.ogrn";
+        return true;
     };
 
     const handleValidateEmailField = (value: string) => {
@@ -148,7 +160,9 @@ export default function ProvidersManageForm({
                     <TextField
                         error={ Boolean(errors.ogrn) }
                         helperText={ String(errors.ogrn?.message || "") }
-                        { ...register("ogrn") }
+                        { ...register("ogrn", {
+                            validate: (value) => handleValidateOgrn(value)
+                        }) }
                         id="update-provider-ogrn"
                         placeholder={ t("text.ogrn") }
                     />
@@ -163,7 +177,9 @@ export default function ProvidersManageForm({
                     <TextField
                         error={ Boolean(errors.inn) }
                         helperText={ String(errors.inn?.message || "") }
-                        { ...register("inn") }
+                        { ...register("inn", {
+                            validate: (value) => handleValidateInn(value)
+                        }) }
                         id="update-provider-inn"
                         placeholder={ t("text.inn") }
                     />
