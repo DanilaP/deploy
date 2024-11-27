@@ -64,14 +64,20 @@ export const useProvidersHelper = () => {
     };
 
     const handleUpdateProvider = (newProviderData: IProvider) => {
-        setProviders(prev => prev.map(el => {
-            if (el.id === newProviderData.id) return newProviderData;
-            return el;
-        }));
-        setFilteredProviders(prev => prev.map(el => {
-            if (el.id === newProviderData.id) return newProviderData;
-            return el;
-        }));
+        $api.put("/providers", {
+            body: newProviderData
+        }).then(res => {
+            if (res.data.provider) {
+                setProviders(prev => prev.map(el => {
+                    if (el.id === newProviderData.id) return newProviderData;
+                    return el;
+                }));
+                setFilteredProviders(prev => prev.map(el => {
+                    if (el.id === newProviderData.id) return newProviderData;
+                    return el;
+                }));
+            }
+        });
     };
 
     const handleCreateProvider = (newProviderData: IProvider) => {

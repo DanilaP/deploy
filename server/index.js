@@ -594,6 +594,17 @@ app.post("/providers", async function(req, res) {
     }
 });
 
+app.put("/providers", async function(req, res) {
+    try {
+        let currentProvidersList = JSON.parse(fs.readFileSync('DB/Providers.json', 'utf8'));
+        res.status(200).json({ message: "Данные о поставщике сохранены", provider: req.body });
+    }
+    catch(error) {
+        console.error("post /providers", error);
+        res.status(400).json({ message: "Ошибка сохранения данных о поставщике!" });
+    }
+});
+
 app.delete("/providers", async function(req, res) {
     try {
         let currentProvidersList = JSON.parse(fs.readFileSync('DB/Providers.json', 'utf8'));
