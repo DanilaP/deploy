@@ -32,7 +32,7 @@
             border: 1px solid transparent;
             cursor: pointer;
             display: grid;
-            grid-template-columns: 50px calc(100% - 450px) 370px;
+            grid-template-columns: 50px calc(100% - 600px) 500px;
             column-gap: 20px;
             align-items: center;
             justify-items: right;
@@ -49,6 +49,7 @@
                 }
             }
             .good-info {
+                width: 100%;
                 display: flex;
                 row-gap: 10px;
                 flex-direction: column;

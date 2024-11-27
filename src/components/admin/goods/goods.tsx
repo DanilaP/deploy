@@ -14,7 +14,7 @@ export const GoodsPage = () => {
 
     const { t } = useTranslation();
     const [modals, setModals] = useState({ manage: false, delete: false, unsaved: false });
-    const [currentMode, setCurrentMode] = useState<"create" | "edit" | null>(null);
+    const [currentMode, setCurrentMode] = useState<"create" | "edit" | "createFromCopy" | null>(null);
     const [currentProducts, setCurrentProducts] = useState<IProduct[]>([]);
     const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null);
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
@@ -28,6 +28,14 @@ export const GoodsPage = () => {
             return { ...prev, manage: true };
         });
         setCurrentMode("create");
+    };
+
+    const handleOpenCreatingFromCopyGoodModal = (product: IProduct) => {
+        setModals(prev => {
+            return { ...prev, manage: true };
+        });
+        setCurrentProduct(product);
+        setCurrentMode("createFromCopy");
     };
 
     const handleOpenEditingGoodModal = (product: IProduct) => {
@@ -267,6 +275,10 @@ export const GoodsPage = () => {
                                         variant='outlined'
                                         onClick={ () => handleGotoProductPage(product) }
                                     >{ t("text.goto") }</Button>
+                                    <Button
+                                        variant='outlined'
+                                        onClick={ () => handleOpenCreatingFromCopyGoodModal(product) }
+                                    >{ t("text.createFromCopy") }</Button>
                                     <Button
                                         variant='outlined'
                                         onClick={ () => handleOpenEditingGoodModal(product) }

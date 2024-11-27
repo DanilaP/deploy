@@ -14,6 +14,7 @@ import "./ManageGood.scss";
 import { FiPlusCircle } from "react-icons/fi";
 
 interface IProductForm {
+    id?: number,
     additionalInfo: IAdditionalInfo[],
     category: ISelect[],
     description: string,
@@ -37,7 +38,7 @@ export const ManageGoodForm = ({
     handleUpdateGood,
     handleUnsavedDataExist
 }: {
-    mode: "edit" | "create" | null,
+    mode: "edit" | "create" | "createFromCopy" | null,
     goodData?: IProduct | null,
     categoriesForSelect: ISelect[],
     handleUpdateGood: (goodData: IProduct) => void,
@@ -47,7 +48,8 @@ export const ManageGoodForm = ({
     
     const { t } = useTranslation();
     const isEdit = mode === "edit";
-    
+    const isCreateFromCopy = mode === "createFromCopy";
+
     const { 
         handleSubmit, 
         watch, 
@@ -94,7 +96,12 @@ export const ManageGoodForm = ({
             category: data.category.map((el: ISelect) => el.id)
         };
         if (isEdit) {
-            handleUpdateGood({ ...goodDataForSend, id: goodData?.id });
+            handleUpdateGood(goodDataForSend);
+        }
+        else if (isCreateFromCopy) {
+            const copyProductData = goodDataForSend;
+            delete copyProductData?.id;
+            handleUpdateGood(copyProductData);  
         } else {
             handleUpdateGood(goodDataForSend);
         }
