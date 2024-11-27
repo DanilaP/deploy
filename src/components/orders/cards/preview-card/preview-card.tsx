@@ -1,11 +1,16 @@
 import { FC } from "react";
 import { CardMedia, Chip, Typography, Card, CardContent } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { IProduct, IVariation } from "../../../../interfaces/interfaces.ts";
+import { IOrder, IProduct, IVariation } from "../../../../interfaces/interfaces.ts";
 import { useNavigate } from "react-router";
 import { formatCurrency, formatDate, getStatusColor } from "../../../../helpers/common-helpers.tsx";
 import "./preview-card.scss";
-const PreviewCard: FC<any> = ({ order, products }) => {
+
+interface PreviewCardProps {
+    order: IOrder,
+    products: any,
+}
+const PreviewCard: FC<PreviewCardProps> = ({ order, products }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const imagesCountForPreview = 4;

@@ -179,7 +179,28 @@
         "toOrdersList": "To orders list",
         "repeatOrder": "Repeat order",
         "paid": "Paid",
-        "rateOrder": "Rate order"
+        "rateOrder": "Rate order",
+        "feedbackCriteria": {
+            "deliverySpeed": "Delivery speed",
+            "productQuality": "Product quality",
+            "assemblyQuality": "Assembly quality",
+            "productPrice": "Product price",
+            "productCondition": "Condition of the product upon receipt",
+            "orderProcess": "Order process",
+            "customerService": "Customer service",
+            "orderAccuracy": "Order accuracy and comment consideration",
+            "siteConvenience": "Site convenience"
+        },
+        "ratingLabels": {
+            "0": "What didn't you like?",
+            "1": "What didn't you like?",
+            "2": "What didn't you like?",
+            "3": "What didn't you like?",
+            "4": "What can be improved?",
+            "5": "What did you like?"
+        },
+        "send": "Send",
+        "yourComment": "Your comment"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",

@@ -1,6 +1,8 @@
 export interface IUser {
     id?: string,
     login?: string,
+    name: string,
+    tel: string,
     password?: string,
     role?: string,
     avatar?: string,
@@ -66,4 +68,34 @@ export interface ICategory {
 export interface ISelect {
     id: string,
     label: string
+}
+
+export interface IAddress {
+    id?: string;
+    address: string;
+    houseNumber?: string;
+    apartment?: string;
+    entrance?: string;
+    floor?: string;
+    intercom?: string;
+    comment?: string;
+}
+
+export interface IOrder {
+    orderId: number;
+    userId: number;
+    orderNumber: number;
+    orderStatus: "waiting" | "delivered" | "in-transit" | "cancelled" | string;
+    createdAt: string;
+    deliveredAt?: string;
+    estimatedDeliveryDate?: string;
+    paymentMethod: "card" | "cash" | "spb" | string;
+    deliveryMethod: "courier" | "pickup" | "other" | string;
+    address: IAddress;
+    orderPrice: number;
+    products: {
+        id: number;
+        amount: number;
+        variation: string;
+    }[];
 }

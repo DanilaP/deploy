@@ -5,8 +5,14 @@ import { formatCurrency } from "../../../../helpers/common-helpers.tsx";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import './payment-details-card.scss';
+import { IOrder } from "../../../../interfaces/interfaces.ts";
 
-const PaymentDetailsCard:FC<any> = ({ productsData, order }) => {
+interface PaymentDetailsCardProps {
+    order: IOrder,
+    productsData: any,
+}
+
+const PaymentDetailsCard:FC<PaymentDetailsCardProps> = ({ productsData, order }) => {
     const { t } = useTranslation();
     return (
         <Card className="payment-details-card">

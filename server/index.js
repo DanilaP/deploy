@@ -498,10 +498,34 @@ app.post("/backet", async function(req, res) {
     }
 });
 
-app.put('/backet/updateCart', (req, res) => {
-    res.status(200).json({ message: "Корзина успешно обновлена", cart: req.body });
+// Stores
+app.get('/stores/addresses', (req, res) => {
+    const stores = JSON.parse(fs.readFileSync('DB/Pickups.json', 'utf8'));
+    res.status(200).json(stores);
 });
 
+// Orders
+app.get('/orders', async (req, res) => {
+    try {
+        const ordersData = JSON.parse(fs.readFileSync('DB/Orders.json', 'utf8'));
+        res.status(200).json(ordersData);
+    } catch(error) {
+        res.status(400).json({ message: "Ошибка при получении данных заказов" });
+        console.error("get /orders", error);
+    }
+});
+
+app.get("/order", async function(req, res) {
+    try {
+        const currentOrders = JSON.parse(fs.readFileSync('DB/Orders.json', 'utf8'));
+        const choosenOrder = currentOrders.find((order) => order.orderId === Number(req.query.id));
+        res.status(200).json({ message: "Данные о заказе успешно получены", order: choosenOrder });
+    }
+    catch(error) {
+        console.error("get /order", error);
+        res.status(400).json({ message: "Ошибка получения данных о заказе!" });
+    }
+});
 //Favorites
 app.get("/favorites", async function(req, res) {
     try {

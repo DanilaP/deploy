@@ -20,8 +20,9 @@ import {
 import { useTranslation } from "react-i18next";
 import { useStore } from "../../../../stores";
 import './order-details-card.scss';
+import { IOrder } from "../../../../interfaces/interfaces.ts";
 
-const OrderDetailsCard:FC<any> = ({ order }) => {
+const OrderDetailsCard:FC<{ order: IOrder }> = ({ order }) => {
     const { t } = useTranslation();
     const { userStore } = useStore();
 
@@ -31,13 +32,18 @@ const OrderDetailsCard:FC<any> = ({ order }) => {
                 <Typography className="order-number">
                     { t('breadcrumbs.order') } №{ order.orderNumber } от { formatDate(order.createdAt) }
                 </Typography>
-                <div>
+                <div className="status-chip-wrapper">
                     <Chip
+                        className="status-chip"
                         label={ t(`text.vendorsLogistic.shippingStatuses.${ order.orderStatus }`) }
                         color={ getStatusColor(order.orderStatus) }
                     />
                     <Typography className="status-text">
-                        { order.orderStatus === 'delivered' ? formatDate(order.deliveredAt) : '' }
+                        { order.orderStatus === 'in-transit'
+                            ? `будет доставлен ${formatDate(order.estimatedDeliveryDate)}`
+                            : order.orderStatus === 'delivered'
+                                ? formatDate(order.deliveredAt)
+                                : '' }
                     </Typography>
                 </div>
             </CardContent>

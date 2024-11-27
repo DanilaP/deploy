@@ -1,29 +1,32 @@
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import $api from "../../../configs/axiosconfig/axios.js";
+import { Link } from 'react-router-dom';
 import {
     Container,
     Typography,
     Button,
     CardActions,
     CardMedia,
-    Link,
 } from "@mui/material";
 import OrderDetailsCard from "../cards/order-details-card/order-details-card.tsx";
-import { IProduct, IVariation } from "../../../interfaces/interfaces.ts";
+import { IOrder, IProduct, IVariation } from "../../../interfaces/interfaces.ts";
 import Card from "@mui/material/Card";
 import { useTranslation } from "react-i18next";
 import { MdArrowBack, MdFavoriteBorder } from "react-icons/md";
 import CardContent from "@mui/material/CardContent";
-import { formatCurrency } from "../../../helpers/common-helpers.tsx";
+import { formatCurrency, formatDate } from "../../../helpers/common-helpers.tsx";
 import "./order-page.scss";
 import Grid from "@mui/material/Grid2";
 import PaymentDetailsCard from "../cards/payment-details-card/payment-details-card.tsx";
+import CustomModal from "../../../components-ui/custom-modal/custom-modal.tsx";
+import OrderRateForm from "../order-rate-form/order-rate-form.tsx";
 
 const OrderPage = () => {
     const query = useParams();
-    const [order, setOrder] = useState<any>(null);
+    const [order, setOrder] = useState<IOrder | null>(null);
     const [productsData, setProductsData] = useState<any>([]);
+    const [isOpenModal, setIsOpenModal] = useState(false);
 
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -76,7 +79,7 @@ const OrderPage = () => {
                 <>
                     <div className="link-wrapper">
                         <MdArrowBack className="link-icon" />
-                        <Link className="back-link" href="/orders">
+                        <Link className="back-link" to="/orders">
                             { t('text.toOrdersList') }
                         </Link>
                     </div>
@@ -93,10 +96,18 @@ const OrderPage = () => {
                         <Grid size={ { xs: 12 } }>
                             <Card className="products-list-wrapper">
                                 <div>
-                                    <Button size="small" type="button" variant="outlined">
-                                        { t('text.rateOrder') }
-                                    </Button>
+                                    { order.orderStatus === 'delivered' && (
+                                        <Button
+                                            onClick={ () => setIsOpenModal(true) }
+                                            size="small"
+                                            type="button"
+                                            variant="outlined"
+                                        >
+                                            { t('text.rateOrder') }
+                                        </Button>
+                                    ) }
                                 </div>
+
                                 { productsData.map((product) => (
                                     <div className="product-item-wrapper" key={ product.id }>
                                         <CardContent className="product-data">
@@ -137,6 +148,46 @@ const OrderPage = () => {
                             </Card>
                         </Grid>
                     </Grid>
+
+                    <CustomModal
+                        isDisplay={ isOpenModal }
+                        title=""
+                        typeOfActions='none'
+                        actionConfirmed={ () => setIsOpenModal(false) }
+                        closeModal={ () => setIsOpenModal(false) }
+                    >
+                        <div className="modal-data-wrapper">
+                            <Card className="modal-data-card">
+                                <CardContent className="modal-data-order-details">
+                                    <div>
+                                        <Typography variant="body2">
+                                            { t('breadcrumbs.order') } №{ order.orderNumber } от { formatDate(order.createdAt) }
+                                            { " " }
+                                            &#8226;
+                                            { " " }
+                                            { formatCurrency(order.orderPrice) } { t ('text.rub') }
+                                        </Typography>
+                                        <Typography variant="caption">
+                                            { t(`text.checkout.orderDeliveryMethods.${order.deliveryMethod}`) }: { order.orderStatus === 'delivered' ? formatDate(order.deliveredAt) : '' }
+                                        </Typography>
+                                    </div>
+                                    <div className="product-images">
+                                        { productsData.map(({ img, id, name }) => (
+                                            <CardMedia
+                                                component="img"
+                                                className="product-image"
+                                                onClick={ () => navigate(`/shop/product/${ id }`) }
+                                                key={ id }
+                                                image={ img }
+                                                title={ name }
+                                            />
+                                        )) }
+                                    </div>
+                                </CardContent>
+                            </Card>
+                            <OrderRateForm />
+                        </div>
+                    </CustomModal>
                 </>
             ) }
         </Container>

@@ -3,7 +3,7 @@ import $api from "../../configs/axiosconfig/axios.js";
 import { useStore } from "../../stores";
 import { Container, Card, CardContent } from "@mui/material";
 import PreviewCard from "./cards/preview-card/preview-card.tsx";
-import { IProduct } from "../../interfaces/interfaces.ts";
+import { IOrder, IProduct } from "../../interfaces/interfaces.ts";
 import { useTranslation } from "react-i18next";
 import "./orders-page.scss";
 
@@ -32,7 +32,7 @@ const OrdersPage = () => {
             <h1>{ t('text.myOrders') }</h1>
             <Card className="orders-card">
                 <CardContent className="orders-card-content">
-                    { orders.map((order: any) => (
+                    { orders.map((order: IOrder) => (
                         <PreviewCard
                             key={ order.orderId }
                             order={ order }
