@@ -114,39 +114,22 @@ export default function CallBackForm({
             </FormControl>
             <FormControl>
                 <FormLabel className="label">{ t("text.phoneNumber") }</FormLabel>
-                { /*<TextField
-                    error={ Boolean(errors.phoneNumber) }
-                    helperText={ String(errors.phoneNumber?.message || "") }
-                    placeholder={ t("text.phoneNumber") }
-                    { ...register("phoneNumber", { 
-                        validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                    }) }
-                />*/ }
-                
-                <Controller
-                    name="phoneNumber"
-                    control={ control }
-                    rules={ {
-                        required: t("errors.requiredField"),
+                <InputMask
+                    { ...register("phoneNumber", {
                         validate: (value) => validatePhone(value) ? true : t("errors.phoneNumber")
-                    } }
-                    render={ ({ field }) => (
-                        <InputMask
-                            { ...field }
-                            mask="+7 (999) 999-99-99"
-                            maskChar=" "
-                            alwaysShowMask={ true }
-                        >
-                        { (inputProps: any) => (
-                            <TextField
-                                error={ Boolean(errors.phoneNumber) }
-                                helperText={ String(errors.phoneNumber?.message || "") }
-                                { ...inputProps }
-                            />
-                        ) }
-                        </InputMask>
-                    ) }
-                />
+                    }) }
+                    mask="+7 (999) 999-99-99"
+                    maskChar=" "
+                    alwaysShowMask={ true }
+                >
+                { (inputProps: any) => (
+                    <TextField
+                        error={ Boolean(errors.phoneNumber) }
+                        helperText={ String(errors.phoneNumber?.message || "") }
+                        { ...inputProps }
+                    />
+                ) }
+                </InputMask>
             </FormControl>
             <FormControl>
                 <FormLabel className="label">{ t("text.description") }</FormLabel>
