@@ -19,8 +19,9 @@
         "cart": "Корзина",
         "productPage": "Страница продукта",
         "productReviewsPage": "Страница отзывов о продукте",
-        "goodsPage": "Товары"
-},
+        "goodsPage": "Товары",
+        "productsStorePage": "Склад товаров"
+    },
     "labels": {
         "loading": "Загрузка..."
     },
@@ -96,6 +97,9 @@
         "createCategory": "Создать категорию",
         "addCategory": "Добавить категорию",
         "groupName": "Наименование группы",
+        "image": "Изображение",
+        "partNumber": "Артикул",
+        "all": "Все",
         "cart": {
             "more": "Подробнее о товаре",
             "productChoose": "Выберите товары, чтобы перейти к оформлению",
@@ -212,7 +216,20 @@
         "addToBasket": "Добавить в корзину",
         "selectAll": "Выбрать всё",
         "numberOfProducts": "Количество товаров",
-        "amount": "На сумму"
+        "amount": "На сумму",
+        "product": "Продукт",
+        "inStock": "В наличии",
+        "notInStock": "Нет в наличии",
+        "remains": "Остаток",
+        "priceForEach": "Цена за единицу",
+        "total": "Всего",
+        "searchByAllFields": "Поиск по всем полям",
+        "onlyNotInStock": "Только нет в наличии",
+        "addStore": "Добавить склад",
+        "deleteStore": "Удалить склад",
+        "storeAddress": "Адрес склада",
+        "storeName": "Наименование склада",
+        "deleteStoreConfirmation": "Вы уверены, что хотите удалить склад?"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

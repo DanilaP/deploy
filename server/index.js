@@ -540,6 +540,37 @@ app.get("/favorites", async function(req, res) {
     }
 });
 
+
+//Warehouses
+app.get("/warehouses", async function (req, res) {
+    try {
+        let currentStores = JSON.parse(fs.readFileSync('DB/Warehouses.json', 'utf8'));
+        let currentProducts= JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+        
+        let storesInfo = currentStores.map((store) => {
+            return (
+                {
+                    ...store,
+                    products: store.products.map((product) => {
+                        const foundedProduct = currentProducts.find(el => el.id === product.productId);
+                        return {
+                            ...product,
+                            productInfo: foundedProduct
+                        }
+                    })
+                }
+            );
+        });
+
+        res.status(200).json({ message: "Данные о товарах успешно получены", stores: storesInfo });
+    } 
+    catch (error) {
+        res.status(400).json({ message: "Ошибка при получении информации о складах" });
+        console.error("get /warehouses", error);
+    }
+})
+
+
 // categories
 
 app.get("/category", async function(req, res) {
@@ -585,6 +616,7 @@ app.delete("/category", async function(req, res) {
         res.status(400).json({ message: "Ошибка удаления категории!" });
     }
 });
+
 
 
 

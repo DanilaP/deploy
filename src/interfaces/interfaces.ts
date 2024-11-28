@@ -91,6 +91,17 @@ export interface IDeliveryData {
     };
 }
 
+export interface IStore {
+    id: number,
+    name: string,
+    address: string,
+    products: {
+        productId: number,
+        variation: string,
+        amount: number,
+        productInfo: IProduct
+    }[]
+}
 export interface ICategory {
     title: string,
     id: string,

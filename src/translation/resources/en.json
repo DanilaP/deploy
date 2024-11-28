@@ -20,7 +20,8 @@
         "productReviewsPage": "Product reviews page",
         "technics": "technics",
         "rolesPage": "Roles page",
-        "goodsPage": "Goods page"
+        "goodsPage": "Goods page",
+        "productsStorePage": "Products store"
     },
     "labels": {
         "loading": "Loading..."
@@ -113,6 +114,9 @@
         "review": "Review",
         "quantity": "Quantity",
         "uploadFiles": "Upload files",
+        "image": "Image",
+        "partNumber": "Partnumber",
+        "all": "All",
         "cart": {
             "productChoose": "Select products to proceed to checkout",
             "preDeliverInfo": "Available delivery methods and times can be selected when placing an order",
@@ -202,7 +206,20 @@
         "addToBasket": "Add to basket",
         "selectAll": "Select all",
         "numberOfProducts": "Number of products",
-        "amount": "Amount"
+        "amount": "Amount",
+        "product": "Product",
+        "inStock": "In stock",
+        "notInStock": "Not in stock",
+        "remains": "Remains",
+        "priceForEach": "Price for each",
+        "total": "Total",
+        "searchByAllFields": "Search by all fields",
+        "onlyNotInStock": "Only not in stock",
+        "addStore": "Add store",
+        "deleteStore": "Delete store",
+        "storeAddress": "Store address",
+        "storeName": "Store name",
+        "deleteStoreConfirmation": "Are you sure you want to delete store?"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
