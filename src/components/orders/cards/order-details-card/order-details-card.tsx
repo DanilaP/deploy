@@ -40,7 +40,7 @@ const OrderDetailsCard:FC<{ order: IOrder }> = ({ order }) => {
                     />
                     <Typography className="status-text">
                         { order.orderStatus === 'in-transit'
-                            ? `будет доставлен ${formatDate(order.estimatedDeliveryDate)}`
+                            ? `${ t('text.willBeDelivered') } ${ formatDate(order.estimatedDeliveryDate) }`
                             : order.orderStatus === 'delivered'
                                 ? formatDate(order.deliveredAt)
                                 : '' }

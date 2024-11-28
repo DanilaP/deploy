@@ -21,6 +21,7 @@ import Grid from "@mui/material/Grid2";
 import PaymentDetailsCard from "../cards/payment-details-card/payment-details-card.tsx";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.tsx";
 import OrderRateForm from "../order-rate-form/order-rate-form.tsx";
+import OrderRateCard from "../cards/order-rate-card/order-rate-card.tsx";
 
 const OrderPage = () => {
     const query = useParams();
@@ -156,37 +157,10 @@ const OrderPage = () => {
                         actionConfirmed={ () => setIsOpenModal(false) }
                         closeModal={ () => setIsOpenModal(false) }
                     >
-                        <div className="modal-data-wrapper">
-                            <Card className="modal-data-card">
-                                <CardContent className="modal-data-order-details">
-                                    <div>
-                                        <Typography variant="body2">
-                                            { t('breadcrumbs.order') } №{ order.orderNumber } от { formatDate(order.createdAt) }
-                                            { " " }
-                                            &#8226;
-                                            { " " }
-                                            { formatCurrency(order.orderPrice) } { t ('text.rub') }
-                                        </Typography>
-                                        <Typography variant="caption">
-                                            { t(`text.checkout.orderDeliveryMethods.${order.deliveryMethod}`) }: { order.orderStatus === 'delivered' ? formatDate(order.deliveredAt) : '' }
-                                        </Typography>
-                                    </div>
-                                    <div className="product-images">
-                                        { productsData.map(({ img, id, name }) => (
-                                            <CardMedia
-                                                component="img"
-                                                className="product-image"
-                                                onClick={ () => navigate(`/shop/product/${ id }`) }
-                                                key={ id }
-                                                image={ img }
-                                                title={ name }
-                                            />
-                                        )) }
-                                    </div>
-                                </CardContent>
-                            </Card>
+                        <>
+                            <OrderRateCard order={ order } productsData={ productsData } />
                             <OrderRateForm />
-                        </div>
+                        </>
                     </CustomModal>
                 </>
             ) }

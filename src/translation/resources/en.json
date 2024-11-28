@@ -200,7 +200,10 @@
             "5": "What did you like?"
         },
         "send": "Send",
-        "yourComment": "Your comment"
+        "yourComment": "Your comment",
+        "willBeDelivered": "Will be delivered",
+        "noOrders": "You have no orders yet",
+        "goToShopping": "Go to shopping"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
