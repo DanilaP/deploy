@@ -67,6 +67,8 @@
         "secondName": "Фамилия",
         "dateOfCreation": "Дата создания",
         "phoneNumber": "Номер телефона",
+        "createFeedback": "Создать заявку обратной связи",
+        "editFeedback": "Редактировать заявку обратной связи",
         "moderatorAnswer": "Ответ модератора",
         "dateOfAnswer": "Дата ответа",
         "status": "Статус",
@@ -115,7 +117,7 @@
         "editCategory": "Редактировать категорию",
         "createCategory": "Создать категорию",
         "callbackForm": "Форма обратной связи",
-        "callback": "Обратная связь",
+        "feedback": "Обратная связь",
         "addCategory": "Добавить категорию",
         "yourActiveCallbacks": "Ваши активные заявки обратной связи",
         "youHaveNoCallbacksYet": "Вы пока не оставляли заявки с обратной связью",
@@ -219,7 +221,7 @@
         "shopProduct": "Продукт",
         "productReviews": "Отзывы о продукте",
         "favorites": "Избранное",
-        "callback": "Обратная связь"
+        "feedback": "Обратная связь"
     },
     "errors": {
         "requiredField": "Это обязательное поле",

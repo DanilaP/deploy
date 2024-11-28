@@ -1,23 +1,23 @@
 import { MenuItem, Select, TextField } from "@mui/material";
-import "./call-back-page-view.scss";
+import "./feed-back-page-view.scss";
 import { useTranslation } from "react-i18next";
 import { IoMdSearch } from "react-icons/io";
 import { DataGrid } from "@mui/x-data-grid";
 import { ruRU } from '@mui/x-data-grid/locales';
 
-interface IAdminCallackPageViewProps {
+interface IAdminFeedbackPageViewProps {
     callbacksDataGrid: { columns: any[], rows: any[] },
     handleOpenCallbackAsnwerModal: (callbackId: number) => void,
     handleFilterUserCallbacksDataGridByStatus: (status: boolean) => void,
     handleSearchCallbacksByInputValue: (value: string) => void
 }
 
-export default function AdminCallbackPageView({ 
+export default function AdminFeedbackPageView({ 
     callbacksDataGrid,
     handleOpenCallbackAsnwerModal,
     handleFilterUserCallbacksDataGridByStatus,
     handleSearchCallbacksByInputValue
-}: IAdminCallackPageViewProps) {
+}: IAdminFeedbackPageViewProps) {
 
     const { t } = useTranslation();
 

@@ -87,7 +87,7 @@ function App() {
                                 <MdFavoriteBorder className='icon' />
                                 { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
                             </Link><br/>
-                            <Link to='/callback'><MdPhoneCallback className='icon' />{ !isMobile ? t('text.callback') : null }</Link><br/>
+                            <Link to='/feedback'><MdPhoneCallback className='icon' />{ !isMobile ? t('text.feedback') : null }</Link><br/>
                             { checkPermissions() ?
                             (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">

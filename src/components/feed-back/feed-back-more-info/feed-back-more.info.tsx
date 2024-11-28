@@ -1,14 +1,14 @@
 import { useTranslation } from "react-i18next";
-import { ICallBack } from "../../../interfaces/interfaces";
-import "./call-back.more-info.scss";
+import { IFeedBack } from "../../../interfaces/interfaces";
+import "./feed-back.more-info.scss";
 
-interface ICallbackMoreInfoProps {
-    callback: ICallBack | null
+interface IFeedbackMoreInfoProps {
+    callback: IFeedBack | null
 }
 
-export default function CallbackMoreInfo({
+export default function FeedbackMoreInfo({
     callback
-}: ICallbackMoreInfoProps) {
+}: IFeedbackMoreInfoProps) {
 
     const { t } = useTranslation();
 
@@ -27,7 +27,7 @@ export default function CallbackMoreInfo({
                 <b>{ t("text.typeOfBid") }</b>: { callback?.typeOfBid }
             </div>
             <div className="type-of-bid">
-                <b>{ t("text.dateOfCreation") }</b>: { callback?.dateOfCreation }
+                <b>{ t("text.dateOfCreation") }</b>: { callback?.createdAt }
             </div>
             <hr className="answer-border" />
             <div className="moderator-answer">

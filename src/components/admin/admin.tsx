@@ -73,8 +73,8 @@ export default function AdminPage (props: AdminPageProps) {
                         </MenuItem>  : null
                     }
                     {
-                        <MenuItem onClick={ () => navigate("/admin/callback") }>
-                            <FaListCheck className='icon' />{ !isMenuTextExists ? t("text.callback") : null }
+                        <MenuItem onClick={ () => navigate("/admin/feedback") }>
+                            <FaListCheck className='icon' />{ !isMenuTextExists ? t("text.feedback") : null }
                         </MenuItem>
                     }
                 </div>

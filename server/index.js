@@ -570,40 +570,40 @@ app.delete("/category", async function(req, res) {
     }
 });
 
-// callbacks
+// feedbacks
 
-app.get("/callbacks", async function(req, res) {
+app.get("/feedbacks", async function(req, res) {
     try {
-        const callbacksList = JSON.parse(fs.readFileSync('DB/Callbacks.json', 'utf8'));
+        const feedbacksList = JSON.parse(fs.readFileSync('DB/Feedbacks.json', 'utf8'));
         const userId = +req.query.userId;
-        const userCallbacks = callbacksList.filter(callback => callback.userId === userId);
+        const userFeedbacks = feedbacksList.filter(feedback => feedback.userId === userId);
 
-        res.status(200).json({ message: "Данные о заявках обратной связи получены", callbacks: 
-            JSON.parse(req.query.userId) ? userCallbacks : callbacksList
+        res.status(200).json({ message: "Данные о заявках обратной связи получены", feedbacks: 
+            JSON.parse(req.query.userId) ? userFeedbacks : feedbacksList
         });
     }
     catch(error) {
-        console.error("get /callbacks", error);
+        console.error("get /feedbacks", error);
         res.status(400).json({ message: "Ошибка получения данных о заявках обратной связи!" });
     }
 });
 
-app.post("/callbacks", async function(req, res) {
+app.post("/feedbacks", async function(req, res) {
     try {
-        res.status(200).json({ message: "Данные о заявке с обратной связью сохранены", callbacks: req.body });
+        res.status(200).json({ message: "Данные о заявке с обратной связью сохранены", feedbacks: req.body });
     }
     catch(error) {
-        console.error("post /callbacks", error);
+        console.error("post /feedbacks", error);
         res.status(400).json({ message: "Ошибка сохранения данных о заявке с обратной связью!" });
     }
 });
 
-app.put("/callbacks", async function(req, res) {
+app.put("/feedbacks", async function(req, res) {
     try {
-        res.status(200).json({ message: "Данные о заявке с обратной связью обновлены", callbacks: req.body });
+        res.status(200).json({ message: "Данные о заявке с обратной связью обновлены", feedbacks: req.body });
     }
     catch(error) {
-        console.error("post /callbacks", error);
+        console.error("post /feedbacks", error);
         res.status(400).json({ message: "Ошибка обновления данных о заявке с обратной связью!" });
     }
 });

@@ -2,26 +2,26 @@ import { Button, FormControl, FormLabel, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { validateRequiredField } from "../../../../helpers/validators-helper";
-import { ICallBack } from "../../../../interfaces/interfaces";
-import "./call-back-answer-form.scss";
+import { IFeedBack } from "../../../../interfaces/interfaces";
+import "./feed-back-answer-form.scss";
 import { useEffect } from "react";
 
-export interface ICallbackAnswerData {
+export interface IFeedbackAnswerData {
     answer: string
 }
 
-interface ICallBackAnswerFormProps {
-    currentCallback: ICallBack | null,
+interface IFeedBackAnswerFormProps {
+    currentCallback: IFeedBack | null,
     handleCloseCallbackAsnwerModal: () => void,
-    handleUpdateCurrentCallback: (callbackData: ICallBack) => void,
+    handleUpdateCurrentCallback: (callbackData: IFeedBack) => void,
     handleUpdateUnsavedDataExists: (isDirty: boolean) => void
 }
-export default function CallBackAnswerForm({
+export default function FeedBackAnswerForm({
     currentCallback,
     handleCloseCallbackAsnwerModal,
     handleUpdateCurrentCallback,
     handleUpdateUnsavedDataExists
-}: ICallBackAnswerFormProps) {
+}: IFeedBackAnswerFormProps) {
 
     const {
         register,
@@ -29,7 +29,7 @@ export default function CallBackAnswerForm({
         watch,
         control,
         formState: { errors , submitCount, isValid, isDirty },
-    } = useForm<ICallbackAnswerData>({
+    } = useForm<IFeedbackAnswerData>({
         defaultValues: {
             answer: currentCallback?.moderatorAnswer || ""
         }
@@ -37,7 +37,7 @@ export default function CallBackAnswerForm({
 
     const { t } = useTranslation();
 
-    const handleSendAnswerForCallback = (data: ICallbackAnswerData) => {
+    const handleSendAnswerForCallback = (data: IFeedbackAnswerData) => {
         const date = new Date();
         if (currentCallback) {
             handleUpdateCurrentCallback({
@@ -59,8 +59,9 @@ export default function CallBackAnswerForm({
                 <div className="name">{ currentCallback?.firstName } { currentCallback?.secondName } { currentCallback?.phoneNumber }</div>
                 <div className="type">{ currentCallback?.typeOfBid }</div>
                 <div className="description">{ currentCallback?.description }</div>
-                <div className="date">{ currentCallback?.dateOfCreation }</div>
+                <div className="date">{ currentCallback?.createdAt }</div>
             </div>
+            <hr />
             <form className="call-back-answer-form" onSubmit={ handleSubmit(handleSendAnswerForCallback) }>
                 <FormControl>
                     <FormLabel className="label">{ t("text.answer") }</FormLabel>
@@ -77,6 +78,7 @@ export default function CallBackAnswerForm({
                         }) }
                     />
                 </FormControl>
+                <div className="answer-date">{ currentCallback?.dateOfAnswer }</div>
                 <div className="form-actions">
                     <Button 
                         type="submit" 

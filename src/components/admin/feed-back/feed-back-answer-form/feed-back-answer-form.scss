@@ -44,6 +44,14 @@
         display: grid;
         row-gap: 5px;
     }
+    .label {
+        font-weight: 500;
+    }
+    .answer-date {
+        color: gray;
+        text-align: right;
+        margin-top: 15px;
+    }
     .form-actions {
         display: flex;
         column-gap: 5px;

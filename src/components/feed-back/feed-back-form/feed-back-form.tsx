@@ -2,17 +2,21 @@ import { Autocomplete, Button, FormControl, FormLabel, TextField } from "@mui/ma
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { validateEmail, validatePhone, validateRequiredField } from "../../../helpers/validators-helper";
-import "./call-back-form.scss";
+import "./feed-back-form.scss";
 import { useEffect } from "react";
 import InputMask from 'react-input-mask';
+import { IFeedBack } from "../../../interfaces/interfaces";
 
-interface ICallBackFormProps {
+interface IFeedBackFormProps {
+    mode: "create" | "edit" | null,
+    currentCallback: IFeedBack | null,
     handleCloseCreatingNewCallback: () => void,
-    handleSaveNewCallback: (callback: ICallFormData) => void,
+    handleSaveNewCallback: (callback: IFeedFormData) => void,
     handleUpdateUnsavedDataExist: (unsavedDataExists: boolean) => void
+    handleEditCurrentCallback: (callback: IFeedFormData) => void
 }
 
-export interface ICallFormData {
+export interface IFeedFormData {
     firstName: string,
     secondName: string,
     email: string,
@@ -21,11 +25,16 @@ export interface ICallFormData {
     typeOfBid: string
 }
 
-export default function CallBackForm({
+export default function FeedBackForm({
+    mode,
+    currentCallback,
     handleCloseCreatingNewCallback,
     handleSaveNewCallback,
-    handleUpdateUnsavedDataExist
-}: ICallBackFormProps) {
+    handleUpdateUnsavedDataExist,
+    handleEditCurrentCallback
+}: IFeedBackFormProps) {
+
+    const isEdit = mode === "edit";
 
     const {
         register,
@@ -33,12 +42,19 @@ export default function CallBackForm({
         watch,
         control,
         formState: { errors , submitCount, isValid, isDirty },
-    } = useForm<ICallFormData>();
+    } = useForm<IFeedFormData>({
+        defaultValues: 
+            isEdit && currentCallback ? currentCallback : {}
+    });
 
     const { t } = useTranslation();
 
-    const handleCreateNewCallback = (data: ICallFormData) => {
-        handleSaveNewCallback(data);
+    const handleCreateNewCallback = (data: IFeedFormData) => {
+        if (isEdit) {
+            handleEditCurrentCallback(data);
+        } else {
+            handleSaveNewCallback(data);
+        }
     };
 
     const handleValidateEmailField = (value: string) => {

@@ -67,7 +67,7 @@ export interface ISelect {
     id: string,
     label: string
 }
-export interface ICallBack {
+export interface IFeedBack {
     id: number,
     userId: number,
     firstName: string,
@@ -78,6 +78,6 @@ export interface ICallBack {
     email: string,
     solved: boolean,
     moderatorAnswer: string | null,
-    dateOfCreation: string,
+    createdAt: string,
     dateOfAnswer: string | null
 }

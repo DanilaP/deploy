@@ -122,6 +122,8 @@
         "secondName": "Second name",
         "dateOfCreation": "Date of creation",
         "phoneNumber": "Phone number",
+        "createFeedback": "Create feedback",
+        "editFeedback": "Edit feedback",
         "moderatorAnswer": "Moderator answer",
         "dateOfAnswer": "Date of answer",
         "status": "Status",
@@ -130,7 +132,7 @@
         "waiting": "Waiting for answer",
         "callbackInfo": "Callback info",
         "callbackForm": "Callback form",
-        "callback": "Callback",
+        "feedback": "Callback",
         "yourActiveCallbacks": "Your active callbacks",
         "youHaveNoCallbacksYet": "You have not callbacks yet",
         "changeReview": "Change review",
@@ -219,7 +221,7 @@
         "shopProduct": "Product",
         "productReviews": "Reviews of the product",
         "favorites": "Favorites",
-        "callback": "Callback"
+        "feedback": "Callback"
     },
     "errors": {
         "requiredField": "This field is requiered",
