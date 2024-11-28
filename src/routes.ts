@@ -19,6 +19,7 @@ import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import Favorites from "./components/favorites/favorites";
 import OrdersPage from "./components/orders/orders-page.tsx";
 import OrderPage from "./components/orders/order-page/order-page.tsx";
+import ProductsWarehouse from "./components/admin/warehouses-page/products-warehouse.tsx";
 
 export const routes = [
     {
@@ -131,6 +132,12 @@ export const adminRoutes = [
         component: AdminPage,
         children: GoodsPage,
         breadcrumb : t("titles.goodsPage")
+    },
+    {
+        path: '/admin/productsWarehouse',
+        component: AdminPage,
+        children: ProductsWarehouse,
+        breadcrumb : t("titles.productsStorePage")
     },
     {
         path: '/admin/categories',
