@@ -1,0 +1,67 @@
+[
+    {
+        "id": 1,
+        "name": "Склад 1",
+        "address": "Тестовый адрес 1",
+        "products": [
+            {
+                "productId": 1,
+                "variation": "Base",
+                "amount": 3
+            },
+            {
+                "productId": 2,
+                "variation": "Base",
+                "amount": 5
+            },
+            {
+                "productId": 3,
+                "variation": "Full",
+                "amount": 0
+            },
+            {
+                "productId": 7,
+                "variation": "Full",
+                "amount": 0
+            },
+            {
+                "productId": 8,
+                "variation": "Base",
+                "amount": 9
+            },
+            {
+                "productId": 9,
+                "variation": "Full",
+                "amount": 7
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Склад 2",
+        "address": "Тестовый адрес 2",
+        "products": [
+            {
+                "productId": 4,
+                "variation": "Full",
+                "amount": 2
+            },
+            {
+                "productId": 5,
+                "variation": "Full",
+                "amount": 3
+            },
+            {
+                "productId": 6,
+                "variation": "Base",
+                "amount": 3
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Склад 3",
+        "address": "Тестовый адрес 3",
+        "products": []
+    }
+]
