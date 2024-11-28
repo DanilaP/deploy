@@ -25,11 +25,11 @@ import { useForm, Controller, useWatch } from 'react-hook-form';
 interface CourierDialogProps {
     currentAddress: IAddress | null;
     handleClose: () => void;
-    handleConfirm: (data: string) => void;
+    handleSaveDeliveryAddressData: (data: string) => void;
     addresses: IAddress[];
-    currentAddressId: string;
-    setCurrentAddressId: (id: string) => void;
-    handleDeleteAddress: (id: string) => void;
+    currentAddressId: number;
+    setCurrentAddressId: (id: number) => void;
+    handleDeleteAddress: (id: number) => void;
     setCurrentAddress: (e: IAddress) => void;
     setAddresses: (addresses: any) => void;
 }
@@ -38,7 +38,7 @@ const CourierForm: FC<CourierDialogProps> = ({
      handleClose,
      addresses,
      setAddresses,
-     handleConfirm,
+     handleSaveDeliveryAddressData,
      currentAddress,
      setCurrentAddress,
      currentAddressId,
@@ -47,35 +47,20 @@ const CourierForm: FC<CourierDialogProps> = ({
 }) => {
     const { t } = useTranslation();
     const [prevSelectedAddress, setPrevSelectedAddress] = useState<IAddress | null>(currentAddress);
-    const [addressIdToDelete, setAddressIdToDelete] = useState<string>('');
+    const [addressIdToDelete, setAddressIdToDelete] = useState<number | null>(null);
     const [daDataFieldValue, setDaDataFieldValue] = useState<DaDataSuggestion<DaDataAddress> | undefined>();
+    const [deleteAddressModalIsOpen, setDeleteAddressModalIsOpen] = useState(false);
 
     const {
         control,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitted },
         setValue,
         setError,
         clearErrors,
     } = useForm<IAddress>({
         defaultValues: currentAddress || {},
     });
-
-    const handleSelectAddressChange = (event: ChangeEvent<{ value: unknown }>) => {
-        const selectedAddressId = event.target.value as string;
-        const newSelectedAddress = addresses
-            .find(({ id }) => id === selectedAddressId);
-
-        if (newSelectedAddress) {
-            const { id, ...formData } = newSelectedAddress;
-            Object.keys(formData).forEach(key => {
-                setValue(key as keyof typeof formData, formData[key as keyof typeof formData]);
-            });
-            setPrevSelectedAddress(newSelectedAddress);
-            setCurrentAddress(newSelectedAddress);
-            setCurrentAddressId(selectedAddressId);
-        }
-    };
 
     useEffect(() => {
         if (daDataFieldValue?.value) {
@@ -84,31 +69,43 @@ const CourierForm: FC<CourierDialogProps> = ({
         }
     }, [daDataFieldValue?.value, setValue]);
 
-    const filterEmptyEntries = (obj: Record<string, any>) =>
-        Object.entries(obj).filter(([, value]) => value);
+    const handleSelectAddressChange = (event: ChangeEvent<{ value: unknown }>) => {
+        const selectedAddressId = event.target.value as number;
+        const newSelectedAddress = addresses
+            .find(({ id }) => id === selectedAddressId);
+
+        if (newSelectedAddress) {
+            Object.keys(newSelectedAddress).forEach(key => {
+                setValue(key as keyof typeof newSelectedAddress, newSelectedAddress[key as keyof typeof newSelectedAddress]);
+            });
+            setPrevSelectedAddress(newSelectedAddress);
+            setCurrentAddress(newSelectedAddress);
+            setCurrentAddressId(selectedAddressId);
+        }
+    };
 
     const onSubmit = (data: IAddress) => {
+        const filterEmptyEntries = (obj: Record<string, any>) =>
+            Object.entries(obj).filter(([, value]) => value);
+
         const filteredCurrentAddressEntries = filterEmptyEntries(data);
         const filteredPrevSelectedAddressEntries = filterEmptyEntries(prevSelectedAddress || {});
 
         if (!_.isEqual(filteredCurrentAddressEntries, filteredPrevSelectedAddressEntries)) {
-            const newId = _.uniqueId('2');
+            const newId = Number(_.uniqueId('1'));
             const newAddress: IAddress = { ...data, id: newId };
 
             setCurrentAddressId(newId);
             setCurrentAddress(newAddress);
             setAddresses((prevAddresses: IAddress[]) => [newAddress, ...prevAddresses]);
         }
-
-        handleConfirm('courier');
+        handleSaveDeliveryAddressData('courier');
     };
-
-    const [open, setOpen] = useState(false);
 
     const addressValue = useWatch({ control, name: 'address' });
 
     useEffect(() => {
-        if (!addressValue) {
+        if (!addressValue && isSubmitted) {
             setError('address', {
                 type: 'manual',
                 message: t('errors.requiredField'),
@@ -148,7 +145,7 @@ const CourierForm: FC<CourierDialogProps> = ({
                                     className={ `delete-icon ${ address.id === currentAddressId ? 'hidden' : 'visible'}` }
                                     onClick={ (e) => {
                                         e.stopPropagation();
-                                        setOpen(true);
+                                        setDeleteAddressModalIsOpen(true);
                                         address.id && setAddressIdToDelete(address.id);
                                     } }
                                     size="small"
@@ -158,13 +155,13 @@ const CourierForm: FC<CourierDialogProps> = ({
 
                                 <CustomModal
                                     title={ `${ t('text.checkout.deleteAddress') }?` }
-                                    isDisplay={ open }
+                                    isDisplay={ deleteAddressModalIsOpen }
                                     typeOfActions="default"
                                     actionConfirmed={ () => {
-                                        handleDeleteAddress(addressIdToDelete);
-                                        setOpen(false);
+                                        addressIdToDelete && handleDeleteAddress(addressIdToDelete);
+                                        setDeleteAddressModalIsOpen(false);
                                     } }
-                                    closeModal={ () => setOpen(false) }
+                                    closeModal={ () => setDeleteAddressModalIsOpen(false) }
                                 >
                                     <></>
                                 </CustomModal>
@@ -193,7 +190,7 @@ const CourierForm: FC<CourierDialogProps> = ({
                                     inputProps={ {
                                         ...field,
                                         placeholder: t('text.checkout.courierFormLabels.address'),
-                                        className: field.value ? `da-data-field` : `da-data-field error`,
+                                        className: !field.value && isSubmitted ? `da-data-field error` : `da-data-field`,
                                     } }
                                     onChange={ (value) => {
                                         field.onChange(value);
@@ -207,7 +204,6 @@ const CourierForm: FC<CourierDialogProps> = ({
                         ) }
                     />
                 </div>
-
 
                 <Stack className="stack-wrapper" direction="row" spacing={ 2 }>
                     <Controller
@@ -305,7 +301,6 @@ const CourierForm: FC<CourierDialogProps> = ({
                 </Button>
                 <Button
                     variant="contained"
-                    disabled={ !currentAddress?.address }
                     type="submit"
                 >
                     { t('text.confirm') }

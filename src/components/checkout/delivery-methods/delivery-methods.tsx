@@ -10,16 +10,16 @@ import PickupForm from "./pickup-form/pickup-form.tsx";
 import CourierForm from "./courier-form/courier-form.tsx";
 import './delivery-methods.scss';
 import { useTranslation } from "react-i18next";
-import { IAddress, IPickUp } from "../../../interfaces/interfaces.ts";
+import { IAddress, IPrevDelivery, IStore } from "../../../interfaces/interfaces.ts";
 import { getFormattedAddressString } from "../../../helpers/cart-helpers.tsx";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.tsx";
 
 interface DeliveryMethodsProps {
-    deliveryData: any;
+    deliveryData: IPrevDelivery[];
     selectedDelivery: string;
     handleChange: (field:  "payment" | "delivery", value: string) => void;
     deliveryError?: string;
-    storesList: Array<IPickUp>;
+    wareHouses: Array<IStore>;
 }
 
 const initialAddressFieldsData = {
@@ -36,7 +36,7 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
   selectedDelivery,
   handleChange,
   deliveryError,
-  storesList,
+  wareHouses,
 }) => {
     const { t } = useTranslation();
     const [openDialogs, setOpenDialogs] = useState({
@@ -44,14 +44,32 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
         courier: false,
     });
 
-    const [selectedStoreId, setSelectedStoreId] = useState(deliveryData.storeId);
-    const [currentAddressId, setCurrentAddressId] = useState<string>(deliveryData.prevAddressId || '');
-    const [addresses, setAddresses] = useState<IAddress[]>(deliveryData.addresses || []);
-    const [currentAddress, setCurrentAddress] = useState<IAddress>(
-        addresses.find((address) => address.id === deliveryData?.prevAddressId) ?? initialAddressFieldsData
+    const [selectedWareHouseId, setSelectedWareHouseId] = useState(deliveryData[0]?.wareHouseId || '');
+    const [addresses, setAddresses] = useState<IAddress[]>(
+        deliveryData
+            .filter((delivery: IPrevDelivery) => delivery.type === "courier")
+            .map((delivery: IPrevDelivery) => ({
+                ...delivery.address,
+                comment: delivery.comment,
+                id: delivery.id,
+                address: delivery.address?.address || "",
+            })) || []
+    );
+    const [currentAddressId, setCurrentAddressId] = useState<number | null>(
+        deliveryData.length > 0 ? deliveryData[0].id : null
     );
 
-    const currentStore = storesList.find(({ id }) => id === selectedStoreId);
+    const [currentAddress, setCurrentAddress] = useState<IAddress>(
+        deliveryData.length > 0 && deliveryData[0].address
+            ? {
+                ...deliveryData[0].address,
+                comment: deliveryData[0].comment,
+                id: deliveryData[0].id,
+            }
+            : initialAddressFieldsData
+    );
+
+    const currentStore = wareHouses.find(({ id }) => id === selectedWareHouseId);
     const formattedAddress = currentAddress && getFormattedAddressString(currentAddress, t);
 
     const handleOpenDialog = (dialog: 'pickup' | 'courier') => {
@@ -68,7 +86,7 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
         }));
     };
 
-    const handleDeleteAddress = (addressId: string) => {
+    const handleDeleteAddress = (addressId: number) => {
         if (currentAddressId === addressId) {
             return;
         }
@@ -77,7 +95,7 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
         setAddresses(updatedAddresses);
     };
 
-    const handleSaveAddress = (deliveryMethod: string) => {
+    const handleSaveDeliveryAddressData = (deliveryMethod: string) => {
         handleCloseDialog('pickup');
         handleCloseDialog('courier');
         handleChange('delivery', deliveryMethod);
@@ -106,13 +124,10 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
                 <Card className="pickup-card">
                     <CardContent>
                         <Typography variant="h6" className="pickup-card-header">
-                            { t('text.checkout.pickupFromShop') } { currentStore?.storeName } { t('text.checkout.byAddress') }:
+                            { t('text.checkout.pickupFromShop') } { currentStore?.name } { t('text.checkout.byAddress') }:
                         </Typography>
                         <Typography variant="body1" className="pickup-card-text">
-                            { currentStore?.location }
-                        </Typography>
-                        <Typography variant="body1" className="pickup-card-text order-duration">
-                            { t('text.checkout.orderStorageDuration') }: <span>{ currentStore?.storageDuration }</span>
+                            { currentStore?.address }
                         </Typography>
                     </CardContent>
                 </Card>
@@ -140,16 +155,16 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
             >
                 <PickupForm
                     handleClose={ () => handleCloseDialog('pickup') }
-                    selectedStoreId={ selectedStoreId }
-                    stores={ storesList }
-                    handleConfirm={ handleSaveAddress }
-                    setSelectedStoreId={ setSelectedStoreId }
+                    selectedWareHouseId={ selectedWareHouseId }
+                    wareHouses={ wareHouses }
+                    handleSaveDeliveryAddressData={ handleSaveDeliveryAddressData }
+                    setSelectedWareHouseId={ setSelectedWareHouseId }
                 />
             </CustomModal>
 
             <CustomModal
                 isDisplay={ openDialogs.courier }
-                title = ""
+                title=""
                 typeOfActions='none'
                 closeModal={ () => handleCloseDialog('courier') }
             >
@@ -157,7 +172,7 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
                     setCurrentAddress={ setCurrentAddress }
                     handleClose={ () => handleCloseDialog('courier') }
                     setAddresses={ setAddresses }
-                    handleConfirm={ handleSaveAddress }
+                    handleSaveDeliveryAddressData={ handleSaveDeliveryAddressData }
                     addresses={ addresses }
                     currentAddress={ currentAddress }
                     setCurrentAddressId={ setCurrentAddressId }

@@ -23,7 +23,7 @@ const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
     const { productInfo, id, number } = product;
     const { variations, additionalInfo, name } = productInfo;
 
-    const currentVariation = variations.find((variation: any) => variation.name === product.variation);
+    const currentVariation = variations.find((variation) => variation.name === product.variation);
     const currentColor = additionalInfo.find((info: any) => info.name === 'Цвет')?.description || t('text.cart.noColor');
     const { price, title, images } = currentVariation;
 

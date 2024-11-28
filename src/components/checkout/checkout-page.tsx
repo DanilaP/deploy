@@ -14,13 +14,12 @@ import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid2";
 import ProductCard from "./product-card/product-card.tsx";
 import './checkout-page.scss';
-import { IDeliveryData, IPickUp } from "../../interfaces/interfaces.ts";
+import { IPrevDelivery, IProduct, IStore } from "../../interfaces/interfaces.ts";
 import cartApi from "../../api/cart.ts";
 import CheckoutCard from "./checkout-card/checkout-card.tsx";
 import { formatCurrency, formatPhoneNumber } from "../../helpers/cart-helpers.tsx";
 import UserData from "./user-data-form/user-data.tsx";
 import { validateRequiredField } from "../../validators-helper.tsx";
-import $api from "../../configs/axiosconfig/axios.js";
 
 interface ValidationErrors {
     isErrors: boolean,
@@ -40,8 +39,8 @@ const CheckoutPage = () => {
         selectedProductIds,
     } = cartStore;
 
-    const [deliveryData, setDeliveryData] = useState<IDeliveryData>();
-    const [storesList, setStoresList] = useState<Array<IPickUp>>([]);
+    const [deliveryData, setDeliveryData] = useState<IPrevDelivery[] | null>(null);
+    const [wareHouses, setWareHouses] = useState<Array<IStore>>([]);
 
     const [selectedPayment, setSelectedPayment] = useState('');
     const [selectedDelivery, setSelectedDelivery] = useState('');
@@ -96,51 +95,36 @@ const CheckoutPage = () => {
                 delivery: !isValidDeliveryMethod ? t('text.checkout.errors.emptyDelivery') : '',
             },
         });
-
         return false;
     };
 
     useEffect(() => {
         const api = cartApi();
-        const getData = async() => {
-            try {
-                const userId = userStore.user?.id;
 
-                const [storesData, deliveryData] = await Promise.all([
-                    api.getStoresList(),
-                    api.getUserDeliveryData(Number(userId)),
-                ]);
-                setDeliveryData(deliveryData);
-                setStoresList(storesData);
-            } catch (error) {
+        Promise.all([
+            api.getWareHouses(),
+            api.getUserDeliveryData(Number(userStore.user?.id)),
+            api.getUserCart(),
+        ])
+            .then(([warehousesData, deliveryData, basketData]) => {
+                const sortedDeliveries = deliveryData.prevDeliveries
+                    .sort((a, b) => new Date(b.timeStamp) - new Date(a.timeStamp));
+
+                setDeliveryData(sortedDeliveries);
+                setWareHouses(warehousesData);
+                setSelectedPayment(sortedDeliveries[0]?.payment?.method || '');
+                setSelectedDelivery(sortedDeliveries[0]?.type || '');
+                cartStore.setCart(basketData);
+            })
+            .catch((error) => {
                 console.error(error);
-            }
-        };
-        getData();
+            });
     }, []);
 
-    useEffect(() => {
-        if (deliveryData) {
-            setSelectedPayment(deliveryData.prevPaymentMethod);
-            setSelectedDelivery(deliveryData.prevDeliveryMethod);
-        }
-    }, [deliveryData]);
-
-    useEffect(() => {
-        const fetchBasketData = async () => {
-            try {
-                const { data: { backet } } = await $api.get('/backet');
-                cartStore.setCart(backet);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchBasketData();
-    }, []);
 
     const formattedTotalSum = formatCurrency(totalSum);
 
-    const filteredCart = cart.filter((product) => selectedProductIds.includes(product.id));
+    const filteredCart = cart.filter((product: IProduct) => selectedProductIds.includes(product.id));
 
     return (deliveryData &&
         <Container className="checkout-wrapper" maxWidth="lg">
@@ -152,7 +136,7 @@ const CheckoutPage = () => {
                       <Typography className="order-title" variant="h6">
                           { t('text.checkout.recipient') }
                       </Typography>
-                      <Typography> { userStore?.user?.name }, { formatPhoneNumber(userStore.user.tel) }</Typography>
+                      <Typography> { userStore?.user?.name }, { formatPhoneNumber(userStore?.user?.tel || '') }</Typography>
                       <Box display="flex" justifyContent="flex-end">
                         <UserData />
                       </Box>
@@ -165,8 +149,8 @@ const CheckoutPage = () => {
                           { t('text.checkout.deliveryVars') }
                       </Typography>
                         <DeliveryForm
-                          storesList={ storesList }
-                          deliveryData={ deliveryData.prevDelivery }
+                          wareHouses={ wareHouses }
+                          deliveryData={ deliveryData }
                           handleChange={ handleChange }
                           selectedDelivery={ selectedDelivery }
                           deliveryError={ formErrors.errors.delivery }

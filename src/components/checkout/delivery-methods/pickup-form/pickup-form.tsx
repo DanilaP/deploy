@@ -7,56 +7,57 @@ import {
     RadioGroup,
     Typography
 } from "@mui/material";
-import { FC } from "react";
+import { FC, FormEvent } from "react";
 import './pickup-form.scss';
 import { useTranslation } from "react-i18next";
-import { IPickUp } from "../../../../interfaces/interfaces.ts";
-
+import { IStore } from "../../../../interfaces/interfaces.ts";
 
 interface PickupDialogProps {
     handleClose: () => void;
-    selectedStoreId: string;
-    setSelectedStoreId: (id: string) => void;
-    stores: IPickUp[];
-    handleConfirm: (deliveryMethod: string) => void;
+    selectedWareHouseId: number;
+    setSelectedWareHouseId: (id: number) => void;
+    wareHouses: IStore[];
+    handleSaveDeliveryAddressData: (deliveryMethod: string) => void;
 }
 
 const PickupForm: FC<PickupDialogProps> = ({
   handleClose,
-  selectedStoreId,
-  setSelectedStoreId,
-  stores,
-  handleConfirm,
+  selectedWareHouseId,
+  setSelectedWareHouseId,
+  wareHouses,
+  handleSaveDeliveryAddressData,
 }) => {
     const { t } = useTranslation();
 
+    const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        handleSaveDeliveryAddressData('pickup');
+    };
+
     return (
-        <form onSubmit={ () => handleConfirm('pickup') } className="pickup-form-wrapper">
+        <form onSubmit={ onSubmit } className="pickup-form-wrapper">
                 <RadioGroup
                     className="radio-group"
-                    value={ selectedStoreId }
-                    onChange={ (e) => setSelectedStoreId(e.target.value) }
+                    value={ selectedWareHouseId }
+                    onChange={ (e) => setSelectedWareHouseId(Number(e.target.value)) }
                 >
-                    { stores.map((store) => (
+                    { wareHouses.map((wareHouse: IStore) => (
                         <Card
-                            key={ store.id }
-                            className={ `store-card ${ selectedStoreId === store.id ? 'selected pickup-dialog-card' : 'pickup-dialog-card' }` }
+                            key={ wareHouse.id }
+                            className={ `store-card ${ selectedWareHouseId === wareHouse.id ? 'selected pickup-dialog-card' : 'pickup-dialog-card' }` }
                         >
                             <CardContent>
                                 <FormControlLabel
-                                    value={ store.id }
+                                    value={ wareHouse.id }
                                     control={ <Radio /> }
                                     label={
                                         <Typography variant="h6">
-                                            { store.storeName }
+                                            { wareHouse.name }
                                         </Typography>
                                     }
                                 />
                                 <Typography variant="body2" color="textSecondary">
-                                    { t('text.checkout.address') }: { store.location }
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary">
-                                    { t('text.checkout.storageDuration') }: { store.storageDuration }
+                                    { t('text.checkout.address') }: { wareHouse.address }
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -67,12 +68,11 @@ const PickupForm: FC<PickupDialogProps> = ({
                 <Button
                     type="submit"
                     variant="contained"
-                    disabled={ !selectedStoreId }
+                    disabled={ !selectedWareHouseId }
                 >
                     { t('text.confirm') }
                 </Button>
             </div>
-
         </form>
     );
 };

@@ -64,7 +64,7 @@ export interface IReview {
 }
 
 export interface IAddress {
-    id?: string;
+    id?: number;
     address: string;
     houseNumber?: string;
     apartment?: string;
@@ -74,21 +74,22 @@ export interface IAddress {
     comment?: string;
 }
 
-export interface IPickUp {
-    id: string;
-    storeName: string;
-    location: string;
-    storageDuration: string;
+export interface IPrevDelivery {
+    id: number,
+    wareHouseId: number | null,
+    address: IAddress | null,
+    timeStamp: string,
+    type: string,
+    payment: {
+        method: string,
+        timeStamp: string,
+    },
+    comment: string,
 }
 
 export interface IDeliveryData {
-    prevPaymentMethod: string;
-    prevDeliveryMethod: string;
-    prevDelivery: {
-        storeId: string;
-        prevAddressId: string;
-        addresses: IAddress[];
-    };
+    userId: number,
+    prevDeliveries: IPrevDelivery[],
 }
 
 export interface IStore {

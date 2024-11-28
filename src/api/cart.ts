@@ -2,7 +2,7 @@ import $api from "../configs/axiosconfig/axios.js";
 
 const endpoints = {
     getUserCart: '/backet',
-    getStoresAddresses: '/stores/addresses',
+    getWarehouses: '/warehouses',
     getUserDeliveryData: (userId: number) =>  `/user/data-delivery/${ userId }`
 }
 
@@ -20,15 +20,15 @@ const cartApi = () => {
             });
             return backet;
         },
-        async getStoresList ()  {
-            const { data } = await $api.get(endpoints.getStoresAddresses);
-            return data;
+        async getWareHouses ()  {
+            const { data } = await $api.get(endpoints.getWarehouses);
+            return data.stores;
         },
         async getUserDeliveryData (userId: number) {
             const { data } = await $api.get(endpoints.getUserDeliveryData(userId));
             return data;
-        }
-    }
-}
+        },
+    };
+};
 
 export default cartApi;
