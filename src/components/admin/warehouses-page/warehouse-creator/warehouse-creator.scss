@@ -1,0 +1,36 @@
+.store-creator {
+    width: 50%; 
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+
+    .store-creator-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 10px;
+    }
+
+    .MuiInputBase-root {
+        height: 50px;
+    }
+
+    .not-valid {
+        color: red;
+        border: 1px solid red;
+        border-radius: 5px;
+    }
+
+    .valid {
+        color: none;
+        border: none;
+        border-radius: 0px;
+    }
+
+    .control-buttons {
+        display: flex;
+        gap: 20px;
+    }
+}
