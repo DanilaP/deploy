@@ -9,11 +9,11 @@ import { IFeedBack } from "../../../interfaces/interfaces";
 
 interface IFeedBackFormProps {
     mode: "create" | "edit" | null,
-    currentCallback: IFeedBack | null,
-    handleCloseCreatingNewCallback: () => void,
-    handleSaveNewCallback: (callback: IFeedFormData) => void,
+    currentFeedback: IFeedBack | null,
+    handleCloseCreatingNewFeedback: () => void,
+    handleSaveNewFeedback: (feedback: IFeedFormData) => void,
     handleUpdateUnsavedDataExist: (unsavedDataExists: boolean) => void
-    handleEditCurrentCallback: (callback: IFeedFormData) => void
+    handleEditCurrentFeedback: (feedback: IFeedFormData) => void
 }
 
 export interface IFeedFormData {
@@ -27,11 +27,11 @@ export interface IFeedFormData {
 
 export default function FeedBackForm({
     mode,
-    currentCallback,
-    handleCloseCreatingNewCallback,
-    handleSaveNewCallback,
+    currentFeedback,
+    handleCloseCreatingNewFeedback,
+    handleSaveNewFeedback,
     handleUpdateUnsavedDataExist,
-    handleEditCurrentCallback
+    handleEditCurrentFeedback
 }: IFeedBackFormProps) {
 
     const isEdit = mode === "edit";
@@ -44,16 +44,16 @@ export default function FeedBackForm({
         formState: { errors , submitCount, isValid, isDirty },
     } = useForm<IFeedFormData>({
         defaultValues: 
-            isEdit && currentCallback ? currentCallback : {}
+            isEdit && currentFeedback ? currentFeedback : {}
     });
 
     const { t } = useTranslation();
 
-    const handleCreateNewCallback = (data: IFeedFormData) => {
+    const handleCreateNewFeedback = (data: IFeedFormData) => {
         if (isEdit) {
-            handleEditCurrentCallback(data);
+            handleEditCurrentFeedback(data);
         } else {
-            handleSaveNewCallback(data);
+            handleSaveNewFeedback(data);
         }
     };
 
@@ -68,7 +68,7 @@ export default function FeedBackForm({
     }, [isDirty]);
 
     return (
-        <form className="call-back-form" onSubmit={ handleSubmit(handleCreateNewCallback) }>
+        <form className="call-back-form" onSubmit={ handleSubmit(handleCreateNewFeedback) }>
             <FormControl>
                 <FormLabel className="label">{ t("text.yourName") }</FormLabel>
                 <TextField
@@ -169,7 +169,7 @@ export default function FeedBackForm({
                 >{ t("text.save") }</Button>
                 <Button 
                     variant="contained" 
-                    onClick={ handleCloseCreatingNewCallback }
+                    onClick={ handleCloseCreatingNewFeedback }
                 >{ t("text.close") }</Button>
             </div>
         </form>

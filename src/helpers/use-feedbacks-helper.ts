@@ -72,27 +72,27 @@ export const useFeedbacksHelper = (userId: string | null) => {
         setFilteredUserFeedbacksDataGrid(filteredFeedbackDataForGrid);
     };
 
-    const handleSearchFeedbacksByAllFields = (callbacks: IFeedBack[], value: string) => {
+    const handleSearchFeedbacksByAllFields = (feedbacks: IFeedBack[], value: string) => {
         if (value.length === 0) {
-            const callbacksForDataGrid = handleGetFeedbacksDataForDataGrid(callbacks);
-            setFilteredUserFeedbacksDataGrid(callbacksForDataGrid);
+            const feedbacksForDataGrid = handleGetFeedbacksDataForDataGrid(feedbacks);
+            setFilteredUserFeedbacksDataGrid(feedbacksForDataGrid);
             return;
         }
         if (value.length < import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH) {
             return;
         }
         const searchValue = value.toLowerCase();
-        const findedCallbacks = callbacks.filter(callback => {
-            return callback.description.includes(searchValue) ||
-                callback.email.toLowerCase().includes(searchValue) ||
-                callback.firstName.toLowerCase().includes(searchValue) ||
-                callback.secondName.toLowerCase().includes(searchValue) ||
-                callback.phoneNumber.toLowerCase().includes(searchValue) ||
-                callback.typeOfBid.toLowerCase().includes(searchValue);
+        const findedFeedbacks = feedbacks.filter(feedback => {
+            return feedback.description.includes(searchValue) ||
+                feedback.email.toLowerCase().includes(searchValue) ||
+                feedback.firstName.toLowerCase().includes(searchValue) ||
+                feedback.secondName.toLowerCase().includes(searchValue) ||
+                feedback.phoneNumber.toLowerCase().includes(searchValue) ||
+                feedback.typeOfBid.toLowerCase().includes(searchValue);
         });
-        const findedCallbacksForDataGrid = handleGetFeedbacksDataForDataGrid(findedCallbacks);
-        setFilteredUserFeedbacksDataGrid(findedCallbacksForDataGrid);
-        return findedCallbacks;
+        const findedFeedbacksForDataGrid = handleGetFeedbacksDataForDataGrid(findedFeedbacks);
+        setFilteredUserFeedbacksDataGrid(findedFeedbacksForDataGrid);
+        return findedFeedbacks;
     };
 
     useEffect(() => {
@@ -100,10 +100,10 @@ export const useFeedbacksHelper = (userId: string | null) => {
         $api.get(`/feedbacks?userId=${userIdQuery}`)
             .then(res => {
                 if (res.data.feedbacks) {
-                    const callbackDataForGrid = handleGetFeedbacksDataForDataGrid(res.data.feedbacks);
+                    const feedbackDataForGrid = handleGetFeedbacksDataForDataGrid(res.data.feedbacks);
                     setUserFeedbacks(res.data.feedbacks);
-                    setUserFeedbacksDataGrid(callbackDataForGrid);
-                    setFilteredUserFeedbacksDataGrid(callbackDataForGrid);
+                    setUserFeedbacksDataGrid(feedbackDataForGrid);
+                    setFilteredUserFeedbacksDataGrid(feedbackDataForGrid);
                 }
                 setLoading(false);
             })
@@ -115,9 +115,9 @@ export const useFeedbacksHelper = (userId: string | null) => {
 
     return {
         loading,
-        callbacks: userFeedBacks,
-        callbacksDataGrid: userFeedbacksDataGrid,
-        fitleredCallbacksDataGrid: fitleredUserFeedbacksDataGrid,
+        feedbacks: userFeedBacks,
+        feedbacksDataGrid: userFeedbacksDataGrid,
+        fitleredFeedbacksDataGrid: fitleredUserFeedbacksDataGrid,
         handleCreateNewUserFeedBack,
         handleUpdateFeedbackData,
         handleFilterUserFeedbacksDataGridByStatus,

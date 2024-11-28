@@ -15,8 +15,8 @@ export default function FeedBackPage() {
     const userId = userStore.user?.id;
 
     const {
-        callbacks: userCallBacks,
-        callbacksDataGrid: userCallbacksDataGrid,
+        feedbacks: userFeedBacks,
+        feedbacksDataGrid: userFeedbacksDataGrid,
         handleCreateNewUserFeedBack,
         handleUpdateFeedbackData
     } = useFeedbacksHelper(userId ? userId : null);
@@ -29,7 +29,7 @@ export default function FeedBackPage() {
     const { t } = useTranslation();
 
     const handleOpenFeedbackMoreInfo = (feedbackId: number) => {
-        const findedFeedback = userCallBacks.find(el => el.id === feedbackId);
+        const findedFeedback = userFeedBacks.find(el => el.id === feedbackId);
         if (findedFeedback) {
             setCurrentFeedback(findedFeedback);
             setModals(prev => {
@@ -53,7 +53,7 @@ export default function FeedBackPage() {
     };
 
     const handleOpenEditFeedbackModal = (feedbackId: number) => {
-        const findedFeedback = userCallBacks.find(el => el.id === feedbackId);
+        const findedFeedback = userFeedBacks.find(el => el.id === feedbackId);
         if (findedFeedback) {
             setCurrentFeedback(findedFeedback);
             setMode("edit");
@@ -121,15 +121,15 @@ export default function FeedBackPage() {
     return (
         <>
             <FeedBackPageView
-                userCallbacksData={ userCallBacks }
-                userCallbacksDataGrid={ userCallbacksDataGrid }
-                handleOpenCallbackMoreInfo={ handleOpenFeedbackMoreInfo }
-                handleOpenCreatingNewCallback={ handleOpenCreatingNewFeedback }
-                handleOpenEditCallbackModal={ handleOpenEditFeedbackModal }
+                userFeedbacksData={ userFeedBacks }
+                userFeedbacksDataGrid={ userFeedbacksDataGrid }
+                handleOpenFeedbackMoreInfo={ handleOpenFeedbackMoreInfo }
+                handleOpenCreatingNewFeedback={ handleOpenCreatingNewFeedback }
+                handleOpenEditFeedbackModal={ handleOpenEditFeedbackModal }
             />
             <CustomModal
                 isDisplay={ modals.moreInfo }
-                title={ t("text.callbackInfo") }
+                title={ t("text.feedbackInfo") }
                 typeOfActions='custom'
                 actionConfirmed={ handleCloseFeedbackMoreInfo }
                 closeModal={ handleCloseFeedbackMoreInfo }
@@ -138,7 +138,7 @@ export default function FeedBackPage() {
                 }
             >
                 <FeedbackMoreInfo
-                    callback={ currentFeedback }
+                    feedback={ currentFeedback }
                 />
             </CustomModal>
             <CustomModal
@@ -154,11 +154,11 @@ export default function FeedBackPage() {
             >
                 <FeedBackForm
                     mode={ mode }
-                    currentCallback={ currentFeedback }
-                    handleCloseCreatingNewCallback={ handleCloseCreatingNewFeedback }
-                    handleSaveNewCallback={ handleCreateNewFeedback }
+                    currentFeedback={ currentFeedback }
+                    handleCloseCreatingNewFeedback={ handleCloseCreatingNewFeedback }
+                    handleSaveNewFeedback={ handleCreateNewFeedback }
                     handleUpdateUnsavedDataExist={ handleUpdateUnsavedDataExist }
-                    handleEditCurrentCallback={ handleEditCurrentFeedback }
+                    handleEditCurrentFeedback={ handleEditCurrentFeedback }
                 />
             </CustomModal>
             <CustomModal 

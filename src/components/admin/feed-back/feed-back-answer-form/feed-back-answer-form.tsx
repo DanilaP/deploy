@@ -11,15 +11,15 @@ export interface IFeedbackAnswerData {
 }
 
 interface IFeedBackAnswerFormProps {
-    currentCallback: IFeedBack | null,
-    handleCloseCallbackAsnwerModal: () => void,
-    handleUpdateCurrentCallback: (callbackData: IFeedBack) => void,
+    currentFeedback: IFeedBack | null,
+    handleCloseFeedbackAsnwerModal: () => void,
+    handleUpdateCurrentFeedback: (feedbackData: IFeedBack) => void,
     handleUpdateUnsavedDataExists: (isDirty: boolean) => void
 }
 export default function FeedBackAnswerForm({
-    currentCallback,
-    handleCloseCallbackAsnwerModal,
-    handleUpdateCurrentCallback,
+    currentFeedback,
+    handleCloseFeedbackAsnwerModal,
+    handleUpdateCurrentFeedback,
     handleUpdateUnsavedDataExists
 }: IFeedBackAnswerFormProps) {
 
@@ -31,17 +31,17 @@ export default function FeedBackAnswerForm({
         formState: { errors , submitCount, isValid, isDirty },
     } = useForm<IFeedbackAnswerData>({
         defaultValues: {
-            answer: currentCallback?.moderatorAnswer || ""
+            answer: currentFeedback?.moderatorAnswer || ""
         }
     });
 
     const { t } = useTranslation();
 
-    const handleSendAnswerForCallback = (data: IFeedbackAnswerData) => {
+    const handleSendAnswerForFeedback = (data: IFeedbackAnswerData) => {
         const date = new Date();
-        if (currentCallback) {
-            handleUpdateCurrentCallback({
-                ...currentCallback,
+        if (currentFeedback) {
+            handleUpdateCurrentFeedback({
+                ...currentFeedback,
                 moderatorAnswer: data.answer,
                 dateOfAnswer: `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`,
                 solved: true,
@@ -56,17 +56,17 @@ export default function FeedBackAnswerForm({
     return (
         <>
             <div className="current-call-back-data">
-                <div className="name">{ currentCallback?.firstName } { currentCallback?.secondName } { currentCallback?.phoneNumber }</div>
-                <div className="type">{ currentCallback?.typeOfBid }</div>
-                <div className="description">{ currentCallback?.description }</div>
-                <div className="date">{ currentCallback?.createdAt }</div>
+                <div className="name">{ currentFeedback?.firstName } { currentFeedback?.secondName } { currentFeedback?.phoneNumber }</div>
+                <div className="type">{ currentFeedback?.typeOfBid }</div>
+                <div className="description">{ currentFeedback?.description }</div>
+                <div className="date">{ currentFeedback?.createdAt }</div>
             </div>
             <hr />
-            <form className="call-back-answer-form" onSubmit={ handleSubmit(handleSendAnswerForCallback) }>
+            <form className="call-back-answer-form" onSubmit={ handleSubmit(handleSendAnswerForFeedback) }>
                 <FormControl>
                     <FormLabel className="label">{ t("text.answer") }</FormLabel>
                     <TextField
-                        disabled={ Boolean(currentCallback?.moderatorAnswer) }
+                        disabled={ Boolean(currentFeedback?.moderatorAnswer) }
                         multiline
                         minRows={ 2 }
                         maxRows={ 2 }
@@ -78,16 +78,16 @@ export default function FeedBackAnswerForm({
                         }) }
                     />
                 </FormControl>
-                <div className="answer-date">{ currentCallback?.dateOfAnswer }</div>
+                <div className="answer-date">{ currentFeedback?.dateOfAnswer }</div>
                 <div className="form-actions">
                     <Button 
                         type="submit" 
                         variant="contained"
-                        disabled={ submitCount !== 0 && !isValid || Boolean(currentCallback?.moderatorAnswer) }
+                        disabled={ submitCount !== 0 && !isValid || Boolean(currentFeedback?.moderatorAnswer) }
                     >{ t("text.sendAnswer") }</Button>
                     <Button 
                         variant="contained" 
-                        onClick={ handleCloseCallbackAsnwerModal }
+                        onClick={ handleCloseFeedbackAsnwerModal }
                     >{ t("text.close") }</Button>
                 </div>
             </form>

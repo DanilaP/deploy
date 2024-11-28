@@ -6,17 +6,17 @@ import { DataGrid } from "@mui/x-data-grid";
 import { ruRU } from '@mui/x-data-grid/locales';
 
 interface IAdminFeedbackPageViewProps {
-    callbacksDataGrid: { columns: any[], rows: any[] },
-    handleOpenCallbackAsnwerModal: (callbackId: number) => void,
-    handleFilterUserCallbacksDataGridByStatus: (status: boolean) => void,
-    handleSearchCallbacksByInputValue: (value: string) => void
+    feedbacksDataGrid: { columns: any[], rows: any[] },
+    handleOpenFeedbackAsnwerModal: (feedbackId: number) => void,
+    handleFilterUserFeedbacksDataGridByStatus: (status: boolean) => void,
+    handleSearchFeedbacksByInputValue: (value: string) => void
 }
 
 export default function AdminFeedbackPageView({ 
-    callbacksDataGrid,
-    handleOpenCallbackAsnwerModal,
-    handleFilterUserCallbacksDataGridByStatus,
-    handleSearchCallbacksByInputValue
+    feedbacksDataGrid,
+    handleOpenFeedbackAsnwerModal,
+    handleFilterUserFeedbacksDataGridByStatus,
+    handleSearchFeedbacksByInputValue
 }: IAdminFeedbackPageViewProps) {
 
     const { t } = useTranslation();
@@ -24,11 +24,11 @@ export default function AdminFeedbackPageView({
     return (
         <div className="call-back-page-view">
             <div className="call-back-title">
-                { t("text.managingCallbacks") }
+                { t("text.managingFeedbacks") }
             </div>
             <div className="call-back-search">
                 <TextField
-                    onChange={ (e) => handleSearchCallbacksByInputValue(e.target.value) } 
+                    onChange={ (e) => handleSearchFeedbacksByInputValue(e.target.value) } 
                     placeholder={ t("text.searchAll") }
                     InputProps={ {
                         startAdornment: (
@@ -39,7 +39,7 @@ export default function AdminFeedbackPageView({
                 <Select
                     className="call-back-status-filter"
                     defaultValue={ 2 }
-                    onChange={ (e) => handleFilterUserCallbacksDataGridByStatus(Boolean(e.target.value)) }
+                    onChange={ (e) => handleFilterUserFeedbacksDataGridByStatus(Boolean(e.target.value)) }
                 >
                     <MenuItem value={ 2 } disabled>{ t("text.statusSearch") }</MenuItem>
                     <MenuItem value={ 1 }>{ t("text.solved") }</MenuItem>
@@ -49,10 +49,10 @@ export default function AdminFeedbackPageView({
             <div className="call-back-list">
                 <DataGrid   
                     className="callback-data-table"
-                    rows={ callbacksDataGrid.rows }
+                    rows={ feedbacksDataGrid.rows }
                     disableColumnFilter
-                    onRowClick={ (el) => handleOpenCallbackAsnwerModal(el.row.id) }
-                    columns={ callbacksDataGrid.columns.map(el => {
+                    onRowClick={ (el) => handleOpenFeedbackAsnwerModal(el.row.id) }
+                    columns={ feedbacksDataGrid.columns.map(el => {
                         if (el.field === "solved") {
                             return {
                                 ...el,

@@ -11,8 +11,8 @@ export default function AdminFeedbackPage() {
 
     const { 
         loading,
-        callbacks, 
-        fitleredCallbacksDataGrid,
+        feedbacks, 
+        fitleredFeedbacksDataGrid,
         handleUpdateFeedbackData,
         handleFilterUserFeedbacksDataGridByStatus,
         handleSearchFeedbacksByAllFields
@@ -25,7 +25,7 @@ export default function AdminFeedbackPage() {
     const { t } = useTranslation();
 
     const handleOpenFeedbackAnswerModal = (feedbackId: number) => {
-        const findedFeedback = callbacks.find(el => el.id === feedbackId);
+        const findedFeedback = feedbacks.find(el => el.id === feedbackId);
         if (findedFeedback) {
             setChoosedFeedback(findedFeedback || null);
             setModals(prev => {
@@ -76,35 +76,35 @@ export default function AdminFeedbackPage() {
     };
 
     const handleSearchFeedbacksByInputValue = (value: string) => {
-        handleSearchFeedbacksByAllFields(callbacks, value);
+        handleSearchFeedbacksByAllFields(feedbacks, value);
     };
 
     useEffect(() => {
         if (choosedStatusFilter !== null) {
             handleFilterUserFeedbacksDataGridByStatus(choosedStatusFilter);
         }
-    }, [callbacks, choosedStatusFilter]);
+    }, [feedbacks, choosedStatusFilter]);
 
     return (
         <>
             <AdminFeedbackPageView
-                callbacksDataGrid={ fitleredCallbacksDataGrid }
-                handleOpenCallbackAsnwerModal={ handleOpenFeedbackAnswerModal }
-                handleFilterUserCallbacksDataGridByStatus={ handleFilterUserFeedbacksDataGridBySelectedStatus }
-                handleSearchCallbacksByInputValue={ handleSearchFeedbacksByInputValue }
+                feedbacksDataGrid={ fitleredFeedbacksDataGrid }
+                handleOpenFeedbackAsnwerModal={ handleOpenFeedbackAnswerModal }
+                handleFilterUserFeedbacksDataGridByStatus={ handleFilterUserFeedbacksDataGridBySelectedStatus }
+                handleSearchFeedbacksByInputValue={ handleSearchFeedbacksByInputValue }
             />
             <CustomModal
                 isHidden={ modals.unsaved }
                 isDisplay={ modals.answer }
-                title={ t("text.callbackAnswer") }
+                title={ t("text.feedbackAnswer") }
                 typeOfActions='none'
                 actionConfirmed={ handleCloseFeedbackAnswerModal }
                 closeModal={ handleCloseFeedbackAnswerModal }
             >
                 <FeedBackAnswerForm
-                    currentCallback={ choosedFeedback }
-                    handleCloseCallbackAsnwerModal={ handleCloseFeedbackAnswerModal }
-                    handleUpdateCurrentCallback={ handleUpdateFeedback }
+                    currentFeedback={ choosedFeedback }
+                    handleCloseFeedbackAsnwerModal={ handleCloseFeedbackAnswerModal }
+                    handleUpdateCurrentFeedback={ handleUpdateFeedback }
                     handleUpdateUnsavedDataExists={ handleUpdateUnsavedDataExists }
                 />
             </CustomModal>

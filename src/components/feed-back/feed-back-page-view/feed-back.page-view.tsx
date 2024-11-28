@@ -8,27 +8,27 @@ import { FaRegEdit } from "react-icons/fa";
 import "./feed-back-page-view.scss";
 
 interface IFeedBackPageViewProps {
-    userCallbacksData: IFeedBack[],
-    userCallbacksDataGrid: { columns: any[], rows: any[] },
-    handleOpenCallbackMoreInfo: (callbackId: number) => void,
-    handleOpenEditCallbackModal: (callbackId: number) => void,
-    handleOpenCreatingNewCallback: () => void
+    userFeedbacksData: IFeedBack[],
+    userFeedbacksDataGrid: { columns: any[], rows: any[] },
+    handleOpenFeedbackMoreInfo: (feedbackId: number) => void,
+    handleOpenEditFeedbackModal: (feedbackId: number) => void,
+    handleOpenCreatingNewFeedback: () => void
 }
 
 export default function FeedBackPageView({ 
-    userCallbacksData,
-    userCallbacksDataGrid,
-    handleOpenCallbackMoreInfo,
-    handleOpenEditCallbackModal,
-    handleOpenCreatingNewCallback
+    userFeedbacksData,
+    userFeedbacksDataGrid,
+    handleOpenFeedbackMoreInfo,
+    handleOpenEditFeedbackModal,
+    handleOpenCreatingNewFeedback
 }: IFeedBackPageViewProps) {
 
     const { t } = useTranslation();
     
-    const userEnhancedCallbacksDataGrid = {
-        ...userCallbacksDataGrid,
+    const userEnhancedFeedbacksDataGrid = {
+        ...userFeedbacksDataGrid,
         columns: [
-            ...userCallbacksDataGrid.columns,
+            ...userFeedbacksDataGrid.columns,
             { field: "edit", headerName: t("text.edit"), minWidth: 150 },
         ]
     };
@@ -36,26 +36,26 @@ export default function FeedBackPageView({
     return (
         <div className="call-back-page">
             <div className="title">
-                { t("text.yourActiveCallbacks") }
+                { t("text.yourActiveFeedbacks") }
                 <IconButton 
                     className="title-actions" 
-                    onClick={ handleOpenCreatingNewCallback }
+                    onClick={ handleOpenCreatingNewFeedback }
                 >
                     <FiPlusCircle />
                 </IconButton>
             </div>
             <div className="content">
-                { userCallbacksData.length === 0 
+                { userFeedbacksData.length === 0 
                     ? 
                     <div className="helper-text">
-                        { t("text.youHaveNoCallbacksYet") }
+                        { t("text.youHaveNoFeedbacksYet") }
                     </div>
                     : 
                     <DataGrid   
                         className="callback-data-table"
-                        rows={ userEnhancedCallbacksDataGrid.rows }
-                        onRowClick={ (el) => handleOpenCallbackMoreInfo(el.row.id) }
-                        columns={ userEnhancedCallbacksDataGrid.columns.map(el => {
+                        rows={ userEnhancedFeedbacksDataGrid.rows }
+                        onRowClick={ (el) => handleOpenFeedbackMoreInfo(el.row.id) }
+                        columns={ userEnhancedFeedbacksDataGrid.columns.map(el => {
                             if (el.field === "solved") {
                                 return {
                                     ...el,
@@ -74,18 +74,18 @@ export default function FeedBackPageView({
                                 return {
                                     ...el,
                                     renderCell: (params) => {
-                                        const currentCallbackInList = 
-                                            userCallbacksData.find(callback => callback.id === params.id);
+                                        const currentFeedbackInList = 
+                                            userFeedbacksData.find(feedback => feedback.id === params.id);
                                         return (
                                             <div className="callback-edit-icon">
                                                 {
-                                                    !currentCallbackInList?.solved 
+                                                    !currentFeedbackInList?.solved 
                                                         ? 
                                                         <IconButton 
                                                             className="mui-icon-button"
                                                             onClick={ (e) => {
                                                                     e.stopPropagation();
-                                                                    handleOpenEditCallbackModal(Number(params.id));
+                                                                    handleOpenEditFeedbackModal(Number(params.id));
                                                                 } 
                                                             }
                                                         >
