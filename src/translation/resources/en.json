@@ -115,7 +115,6 @@
         "quantity": "Quantity",
         "uploadFiles": "Upload files",
         "image": "Image",
-        "partNumber": "Partnumber",
         "all": "All",
         "cart": {
             "productChoose": "Select products to proceed to checkout",
@@ -188,7 +187,7 @@
         "deleteStore": "Delete store",
         "storeAddress": "Store address",
         "storeName": "Store name",
-        "deleteStoreConfirmation": "Are you sure you want to delete store?"
+        "deleteStoreConfirmation": "Are you sure you want to delete store?",
         "amount": "Amount",
         "orderPrice": "Order Price",
         "delivery": "Delivery",
