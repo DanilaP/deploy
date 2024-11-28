@@ -34,7 +34,7 @@ export default function ChatWrapper () {
             {
                 isChatOpen 
                     ? <Chat updateChatData = { getChatData } opponentInfo = { opponentInfo } chatInfo = { chat } close = { () => setIsChatOpen(false) } />
-                    : <Button onClick={ () => setIsChatOpen(true) } variant='contained'>Чат</Button>
+                    : <Button onClick={ () => setIsChatOpen(true) } variant='contained'>{ t("text.chat") }</Button>
             }
         </div>
     );

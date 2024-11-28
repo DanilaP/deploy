@@ -156,7 +156,12 @@
         "unConfirmed": "Неподтвержденный",
         "deleted": "Удаленный",
         "recover": "Восстановить",
-        "recoverUserConfirmation": "Вы уверены, что хотите восстановить пользователя?"
+        "recoverUserConfirmation": "Вы уверены, что хотите восстановить пользователя?",
+        "yourChats": "Ваши чаты",
+        "freeChats": "Свободные чаты",
+        "chat": "Чат",
+        "send": "Отправить",
+        "yourMessage": "Ваше сообщение"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

@@ -68,8 +68,13 @@ export default function Chat (props: {
                 }
             </div>
             <div className="chat-footer">
-                <TextField fullWidth onChange={ (e) => setUserMessage(e.target.value) } placeholder='Ваше сообщение' className='item' />
-                <Button onClick={ sendMessage } className='item' variant='contained'>Отправить</Button>
+                <TextField 
+                    fullWidth 
+                    onChange={ (e) => setUserMessage(e.target.value) } 
+                    placeholder={ t("text.yourMessage") } 
+                    className='item' 
+                />
+                <Button onClick={ sendMessage } className='item' variant='contained'>{ t("text.send") }</Button>
             </div>
         </div>
     );

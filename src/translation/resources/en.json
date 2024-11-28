@@ -156,7 +156,12 @@
         "unConfirmed": "Unconfirmed",
         "deleted": "Deleted",
         "recover": "Recover",
-        "recoverUserConfirmation": "Are you sure you want to recover user?"
+        "recoverUserConfirmation": "Are you sure you want to recover user?",
+        "yourChats": "Your chats",
+        "freeChats": "Free chats",
+        "chat": "Chat",
+        "send": "Send",
+        "yourMessage": "Your message"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",

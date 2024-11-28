@@ -6,6 +6,7 @@ import { useStore } from '../../../stores';
 import Chat from '../../chat/chat/chat';
 import FreeChats from './free-chats.tsx/free-chats';
 import AdminChats from './admin-chats.tsx/admin-chats';
+import { t } from 'i18next';
 
 export default function Chats () {
     
@@ -38,7 +39,7 @@ export default function Chats () {
     return (
         <div className="chats-wrapper">
             <div className="chat-list">
-            <div className="chat-list-header">Ваши чаты</div>
+            <div className="chat-list-header">{ t("text.yourChats") }</div>
                 <div className="list">
                     { (adminChats && userStore.user) && 
                         <AdminChats 
@@ -48,7 +49,7 @@ export default function Chats () {
                         /> 
                     }
                 </div>
-                <div className="chat-list-header">Свободные чаты</div>
+                <div className="chat-list-header">{ t("text.freeChats") }</div>
                 <div className="list">
                     { adminChats && <FreeChats changeChat={ changeChat } chats={ adminChats } /> }
                 </div>
