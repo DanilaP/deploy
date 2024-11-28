@@ -1,9 +1,11 @@
 import './chats.scss';
 import $api from '../../../configs/axiosconfig/axios';
 import { useEffect, useState } from 'react';
-import { IChat } from '../../../interfaces/interfaces';
+import { IChat, IUser } from '../../../interfaces/interfaces';
 import { useStore } from '../../../stores';
 import Chat from '../../chat/chat/chat';
+import FreeChats from './free-chats.tsx/free-chats';
+import AdminChats from './admin-chats.tsx/admin-chats';
 
 export default function Chats () {
     
@@ -38,35 +40,27 @@ export default function Chats () {
             <div className="chat-list">
             <div className="chat-list-header">Ваши чаты</div>
                 <div className="list">
-                    {
-                        adminChats?.map((chat: any) => {
-                            if (chat.members.filter(user => user.id === userStore.user?.id).length > 0) {
-                                return (
-                                    <div onClick={ () => changeChat(chat) } key={ chat.id } className="chat-preview">
-                                        { chat.messages[0].text }
-                                    </div>
-                                );
-                            }
-                        })
+                    { (adminChats && userStore.user) && 
+                        <AdminChats 
+                            changeChat={ changeChat } 
+                            user={ userStore.user } 
+                            chats={ adminChats } 
+                        /> 
                     }
                 </div>
                 <div className="chat-list-header">Свободные чаты</div>
                 <div className="list">
-                    {
-                        adminChats?.map((chat: any) => {
-                            if (chat.members.length === 1) {
-                                return (
-                                    <div onClick={ () => changeChat(chat) } key={ chat.id } className="chat-preview">
-                                        { chat.messages[0].text }
-                                    </div>
-                                );
-                            }
-                        })
-                    }
+                    { adminChats && <FreeChats changeChat={ changeChat } chats={ adminChats } /> }
                 </div>
             </div>
             <div className="chat-info">
-                { currentChatInfo && <Chat opponentInfo = { opponentInfo } chatInfo={ currentChatInfo } close = { () => setCurrentChatInfo(null) } /> }
+                { currentChatInfo && 
+                    <Chat 
+                        opponentInfo = { opponentInfo } 
+                        chatInfo={ currentChatInfo } 
+                        close = { () => setCurrentChatInfo(null) } 
+                    /> 
+                }
             </div>
         </div>
     );

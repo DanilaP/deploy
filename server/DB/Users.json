@@ -103,5 +103,16 @@
     "avatar": "http://localhost:5000/avatar.jpg",
     "backet": [],
     "favorites": []
+  },
+  {
+    "id": 1732780938181,
+    "isActive": true,
+    "isVerified": false,
+    "login": "chattester3@gmail.com",
+    "password": "$2a$07$cRi5kB9HeFS59Lk9LmtNKOH1dfiTSyfqfEX3CtzUjxvraP1oiQ7CG",
+    "role": "Пользователь",
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": [],
+    "favorites": []
   }
 ]

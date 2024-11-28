@@ -25,6 +25,20 @@
             box-sizing: border-box;
             cursor: pointer;
             font-weight: 600;
+            gap: 10px;
+
+            .image {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+            }
+
+            .login, .preview-text {
+                width: 40%;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
 
             &:hover {
                 border: 1px solid var(--default-color);
