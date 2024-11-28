@@ -23,125 +23,11 @@
         "recipientId": 1732528796810,
         "date": "2024/11/27 09:11",
         "text": "admin message"
-      },
-      {
-        "senderId": 1732528796810,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 09:11",
-        "text": "another user message"
-      },
-      {
-        "senderId": 1727098679785,
-        "recipientId": 1732528796810,
-        "date": "2024/11/27 09:11",
-        "text": "admin message"
-      },
-      {
-        "senderId": 1732528796810,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 11:33",
-        "text": "user message"
-      },
-      {
-        "senderId": 1732528796810,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 11:33",
-        "text": "user message 123"
-      },
-      {
-        "senderId": 1732528796810,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 11:33",
-        "text": "user message 321"
-      },
-      {
-        "senderId": 1727098679785,
-        "recipientId": 1732528796810,
-        "date": "2024/11/27 11:33",
-        "text": "admin message"
-      },
-      {
-        "senderId": 1732528796810,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 11:33",
-        "text": "user message 321"
-      },
-      {
-        "senderId": 1727098679785,
-        "recipientId": 1732528796810,
-        "date": "2024/11/27 11:33",
-        "text": "admin message"
-      },
-      {
-        "senderId": 1732528796810,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 12:36",
-        "text": "another user messageanother user messageanother user messageanother user message another user message another user message another user message another user message another user message another user message another user message another user message another user message another user message another user message another user message another user message"
-      },
-      {
-        "senderId": 1732528796810,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 12:46",
-        "text": "test user"
-      },
-      {
-        "senderId": 1732528796810,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 12:57",
-        "text": "новое сообщение от пользователя"
-      },
-      {
-        "senderId": 1727098679785,
-        "recipientId": 1732528796810,
-        "date": "2024/11/27 12:58",
-        "text": "новое сообщение от админа"
-      },
-      {
-        "senderId": 1732528796810,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 12:58",
-        "text": "новое сообщение от пользователя"
-      },
-      {
-        "senderId": 1727098679785,
-        "recipientId": 1732528796810,
-        "date": "2024/11/27 12:58",
-        "text": "новое сообщение от админа"
-      },
-      {
-        "senderId": 1732528796810,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 12:58",
-        "text": "новое сообщение от пользователя"
-      },
-      {
-        "senderId": 1727098679785,
-        "recipientId": 1732528796810,
-        "date": "2024/11/27 12:59",
-        "text": "новое сообщение от админа"
-      },
-      {
-        "senderId": 1727098679785,
-        "recipientId": 1732528796810,
-        "date": "2024/11/27 12:59",
-        "text": "новое сообщение от админа"
-      },
-      {
-        "senderId": 1727098679785,
-        "recipientId": 1732528796810,
-        "date": "2024/11/27 13:25",
-        "text": "admin msg"
-      },
-      {
-        "senderId": 1732528796810,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 13:25",
-        "text": "user msg"
       }
     ]
   },
   {
-    "id": 1732703022700,
+    "id": 1732773201086,
     "members": [
       1732604379612,
       1727098679785
@@ -150,56 +36,26 @@
       {
         "senderId": 1732604379612,
         "recipientId": 1727098679785,
-        "date": "2024/11/27 13:23",
-        "text": "123"
-      },
-      {
-        "senderId": 1727098679785,
-        "recipientId": 1732604379612,
-        "date": "2024/11/27 13:23",
-        "text": "321"
+        "date": "2024/11/28 08:53",
+        "text": "tester 1 chat"
       },
       {
         "senderId": 1732604379612,
         "recipientId": 1727098679785,
-        "date": "2024/11/27 13:23",
-        "text": "123"
-      },
-      {
-        "senderId": 1727098679785,
-        "recipientId": 1732604379612,
-        "date": "2024/11/27 13:23",
-        "text": "321"
+        "date": "2024/11/28 08:53",
+        "text": "tester 1 chat message 2"
       },
       {
         "senderId": 1732604379612,
         "recipientId": 1727098679785,
-        "date": "2024/11/27 13:24",
-        "text": "admin test"
+        "date": "2024/11/28 08:55",
+        "text": "3 message"
       },
       {
         "senderId": 1727098679785,
         "recipientId": 1732604379612,
-        "date": "2024/11/27 13:24",
-        "text": "user test"
-      },
-      {
-        "senderId": 1732604379612,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 13:24",
-        "text": "test"
-      },
-      {
-        "senderId": 1727098679785,
-        "recipientId": 1732604379612,
-        "date": "2024/11/27 13:24",
-        "text": "123"
-      },
-      {
-        "senderId": 1732604379612,
-        "recipientId": 1727098679785,
-        "date": "2024/11/27 13:24",
-        "text": "test"
+        "date": "2024/11/28 09:12",
+        "text": "admin"
       }
     ]
   }

@@ -633,10 +633,10 @@ app.get("/chats", async function(req, res) {
         let chats = currentChats.filter((chat) => chat.members.includes(userId));
         let opponentInfo = currentUsers.find(user => (user.id !== userId && chats[0].members.includes(user.id)));
 
-        res.status(200).json({ message: "Данные о чатах успешно получены", chats: chats, opponentInfo: {
+        res.status(200).json({ message: "Данные о чатах успешно получены", chats: chats, opponentInfo: opponentInfo ? {
             id: opponentInfo.id,
             avatar: opponentInfo.avatar
-        } });
+        } : {} });
     }
     catch(error) {
         console.error("get /chats", error);
@@ -647,7 +647,16 @@ app.get("/chats", async function(req, res) {
 app.get("/admin/chats", async function(req, res) {
     try {
         let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
-        res.status(200).json({ message: "Данные о чатах успешно получены", chats: currentChats });
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8')); 
+
+        let detailedChatsInfo = currentChats.map(chat => {
+            return {
+                ...chat,
+                members: currentUsers.filter(user => chat.members.includes(user.id))
+            };
+        });
+
+        res.status(200).json({ message: "Данные о чатах успешно получены", chats: currentChats, detailedChatsInfo: detailedChatsInfo });
     }
     catch(error) {
         console.error("get /admin/chats", error);
