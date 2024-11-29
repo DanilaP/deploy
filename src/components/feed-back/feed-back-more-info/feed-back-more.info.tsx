@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { IFeedBack } from "../../../interfaces/interfaces";
 import "./feed-back.more-info.scss";
+import FeedbackAttachment from "../feed-back-attachment/feed-back-attachment";
 
 interface IFeedbackMoreInfoProps {
     feedback: IFeedBack | null
@@ -26,8 +27,22 @@ export default function FeedbackMoreInfo({
             <div className="type-of-bid">
                 <b>{ t("text.typeOfBid") }</b>: { feedback?.typeOfBid }
             </div>
-            <div className="type-of-bid">
+            <div className="email">
+                <b>{ t("text.email") }</b>: { feedback?.email }
+            </div>
+            <div className="date-of-creation">
                 <b>{ t("text.dateOfCreation") }</b>: { feedback?.createdAt }
+            </div>
+            <div className="attachments">
+                <b>{ t("text.attachments") }: </b>
+                {
+                    feedback?.attachments.map(attachment => (
+                        <FeedbackAttachment
+                            key={ attachment.src }
+                            attachment={ attachment }
+                        />
+                    ))
+                }
             </div>
             <hr className="answer-border" />
             <div className="moderator-answer">

@@ -1,10 +1,11 @@
-import { Button, FormControl, FormLabel, TextField } from "@mui/material";
+import { Button, FormControl, FormLabel, TextField, Tooltip } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { validateRequiredField } from "../../../../helpers/validators-helper";
 import { IFeedBack } from "../../../../interfaces/interfaces";
 import "./feed-back-answer-form.scss";
 import { useEffect } from "react";
+import FeedbackAttachment from "../../../feed-back/feed-back-attachment/feed-back-attachment";
 
 export interface IFeedbackAnswerData {
     answer: string
@@ -59,7 +60,21 @@ export default function FeedBackAnswerForm({
                 <div className="name">{ currentFeedback?.firstName } { currentFeedback?.secondName } { currentFeedback?.phoneNumber }</div>
                 <div className="type">{ currentFeedback?.typeOfBid }</div>
                 <div className="description">{ currentFeedback?.description }</div>
-                <div className="date">{ currentFeedback?.createdAt }</div>
+                <div className="attachments">
+                    <div className="files">
+                        {
+                            currentFeedback?.attachments.map(attachment => {
+                                return (
+                                    <FeedbackAttachment
+                                        key={ attachment.src }
+                                        attachment={ attachment }
+                                    />
+                                );
+                            })
+                        }
+                    </div>
+                    <div className="date">{ currentFeedback?.createdAt }</div>
+                </div>
             </div>
             <hr />
             <form className="call-back-answer-form" onSubmit={ handleSubmit(handleSendAnswerForFeedback) }>

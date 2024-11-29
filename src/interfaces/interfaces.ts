@@ -78,6 +78,10 @@ export interface ISelect {
     id: string,
     label: string
 }
+export interface IAttachment {
+    src: string,
+    type: string
+}
 export interface IFeedBack {
     id: number,
     userId: number,
@@ -90,5 +94,6 @@ export interface IFeedBack {
     solved: boolean,
     moderatorAnswer: string | null,
     createdAt: string,
-    dateOfAnswer: string | null
+    dateOfAnswer: string | null,
+    attachments: IAttachment[]
 }

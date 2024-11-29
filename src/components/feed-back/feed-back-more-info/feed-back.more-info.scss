@@ -6,8 +6,13 @@
     .description {
         max-width: 600px;
     }
+    .attachments {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
     .answer-border {
-        margin-top: 25px;
+        margin-top: 15px;
     }
     .moderator-answer {
         max-width: 600px;

@@ -1,11 +1,14 @@
-import { Autocomplete, Button, FormControl, FormLabel, TextField } from "@mui/material";
+import { Autocomplete, Button, FormControl, FormLabel, TextField, Tooltip } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { validateEmail, validatePhone, validateRequiredField } from "../../../helpers/validators-helper";
 import "./feed-back-form.scss";
 import { useEffect } from "react";
 import InputMask from 'react-input-mask';
-import { IFeedBack } from "../../../interfaces/interfaces";
+import { IAttachment, IFeedBack } from "../../../interfaces/interfaces";
+import InputFile from "../../../components-ui/custom-file-nput/file-input";
+import { convertFileListToAttachmentsFormatBlobArray } from "../../../helpers/convert-file-list-to-blob-array";
+import FeedbackAttachment from "../feed-back-attachment/feed-back-attachment";
 
 interface IFeedBackFormProps {
     mode: "create" | "edit" | null,
@@ -22,7 +25,8 @@ export interface IFeedFormData {
     email: string,
     phoneNumber: string,
     description: string,
-    typeOfBid: string
+    typeOfBid: string,
+    attachments: IAttachment[]
 }
 
 export default function FeedBackForm({
@@ -101,6 +105,39 @@ export default function FeedBackForm({
                         validate: (value) => handleValidateEmailField(value)
                     }) }
                 />
+            </FormControl>
+            <FormControl className="horizontal-field">
+                <FormLabel className="label">
+                    { t("text.attachments") }
+                    <Controller
+                        name="attachments"
+                        control={ control }
+                        render={ ({ field }) => (
+                            <InputFile
+                                { ...field }
+                                width="25px"
+                                height="25px"
+                                multiple
+                                accept=".png, .jpg, .jpeg, .mp4"
+                                onChange={ (e) => {
+                                    const files = e.target.files;
+                                    const blobArray = convertFileListToAttachmentsFormatBlobArray(files);
+                                    field.onChange(blobArray);
+                                } }
+                            />
+                        ) }
+                    />
+                </FormLabel>
+                <div className="attachments">
+                    {
+                        watch("attachments", []).map((attachment: IAttachment) => (
+                            <FeedbackAttachment
+                                key={ attachment.src }
+                                attachment={ attachment }
+                            />
+                        ))
+                    }
+                </div>
             </FormControl>
             <FormControl>
                 <FormLabel className="label">{ t("text.typeOfBid") }</FormLabel>

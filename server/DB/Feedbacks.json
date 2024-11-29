@@ -11,7 +11,17 @@
         "solved": false,
         "moderatorAnswer": null,
         "createdAt": "10-06-2024 15:45",
-        "dateOfAnswer": null
+        "dateOfAnswer": null,
+        "attachments": [
+            { 
+                "type": "image", 
+                "src": "http://localhost:5000/products/product1.jpg" 
+            },
+            { 
+                "type": "video", 
+                "src": "http://localhost:5000/video/video1.mp4" 
+            }
+        ]
     },
     {
         "id": 2,
@@ -25,7 +35,17 @@
         "solved": true,
         "moderatorAnswer": "Извините, из - за большого количества обращений может быть задержка с ответом. В скором времени Вам ответят.",
         "createdAt": "10-06-2024 14:45",
-        "dateOfAnswer": "10-06-2024 15:00"
+        "dateOfAnswer": "10-06-2024 15:00",
+        "attachments": [
+            { 
+                "type": "image", 
+                "src": "http://localhost:5000/products/product1.jpg" 
+            },
+            { 
+                "type": "video", 
+                "src": "http://localhost:5000/video/video1.mp4" 
+            }
+        ]
     },
     {
         "id": 3,
@@ -39,6 +59,31 @@
         "solved": true,
         "moderatorAnswer": "Извините, из - за большого количества обращений может быть задержка с ответом. В скором времени Вам ответят.",
         "createdAt": "10-06-2024 14:45",
-        "dateOfAnswer": "10-06-2024 14:50"
+        "dateOfAnswer": "10-06-2024 14:50",
+        "attachments": [
+            { 
+                "type": "image", 
+                "src": "http://localhost:5000/products/product1.jpg" 
+            },
+            { 
+                "type": "video", 
+                "src": "http://localhost:5000/video/video1.mp4" 
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "userId": 1730462293031,
+        "firstName": "Any first name",
+        "secondName": "Any second name",
+        "phoneNumber": "+7 (969) 346-36-25",
+        "description": "Долго не могу получить ответ по предыдущей заявке. Создала заявку около двух часов назад, а она до сих пор осталась без овтета. Хотелось бы поскорее получить результат.",
+        "typeOfBid": "Другое",
+        "email": "newuser@gmail.com",
+        "solved": true,
+        "moderatorAnswer": "Извините, из - за большого количества обращений может быть задержка с ответом. В скором времени Вам ответят.",
+        "createdAt": "10-06-2024 14:45",
+        "dateOfAnswer": "10-06-2024 14:50",
+        "attachments": []
     }
 ]
