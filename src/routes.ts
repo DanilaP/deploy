@@ -19,6 +19,7 @@ import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import Favorites from "./components/favorites/favorites";
 import FeedBackPage from "./components/feed-back/feed-back.tsx";
 import AdminFeedbackPage from "./components/admin/feed-back/feed-back.tsx";
+import ProductsWarehouse from "./components/admin/warehouses-page/products-warehouse.tsx";
 
 export const routes = [
     {
@@ -125,6 +126,12 @@ export const adminRoutes = [
         component: AdminPage,
         children: GoodsPage,
         breadcrumb : t("titles.goodsPage")
+    },
+    {
+        path: '/admin/productsWarehouse',
+        component: AdminPage,
+        children: ProductsWarehouse,
+        breadcrumb : t("titles.productsStorePage")
     },
     {
         path: '/admin/categories',

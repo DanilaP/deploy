@@ -3,7 +3,7 @@ import { useTranslation } from '../../translation/i18n';
 import { useNavigate } from 'react-router';
 import { MenuItem } from '@mui/material';
 import { MdSupervisedUserCircle } from "react-icons/md";
-import { FaUsersCog } from "react-icons/fa";
+import { FaUsersCog, FaWarehouse } from "react-icons/fa";
 import { MdOutlineSecurity } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
@@ -30,7 +30,7 @@ export default function AdminPage (props: AdminPageProps) {
 
     useEffect(() => {
         window.addEventListener("resize", () => {
-            if (window.innerWidth <= 820) {
+            if (window.innerWidth <= 1100) {
                 setIsMenuTextExists(true);
             } else {
                 setIsMenuTextExists(false);
@@ -65,6 +65,11 @@ export default function AdminPage (props: AdminPageProps) {
                         <MenuItem onClick={ () => navigate("/admin/goods") }>
                             <FaShoppingCart className='icon' />{ !isMenuTextExists ? t("titles.goodsPage") : null }
                         </MenuItem>  : null
+                    }
+                    {
+                        <MenuItem onClick={ () => navigate("/admin/productsWarehouse") }>
+                            <FaWarehouse className='icon'/>{ !isMenuTextExists ? t("titles.productsStorePage") : null }
+                        </MenuItem>
                     }
                     {
                         permissionsExists.CreateGroupOfPermissions || permissionsExists.DeleteGroupOfPermissions || permissionsExists.ModifyGroupOfPermissions ? 
