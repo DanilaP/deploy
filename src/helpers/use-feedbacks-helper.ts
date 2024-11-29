@@ -23,13 +23,13 @@ export const useFeedbacksHelper = (userId: string | null) => {
             return { id, firstName, secondName, typeOfBid, createdAt, phoneNumber, solved };
         });
         const columns: GridColDef<(typeof rows)[number]>[] = [
-            { field: "id", headerName: "ID", minWidth: 50 },
-            { field: "firstName", headerName: t("text.firstName"), minWidth: 50 },
-            { field: "secondName", headerName: t("text.secondName"), minWidth: 50 },
-            { field: "createdAt", headerName: t("text.dateOfCreation"), flex: 1 },
-            { field: "phoneNumber", headerName: t("text.phoneNumber"), flex: 1 },
-            { field: "typeOfBid", headerName: t("text.typeOfBid"), minWidth: 50 },
-            { field: "solved", headerName: t("text.status"), flex: 1 }
+            { field: "id", headerName: "ID", minWidth: 50, headerAlign: "center" },
+            { field: "firstName", headerName: t("text.firstName"), minWidth: 50, headerAlign: "center" },
+            { field: "secondName", headerName: t("text.secondName"), minWidth: 50, headerAlign: "center" },
+            { field: "createdAt", headerName: t("text.dateOfCreation"), flex: 1, headerAlign: "center" },
+            { field: "phoneNumber", headerName: t("text.phoneNumber"), flex: 1, headerAlign: "center" },
+            { field: "typeOfBid", headerName: t("text.typeOfBid"), minWidth: 50, headerAlign: "center" },
+            { field: "solved", headerName: t("text.status"), flex: 1, headerAlign: "center" }
         ];
         return { columns, rows };
     };

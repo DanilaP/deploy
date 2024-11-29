@@ -74,8 +74,8 @@
     {
         "id": 4,
         "userId": 1730462293031,
-        "firstName": "Any first name",
-        "secondName": "Any second name",
+        "firstName": "Firstname",
+        "secondName": "Secondname",
         "phoneNumber": "+7 (969) 346-36-25",
         "description": "Долго не могу получить ответ по предыдущей заявке. Создала заявку около двух часов назад, а она до сих пор осталась без овтета. Хотелось бы поскорее получить результат.",
         "typeOfBid": "Другое",

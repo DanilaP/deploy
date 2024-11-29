@@ -36,7 +36,7 @@ export default function FeedBackPageView({
         }),
         columns: [
             ...userFeedbacksDataGrid.columns,
-            { field: "actions", headerName: t("text.actions"), minWidth: 130 },
+            { field: "actions", headerName: t("text.actions"), minWidth: 130, headerAlign: "center" },
         ]
     };
 
@@ -58,7 +58,7 @@ export default function FeedBackPageView({
                         { t("text.youHaveNoFeedbacksYet") }
                     </div>
                     : 
-                    <DataGrid   
+                    <DataGrid
                         className="callback-data-table"
                         rows={ userEnhancedFeedbacksDataGrid.rows }
                         onRowClick={ (el) => handleOpenFeedbackMoreInfo(el.row.id) }

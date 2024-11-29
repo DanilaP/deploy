@@ -32,10 +32,18 @@
             }
             .MuiDataGrid-cell {
                 outline: none;
+                text-align: center;
+            }
+            .MuiDataGrid-columnSeparator {
+                display: none;
+            }
+            .MuiButtonBase-root {
+                padding: 0px;
             }
             .callback-edit-icon {
                 width: 100%;
                 height: 100%;
+                column-gap: 5px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
