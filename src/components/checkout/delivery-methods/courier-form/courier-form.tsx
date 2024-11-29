@@ -27,7 +27,7 @@ interface CourierDialogProps {
     handleClose: () => void;
     handleSaveDeliveryAddressData: (data: string) => void;
     addresses: IAddress[];
-    currentAddressId: number;
+    currentAddressId: number | null;
     setCurrentAddressId: (id: number) => void;
     handleDeleteAddress: (id: number) => void;
     setCurrentAddress: (e: IAddress) => void;
@@ -65,7 +65,7 @@ const CourierForm: FC<CourierDialogProps> = ({
     useEffect(() => {
         if (daDataFieldValue?.value) {
             setCurrentAddress((prev: IAddress) => ({ ...prev, address: daDataFieldValue.value }));
-            setValue('address', daDataFieldValue.value);
+            setValue('fullAddress', daDataFieldValue.value);
         }
     }, [daDataFieldValue?.value, setValue]);
 
@@ -102,16 +102,16 @@ const CourierForm: FC<CourierDialogProps> = ({
         handleSaveDeliveryAddressData('courier');
     };
 
-    const addressValue = useWatch({ control, name: 'address' });
+    const addressValue = useWatch({ control, name: 'fullAddress' });
 
     useEffect(() => {
         if (!addressValue && isSubmitted) {
-            setError('address', {
+            setError("fullAddress", {
                 type: 'manual',
                 message: t('errors.requiredField'),
             });
         } else {
-            clearErrors('address');
+            clearErrors("fullAddress");
         }
     }, [addressValue, setError, clearErrors]);
 
@@ -176,20 +176,20 @@ const CourierForm: FC<CourierDialogProps> = ({
             <Stack className="dialog-content" spacing={ 2 }>
                 <div className="address-suggestion-wrapper">
                     <Controller
-                        name="address"
+                        name="fullAddress"
                         control={ control }
                         rules={ { required: t('errors.requiredField') } }
                         render={ ({ field }) => (
-                            <FormControl fullWidth error={ !!errors.address }>
+                            <FormControl fullWidth error={ !!errors.fullAddress }>
                                 <AddressSuggestions
                                     token={ import.meta.env.VITE_APP_DA_DATA_API_KEY }
-                                    defaultQuery={ currentAddress?.address }
+                                    defaultQuery={ currentAddress?.fullAddress }
                                     value={ { value: field.value } }
                                     suggestionsClassName='da-data-suggestions'
                                     suggestionClassName='da-data-suggestion'
                                     inputProps={ {
                                         ...field,
-                                        placeholder: t('text.checkout.courierFormLabels.address'),
+                                        placeholder: t('text.checkout.courierFormLabels.fullAddress'),
                                         className: !field.value && isSubmitted ? `da-data-field error` : `da-data-field`,
                                     } }
                                     onChange={ (value) => {
@@ -197,8 +197,8 @@ const CourierForm: FC<CourierDialogProps> = ({
                                         setDaDataFieldValue(value);
                                     } }
                                 />
-                                { errors.address && (
-                                    <FormHelperText className="error-text">{ errors.address.message }</FormHelperText>
+                                { errors.fullAddress && (
+                                    <FormHelperText className="error-text">{ errors.fullAddress.message }</FormHelperText>
                                 ) }
                             </FormControl>
                         ) }

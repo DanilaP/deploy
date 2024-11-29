@@ -23,7 +23,7 @@ interface DeliveryMethodsProps {
 }
 
 const initialAddressFieldsData = {
-    address: '',
+    fullAddress: '',
     apartment: '',
     entrance: '',
     floor: '',
@@ -44,7 +44,7 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
         courier: false,
     });
 
-    const [selectedWareHouseId, setSelectedWareHouseId] = useState(deliveryData[0]?.wareHouseId || '');
+    const [selectedWareHouseId, setSelectedWareHouseId] = useState(deliveryData[0]?.wareHouseId || null);
     const [addresses, setAddresses] = useState<IAddress[]>(
         deliveryData
             .filter((delivery: IPrevDelivery) => delivery.type === "courier")
@@ -52,7 +52,7 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
                 ...delivery.address,
                 comment: delivery.comment,
                 id: delivery.id,
-                address: delivery.address?.address || "",
+                fullAddress: delivery.address?.fullAddress || "",
             })) || []
     );
     const [currentAddressId, setCurrentAddressId] = useState<number | null>(
@@ -152,6 +152,7 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
                 title = { t("text.checkout.chooseShop")  }
                 typeOfActions='none'
                 closeModal={ () => handleCloseDialog('pickup') }
+                actionConfirmed={ () => handleCloseDialog('pickup') }
             >
                 <PickupForm
                     handleClose={ () => handleCloseDialog('pickup') }
@@ -167,6 +168,7 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
                 title=""
                 typeOfActions='none'
                 closeModal={ () => handleCloseDialog('courier') }
+                actionConfirmed={ () => handleCloseDialog('courier') }
             >
                 <CourierForm
                     setCurrentAddress={ setCurrentAddress }

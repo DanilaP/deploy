@@ -1,32 +1,57 @@
 [
   {
-  "userId": 1730462293031,
-  "prevPaymentMethod": "card",
-  "prevDeliveryMethod": "pickup",
-  "prevDelivery": {
-    "storeId": "1",
-    "prevAddressId": "1",
-    "addresses": [
+    "userId": 1730462293031,
+    "prevDeliveries": [
       {
-        "id": "1",
-        "address": "г. Москва, Тверская улица",
-        "houseNumber": "3",
-        "apartment": "12",
-        "entrance": "2",
-        "floor": "9",
-        "intercom": "1234",
+        "id": 1,
+        "wareHouseId": 1,
+        "address": null,
+        "timeStamp": "2024-10-24T11:15:00Z",
+        "type": "pickup",
+        "payment": {
+          "method": "card",
+          "timeStamp": "2024-10-24T11:15:00Z"
+        },
+        "comment": ""
+      },
+      {
+        "id": 2,
+        "wareHouseId": null,
+        "address": {
+          "fullAddress": "г. Москва, Тверская улица",
+          "houseNumber": "3",
+          "apartment": "12",
+          "entrance": "2",
+          "floor": "9",
+          "intercom": "1234"
+        },
+        "timeStamp": "2024-10-25T11:15:00Z",
+        "type": "courier",
+        "payment": {
+          "method": "cash",
+          "timeStamp": "2024-10-25T11:15:00Z"
+        },
         "comment": "Код домофона: 73"
       },
       {
-        "id": "2",
-        "address": "г. Москва, Другая улица",
-        "apartment": "13",
-        "entrance": "1",
-        "floor": "",
-        "intercom": "1234",
+        "id": 3,
+        "wareHouseId": null,
+        "address": {
+          "fullAddress": "г. Москва, Другая улица",
+          "houseNumber": "",
+          "apartment": "13",
+          "entrance": "1",
+          "floor": "",
+          "intercom": "1234"
+        },
+        "timeStamp": "2024-10-26T11:15:00Z",
+        "type": "courier",
+        "payment": {
+          "method": "cash",
+          "timeStamp": "2024-10-26T11:15:00Z"
+        },
         "comment": ""
       }
     ]
   }
-}
 ]

@@ -171,7 +171,7 @@
             "pickup": "Самовывоз",
             "enterDeliveryAddress": "Введите адрес доставки",
             "courierFormLabels": {
-                "address": "Адрес",
+                "fullAddress": "Адрес",
                 "houseNumber": "Дом",
                 "apartment": "Квартира",
                 "entrance": "Подъезд",

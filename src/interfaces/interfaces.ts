@@ -65,7 +65,7 @@ export interface IReview {
 
 export interface IAddress {
     id?: number;
-    address: string;
+    fullAddress: string;
     houseNumber?: string;
     apartment?: string;
     entrance?: string;

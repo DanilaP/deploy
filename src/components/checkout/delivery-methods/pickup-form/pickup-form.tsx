@@ -14,7 +14,7 @@ import { IStore } from "../../../../interfaces/interfaces.ts";
 
 interface PickupDialogProps {
     handleClose: () => void;
-    selectedWareHouseId: number;
+    selectedWareHouseId: number | null;
     setSelectedWareHouseId: (id: number) => void;
     wareHouses: IStore[];
     handleSaveDeliveryAddressData: (deliveryMethod: string) => void;

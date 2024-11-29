@@ -26,9 +26,9 @@ export const getFormatAddressStringForSelect = (addressFieldsData: IAddress, t: 
 };
 
 export const getFormattedAddressString = (addressFieldsData: IAddress, t: TFunction, excludeFields: string[] = []) => {
-    const formattedAddress = addressFieldsData.address ? addressFieldsData.address : '';
+    const formattedAddress = addressFieldsData.fullAddress ? addressFieldsData.fullAddress : '';
     const addressFields = Object.entries(addressFieldsData)
-        .filter(([key, value]) => value && key !== 'address' && key !== 'id' && key !== 'comment')
+        .filter(([key, value]) => value && key !== 'fullAddress' && key !== 'id' && key !== 'comment')
         .map(([key, value]) => {
             const text = t(`text.checkout.courierFormLabels.${ key }`);
             return `${ text }: ${ value }`;
@@ -47,8 +47,3 @@ export const getFormattedAddressString = (addressFieldsData: IAddress, t: TFunct
         </>
     );
 };
-
-
-
-
-
