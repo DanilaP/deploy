@@ -16,6 +16,7 @@ import usePermissions from './helpers/permissions-helpers.ts';
 import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
 import { MdFavoriteBorder } from "react-icons/md";
 import ChatWrapper from './components/chat/chat-wrapper.tsx';
+import Notification from './components/notification/notification.tsx';
 
 function App() {
     const [theme, setTheme] = useState("white-theme");
@@ -85,6 +86,16 @@ function App() {
                 console.log('Соединение установлено');
             };
 
+            socket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                userStore.setChatInfo(data);
+                userStore.setNotification({ 
+                    text: data.messages[data.messages.length - 1].text, 
+                    senderId:  data.messages[data.messages.length - 1].senderId
+                });
+                setTimeout(() => userStore.setNotification(null), 2500);
+            };
+
             socket.onerror = function(error) {
                 console.error(`Ошибка: ${ error }`);
             };
@@ -140,6 +151,14 @@ function App() {
                     }
                 </div>
                 { (isLoading && userStore.user && !checkPermissions()) ? <ChatWrapper /> : null }
+                {
+                    !userStore.isChatOpen 
+                    ?
+                        (userStore.notification && userStore.notification.senderId !== Number(userStore?.user?.id) )
+                            ? <Notification notification={ userStore.notification } />
+                            : null 
+                    : null
+                }
             </div>
         </>
     );

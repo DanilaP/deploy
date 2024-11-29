@@ -4,20 +4,19 @@ import './chat-wrapper.scss';
 import { useEffect, useState } from 'react';
 import Chat from './chat/chat';
 import $api from '../../configs/axiosconfig/axios';
-import { IChat } from '../../interfaces/interfaces';
+import { useStore } from '../../stores';
 
 export default function ChatWrapper () {
 
     const { t } = useTranslation();
     const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
-    const [chat, setChat] = useState<IChat | null>(null);
     const [opponentInfo, setOpponentInfo] = useState<{ id: number, avatar: string }>({ id: 0, avatar: "" });
-
+    const { userStore } = useStore();
 
     const getChatData = () => {
         $api.get("/chats")
         .then((res) => {
-            setChat(res.data.chats[0]);
+            userStore.setChatInfo(res.data.chats[0]);
             setOpponentInfo(res.data.opponentInfo);
         })
         .catch((error) => {
@@ -27,13 +26,14 @@ export default function ChatWrapper () {
 
     useEffect(() => {
         getChatData();
+        userStore.setIsChatOpen(isChatOpen);
     }, [isChatOpen]);
     
     return (
         <div className='chat-wrapper'>
             {
                 isChatOpen 
-                    ? <Chat updateChatData = { getChatData } opponentInfo = { opponentInfo } chatInfo = { chat } close = { () => setIsChatOpen(false) } />
+                    ? <Chat updateChatData = { getChatData } opponentInfo = { opponentInfo } chatInfo = { userStore.chatInfo } close = { () => setIsChatOpen(false) } />
                     : <Button onClick={ () => setIsChatOpen(true) } variant='contained'>{ t("text.chat") }</Button>
             }
         </div>

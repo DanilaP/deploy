@@ -34,6 +34,11 @@ export default function Chats () {
         .catch((error) => {
             console.error(error);
         });
+        if (currentChatInfo === null) {
+            userStore.setIsChatOpen(false);
+        } else {
+            userStore.setIsChatOpen(true);
+        }
     }, [currentChatInfo]);
 
     return (
