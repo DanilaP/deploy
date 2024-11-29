@@ -76,7 +76,6 @@ export default function FeedBackAnswerForm({
                     <div className="date">{ currentFeedback?.createdAt }</div>
                 </div>
             </div>
-            <hr />
             <form className="call-back-answer-form" onSubmit={ handleSubmit(handleSendAnswerForFeedback) }>
                 <FormControl>
                     <FormLabel className="label">{ t("text.answer") }</FormLabel>

@@ -540,7 +540,7 @@ app.get("/warehouses", async function (req, res) {
                         return {
                             ...product,
                             productInfo: foundedProduct
-                        }
+                        };
                     })
                 }
             );
@@ -552,7 +552,7 @@ app.get("/warehouses", async function (req, res) {
         res.status(400).json({ message: "Ошибка при получении информации о складах" });
         console.error("get /warehouses", error);
     }
-})
+});
 
 
 // categories
@@ -636,6 +636,17 @@ app.put("/feedbacks", async function(req, res) {
     catch(error) {
         console.error("post /feedbacks", error);
         res.status(400).json({ message: "Ошибка обновления данных о заявке с обратной связью!" });
+    }
+});
+
+app.delete("/feedbacks", async function(req, res) {
+    try {
+        const feedbackId = req.query.feedbackId;
+        res.status(200).json({ message: "Данные о заявке с обратной связью удалены", feedbackId: feedbackId });
+    }
+    catch(error) {
+        console.error("post /feedbacks", error);
+        res.status(400).json({ message: "Ошибка удаления данных о заявке с обратной связью!" });
     }
 });
 

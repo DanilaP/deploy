@@ -95,6 +95,22 @@ export const useFeedbacksHelper = (userId: string | null) => {
         return findedFeedbacks;
     };
 
+    const handleDeleteFeedbackById = (feedback: IFeedBack) => {
+        $api.delete(`/feedbacks?feedbackId=${feedback.id}`)
+            .then(res => {
+                if (res.data.feedbackId) {
+                    const updatedFeedbacks = userFeedBacks.filter(el => el.id !== feedback.id);
+                    setUserFeedbacks(updatedFeedbacks);
+                    setUserFeedbacksDataGrid(handleGetFeedbacksDataForDataGrid(updatedFeedbacks));
+                }
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    };
+
     useEffect(() => {
         const userIdQuery = userId ? Number(userId) : null;
         $api.get(`/feedbacks?userId=${userIdQuery}`)
@@ -121,6 +137,7 @@ export const useFeedbacksHelper = (userId: string | null) => {
         handleCreateNewUserFeedBack,
         handleUpdateFeedbackData,
         handleFilterUserFeedbacksDataGridByStatus,
-        handleSearchFeedbacksByAllFields
+        handleSearchFeedbacksByAllFields,
+        handleDeleteFeedbackById
     };
 };

@@ -18,12 +18,18 @@ export default function FeedBackPage() {
         feedbacks: userFeedBacks,
         feedbacksDataGrid: userFeedbacksDataGrid,
         handleCreateNewUserFeedBack,
-        handleUpdateFeedbackData
+        handleUpdateFeedbackData,
+        handleDeleteFeedbackById
     } = useFeedbacksHelper(userId ? userId : null);
 
     const [currentFeedback, setCurrentFeedback] = useState<IFeedBack | null>(null);
     const [mode, setMode] = useState<"create" | "edit" | null>(null);
-    const [modals, setModals] = useState({ moreInfo: false, manage: false, unsavedData: false });
+    const [modals, setModals] = useState({ 
+        moreInfo: false, 
+        manage: false, 
+        unsavedData: false,
+        confirmDeleting: false
+    });
     const [unsavedDataExists, setUnsavedDataExists] = useState<boolean>(false);
 
     const { t } = useTranslation();
@@ -63,6 +69,34 @@ export default function FeedBackPage() {
         }
     };
 
+    const handleOpenDeleteFeedbackModal = (feedbackId: number) => {
+        const findedFeedback = userFeedBacks.find(el => el.id === feedbackId);
+        if (findedFeedback) {
+            setCurrentFeedback(findedFeedback);
+            setModals(prev => {
+                return { ...prev, confirmDeleting: true };
+            });
+        }
+    };
+
+    const handleCloseDeleteFeedbackModal = () => {
+        setCurrentFeedback(null);
+        setModals(prev => {
+            return { ...prev, confirmDeleting: false };
+        });
+    };
+
+    const handleConfirmDeletingFeedbackModal = () => {
+        if (currentFeedback) {
+            handleDeleteFeedbackById(currentFeedback);
+            setCurrentFeedback(null);
+            setModals(prev => {
+                return { ...prev, confirmDeleting: false };
+            });
+        }
+    };
+
+
     const handleCloseCreatingNewFeedback = () => {
         if (unsavedDataExists) {
             setModals(prev => {
@@ -70,7 +104,6 @@ export default function FeedBackPage() {
             });
             return;
         }
-        
         setModals(prev => {
             return { ...prev, manage: false };
         });
@@ -126,6 +159,7 @@ export default function FeedBackPage() {
                 handleOpenFeedbackMoreInfo={ handleOpenFeedbackMoreInfo }
                 handleOpenCreatingNewFeedback={ handleOpenCreatingNewFeedback }
                 handleOpenEditFeedbackModal={ handleOpenEditFeedbackModal }
+                handleOpenDeleteFeedbackModal={ handleOpenDeleteFeedbackModal }
             />
             <CustomModal
                 isDisplay={ modals.moreInfo }
@@ -181,6 +215,15 @@ export default function FeedBackPage() {
                 }
             >
                 <div className="delete-text">{ t("text.unsavedChanges") }?</div>
+            </CustomModal>
+            <CustomModal 
+                isDisplay={ modals.confirmDeleting }
+                title={ t("text.deleteFeedback") }
+                typeOfActions='default'
+                actionConfirmed={ handleConfirmDeletingFeedbackModal }
+                closeModal={ handleCloseDeleteFeedbackModal }
+            >
+                <div className="delete-text">{ t("text.approveDeletingFeedback") }?</div>
             </CustomModal>
         </>
     ); 

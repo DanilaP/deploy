@@ -6,12 +6,14 @@ import { ruRU } from '@mui/x-data-grid/locales';
 import { FiPlusCircle } from "react-icons/fi";
 import { FaRegEdit } from "react-icons/fa";
 import "./feed-back-page-view.scss";
+import { MdDelete } from "react-icons/md";
 
 interface IFeedBackPageViewProps {
     userFeedbacksData: IFeedBack[],
     userFeedbacksDataGrid: { columns: any[], rows: any[] },
     handleOpenFeedbackMoreInfo: (feedbackId: number) => void,
     handleOpenEditFeedbackModal: (feedbackId: number) => void,
+    handleOpenDeleteFeedbackModal: (feedbackId: number) => void,
     handleOpenCreatingNewFeedback: () => void
 }
 
@@ -20,16 +22,21 @@ export default function FeedBackPageView({
     userFeedbacksDataGrid,
     handleOpenFeedbackMoreInfo,
     handleOpenEditFeedbackModal,
+    handleOpenDeleteFeedbackModal,
     handleOpenCreatingNewFeedback
 }: IFeedBackPageViewProps) {
 
     const { t } = useTranslation();
     
     const userEnhancedFeedbacksDataGrid = {
-        ...userFeedbacksDataGrid,
+        rows: [...userFeedbacksDataGrid.rows].sort((prev) => {
+            if (prev.solved) return 1;
+            if (!prev.solved) return -1;
+            return 0;
+        }),
         columns: [
             ...userFeedbacksDataGrid.columns,
-            { field: "edit", headerName: t("text.edit"), minWidth: 150 },
+            { field: "actions", headerName: t("text.actions"), minWidth: 130 },
         ]
     };
 
@@ -70,7 +77,7 @@ export default function FeedBackPageView({
                                     }
                                 };
                             }
-                            if (el.field === "edit") {
+                            if (el.field === "actions") {
                                 return {
                                     ...el,
                                     renderCell: (params) => {
@@ -90,6 +97,23 @@ export default function FeedBackPageView({
                                                             }
                                                         >
                                                             <FaRegEdit fontSize={ 25 } />
+                                                        </IconButton> 
+                                                        : null
+                                                }
+                                                {
+                                                    !currentFeedbackInList?.solved 
+                                                        ? 
+                                                        <IconButton 
+                                                            className="mui-icon-button"
+                                                            onClick={ (e) => {
+                                                                console.log(params.id);
+                                                                
+                                                                    e.stopPropagation();
+                                                                    handleOpenDeleteFeedbackModal(Number(params.id));
+                                                                } 
+                                                            }
+                                                        >
+                                                            <MdDelete fontSize={ 25 } />
                                                         </IconButton> 
                                                         : null
                                                 }
