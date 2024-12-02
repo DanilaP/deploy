@@ -59,7 +59,8 @@ app.post("/auth/signup", async function(req, res) {
                 password: bcrypt.hashSync(password, 7),
                 role: "Пользователь",
                 avatar: "http://localhost:5000/avatar.jpg",
-                backet: []
+                backet: [],
+                favorites: []
             };
             let updatedUsers = JSON.stringify([...currentUsers, newUser], null, 2);
             fs.writeFileSync('DB/Users.json', updatedUsers);
@@ -86,7 +87,9 @@ app.post("/users", async function(req, res) {
                 login,
                 password: bcrypt.hashSync(password, 7),
                 role,
-                avatar: "http://localhost:5000/avatar.jpg"
+                avatar: "http://localhost:5000/avatar.jpg",
+                backet: [],
+                favorites: []
             };
             let updatedUsers = JSON.stringify([...currentUsers, newUser], null, 2);
             fs.writeFileSync('DB/Users.json', updatedUsers);
@@ -127,14 +130,13 @@ app.put("/users", async function(req, res) {
     try {
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         let updatedUsers = currentUsers.map((user) => {
-            console.log(req.body);
             if (user.id === req.body.id) {
                 return {
+                    ...req.body,
                     id: user.id,
-                    login: req.body.login,
-                    password: req.body.password ? bcrypt.hashSync(req.body.password, 7) : user.password,
-                    role: req.body.role,
-                    avatar: req.body.avatar
+                    password: (req.body.password === user.password)
+                        ? user.password
+                        : bcrypt.hashSync(req.body.password, 7)
                 };
             }
             return user;
@@ -516,6 +518,9 @@ app.get('/user/data-delivery/:userid', async (req, res) => {
         res.status(400).json({ message: "Ошибка при получении данных доставки" });
         console.error("get /delivery", error);
     }
+
+app.put('/backet/updateCart', (req, res) => {
+    res.status(200).json({ message: "Корзина успешно обновлена", cart: req.body });
 });
 
 //Favorites
@@ -546,7 +551,7 @@ app.get("/warehouses", async function (req, res) {
     try {
         let currentStores = JSON.parse(fs.readFileSync('DB/Warehouses.json', 'utf8'));
         let currentProducts= JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
-        
+
         let storesInfo = currentStores.map((store) => {
             return (
                 {
@@ -563,7 +568,7 @@ app.get("/warehouses", async function (req, res) {
         });
 
         res.status(200).json({ message: "Данные о товарах успешно получены", stores: storesInfo });
-    } 
+    }
     catch (error) {
         res.status(400).json({ message: "Ошибка при получении информации о складах" });
         console.error("get /warehouses", error);
@@ -616,7 +621,6 @@ app.delete("/category", async function(req, res) {
         res.status(400).json({ message: "Ошибка удаления категории!" });
     }
 });
-
 
 
 
