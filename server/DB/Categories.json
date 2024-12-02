@@ -1,31 +1,69 @@
 [
     {   
         "id": "1", 
-        "title": "Вычислительная техника", 
+        "title": "Вычислительная техника",
+        "image": "http://localhost:5000/avatar.jpg",
+        "description": "Описание 1",
         "categories": [
             { 
                 "id": "2", 
                 "title": "Ноутбуки",
+                "image": "http://localhost:5000/avatar.jpg",
+                "description": "Описание 1",
                 "categories": [
-                    { "id": "10", "title": "111111" },
-                    { "id": "11", "title": "222222" }
+                    { 
+                        "id": "10", 
+                        "title": "111111",
+                        "image": "http://localhost:5000/avatar.jpg",
+                        "description": "Описание 1"
+                    },
+                    { 
+                        "id": "11", 
+                        "title": "222222",
+                        "image": "http://localhost:5000/avatar.jpg",
+                        "description": "Описание 1"
+                    }
                 ] 
             },
             { 
                 "id": "3", 
                 "title": "Стационарные ПК",
+                "image": "http://localhost:5000/avatar.jpg",
+                "description": "Описание 1",
                 "categories": [
-                    { "id": "12", "title": "333333" },
-                    { "id": "13", "title": "444444" }
+                    { 
+                        "id": "12", 
+                        "title": "333333",
+                        "image": "http://localhost:5000/avatar.jpg",
+                        "description": "Описание 1"
+                    },
+                    { 
+                        "id": "13", 
+                        "title": "444444",
+                        "image": "http://localhost:5000/avatar.jpg",
+                        "description": "Описание 1"
+                    }
                 ] 
             },
             { 
                 "id": "4", 
                 "title": "Игровые ПК", 
                 "categories": [
-                    { "id": "5", "title": "Тестовая категория ПК" },
-                    { "id": "6", "title": "Другая категория ПК" }
-                ] 
+                    { 
+                        "id": "5", 
+                        "title": "Тестовая категория ПК",
+                        "image": "http://localhost:5000/avatar.jpg",
+                        "description": "Описание 1"
+                    },
+                    { 
+                        "id": "6", 
+                        "title": "Другая категория ПК",
+                        "image": "http://localhost:5000/avatar.jpg",
+                        "description": "Описание 1"
+                    }
+                ],
+                "image": "http://localhost:5000/avatar.jpg",
+                "description": "Описание 1"
             }
         ] 
     },
@@ -33,9 +71,21 @@
         "id": "7", 
         "title": "Телевизоры", 
         "categories": [
-            { "id": "8", "title": "Широкая диагональ" },
-            { "id": "9", "title": "Стандартная диагональ" }
-        ] 
+            { 
+                "id": "8", 
+                "title": "Широкая диагональ",
+                "image": "http://localhost:5000/avatar.jpg",
+                "description": "Описание 1"
+            },
+            { 
+                "id": "9", 
+                "title": "Стандартная диагональ",
+                "image": "http://localhost:5000/avatar.jpg",
+                "description": "Описание 1"
+            }
+        ],
+        "image": "http://localhost:5000/avatar.jpg",
+        "description": "Описание 1"
     },
     {   
         "id": "14", 
@@ -45,26 +95,64 @@
                 "id": "15", 
                 "title": "Холодильники",
                 "categories": [
-                    { "id": "16", "title": "С морозильной камерой" },
-                    { "id": "17", "title": "Другие" }
-                ] 
+                    { 
+                        "id": "16", 
+                        "title": "С морозильной камерой",
+                        "image": "http://localhost:5000/avatar.jpg",
+                        "description": "Описание 1"
+                    },
+                    { 
+                        "id": "17",
+                        "title": "Другие",
+                        "image": "http://localhost:5000/avatar.jpg",
+                        "description": "Описание 1"
+                    }
+                ],
+                "image": "http://localhost:5000/avatar.jpg",
+                "description": "Описание 1"
             },
             { 
                 "id": "18", 
                 "title": "Плиты",
                 "categories": [
-                    { "id": "19", "title": "Электрические" },
-                    { "id": "20", "title": "Газовые" }
-                ] 
+                    { 
+                        "id": "19", 
+                        "title": "Электрические",
+                        "image": "http://localhost:5000/avatar.jpg",
+                        "description": "Описание 1"
+                    },
+                    { 
+                        "id": "20", 
+                        "title": "Газовые",
+                        "image": "http://localhost:5000/avatar.jpg",
+                        "description": "Описание 1"
+                    }
+                ],
+                "image": "http://localhost:5000/avatar.jpg",
+                "description": "Описание 1"
             }
-        ] 
+        ],
+        "image": "http://localhost:5000/avatar.jpg",
+        "description": "Описание 1"
     },
     {   
         "id": "21", 
         "title": "Телефоны", 
         "categories": [
-            { "id": "22", "title": "Стационарные телефоны" },
-            { "id": "23", "title": "Переносные телефоны" }
-        ] 
+            { 
+                "id": "22", 
+                "title": "Стационарные телефоны",
+                "image": "http://localhost:5000/avatar.jpg",
+                "description": "Описание 1"
+            },
+            { 
+                "id": "23", 
+                "title": "Переносные телефоны",
+                "image": "http://localhost:5000/avatar.jpg",
+                "description": "Описание 1"
+            }
+        ],
+        "image": "http://localhost:5000/avatar.jpg",
+        "description": "Описание 1"
     }
 ]
