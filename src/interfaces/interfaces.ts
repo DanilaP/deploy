@@ -106,7 +106,9 @@ export interface IStore {
 export interface ICategory {
     title: string,
     id: string,
-    categories?: ICategory[]
+    categories?: ICategory[],
+    image: string,
+    description: string,
 }
 export interface ISelect {
     id: string,
