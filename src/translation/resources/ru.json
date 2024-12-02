@@ -96,6 +96,7 @@
         "createCategory": "Создать категорию",
         "addCategory": "Добавить категорию",
         "groupName": "Наименование группы",
+        "invalidEmail": "Некорректный email",
         "image": "Изображение",
         "all": "Все",
         "cart": {

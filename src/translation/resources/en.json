@@ -114,6 +114,7 @@
         "review": "Review",
         "quantity": "Quantity",
         "uploadFiles": "Upload files",
+        "invalidEmail": "Invalid email",
         "image": "Image",
         "all": "All",
         "cart": {
