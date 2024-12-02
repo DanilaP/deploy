@@ -138,6 +138,7 @@
         "review": "Review",
         "quantity": "Quantity",
         "uploadFiles": "Upload files",
+        "invalidEmail": "Invalid email",
         "image": "Image",
         "partNumber": "Partnumber",
         "all": "All",

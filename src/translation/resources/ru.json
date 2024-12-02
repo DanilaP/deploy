@@ -115,6 +115,7 @@
         "createProvider": "Добавить поставщика",
         "groupName": "Наименование группы",
         "providers": "Поставщики",
+        "invalidEmail": "Некорректный email",
         "image": "Изображение",
         "partNumber": "Артикул",
         "all": "Все",
