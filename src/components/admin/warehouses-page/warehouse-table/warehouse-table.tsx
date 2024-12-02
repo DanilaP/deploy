@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { t } from 'i18next';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { ruRU } from '@mui/x-data-grid/locales';
+import { useProvidersHelper } from '../../../../helpers/use-providers-helper';
 
 export default function WarehouseTable (props: { currentStoreInfo: IStore }) {
     
@@ -11,6 +12,7 @@ export default function WarehouseTable (props: { currentStoreInfo: IStore }) {
         remains: 0,
         cost: 0
     });
+    const { providers } = useProvidersHelper();
 
     useEffect(() => {
         const totalInfo = { remains: 0, cost: 0 };
@@ -41,19 +43,20 @@ export default function WarehouseTable (props: { currentStoreInfo: IStore }) {
             ) 
         },
         { field: 'remains', headerName: t("text.remains"), width: 100 },
-        { field: 'provider', headerName: t("text.provider"), width: 150 },
+        { field: 'provider', headerName: t("text.provider"), flex: 1 },
         { field: 'price', headerName: t("text.priceForEach"), width: 150 },
         { field: 'cost', headerName: t("text.cost"), width: 150 }
     ];
     
     const rows = props.currentStoreInfo.products.map((product) => {
+        const providerData = providers.find(provider => provider.id === Number(product.productInfo.provider));
         return {
             id: product.productId,
             image: product.productInfo.images[0],
             product: product.productInfo.name,
             stock: product.amount !== 0 ? t("text.inStock") : t("text.notInStock"),
             remains: product.amount,
-            provider: product.productInfo.provider,
+            provider: providerData?.name,
             price: product.productInfo.variations[0].price,
             cost: product.amount * product.productInfo.variations[0].price
         };
