@@ -10,11 +10,6 @@ const validateEmail = (email: string) => {
         /^(?!\.)(?!.*\.\.)[a-zA-Z0-9а-яА-ЯёЁ._%+-]{1,255}@[a-zA-Z0-9а-яА-ЯёЁ.-]{1,255}\.[a-zA-Zа-яА-ЯёЁ]{2,255}$/
     );
 };
-const validateRequiredEmail = (email: string) => {
-    return email.match(
-        /^(?!\.)(?!.*\.\.)[a-zA-Z0-9а-яА-ЯёЁ._%+-]{1,255}@[a-zA-Z0-9а-яА-ЯёЁ.-]{1,255}\.[a-zA-Zа-яА-ЯёЁ]{2,255}$/
-    );
-};
 const validateWebsiteRef = (email: string) => {
     return email.match(
         /^(https?:\/\/)?([\w-]{1,32}\.[\w-]{1,32})[^\s@]*/
@@ -34,7 +29,16 @@ const validatePhone = (phone: string) => {
     const russianTelLength = 11;
     return cleanedTel.length === russianTelLength;
 };
-
+const validateRequiredEmail = (email: string) => {
+    if (validateEmail(email)) {
+        return true;
+    } else {
+        if (validateRequiredField(email)) {
+            return t("text.invalidEmail");
+        }
+        return t("errors.requiredField");
+    }
+};
 export { 
     validateRequiredField, 
     validateEmail, 
