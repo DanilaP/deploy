@@ -53,6 +53,5 @@ If you are developing a production application, we recommend updating the config
   - Install `@mui/x-tree-view`
 - Add validation for managing goods form
   - Install `react-hooks-form`
+- Create vendors page for admin panel
   - Add products warehouse page
-
-
