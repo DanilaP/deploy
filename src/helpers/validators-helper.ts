@@ -7,10 +7,29 @@ const validateRequiredField = (value: any) => {
 };
 const validateEmail = (email: string) => {
     return email.match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        /^(?!\.)(?!.*\.\.)[a-zA-Z0-9а-яА-ЯёЁ._%+-]{1,255}@[a-zA-Z0-9а-яА-ЯёЁ.-]{1,255}\.[a-zA-Zа-яА-ЯёЁ]{2,255}$/
     );
 };
-export const validateRequiredEmail = (email: string) => {
+const validateWebsiteRef = (email: string) => {
+    return email.match(
+        /^(https?:\/\/)?([\w-]{1,32}\.[\w-]{1,32})[^\s@]*/
+    );
+};
+const validateOgrn = (value: string) => {
+    return value.match(
+        /^[0-9]{13,13}$/
+    );
+};
+const validateInn = (value: string) => {
+    const isValid = value.match(/^[0-9]{12,12}$/) || value.match(/^[0-9]{10,10}$/);
+    return isValid;
+};
+const validatePhone = (phone: string) => {
+    const cleanedTel = phone.replace(/\D/g, '');
+    const russianTelLength = 11;
+    return cleanedTel.length === russianTelLength;
+};
+const validateRequiredEmail = (email: string) => {
     if (validateEmail(email)) {
         return true;
     } else {
@@ -20,4 +39,12 @@ export const validateRequiredEmail = (email: string) => {
         return t("errors.requiredField");
     }
 };
-export { validateRequiredField, validateEmail };
+export { 
+    validateRequiredField, 
+    validateEmail, 
+    validatePhone, 
+    validateWebsiteRef,
+    validateOgrn,
+    validateInn,
+    validateRequiredEmail
+};

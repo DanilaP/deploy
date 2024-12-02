@@ -15,7 +15,10 @@
       "ModifyGroupOfPermissions",
       "CreateProducts",
       "DeleteProducts",
-      "ModifyProducts"
+      "ModifyProducts",
+      "WathingProviders",
+      "ManagingProviders",
+      "CreatingNewProviders"
     ]
   },
   {

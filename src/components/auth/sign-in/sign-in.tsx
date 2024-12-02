@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useStore } from '../../../stores';
 import { formData } from '../auth-interfaces/auth-interfaces';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { validateEmail, validateRequiredEmail, validateRequiredField } from '../../../helpers/validators-helper';
+import { validateRequiredEmail, validateRequiredField } from '../../../helpers/validators-helper';
 
 
 export default function SignIn () {
