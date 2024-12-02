@@ -67,7 +67,7 @@ export interface IStore {
     products: {
         productId: number,
         variation: string,
-        amount: number,
+        number: number,
         productInfo: IProduct
     }[]
 }

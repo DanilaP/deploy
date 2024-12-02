@@ -6,6 +6,8 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import './payment-details-card.scss';
 import { IOrder } from "../../../../interfaces/interfaces.ts";
+import $api from "../../../../configs/axiosconfig/axios.js";
+import { useNavigate } from "react-router";
 
 interface PaymentDetailsCardProps {
     order: IOrder,
@@ -14,12 +16,21 @@ interface PaymentDetailsCardProps {
 
 const PaymentDetailsCard:FC<PaymentDetailsCardProps> = ({ productsData, order }) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    const handleRepeatOrder = () => {
+        $api.post("/backet", order.products)
+            .then(() => navigate('/cart'))
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
     return (
         <Card className="payment-details-card">
 
             <CardContent className="payment-details-content">
                 <Typography variant="body2">
-                    { t('titles.goodsPage') }, { productsData.reduce((acc, { amount } ) => acc + amount, 0) } { t('text.pcs') }
+                    { t('titles.goodsPage') }, { productsData.reduce((acc, { number } ) => acc + number, 0) } { t('text.pcs') }
                 </Typography>
                 <Typography variant="body2">
                     { formatCurrency(order.orderPrice) } { t('text.rub') }
@@ -47,7 +58,12 @@ const PaymentDetailsCard:FC<PaymentDetailsCardProps> = ({ productsData, order })
             </CardContent>
 
             <CardActions className="payment-details-actions">
-                <Button size="small" variant="contained" fullWidth>
+                <Button
+                    onClick={ handleRepeatOrder }
+                    size="small"
+                    variant="contained"
+                    fullWidth
+                >
                     { t('text.repeatOrder') }
                 </Button>
             </CardActions>

@@ -4,12 +4,12 @@ import { CardMedia, Typography } from "@mui/material";
 import { formatCurrency, formatDate } from "../../../../helpers/common-helpers.tsx";
 import { FC } from "react";
 import { IOrder } from "../../../../interfaces/interfaces.ts";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import './order-rate-card.scss';
 
 const OrderRateCard:FC<{ order: IOrder, productsData: any }> = ( { order, productsData }) => {
-    const { t} = useTranslation();
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     return (

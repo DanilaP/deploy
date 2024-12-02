@@ -152,7 +152,7 @@
                 "card": "Payment by Bank Card"
             },
             "courierFormLabels": {
-                "address": "Address",
+                "fullAddress": "Address",
                 "apartment": "Apartment",
                 "entrance": "Entrance",
                 "floor": "Floor",
@@ -196,30 +196,15 @@
         "repeatOrder": "Repeat order",
         "paid": "Paid",
         "rateOrder": "Rate order",
-        "feedbackCriteria": {
-            "deliverySpeed": "Delivery speed",
-            "productQuality": "Product quality",
-            "assemblyQuality": "Assembly quality",
-            "productPrice": "Product price",
-            "productCondition": "Condition of the product upon receipt",
-            "orderProcess": "Order process",
-            "customerService": "Customer service",
-            "orderAccuracy": "Order accuracy and comment consideration",
-            "siteConvenience": "Site convenience"
-        },
-        "ratingLabels": {
-            "0": "What didn't you like?",
-            "1": "What didn't you like?",
-            "2": "What didn't you like?",
-            "3": "What didn't you like?",
-            "4": "What can be improved?",
-            "5": "What did you like?"
-        },
         "send": "Send",
         "yourComment": "Your comment",
         "willBeDelivered": "Will be delivered",
         "noOrders": "You have no orders yet",
-        "goToShopping": "Go to shopping"
+        "goToShopping": "Go to shopping",
+        "expandFeedback": "I want to say more",
+        "disadvantages": "Disadvantages",
+        "advantages": "Advantages",
+        "thankYouMessage": "Thank you for your feedback"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",

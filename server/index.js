@@ -303,6 +303,7 @@ app.get("/product", async function(req, res) {
         res.status(400).json({ message: "Ошибка получения данных о товаре!" });
     }
 });
+
 app.post("/product", async function(req, res) {
     try {
         res.status(200).json({ message: "Данные о товаре успешно обновлены", product: req.body });
@@ -471,6 +472,7 @@ app.delete("/backet", async function(req, res) {
         console.error("delete /backet", error);
     }
 });
+
 app.post("/backet", async function(req, res) {
     try {
         const token = req.headers.authorization;
@@ -480,12 +482,15 @@ app.post("/backet", async function(req, res) {
             if (user.id === userId) {
                 return {
                     ...user,
-                    backet: [...user.backet, {
-                        id: Date.now(),
-                        productId: req.body.product.id,
-                        number: +req.body.product.number,
-                        variation: req.body.product.variation
-                    }]
+                    backet: [
+                        ...user.backet,
+                        ...req.body.map(item => ({
+                            id: Date.now() + Math.floor(Math.random() * 1000),
+                            productId: item.id,
+                            number: +item.number,
+                            variation: item.variation
+                        }))
+                    ]
                 };
             } else return user;
         });
@@ -554,7 +559,7 @@ app.get("/warehouses", async function (req, res) {
     try {
         let currentStores = JSON.parse(fs.readFileSync('DB/Warehouses.json', 'utf8'));
         let currentProducts= JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
-        
+
         let storesInfo = currentStores.map((store) => {
             return (
                 {
@@ -571,7 +576,7 @@ app.get("/warehouses", async function (req, res) {
         });
 
         res.status(200).json({ message: "Данные о товарах успешно получены", stores: storesInfo });
-    } 
+    }
     catch (error) {
         res.status(400).json({ message: "Ошибка при получении информации о складах" });
         console.error("get /warehouses", error);

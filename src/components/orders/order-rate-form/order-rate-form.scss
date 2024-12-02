@@ -12,18 +12,14 @@
   }
   .feedback-wrapper {
      width: 100%;
-    .feedback-criteria-wrapper {
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      margin-top: 10px;
-      border: 1px solid rgba(128, 128, 128, 0.247);
-    }
     .comment-field {
       margin-top: 24px;
     }
-    .form-button {
-      margin: 12px 0;
+
+    .form-button-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
     }
 
     .upload-files-wrapper {
@@ -37,14 +33,35 @@
       }
     }
 
-    .uploaded-photos {
+    .uploaded-files {
+      width: 600px;
       display: flex;
-      gap: 10px
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .uploaded-image {
-      width: 50px;
-      height: 50px;
+    .uploaded-item {
+      width: 100px;
+      height: 100px;
     }
   }
+  .feedback-details-wrapper {
+    margin-top: 15px;
+    .advantages-wrapper, .disadvantages-wrapper {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .advantage-field, .disadvantage-field {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.confirmation-message {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
 }

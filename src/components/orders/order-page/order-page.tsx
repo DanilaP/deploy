@@ -15,7 +15,7 @@ import Card from "@mui/material/Card";
 import { useTranslation } from "react-i18next";
 import { MdArrowBack, MdFavoriteBorder } from "react-icons/md";
 import CardContent from "@mui/material/CardContent";
-import { formatCurrency, formatDate } from "../../../helpers/common-helpers.tsx";
+import { formatCurrency } from "../../../helpers/common-helpers.tsx";
 import "./order-page.scss";
 import Grid from "@mui/material/Grid2";
 import PaymentDetailsCard from "../cards/payment-details-card/payment-details-card.tsx";
@@ -33,11 +33,11 @@ const OrderPage = () => {
     const navigate = useNavigate();
 
     const addToBacket = (id: number, variation: string) => {
-            $api.post("/backet", { product: {
+            $api.post("/backet", [ {
                     id,
                     number: 1,
                     variation,
-                } })
+                } ])
                 .catch((error) => {
                     console.error(error);
                 });
@@ -64,7 +64,7 @@ const OrderPage = () => {
                         img: variation?.images[0],
                         title: variation?.title,
                         color: description,
-                        amount: orderProduct.amount,
+                        number: orderProduct.number,
                         variation: orderProduct.variation,
                     };
                 });
@@ -121,7 +121,7 @@ const OrderPage = () => {
                                             />
                                             <div>
                                                 <Typography variant="subtitle2">
-                                                    { formatCurrency(product.price) } { t('text.rub') } x { product.amount } { t('text.pcs') }
+                                                    { formatCurrency(product.price) } { t('text.rub') } x { product.number } { t('text.pcs') }
                                                 </Typography>
                                                 <Typography variant="body2">
                                                     { product.name }, { product.title } { t('text.cart.variation') }
@@ -157,10 +157,10 @@ const OrderPage = () => {
                         actionConfirmed={ () => setIsOpenModal(false) }
                         closeModal={ () => setIsOpenModal(false) }
                     >
-                        <>
+                        <div>
                             <OrderRateCard order={ order } productsData={ productsData } />
-                            <OrderRateForm />
-                        </>
+                            <OrderRateForm closeModal={ () => setIsOpenModal(false) } />
+                        </div>
                     </CustomModal>
                 </>
             ) }

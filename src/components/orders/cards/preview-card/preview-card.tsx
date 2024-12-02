@@ -43,15 +43,19 @@ const PreviewCard: FC<PreviewCardProps> = ({ order, products }) => {
                 <div>
                     <div className="delivery-status">
                         <Typography>
-                            { t(`text.checkout.orderDeliveryMethods.${order.deliveryMethod}`) }
+                            { t(`text.checkout.orderDeliveryMethods.${ order.deliveryMethod }`) }
                         </Typography>
                         <Chip
-                            label={ t(`text.vendorsLogistic.shippingStatuses.${order.orderStatus}`) }
+                            label={ t(`text.vendorsLogistic.shippingStatuses.${ order.orderStatus }`) }
                             color={ getStatusColor(order.orderStatus) }
                         />
                     </div>
                     <Typography>
-                        { order.orderStatus === "delivered" ? `${ t('text.deliveryDate') }: ${ formatDate(order.deliveredAt) }` : "" }
+                        { order.orderStatus === 'in-transit'
+                            ? `${ t('text.willBeDelivered') } ${ formatDate(order.estimatedDeliveryDate) }`
+                            : order.orderStatus === 'delivered'
+                                ? formatDate(order.deliveredAt)
+                                : '' }
                     </Typography>
                 </div>
 

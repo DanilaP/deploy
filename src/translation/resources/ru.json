@@ -135,7 +135,7 @@
                 "card": "Оплата банковской картой"
             },
             "courierFormLabels": {
-                "address": "Адрес",
+                "fullAddress": "Адрес",
                 "houseNumber": "Дом",
                 "apartment": "Квартира",
                 "entrance": "Подъезд",
@@ -184,25 +184,6 @@
         "repeatOrder": "Повторить заказ",
         "paid": "Оплачено",
         "rateOrder": "Оценить заказ",
-        "feedbackCriteria": {
-            "deliverySpeed": "Скорость доставки",
-            "productQuality": "Качество товаров",
-            "assemblyQuality": "Качество сборки",
-            "productPrice": "Цена товара",
-            "productCondition": "Состояние товара при получении",
-            "orderProcess": "Процесс оформления заказа",
-            "customerService": "Обслуживание клиентов",
-            "orderAccuracy": "Точность заказа и учёт комментариев",
-            "siteConvenience": "Удобство сайта"
-        },
-        "ratingLabels": {
-            "0": "Что вам не понравилось?",
-            "1": "Что вам не понравилось?",
-            "2": "Что вам не понравилось?",
-            "3": "Что вам не понравилось?",
-            "4": "Что можно улучшить?",
-            "5": "Что вам понравилось?"
-        },
         "send": "Отправить",
         "yourComment": "Ваш комментарий",
         "willBeDelivered": "Будет доставлен",
@@ -220,7 +201,11 @@
         "deleteStore": "Удалить склад",
         "storeAddress": "Адрес склада",
         "storeName": "Наименование склада",
-        "deleteStoreConfirmation": "Вы уверены, что хотите удалить склад?"
+        "deleteStoreConfirmation": "Вы уверены, что хотите удалить склад?",
+        "expandFeedback": "Хочу сказать больше",
+        "disadvantages": "Недостатки",
+        "advantages": "Достоинства",
+        "thankYouMessage": "Благодарим за отзыв"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

@@ -10,25 +10,23 @@
     "paymentMethod": "card",
     "deliveryMethod": "courier",
     "address": {
-      "id": "1",
-      "address": "г. Москва, Тверская улица",
+      "fullAddress": "г. Москва, Тверская улица",
       "houseNumber": "3",
       "apartment": "12",
       "entrance": "2",
       "floor": "9",
-      "intercom": "1234",
-      "comment": "Код домофона: 73"
+      "intercom": "1234"
     },
     "orderPrice": 20000,
     "products": [
       {
         "id": 1,
-        "amount": 4,
+        "number": 4,
         "variation": "Base"
       },
       {
         "id": 3,
-        "amount": 4,
+        "number": 4,
         "variation": "Base"
       }
     ]
@@ -44,19 +42,18 @@
     "paymentMethod": "cash",
     "deliveryMethod": "pickup",
     "address": {
-      "id": "2",
-      "address": "ГаджетТочка, Пушкинская улица, дом 10"
+      "fullAddress": "Склад 1, Тестовый адрес 1"
     },
     "orderPrice": 24000,
     "products": [
       {
         "id": 2,
-        "amount": 2,
+        "number": 2,
         "variation": "Full"
       },
       {
         "id": 4,
-        "amount": 1,
+        "number": 1,
         "variation": "Full"
       }
     ]
@@ -72,25 +69,23 @@
     "paymentMethod": "spb",
     "deliveryMethod": "courier",
     "address": {
-      "id": "3",
-      "address": "г. Казань, ул. Баумана",
+      "fullAddress": "г. Казань, ул. Баумана",
       "houseNumber": "20",
       "apartment": "7",
       "entrance": "3",
       "floor": "5",
-      "intercom": "4321",
-      "comment": "Требуется помощь при доставке"
+      "intercom": "4321"
     },
     "orderPrice": 23000,
     "products": [
       {
         "id": 5,
-        "amount": 1,
+        "number": 1,
         "variation": "Base"
       },
       {
         "id": 6,
-        "amount": 3,
+        "number": 3,
         "variation": "Base"
       }
     ]
