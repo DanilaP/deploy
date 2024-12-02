@@ -14,6 +14,7 @@ import { adminRoutes, routes } from './routes';
 import { useStore } from './stores';
 import usePermissions from './helpers/permissions-helpers.ts';
 import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
+import cartApi from "./api/cart.ts";
 import { MdFavoriteBorder } from "react-icons/md";
 
 function App() {

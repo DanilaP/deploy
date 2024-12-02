@@ -13,17 +13,17 @@ const emptyCartCard = () => {
         <Card className="empty-card">
             <CardContent>
                 <Typography gutterBottom variant="h5" className="empty-card-title" component="div">
-                    {t('text.cart.emptyBasket')}
+                    { t('text.cart.emptyBasket') }
                 </Typography>
                 <Typography gutterBottom variant="body1" className="empty-card-body">
-                    {t('text.cart.findProductsInfo')}
+                    { t('text.cart.findProductsInfo') }
                 </Typography>
                 <Button
                     variant="contained"
-                    onClick={() => navigate("/shop")}
+                    onClick={ () => navigate("/shop") }
                     className="empty-card-button"
                 >
-                    {t('text.cart.toCatalog')}
+                    { t('text.cart.toCatalog') }
                 </Button>
             </CardContent>
         </Card>
