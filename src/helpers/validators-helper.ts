@@ -1,3 +1,5 @@
+import { t } from "i18next";
+
 const validateRequiredField = (value: any) => {
     if (!value) return false;
     if (value.length === 0) return false;
@@ -27,12 +29,22 @@ const validatePhone = (phone: string) => {
     const russianTelLength = 11;
     return cleanedTel.length === russianTelLength;
 };
-
+const validateRequiredEmail = (email: string) => {
+    if (validateEmail(email)) {
+        return true;
+    } else {
+        if (validateRequiredField(email)) {
+            return t("text.invalidEmail");
+        }
+        return t("errors.requiredField");
+    }
+};
 export { 
     validateRequiredField, 
     validateEmail, 
     validatePhone, 
     validateWebsiteRef,
     validateOgrn,
-    validateInn
- };
+    validateInn,
+    validateRequiredEmail
+};

@@ -51,7 +51,6 @@ If you are developing a production application, we recommend updating the config
   - Add favorites page
 - Create page for managing categories
   - Install `@mui/x-tree-view`
-  - Add products warehouse page
 - Add validation for managing goods form
   - Install `react-hooks-form`
 - Create vendors page for admin panel
@@ -59,3 +58,5 @@ If you are developing a production application, we recommend updating the config
   - integrate form with RHK
   - moving categories with DnD
   - create new fields for each category
+=======
+  - Add products warehouse page
