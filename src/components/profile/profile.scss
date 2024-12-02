@@ -69,12 +69,25 @@
             }
 
             .user-status {
-                font-weight: 600;
-                color: orange;
-                cursor: pointer;
+                text-align: center;
+                
+                .confirmation {
+                    font-weight: 600;
+                    color: orange;
+                    cursor: pointer;
 
-                &:hover {
-                    text-decoration: underline;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+
+                .send-link-text {
+                    color: var(--default-color);
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
         }

@@ -547,8 +547,6 @@ app.get("/favorites", async function(req, res) {
 
 
 
-
-
 //Warehouses
 app.get("/warehouses", async function (req, res) {
     try {

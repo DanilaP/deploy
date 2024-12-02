@@ -172,7 +172,10 @@
         "freeChats": "Свободные чаты",
         "chat": "Чат",
         "send": "Отправить",
-        "yourMessage": "Ваше сообщение"
+        "yourMessage": "Ваше сообщение",
+        "sendLink": "Отправить ссылку",
+        "sendingLink": "Отправка ссылки",
+        "sendLinkSuccessfully": "Ссылка успешно отправлена"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

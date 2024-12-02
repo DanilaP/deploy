@@ -75,6 +75,14 @@
     .deleted {
         color: red;
     }
+    .send-link-text {
+        color: var(--default-color);
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 @media screen and (max-width: 980px) {

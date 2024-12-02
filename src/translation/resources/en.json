@@ -172,7 +172,10 @@
         "freeChats": "Free chats",
         "chat": "Chat",
         "send": "Send",
-        "yourMessage": "Your message"
+        "yourMessage": "Your message",
+        "sendLink": "Send link",
+        "sendingLink": "Sending a link",
+        "sendLinkSuccessfully": "The link has been sent successfully"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",

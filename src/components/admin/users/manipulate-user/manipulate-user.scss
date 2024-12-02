@@ -1,13 +1,15 @@
 .manipulate-user {
 
     .manipulate-user-form {
+        width: 350px;
         display: flex;
         flex-direction: column;
-        align-items: center;
         gap: 10px;
     }
 
     .data {
+        width: 350px;
+        
         .MuiInputBase-root {
             width: 300px;
 
