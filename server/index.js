@@ -604,7 +604,51 @@ app.delete("/category", async function(req, res) {
     }
 });
 
+// providers
 
+app.get("/providers", async function(req, res) {
+    try {
+        let currentProvidersList = JSON.parse(fs.readFileSync('DB/Providers.json', 'utf8'));
+        res.status(200).json({ message: "Данные о поставщиках успешно получены", providers: currentProvidersList });
+    }
+    catch(error) {
+        console.error("get /providers", error);
+        res.status(400).json({ message: "Ошибка получения данных о поставщиках!" });
+    }
+});
+
+app.post("/providers", async function(req, res) {
+    try {
+        let currentProvidersList = JSON.parse(fs.readFileSync('DB/Providers.json', 'utf8'));
+        res.status(200).json({ message: "Данные о поставщике сохранены", provider: req.body });
+    }
+    catch(error) {
+        console.error("post /providers", error);
+        res.status(400).json({ message: "Ошибка сохранения данных о поставщике!" });
+    }
+});
+
+app.put("/providers", async function(req, res) {
+    try {
+        let currentProvidersList = JSON.parse(fs.readFileSync('DB/Providers.json', 'utf8'));
+        res.status(200).json({ message: "Данные о поставщике сохранены", provider: req.body });
+    }
+    catch(error) {
+        console.error("post /providers", error);
+        res.status(400).json({ message: "Ошибка сохранения данных о поставщике!" });
+    }
+});
+
+app.delete("/providers", async function(req, res) {
+    try {
+        let currentProvidersList = JSON.parse(fs.readFileSync('DB/Providers.json', 'utf8'));
+        res.status(200).json({ message: "Данные о поставщике удалены", provider: req.body });
+    }
+    catch(error) {
+        console.error("delete /providers", error);
+        res.status(400).json({ message: "Ошибка удаленя данных о поставщике!" });
+    }
+});
 
 async function startApp() {
     try {

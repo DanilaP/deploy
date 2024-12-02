@@ -37,5 +37,13 @@
       "DeleteRoles",
       "ModifyRoles"
     ]
+  },
+  {
+    "name": "Администрирование поставщиков",
+    "permissions": [
+      "WathingProviders",
+      "ManagingProviders",
+      "CreatingNewProviders"
+    ]
   }
 ]

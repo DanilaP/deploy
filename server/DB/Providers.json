@@ -1,0 +1,93 @@
+[
+    {
+        "id": 1,
+        "name": "ООО 'Тестовый поставщик'",
+        "active": true,
+        "createdAt": "2024-01-01",
+        "email": "test@gmail.com",
+        "inn": "5600346026",
+        "contactPerson": {
+            "id": 2,
+            "name": "Иванов Иван Иванович",
+            "phoneNumber": "+7 969 333 11 10",
+            "post": "Менеджер"
+        },
+        "ogrn": "4567368300796",
+        "deletedAt": null,
+        "description": "Осуществление поставок вычислительной техники",
+        "website": "https://test.provider.computers"
+    },
+    {
+        "id": 3,
+        "name": "ООО 'Новый поставщик'",
+        "active": true,
+        "email": "test1@gmail.com",
+        "inn": "5600346026",
+        "createdAt": "2024-01-02",
+        "deletedAt": null,
+        "ogrn": "4567368300796",
+        "contactPerson": {
+            "id": 4,
+            "name": "Павлов Павел Павлович",
+            "phoneNumber": "+7 938 350 30 20",
+            "post": "Генеральный директор"
+        },
+        "description": "Осуществление поставок кухонного оборудования",
+        "website": "https://test.provider.kitchen"
+    },
+    {
+        "id": 5,
+        "name": "ООО 'Другой поставщик'",
+        "active": true,
+        "email": "test2@gmail.com",
+        "createdAt": "2024-01-03",
+        "ogrn": "4567368300796",
+        "inn": "5600346026",
+        "deletedAt": null,
+        "contactPerson": {
+            "id": 6,
+            "name": "Сергеев Сергей Сергеевич",
+            "phoneNumber": "+7 875 300 20 10",
+            "post": "Менеджер"
+        },
+        "description": "Осуществление поставок электроники разного типа",
+        "website": "https://test.provider.electronics"
+    },
+    {
+        "id": 7,
+        "name": "ООО 'Другой поставщик 2'",
+        "active": true,
+        "email": "test3@gmail.com",
+        "createdAt": "2024-01-04",
+        "ogrn": "4567368300796",
+        "inn": "5600346026",
+        "deletedAt": null,
+        "contactPerson": {
+            "id": 8,
+            "name": "Вадимов Вадим Вадимович",
+            "phoneNumber": "+7 875 300 20 15",
+            "post": "Менеджер"
+        },
+        "description": "Осуществление поставок электроники разного типа",
+        "website": "https://test.provider.electronics"
+    },
+    {
+        "id": 9,
+        "name": "ООО 'Другой поставщик 1'",
+        "active": true,
+        "ogrn": "4567368300796",
+        "inn": "5600346026",
+        "email": "test4@gmail.com",
+        "createdAt": "2023-01-05",
+        "deletedAt": null,
+        "contactPerson": {
+            "id": 10,
+            "name": "Егоров Егор Егорович",
+            "phoneNumber": "+7 875 300 20 15",
+            "post": "Менеджер"
+        },
+        "description": "Осуществление поставок электроники разного типа",
+        "website": "https://test.provider.electronics"
+    }
+
+]

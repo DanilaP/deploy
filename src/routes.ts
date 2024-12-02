@@ -15,6 +15,7 @@ import ProductPage from "./components/shop/product-page/product-page";
 import ProductReviews from "./components/shop/product-reviews-page/product-reviews-page";
 import { CategoriesPage } from "./components/admin/categories/categories";
 import { t } from "i18next";
+import ProvidersPage from "./components/admin/providers/providers";
 import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import Favorites from "./components/favorites/favorites";
 import ProductsWarehouse from "./components/admin/warehouses-page/products-warehouse.tsx";
@@ -130,5 +131,11 @@ export const adminRoutes = [
         component: AdminPage,
         children: CategoriesPage,
         breadcrumb : t("text.categories")
+    },
+    {
+        path: '/admin/providers',
+        component: AdminPage,
+        children: ProvidersPage,
+        breadcrumb : t("text.providers")
     },
 ];

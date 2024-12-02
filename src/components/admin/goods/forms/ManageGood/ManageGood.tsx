@@ -21,7 +21,7 @@ interface IProductForm {
     video: string,
     name: string,
     partNumber: string,
-    provider: string,
+    provider: ISelect | null,
     price: number,
     active: boolean,
     published: boolean,
@@ -32,6 +32,7 @@ export const ManageGoodForm = ({
     mode,
     goodData,
     categoriesForSelect,
+    providersForSelect,
     handleCancelUpdating,
     handleUpdateGood,
     handleUnsavedDataExist
@@ -39,6 +40,7 @@ export const ManageGoodForm = ({
     mode: "edit" | "create" | null,
     goodData?: IProduct | null,
     categoriesForSelect: ISelect[],
+    providersForSelect: ISelect[],
     handleUpdateGood: (goodData: IProduct) => void,
     handleCancelUpdating: () => void,
     handleUnsavedDataExist: (status: boolean) => void
@@ -61,6 +63,7 @@ export const ManageGoodForm = ({
             ? {
                 ...goodData,
                 category: categoriesForSelect.filter(el => goodData.category.includes(el.id)),
+                provider: providersForSelect.find(el => goodData.provider === el.id),
                 additionalInfo: goodData.additionalInfo,
                 variations: goodData.variations
             }
@@ -88,7 +91,8 @@ export const ManageGoodForm = ({
     const handleUpdateGoodData = (data: IProductForm) => {
         const goodDataForSend: IProduct = {
             ...data,
-            category: data.category.map((el: ISelect) => el.id)
+            category: data.category.map((el: ISelect) => el.id),
+            provider: data.provider?.id || ""
         };
         if (isEdit) {
             handleUpdateGood({ ...goodDataForSend, id: goodData?.id });
@@ -193,14 +197,26 @@ export const ManageGoodForm = ({
                         className="label"
                         htmlFor="update-good-provider"
                     >{ t("text.provider") }</label>
-                    <TextField
-                        error={ Boolean(errors.provider) }
-                        helperText={ String(errors.provider?.message || "") }
-                        id="update-good-provider"
-                        placeholder={ t("text.provider") }
-                        { ...register("provider", {
-                            validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                        }) }
+                    <Controller
+                        name="provider"
+                        control={ control }
+                        rules={ { required: t("errors.requiredField") } }
+                        render={ ({ field }) => (
+                            <Autocomplete
+                                { ...field }
+                                options={ providersForSelect }
+                                onChange={ (_, value) => field.onChange(value) }
+                                renderInput={ (params) => (
+                                    <TextField
+                                        placeholder={ t("text.search") }
+                                        { ...params }
+                                        id="update-good-provider"
+                                        error={ Boolean(errors.provider) }
+                                        helperText={ String(errors.provider?.message || "") }
+                                    />
+                                ) }
+                            />
+                        ) }
                     />
                 </div>
                 <div className="field">
@@ -212,28 +228,26 @@ export const ManageGoodForm = ({
                         control={ control }
                         rules={ { required: t("errors.requiredField") } }
                         render={ ({ field }) => (
-                            <>
-                                <Autocomplete
-                                    { ...field }
-                                    multiple
-                                    limitTags={ 3 }
-                                    options={ 
-                                        categoriesForSelect.filter(optionValue => {
-                                            return !field.value.some(selectedValue => optionValue.id === selectedValue.id );
-                                        })
-                                    }
-                                    onChange={ (_, value) => field.onChange(value) }
-                                    renderInput={ (params) => (
-                                        <TextField
-                                            placeholder={ t("text.search") }
-                                            { ...params }
-                                            id="update-good-category"
-                                            error={ Boolean(errors.category) }
-                                            helperText={ String(errors.category?.message || "") }
-                                        />
-                                    ) }
-                                />
-                            </>
+                            <Autocomplete
+                                { ...field }
+                                multiple
+                                limitTags={ 3 }
+                                options={ 
+                                    categoriesForSelect.filter(optionValue => {
+                                        return !field.value.some(selectedValue => optionValue.id === selectedValue.id );
+                                    })
+                                }
+                                onChange={ (_, value) => field.onChange(value) }
+                                renderInput={ (params) => (
+                                    <TextField
+                                        placeholder={ t("text.search") }
+                                        { ...params }
+                                        id="update-good-category"
+                                        error={ Boolean(errors.category) }
+                                        helperText={ String(errors.category?.message || "") }
+                                    />
+                                ) }
+                            />
                         ) }
                     />
                 </div>
