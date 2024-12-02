@@ -543,13 +543,16 @@ app.get("/favorites", async function(req, res) {
         res.status(400).json({ message: "Ошибка при получении избранных товаров!" });
         console.error("get /favourites", error);
     }
-})
+});
 
 
-//Stores
-app.get("/stores", async function (req, res) {
+
+
+
+//Warehouses
+app.get("/warehouses", async function (req, res) {
     try {
-        let currentStores = JSON.parse(fs.readFileSync('DB/Stores.json', 'utf8'));
+        let currentStores = JSON.parse(fs.readFileSync('DB/Warehouses.json', 'utf8'));
         let currentProducts= JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
         
         let storesInfo = currentStores.map((store) => {
@@ -571,7 +574,7 @@ app.get("/stores", async function (req, res) {
     } 
     catch (error) {
         res.status(400).json({ message: "Ошибка при получении информации о складах" });
-        console.error("get /stores", error);
+        console.error("get /warehouses", error);
     }
 })
 
@@ -791,6 +794,7 @@ wss.on('connection', (ws) => {
         console.log("Соединение закрыто!");
     });
 });
+
 
 async function startApp() {
     try {

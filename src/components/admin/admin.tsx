@@ -67,7 +67,7 @@ export default function AdminPage (props: AdminPageProps) {
                         </MenuItem>  : null
                     }
                     {
-                        <MenuItem onClick={ () => navigate("/admin/productsStore") }>
+                        <MenuItem onClick={ () => navigate("/admin/productsWarehouse") }>
                             <FaWarehouse className='icon'/>{ !isMenuTextExists ? t("titles.productsStorePage") : null }
                         </MenuItem>
                     }

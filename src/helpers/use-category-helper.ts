@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ICategory, ISelect } from "../interfaces/interfaces";
+import { ICategory, ISelect } from "../interfaces/interfaces.js";
 import $api from "../configs/axiosconfig/axios.js";
 
 export const useCategoryHelper = () => {

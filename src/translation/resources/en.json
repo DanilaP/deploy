@@ -44,6 +44,14 @@
         "deletingUserConfirmation": "Do you want to delete the user?",
         "manipulateUser": "User manipulating",
         "creating": "(Creation)",
+        "save": "Save",
+        "search": "Search",
+        "cancel": "Cancel",
+        "publish": "Publish",
+        "active": "Active",
+        "inactive": "Inactive",
+        "published": "published",
+        "unPublished": "unpublished",
         "usersAdmin": "Users",
         "rolesAdmin": "Roles",
         "permitionsRules": "Permition/rules",
@@ -64,7 +72,7 @@
         "video": "Video",
         "saveChanges": "Save changes",
         "additionalProductInfo": "Additional info (title, value)",
-        "variationsOfProduct": "Variations (title, value, price, stock)",
+        "variationsOfProduct": "Variations (title, value, stock, price)",
         "addRole": "Add role",
         "price": "Price",
         "good": "Good",
@@ -81,6 +89,7 @@
         "createCategory": "Create category",
         "deleteGroup": "Delete group",
         "addCategory": "Add category",
+        "partNumber": "Part number",
         "unsavedChanges": "You have an unsaved changes. Are you sure",
         "groupName": "Group name",
         "approveAction": "Approve action",
@@ -93,7 +102,6 @@
         "pcs": "pcs.",
         "toBacket": "To backet",
         "category": "Category",
-        "requiredField": "This field is requiered",
         "editCategory": "Edit category",
         "productReviews": "Product reviews",
         "averageEvaluation": "Average evaluation",
@@ -108,6 +116,9 @@
         "uploadFiles": "Upload files",
         "invalidEmail": "Invalid email",
         "confirmAccount": "Confirm your account",
+        "image": "Image",
+        "partNumber": "Partnumber",
+        "all": "All",
         "cart": {
             "productChoose": "Select products to proceed to checkout",
             "preDeliverInfo": "Available delivery methods and times can be selected when placing an order",
@@ -212,5 +223,10 @@
         "shopProduct": "Product",
         "productReviews": "Reviews of the product",
         "favorites": "Favorites"
+    },
+    "errors": {
+        "requiredField": "This field is requiered",
+        "notZero": "This field cant be 0",
+        "productReviews": "Reviews of the product"
     }
 }

@@ -6,12 +6,7 @@ import {
     Button,
     Checkbox,
     Stack,
-    IconButton,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogContentText,
-    DialogActions,
+    IconButton
 } from '@mui/material';
 import {
     FaPlus as Add,
@@ -22,6 +17,7 @@ import {
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './product-card.scss'
+import CustomModal from '../../../../components-ui/custom-modal/custom-modal';
 
 interface ProductCardProps {
     isSelected: boolean;
@@ -121,24 +117,15 @@ const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, hand
 
             </Card>
 
-            <Dialog open={open} onClose={handleCloseDialog}>
-                <DialogTitle>
-                    {t('text.cart.confirmDeleteTitle')}
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        {t('text.cart.confirmDeleteMessage')}
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleConfirmRemove} variant="contained" color="error" autoFocus>
-                        {t('text.cart.delete')}
-                    </Button>
-                    <Button onClick={handleCloseDialog} color="primary">
-                        {t('text.cart.cancel')}
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            <CustomModal
+                isDisplay = { open }
+                title = { t('text.cart.confirmDeleteTitle') } 
+                closeModal = { handleCloseDialog }
+                actionConfirmed = { handleConfirmRemove }
+                typeOfActions = 'default'
+            >   
+                <div>{ t('text.cart.confirmDeleteMessage') }</div>
+            </CustomModal>
         </>
     );
 };
