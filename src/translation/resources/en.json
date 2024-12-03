@@ -41,6 +41,7 @@
         "managingGoods": "Managing goods",
         "deleteGoods": "Delete good",
         "deletingUser": "Deleting user",
+        "all": "All",
         "deletingUserConfirmation": "Do you want to delete the user?",
         "manipulateUser": "User manipulating",
         "creating": "(Creation)",
@@ -62,6 +63,7 @@
         "systemKey": "System key",
         "goto": "Go to",
         "logout": "Logout",
+        "email": "Email",
         "adminPanel": "Admin panel",
         "provider": "Provider",
         "name": "Name",
@@ -74,11 +76,13 @@
         "additionalProductInfo": "Additional info (title, value)",
         "variationsOfProduct": "Variations (title, value, stock, price)",
         "addRole": "Add role",
+        "restoreProvider": "Restore provider",
         "price": "Price",
         "good": "Good",
         "approveDeletingGood": "Approve deleting good",
         "deleteRole": "Delete",
         "alreadyHaveAcc": "Already have an account?",
+        "restore": "Restore",
         "stillNotReg": "Not registered yet?",
         "filters": "Filters",
         "find": "Find",
@@ -89,10 +93,30 @@
         "createCategory": "Create category",
         "deleteGroup": "Delete group",
         "addCategory": "Add category",
+        "managingProviders": "Managing providers",
+        "editProvider": "Edit provider",
+        "isActive": "Is Active",
+        "post": "Post",
+        "active": "Active",
+        "inActive": "Inactive",
+        "phoneNumber": "Phone number",
+        "website": "Web site",
+        "contactPerson": "Contant person",
+        "status": "Status",
+        "visitWebsite": "Visit website",
+        "contactPersonLabel": "Contant person (name, phone, post)",
+        "dateOfCreation": "Date of creation",
+        "approveDeletingProvider": "Confirm deleting provider",
+        "createProvider": "Create provider",
+        "articleNumber": "Article number",
+        "deleted": "Delted",
+        "inn": "INN",
+        "ogrn": "OGRN",
         "partNumber": "Part number",
         "unsavedChanges": "You have an unsaved changes. Are you sure",
         "groupName": "Group name",
         "approveAction": "Approve action",
+        "providers": "Providers",
         "createGoods": "Create good",
         "confirmDeletingCategory": "Are you sure want to delete category",
         "cost": "Cost",
@@ -170,6 +194,65 @@
                 "cancelled": "Cancelled"
             }
         },
+        "checkout": {
+            "selectAddress": "Select address",
+            "orderProcessing": "Processing order",
+            "deleteAddress": "Delete this address",
+            "forTotalSum": "for a total amount",
+            "addresses": "Courier delivery in Moscow",
+            "orderCheckout": "Order Checkout",
+            "contactsData": "Contact Information",
+            "deliveryVars": "Delivery Methods",
+            "nameLabel": "Your Name",
+            "telLabel": "Phone Number",
+            "paymentVars": "Payment Methods",
+            "shortInCity": "in",
+            "selectedProducts": "Selected Products",
+            "paymentMethods": {
+                "card": "Card",
+                "cash": "Cash",
+                "spb": "SBP"
+            },
+            "orderPaymentMethods": {
+                "cash": "Cash on Delivery",
+                "spb": "Payment via SBP QR code",
+                "card": "Payment by Bank Card"
+            },
+            "orderDeliveryMethods": {
+                "addresses": "Courier Delivery",
+                "pickup": "Store Pickup"
+            },
+            "errors": {
+                "emptyName": "Please enter your name",
+                "emptyTel": "Please enter your phone number",
+                "incorrectTel": "Enter a valid phone number",
+                "emptyDeliveryMethod": "Please select a delivery method",
+                "emptyPaymentMethod": "Please select a payment method"
+            },
+            "pickup": "Pickup",
+            "enterDeliveryAddress": "Enter Delivery Address",
+            "courierFormLabels": {
+                "address": "Address",
+                "apartment": "Apartment",
+                "entrance": "Entrance",
+                "floor": "Floor",
+                "intercom": "Intercom Code",
+                "comment": "Comment for Courier"
+            },
+            "storageDuration": "Storage Duration",
+            "address": "Address",
+            "chooseShop": "Choose Store",
+            "byAddress": "by address",
+            "courierDelivery": "Courier Delivery",
+            "pickupFromShop": "Store Pickup",
+            "orderStorageDuration": "Order Storage Duration",
+            "placeOrder": "Place Order",
+            "deliveryVar": "Delivery Method",
+            "paymentVar": "Payment Method",
+            "orderData": "Order Details",
+            "emptyDeliveryVar": "Delivery method not selected",
+            "emptyPaymentVar": "Payment method not selected"
+        },
         "uploadFiles": "Upload files",
         "deleteAll": "Delete all",
         "favoritesAreClear": "The list of favorites is empty",
@@ -239,7 +322,10 @@
         "ModifyRoles": "Modify roles",
         "CreateGroupOfPermissions": "Create group of permissions",
         "DeleteGroupOfPermissions": "Delete group of permissions",
-        "ModifyGroupOfPermissions": "Modify group of permissions"
+        "ModifyGroupOfPermissions": "Modify group of permissions",
+        "CreatingNewProviders": "Creating new providers",
+        "ManagingProviders": "Managing providers",
+        "WathingProviders": "Watching providers"
     },
     "symbols": {
         "rub": "\u20BD"
@@ -262,6 +348,10 @@
     "errors": {
         "requiredField": "This field is requiered",
         "notZero": "This field cant be 0",
-        "productReviews": "Reviews of the product"
+        "email": "Incorrect email address",
+        "website": "Inccorect website ref",
+        "phone": "Incorrect phone number",
+        "ogrn": "Incorrect format for OGRN",
+        "inn": "Incorrect format for INN"
     }
 }

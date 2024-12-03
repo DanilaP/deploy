@@ -199,7 +199,7 @@ const OrderRateForm: FC<{ closeModal: () => void }> = ({ closeModal }) => {
                                                 { advantagesFields.map((field, index) => (
                                                     <div className="advantage-field" key={ field.id }>
                                                         <Controller
-                                                            name="advantages"
+                                                            name={`advantages[${index}].info`}
                                                             control={ control }
                                                             render={ ({ field }) => (
                                                                 <TextField
@@ -234,7 +234,7 @@ const OrderRateForm: FC<{ closeModal: () => void }> = ({ closeModal }) => {
                                                 { disadvantagesFields.map((field, index) => (
                                                     <div className="disadvantage-field" key={ field.id }>
                                                         <Controller
-                                                            name="disadvantages"
+                                                            name={`disadvantages[${index}].info`}
                                                             control={ control }
                                                             render={ ({ field }) => (
                                                                 <TextField

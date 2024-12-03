@@ -1,6 +1,7 @@
 .cart {
   margin-top: 48px;
   margin-bottom: 56px;
+  height: 100%;
 
   .MuiCard-root {
     background-color: var(--bg-color-block);
@@ -58,6 +59,11 @@
   .order-card-grid {
     margin-top: 56px;
     align-self: flex-start;
+    @media (min-width: 960px) {
+      position: sticky;
+      top: 20px;
+      height: fit-content;
+    }
   }
 
   .basket-stack {

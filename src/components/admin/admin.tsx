@@ -9,6 +9,7 @@ import './admin.scss';
 import usePermissions from "../../helpers/permissions-helpers.ts";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
+import { TbTruckDelivery } from "react-icons/tb";
 
 interface AdminPageProps {
     children: React.ReactElement | null
@@ -75,6 +76,12 @@ export default function AdminPage (props: AdminPageProps) {
                         <MenuItem onClick={ () => navigate("/admin/categories") }>
                             <MdCategory className='icon' />{ !isMenuTextExists ? t("text.categories") : null }
                         </MenuItem>  : null
+                    }
+                    {
+                        permissionsExists.WathingProviders &&
+                        <MenuItem onClick={ () => navigate("/admin/providers") }>
+                            <TbTruckDelivery className='icon' />{ !isMenuTextExists ? t("text.providers") : null }
+                        </MenuItem>
                     }
                 </div>
                 <div className="content">{ children }</div>
