@@ -5,6 +5,10 @@
     "isVerified": true,
     "login": "danila@gmail.com",
     "password": "$2a$07$iJxbcrqGHQTYajyfktQwIuLYb7xRGeumn4p3fFr8WaK8Uune5vWMq",
+    "country": "Россия",
+    "city": "Пенза",
+    "name": "Данила",
+    "tel": "89603222544",
     "role": "Администратор",
     "avatar": "http://localhost:5000/test.jpg",
     "backet": [
@@ -27,6 +31,10 @@
     "isVerified": true,
     "login": "new@gmail.com",
     "password": "$2a$07$yeAFGaIvxta72M/4RzLiReAPt/hCKDPOvSB.FpG4sM/gi07HBtGL6",
+    "country": "Россия",
+    "city": "",
+    "name": "",
+    "tel": "",
     "role": "Модератор",
     "avatar": "http://localhost:5000/avatar.jpg",
     "backet": [],
@@ -42,6 +50,10 @@
     "isVerified": true,
     "login": "newuser@gmail.com",
     "password": "$2a$07$ItQ8NTItTNk46S.PwwmdD.n.BrlwoO.Sc7ByhzR40f3quxyZUyt6S",
+    "country": "Россия",
+    "city": "",
+    "name": "",
+    "tel": "",
     "role": "Пользователь",
     "avatar": "http://localhost:5000/avatar.jpg",
     "backet": [],
@@ -59,7 +71,30 @@
     "password": "$2a$07$wQA9hUv05QN12XtjpC5hJO2tsFiHTT.ZCJJAXzxhAcCbdyEvJUviW",
     "role": "Администратор",
     "avatar": "http://localhost:5000/avatar.jpg",
-    "backet": [],
+    "country": "Россия",
+    "city": "Москва",
+    "name": "Светлана",
+    "tel": "79264472217",
+    "backet": [
+      {
+        "id": 6,
+        "productId": 6,
+        "number": 4,
+        "variation": "Base"
+      },
+      {
+        "id": 7,
+        "productId": 7,
+        "number": 5,
+        "variation": "Full"
+      },
+      {
+        "id": 8,
+        "productId": 8,
+        "number": 3,
+        "variation": "Base"
+      }
+    ],
     "favorites": [
       1,
       3,

@@ -7,12 +7,14 @@ import './profile.scss';
 import InputFile from '../../components-ui/custom-file-nput/file-input';
 import { useStore } from '../../stores';
 import CustomModal from '../../components-ui/custom-modal/custom-modal';
+import cartApi from "../../api/cart.ts";
 
 export default function ProfilePage () {
     const { t } = useTranslation();
 
-    const { userStore } = useStore();
+
     const [linkSended, setLinkSended] = useState<boolean>(false);
+    const { userStore, cartStore } = useStore();
     const user = userStore.user;
 
     const navigate = useNavigate();
@@ -35,6 +37,17 @@ export default function ProfilePage () {
             console.log(error);
         });
     }, [userStore]);
+
+    useEffect(() => {
+        const apiCart = cartApi();
+        apiCart.getUserCart()
+            .then((res) => {
+                cartStore.setCart(res);
+            })
+            .catch((error) => {
+                console.error('Ошибка загрузки данных корзины', error);
+            });
+    }, []);
 
     useEffect(() => {
         document.title = t("titles.profilePage");

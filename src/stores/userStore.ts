@@ -16,6 +16,10 @@ class UserStore {
     setUser(user: IUser | null) {
         this.user = user;
     }
+
+    updateUserData(partialData: Partial<IUser>) {
+       this.user = { ...this.user, ...partialData };
+    }
     setPermissions(permissions: string[]) {
         this.permissions = permissions;
     }

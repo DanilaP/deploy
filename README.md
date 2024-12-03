@@ -54,7 +54,9 @@ If you are developing a production application, we recommend updating the config
   - Add products warehouse page
 - Add validation for managing goods form
   - Install `react-hooks-form`
-  - Add users chat
-
-
-
+- Create vendors page for admin panel
+- Fix bugs for categories page and add new functionality
+  - integrate form with RHK
+  - moving categories with DnD
+  - create new fields for each category
+  - Add products warehouse page

@@ -5,38 +5,39 @@ import { useTranslation } from "react-i18next";
 import { Button, TextField } from "@mui/material";
 import { useCategoryHelper } from "../../../helpers/use-category-helper.js";
 import { IoMdSearch } from "react-icons/io";
-import { validateNewCategory } from "./validators.js";
 import CategoriesTreeItems from "./CategoriesTreeItems/CategoriesTreeItems.js";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.js";
 import "./categories.scss";
+import CategoryManageForm, { ICategoryForm } from './CategoryManageForm/CategoryManageForm.js';
 
 export const CategoriesPage = () => {
 
     const [currentCategory, setCurrentCategory] = useState<ICategory | null>(null);
-    const [newCategoryTitle, setNewCategoryTitle] = useState<string>("");
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
-    const [mode, setMode] = useState<"edit" | "create" | null>(null);
-    const [isFormChecked, setIsFormChecked] = useState<boolean>(false);
-    const [modals, setModals] = useState({ manage: false, deletionConfirm: false });
+    const [mode, setMode] = useState<"edit" | "create" | "">("");
+    const [modals, setModals] = useState({ manage: false, deletionConfirm: false, unsavedData: false });
+    const [unsavedDataExist, setUnsavedDataExist] = useState<boolean>(false);
+    const [draggableCategory, setDraggableCategory] = useState<ICategory | null>(null);
+    const [categoryForAdding, setCategoryForAdding] = useState<ICategory | null>(null);
+
     const { t } = useTranslation();
-    const validatorFormData = validateNewCategory(newCategoryTitle);
     const { 
         categories,
         filteredCategories,
         setCategories, 
         setFilteredCategories,
-        handleDeleteSubCategory,
+        handleDeleteCategory,
         handleFindCategoryAndAddIntoNewCategory,
         handleFilterCategoriesByIncludingString,
         handleAddRootCategory,
-        handleUpdateCategory
+        handleUpdateCategory,
+        handleMoveCategoryIntoNewCategory,
+        handleMoveCategoryAsRoot
     } = useCategoryHelper();
     
-
     const handleOpenAddSubCategory = (e: any, category: ICategory | null) => {
         e.stopPropagation();
         setCurrentCategory(category);
-        setNewCategoryTitle("");
         setMode("create");
         setModals(prev => {
             return { ...prev, manage: true };
@@ -47,7 +48,6 @@ export const CategoriesPage = () => {
         e.stopPropagation();
         setCurrentCategory(category);
         setMode("edit");
-        setNewCategoryTitle(category?.title || "");
         setModals(prev => {
             return { ...prev, manage: true };
         });
@@ -61,25 +61,26 @@ export const CategoriesPage = () => {
         setCurrentCategory(category);
     };
 
-    const handleApproveAddingCategory = () => {
-        if (!validatorFormData.formValid) {
-            setIsFormChecked(true);
-            return;
-        }
+    const handleApproveAddingCategory = (formData: ICategoryForm) => {
+        const { image, title, description } = formData;
         if (mode === "create") {
             if (currentCategory) {
-                const updatedCategory = handleFindCategoryAndAddIntoNewCategory(currentCategory, newCategoryTitle, categories);
-                const updatedFiltered = handleFindCategoryAndAddIntoNewCategory(currentCategory, newCategoryTitle, filteredCategories);
+                const updatedCategory = handleFindCategoryAndAddIntoNewCategory(
+                    currentCategory, title, image, description, categories
+                );
+                const updatedFiltered = handleFindCategoryAndAddIntoNewCategory(
+                    currentCategory, title, image, description, filteredCategories
+                );
                 setCategories(updatedCategory);
                 setFilteredCategories(updatedFiltered);
             } else {
-                handleAddRootCategory(newCategoryTitle);
+                handleAddRootCategory(title, description, image);
             }
         } 
         if (mode === "edit") {
             if (currentCategory) {
-                const updatedCategory = handleUpdateCategory(categories, { ...currentCategory, title: newCategoryTitle });
-                const updatedFiltered = handleUpdateCategory(filteredCategories, { ...currentCategory, title: newCategoryTitle });
+                const updatedCategory = handleUpdateCategory(categories, { ...currentCategory, title, description, image });
+                const updatedFiltered = handleUpdateCategory(filteredCategories, { ...currentCategory, title, description, image });
                 setCategories(updatedCategory);
                 setFilteredCategories(updatedFiltered);
             }
@@ -87,11 +88,37 @@ export const CategoriesPage = () => {
         setModals(prev => {
             return { ...prev, manage: false };
         });
-        setIsFormChecked(false);
-        setNewCategoryTitle("");
         setCurrentCategory(null);
     };
 
+    const handleCancelAddingCategory = () => {
+        if (unsavedDataExist) {
+            setModals(prev => {
+                return { ...prev, unsavedData: true };
+            });
+        } else {
+            setModals(prev => {
+                return { ...prev, manage: false };
+            });
+        }
+    };
+
+    const handleUpdateUnsavedData = (status: boolean) => {
+        setUnsavedDataExist(status);
+    };
+
+    const handleCloseWithUnsavedData = () => {
+        setModals(prev => {
+            return { ...prev, unsavedData: false, manage: false };
+        });
+    };
+
+    const handleCloseUnsavedData = () => {
+        setModals(prev => {
+            return { ...prev, unsavedData: false };
+        });
+    };
+    
     const handleClickTreeItem = (category: ICategory) => {
         if (expandedItems.filter(el => el === category.id).length !== 0) {
             setExpandedItems(items => items.filter(el => el !== category.id));
@@ -102,8 +129,8 @@ export const CategoriesPage = () => {
 
     const handleApproveDeleteSubCategory = (category: ICategory | null) => {
         if (!category) return;
-        const updatedCategories = handleDeleteSubCategory(categories, category);
-        const updatedFiltered = handleDeleteSubCategory(filteredCategories, category);
+        const updatedCategories = handleDeleteCategory(categories, category);
+        const updatedFiltered = handleDeleteCategory(filteredCategories, category);
         setCategories(updatedCategories);
         setFilteredCategories(updatedFiltered);
         setModals((prev) => {
@@ -113,13 +140,52 @@ export const CategoriesPage = () => {
     };
 
     const handleStartSearchingCategories = (textValue: string) => {
-        if (textValue.length < import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH && textValue.length !== 0) return;
+        if (textValue.length === 0) {
+            setFilteredCategories(categories);
+        }
+        if (textValue.length < import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH) return;
         const findedCategories = handleFilterCategoriesByIncludingString(textValue, categories);
         setFilteredCategories(findedCategories);
     };
 
+    const handleUpdateDraggableCategory = (category: ICategory | null) => {
+        setDraggableCategory(category);
+    };
+
+    const handleUpdateAddingCategory = (category: ICategory | null) => {
+        setCategoryForAdding(category);
+    };
+
+    const handleMoveCategoryIntoNewCategoryWithFiltered = () => {
+        let updatedCategories: ICategory[] = [];
+        let updatedFilteredCategories: ICategory[] = [];
+
+        if (draggableCategory && !categoryForAdding) {
+            updatedCategories = handleMoveCategoryAsRoot(draggableCategory, categories);
+            updatedFilteredCategories = handleMoveCategoryAsRoot(draggableCategory, filteredCategories);
+        }
+        if (draggableCategory && categoryForAdding && draggableCategory.id !== categoryForAdding.id) {
+            updatedFilteredCategories = handleMoveCategoryIntoNewCategory(draggableCategory, categoryForAdding, filteredCategories);
+            updatedCategories = handleMoveCategoryIntoNewCategory(draggableCategory, categoryForAdding, categories);
+        }
+        if (updatedCategories.length !== 0 && updatedFilteredCategories.length !== 0) {
+            setFilteredCategories(updatedFilteredCategories);
+            setCategories(updatedCategories);
+        }
+        setDraggableCategory(null);
+        setCategoryForAdding(null);
+    };
+
+    const handleDragEnterToCategoriesPage = (e: any) => {
+        e.stopPropagation();
+        setCategoryForAdding(null);
+    };
+
     return (
-        <div className="category-page">
+        <div 
+            className="category-page"
+            onDragEnter={ handleDragEnterToCategoriesPage }
+        >
             <div className="category-page-title">Управление категориями</div>
             <div className="category-page-search">
                 <div className="category-page-search-value">
@@ -144,32 +210,54 @@ export const CategoriesPage = () => {
                 <SimpleTreeView expandedItems={ expandedItems }>
                     <CategoriesTreeItems
                         items={ filteredCategories }
+                        categoryForAdding={ categoryForAdding }
+                        draggableCategory={ draggableCategory }
                         handleClickTreeItem={ handleClickTreeItem }
                         handleOpenAddSubCategory={ handleOpenAddSubCategory }
                         handleOpenConfirmDeletion={ handleOpenConfirmDeletion }
                         handleOpenEditCategory={ handleOpenEditCategory }
+                        handleUpdateDraggableCategory={ handleUpdateDraggableCategory }
+                        handleUpdateAddingCategory={ handleUpdateAddingCategory }
+                        handleMoveCategoryIntoNewCategoryWithFiltered={ handleMoveCategoryIntoNewCategoryWithFiltered }
                     />
                 </SimpleTreeView>
             </div>
-            <CustomModal 
+            <CustomModal
+                isHidden={ modals.unsavedData }
                 isDisplay={ modals.manage }
                 title = { mode === "edit" ? t("text.editCategory") : t("text.addCategory") }
-                typeOfActions='default'
-                actionConfirmed={ handleApproveAddingCategory }
-                closeModal={ () => setModals({ ...modals, manage: false }) }
+                typeOfActions='none'
+                actionConfirmed={ handleCloseWithUnsavedData }
+                closeModal={ handleCancelAddingCategory }
             >
-                <div className="adding-category">
-                    <label className="label" htmlFor="update-good-providernew-category-title">{ t("text.name") }</label>
-                    <TextField
-                        defaultValue={ mode === "edit" ? currentCategory?.title : "" }
-                        onChange={ (e) => setNewCategoryTitle(e.target.value) }
-                        id="new-category-title"
-                        placeholder={ t("text.name") }
-                    />
-                    { !validatorFormData.title.valid && isFormChecked
-                        && <span className="adding-category-error">{ t(validatorFormData.title.error) }</span> 
-                    }
-                </div>
+                <CategoryManageForm
+                    currentCategory={ currentCategory }
+                    handleApproveAddingCategory={ handleApproveAddingCategory }
+                    handleUpdateUnsavedData={ handleUpdateUnsavedData }
+                    handleCancelAddingCategory={ handleCancelAddingCategory }
+                    mode={ mode }
+                />
+            </CustomModal>
+            <CustomModal
+                isDisplay={ modals.unsavedData }
+                title={ t("text.approveAction") }
+                typeOfActions='custom'
+                actionConfirmed={ handleCancelAddingCategory }
+                closeModal={ handleCancelAddingCategory }
+                actionsComponent={
+                    <>
+                        <Button 
+                            variant="contained"
+                            onClick={ handleCloseWithUnsavedData }
+                        >{ t("text.close") }</Button>
+                        <Button
+                            onClick={ handleCloseUnsavedData }
+                            variant="contained"
+                        >{ t("text.cancel") }</Button>
+                    </>
+                }
+            >
+                <div className="delete-text">{ t("text.unsavedChanges") }?</div>
             </CustomModal>
             <CustomModal 
                 isDisplay={ modals.deletionConfirm }

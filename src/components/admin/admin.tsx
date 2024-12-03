@@ -10,6 +10,7 @@ import usePermissions from "../../helpers/permissions-helpers.ts";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
 import { BsChatDotsFill } from "react-icons/bs";
+import { TbTruckDelivery } from "react-icons/tb";
 
 interface AdminPageProps {
     children: React.ReactElement | null
@@ -80,6 +81,12 @@ export default function AdminPage (props: AdminPageProps) {
                     {
                         <MenuItem onClick={ () => navigate("/admin/chats") }>
                             <BsChatDotsFill className='icon'/>{ !isMenuTextExists ? "Чаты" : null }
+                        </MenuItem>
+                    }
+                    {
+                        permissionsExists.WathingProviders &&
+                        <MenuItem onClick={ () => navigate("/admin/providers") }>
+                            <TbTruckDelivery className='icon' />{ !isMenuTextExists ? t("text.providers") : null }
                         </MenuItem>
                     }
                 </div>
