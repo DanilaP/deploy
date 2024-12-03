@@ -136,6 +136,7 @@
         "changeReview": "Change review",
         "deleteReview": "Delete review",
         "review": "Review",
+        "image": "Image",
         "quantity": "Quantity",
         "uploadFiles": "Upload files",
         "invalidEmail": "Invalid email",
