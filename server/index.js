@@ -59,7 +59,8 @@ app.post("/auth/signup", async function(req, res) {
                 password: bcrypt.hashSync(password, 7),
                 role: "Пользователь",
                 avatar: "http://localhost:5000/avatar.jpg",
-                backet: []
+                backet: [],
+                favorites: []
             };
             let updatedUsers = JSON.stringify([...currentUsers, newUser], null, 2);
             fs.writeFileSync('DB/Users.json', updatedUsers);
@@ -86,7 +87,9 @@ app.post("/users", async function(req, res) {
                 login,
                 password: bcrypt.hashSync(password, 7),
                 role,
-                avatar: "http://localhost:5000/avatar.jpg"
+                avatar: "http://localhost:5000/avatar.jpg",
+                backet: [],
+                favorites: []
             };
             let updatedUsers = JSON.stringify([...currentUsers, newUser], null, 2);
             fs.writeFileSync('DB/Users.json', updatedUsers);
@@ -127,14 +130,13 @@ app.put("/users", async function(req, res) {
     try {
         let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
         let updatedUsers = currentUsers.map((user) => {
-            console.log(req.body);
             if (user.id === req.body.id) {
                 return {
+                    ...req.body,
                     id: user.id,
-                    login: req.body.login,
-                    password: req.body.password ? bcrypt.hashSync(req.body.password, 7) : user.password,
-                    role: req.body.role,
-                    avatar: req.body.avatar
+                    password: (req.body.password === user.password)
+                        ? user.password
+                        : bcrypt.hashSync(req.body.password, 7)
                 };
             }
             return user;
@@ -498,111 +500,178 @@ app.post("/backet", async function(req, res) {
     }
 });
 
-app.put('/backet/updateCart', (req, res) => {
-    res.status(200).json({ message: "Корзина успешно обновлена", cart: req.body });
+// Stores
+app.get('/stores/addresses', (req, res) => {
+    const stores = JSON.parse(fs.readFileSync('DB/Pickups.json', 'utf8'));
+    res.status(200).json(stores);
 });
 
-//Favorites
-app.get("/favorites", async function(req, res) {
+// UserDeliveryData
+app.get('/user/data-delivery/:userid', async (req, res) => {
     try {
         const token = req.headers.authorization;
         const userId = jwt_decode(token).id;
-        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
-        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
-        const user = currentUsers.filter(user => user.id === userId)[0];
-        const userFavorites = currentProducts.reduce((prev, product) => {
-            if (user.favorites.includes(product.id)) {
-                return [...prev, product];
-            }
-            return prev;
-        }, []);
-        res.status(200).json({ message: "Успешное получение данных об избранных товарах!", favorites: userFavorites });
-    }
-    catch(error) {
-        res.status(400).json({ message: "Ошибка при получении избранных товаров!" });
-        console.error("get /favourites", error);
+        const deliveryData = JSON.parse(fs.readFileSync('DB/UserDeliveryData.json', 'utf8'));
+        const userDeliveryData = deliveryData.find((data) => data.userId === userId);
+        res.status(200).json(userDeliveryData);
+    } catch (error) {
+        res.status(400).json({message: "Ошибка при получении данных доставки"});
+        console.error("get /delivery", error);
     }
 });
 
+    app.put('/backet/updateCart', (req, res) => {
+        res.status(200).json({message: "Корзина успешно обновлена", cart: req.body});
+    });
+
+//Favorites
+    app.get("/favorites", async function (req, res) {
+        try {
+            const token = req.headers.authorization;
+            const userId = jwt_decode(token).id;
+            let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+            let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+            const user = currentUsers.filter(user => user.id === userId)[0];
+            const userFavorites = currentProducts.reduce((prev, product) => {
+                if (user.favorites.includes(product.id)) {
+                    return [...prev, product];
+                }
+                return prev;
+            }, []);
+            res.status(200).json({
+                message: "Успешное получение данных об избранных товарах!",
+                favorites: userFavorites
+            });
+        } catch (error) {
+            res.status(400).json({message: "Ошибка при получении избранных товаров!"});
+            console.error("get /favourites", error);
+        }
+    });
+
 
 //Warehouses
-app.get("/warehouses", async function (req, res) {
-    try {
-        let currentStores = JSON.parse(fs.readFileSync('DB/Warehouses.json', 'utf8'));
-        let currentProducts= JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
-        
-        let storesInfo = currentStores.map((store) => {
-            return (
-                {
-                    ...store,
-                    products: store.products.map((product) => {
-                        const foundedProduct = currentProducts.find(el => el.id === product.productId);
-                        return {
-                            ...product,
-                            productInfo: foundedProduct
-                        }
-                    })
-                }
-            );
-        });
+    app.get("/warehouses", async function (req, res) {
+        try {
+            let currentStores = JSON.parse(fs.readFileSync('DB/Warehouses.json', 'utf8'));
+            let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
 
-        res.status(200).json({ message: "Данные о товарах успешно получены", stores: storesInfo });
-    } 
-    catch (error) {
-        res.status(400).json({ message: "Ошибка при получении информации о складах" });
-        console.error("get /warehouses", error);
-    }
-})
+            let storesInfo = currentStores.map((store) => {
+                return (
+                  {
+                      ...store,
+                      products: store.products.map((product) => {
+                          const foundedProduct = currentProducts.find(el => el.id === product.productId);
+                          return {
+                              ...product,
+                              productInfo: foundedProduct
+                          }
+                      })
+                  }
+                );
+            });
+
+            res.status(200).json({message: "Данные о товарах успешно получены", stores: storesInfo});
+        } catch (error) {
+            res.status(400).json({message: "Ошибка при получении информации о складах"});
+            console.error("get /warehouses", error);
+        }
+    })
 
 
 // categories
 
-app.get("/category", async function(req, res) {
+    app.get("/category", async function (req, res) {
+        try {
+            let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
+            res.status(200).json({message: "Данные о категориях получены", categoryList: currentCategoryList});
+        } catch (error) {
+            console.error("get /category", error);
+            res.status(400).json({message: "Ошибка получения данных о категории!"});
+        }
+    });
+
+    app.post("/category", async function (req, res) {
+        try {
+            let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
+            res.status(200).json({message: "Добавлена новая категория", category: req.body});
+        } catch (error) {
+            console.error("get /category", error);
+            res.status(400).json({message: "Ошибка добавления категории!"});
+        }
+    });
+
+    app.put("/category", async function (req, res) {
+        try {
+            let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
+            res.status(200).json({message: "Категория обновлена", category: req.body});
+        } catch (error) {
+            console.error("get /category", error);
+            res.status(400).json({message: "Ошибка обновления данных о категории!"});
+        }
+    });
+
+    app.delete("/category", async function (req, res) {
+        try {
+            let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
+            res.status(200).json({message: "Категория удалена", category: req.body});
+        } catch (error) {
+            console.error("get /category", error);
+            res.status(400).json({message: "Ошибка удаления категории!"});
+        }
+    });
+
+// providers
+
+app.get("/providers", async function(req, res) {
     try {
-        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
-        res.status(200).json({ message: "Данные о категориях получены", categoryList: currentCategoryList });
+        let currentProvidersList = JSON.parse(fs.readFileSync('DB/Providers.json', 'utf8'));
+        res.status(200).json({ message: "Данные о поставщиках успешно получены", providers: currentProvidersList });
     }
     catch(error) {
-        console.error("get /category", error);
-        res.status(400).json({ message: "Ошибка получения данных о категории!" });
+        console.error("get /providers", error);
+        res.status(400).json({ message: "Ошибка получения данных о поставщиках!" });
     }
 });
 
-app.post("/category", async function(req, res) {
+    async function startApp() {
+        try {
+            server.listen(PORT, () => console.log('Server started at PORT' + " " + PORT));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+app.post("/providers", async function(req, res) {
     try {
-        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
-        res.status(200).json({ message: "Добавлена новая категория", category: req.body });
+        let currentProvidersList = JSON.parse(fs.readFileSync('DB/Providers.json', 'utf8'));
+        res.status(200).json({ message: "Данные о поставщике сохранены", provider: req.body });
     }
     catch(error) {
-        console.error("get /category", error);
-        res.status(400).json({ message: "Ошибка добавления категории!" });
+        console.error("post /providers", error);
+        res.status(400).json({ message: "Ошибка сохранения данных о поставщике!" });
     }
 });
 
-app.put("/category", async function(req, res) {
+app.put("/providers", async function(req, res) {
     try {
-        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
-        res.status(200).json({ message: "Категория обновлена", category: req.body });
+        let currentProvidersList = JSON.parse(fs.readFileSync('DB/Providers.json', 'utf8'));
+        res.status(200).json({ message: "Данные о поставщике сохранены", provider: req.body });
     }
     catch(error) {
-        console.error("get /category", error);
-        res.status(400).json({ message: "Ошибка обновления данных о категории!" });
+        console.error("post /providers", error);
+        res.status(400).json({ message: "Ошибка сохранения данных о поставщике!" });
     }
 });
 
-app.delete("/category", async function(req, res) {
+app.delete("/providers", async function(req, res) {
     try {
-        let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
-        res.status(200).json({ message: "Категория удалена", category: req.body });
+        let currentProvidersList = JSON.parse(fs.readFileSync('DB/Providers.json', 'utf8'));
+        res.status(200).json({ message: "Данные о поставщике удалены", provider: req.body });
     }
     catch(error) {
-        console.error("get /category", error);
-        res.status(400).json({ message: "Ошибка удаления категории!" });
+        console.error("delete /providers", error);
+        res.status(400).json({ message: "Ошибка удаленя данных о поставщике!" });
     }
 });
-
-
-
 
 async function startApp() {
     try {

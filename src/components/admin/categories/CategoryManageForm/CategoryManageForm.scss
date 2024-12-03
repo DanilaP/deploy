@@ -1,0 +1,37 @@
+.category-form {
+    margin-top: 10px;
+    display: grid;
+    row-gap: 10px;
+    .field-error-text {
+        font-size: 12px;
+        color: #d32f2f;      
+    }
+    .category-field-label {
+        font-weight: 500;
+    }
+    .category-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+    }
+    .form-actions {
+        display: flex;
+        column-gap: 5px;
+    }
+    .form-horizontal-field {
+        display: flex;
+        align-items: center;
+    }
+    .MuiFormHelperText-root {
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        padding-left: 0px;
+        margin-left: 0px;
+        font-weight: normal;
+        letter-spacing: normal;
+    }
+    .MuiInputBase-input {
+        padding: 10px;
+        border: none !important;
+    }
+}

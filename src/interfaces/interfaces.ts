@@ -1,5 +1,9 @@
 export interface IUser {
     id?: string,
+    country: string,
+    city: string,
+    name: string,
+    tel: string,
     login?: string,
     password?: string,
     role?: string,
@@ -58,6 +62,36 @@ export interface IReview {
     photo?: string,
     likes?: string[]
 }
+
+export interface IAddress {
+    id?: number;
+    fullAddress: string;
+    houseNumber?: string;
+    apartment?: string;
+    entrance?: string;
+    floor?: string;
+    intercom?: string;
+    comment?: string;
+}
+
+export interface IPrevDelivery {
+    id: number,
+    wareHouseId: number | null,
+    address: IAddress | null,
+    timeStamp: string,
+    type: string,
+    payment: {
+        method: string,
+        timeStamp: string,
+    },
+    comment: string,
+}
+
+export interface IDeliveryData {
+    userId: number,
+    prevDeliveries: IPrevDelivery[],
+}
+
 export interface IStore {
     id: number,
     name: string,
@@ -72,9 +106,32 @@ export interface IStore {
 export interface ICategory {
     title: string,
     id: string,
-    categories?: ICategory[]
+    categories?: ICategory[],
+    image: string,
+    description: string,
 }
 export interface ISelect {
     id: string,
     label: string
+}
+export interface IContactPerson {
+    id?: number,
+    name: string,
+    phoneNumber: string,
+    post: string,
+    [key: string]: any,
+}
+export interface IProvider {
+    id?: number,
+    name: string,
+    active: boolean,
+    createdAt: string,
+    contactPerson: IContactPerson,
+    description: string,
+    website: string,
+    email: string,
+    deletedAt: string | null,
+    ogrn: string,
+    inn: string,
+    [key: string]: any,
 }

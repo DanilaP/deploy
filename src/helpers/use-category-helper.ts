@@ -17,12 +17,12 @@ export const useCategoryHelper = () => {
         return categoriesForSelect;
     };
 
-    const handleAddRootCategory = (categoryTitle: string) => {
+    const handleAddRootCategory = (categoryTitle: string, description: string, image: string) => {
         const isCategoryExist = handleCheckIsCategoryExist(categoryTitle, categories).length !== 0;
         if (isCategoryExist) return;
         $api.post("/category", { title: categoryTitle }).then(res => {
             if (res.data) {
-                const newCategory = { id: String(Date.now()), title: categoryTitle };
+                const newCategory = { id: String(Date.now()), title: categoryTitle, description, image };
                 const updatedCategory = [...categories, newCategory];
                 const updatedFiltered = [...filteredCategories, newCategory];
                 setCategories(updatedCategory);
@@ -31,13 +31,13 @@ export const useCategoryHelper = () => {
         });
     };
 
-    const handleDeleteSubCategory = (categoryList: ICategory[], category: ICategory) => {
+    const handleDeleteCategory = (categoryList: ICategory[], category: ICategory) => {
         const updatedCategory = categoryList.reduce((prev: ICategory[], item: ICategory) => {
             if (item.id === category.id) {
                 return prev;
             }
             if (item.categories) {
-                const filteredcategories: ICategory[] = handleDeleteSubCategory(item.categories, category);
+                const filteredcategories: ICategory[] = handleDeleteCategory(item.categories, category);
                 return [...prev, { ...item, categories: filteredcategories }];
             }
             return [...prev, item];
@@ -61,7 +61,9 @@ export const useCategoryHelper = () => {
 
     const handleFindCategoryAndAddIntoNewCategory = (
         currentCategory: ICategory, 
-        newCategoryTitle: string, 
+        newCategoryTitle: string,
+        image: string,
+        description: string,
         categoryList: ICategory[]
     ) => {
         const updatedCategory = categoryList.reduce((prev: ICategory[], item: ICategory) => {
@@ -69,8 +71,21 @@ export const useCategoryHelper = () => {
                 const createdCategory = {
                     ...item,
                     categories: item.categories 
-                        ? [...item.categories, { id: String(Date.now()), title: newCategoryTitle }]
-                        : [{ id: String(Date.now()), title: newCategoryTitle }]
+                        ? [
+                            ...item.categories, 
+                            { 
+                                id: String(Date.now()), 
+                                title: newCategoryTitle,
+                                image,
+                                description
+                            }
+                        ]
+                        : [{ 
+                            id: String(Date.now()), 
+                            title: newCategoryTitle,
+                            image,
+                            description
+                        }]
                 };
                 if (!item.categories) {
                     return [...prev, createdCategory];
@@ -83,12 +98,51 @@ export const useCategoryHelper = () => {
             }
             if (item.categories) {
                 const updated: ICategory[] = 
-                    handleFindCategoryAndAddIntoNewCategory(currentCategory, newCategoryTitle, item.categories);
+                    handleFindCategoryAndAddIntoNewCategory(currentCategory, newCategoryTitle, image, description, item.categories);
                 return [...prev, { ...item, categories: updated }];
             }
             return [...prev, item];
         }, []);
         return updatedCategory;
+    };
+
+    const handleMoveCategoryIntoNewCategory = (
+        categoryForAdding: ICategory,
+        categoryToAdding: ICategory,
+        categoryList: ICategory[]
+    ) => {
+        const updatedCategoriesList = handleDeleteCategory(categoryList, categoryForAdding);
+        const updatedCategories = updatedCategoriesList.reduce((prev: ICategory[], item: ICategory) => {
+            if (item.id === categoryToAdding.id) {
+                if (item.categories) {
+                    return [...prev, { 
+                        ...item,
+                        categories: [...item.categories, categoryForAdding]
+                    }];
+                } else {
+                    return [...prev, { 
+                        ...item,
+                        categories: [categoryForAdding]
+                    }];
+                }
+            }
+            if (item.categories) {
+                const updated: ICategory[] = 
+                handleMoveCategoryIntoNewCategory(categoryForAdding, categoryToAdding, item.categories);
+                return [...prev, { ...item, categories: updated }];
+            }
+            return [...prev, item];
+        }, []);
+        return updatedCategories;
+    };
+
+    const handleMoveCategoryAsRoot = (
+        categoryForAdding: ICategory,
+        categoryList: ICategory[]
+    ) => {
+        const updatedCategoriesList = handleDeleteCategory(categoryList, categoryForAdding);
+        const updatedCategories = [...updatedCategoriesList, categoryForAdding];
+        return updatedCategories;
     };
 
     const handleFilterCategoriesByIncludingString = (
@@ -146,11 +200,13 @@ export const useCategoryHelper = () => {
         categoriesForSelect,
         setCategories,
         setFilteredCategories,
-        handleDeleteSubCategory, 
+        handleDeleteCategory, 
         handleFindCategoryAndAddIntoNewCategory, 
         handleFilterCategoriesByIncludingString,
         handleAddRootCategory,
         handleUpdateCategory,
-        handleCheckIsCategoryExist
+        handleCheckIsCategoryExist,
+        handleMoveCategoryIntoNewCategory,
+        handleMoveCategoryAsRoot
     };
 };

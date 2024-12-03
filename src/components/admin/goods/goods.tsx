@@ -2,12 +2,13 @@ import { Button, MenuItem, Select, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { ManageGoodForm } from "./forms/ManageGood/ManageGood";
-import { IProduct } from "../../../interfaces/interfaces";
+import { IProduct, IProvider } from "../../../interfaces/interfaces";
 import { useNavigate } from "react-router";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 import $api from '../../../configs/axiosconfig/axios.js';
 import { IoMdSearch } from "react-icons/io";
 import "./goods.scss";
+import { useProvidersHelper } from "../../../helpers/use-providers-helper.js";
 import { useCategoryHelper } from "../../../helpers/use-category-helper.js";
 
 export const GoodsPage = () => {
@@ -22,7 +23,8 @@ export const GoodsPage = () => {
     const [currentActiveFilter, setCurrentActiveFilter] = useState<boolean>(true);
     const { categoriesForSelect } = useCategoryHelper();
     const navigate = useNavigate();
-
+    const { providersForSelect, providers } = useProvidersHelper();
+    
     const handleOpenCreatingGoodModal = () => {
         setModals(prev => {
             return { ...prev, manage: true };
@@ -131,9 +133,19 @@ export const GoodsPage = () => {
     };
 
     const handleSearchProductByProvider = (inputValue: string) => {
-        if (inputValue.length <= import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH && inputValue.length !== 0) return;
+        if (inputValue.length === 0) {
+            setFilteredProducts(currentProducts);
+            return;
+        } 
+        if (inputValue.length <= import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH) return;
         const searchValue = inputValue.toLowerCase();
-        setFilteredProducts(currentProducts.filter(el => el.provider.toLowerCase().includes(searchValue)));
+        const findedProviders = providers.reduce((prev: number[], provider: IProvider): number[] => {
+            if (provider.name.toLowerCase().includes(searchValue) && provider.id) {
+                return [...prev, provider.id];
+            }
+            return prev;
+        }, []);
+        setFilteredProducts(currentProducts.filter(el => findedProviders.includes(+el.provider)));
     };
 
     const handleCancelUpdating = (status: boolean) => {
@@ -238,6 +250,7 @@ export const GoodsPage = () => {
             <div className="list">
                 {
                     filteredProducts.map(product => {
+                        const providerInfo = providers.filter(el => el.id === +product.provider)[0];
                         return (
                             <div 
                                 className="wrapper" 
@@ -262,7 +275,7 @@ export const GoodsPage = () => {
                                                     : product.variations[0].price
                                             }
                                         </div>
-                                        <div className="good-provider">{ product.provider }</div>
+                                        <div className="good-provider">{ providerInfo?.name }</div>
                                     </div>
                                     <div className="good-info-more">
                                         <div className="good-description">
@@ -312,6 +325,7 @@ export const GoodsPage = () => {
                     handleUnsavedDataExist={ handleUnsavedDataExist }
                     mode={ currentMode }
                     categoriesForSelect={ categoriesForSelect }
+                    providersForSelect={ providersForSelect }
                     goodData={ currentProduct }
                 />
             </CustomModal>

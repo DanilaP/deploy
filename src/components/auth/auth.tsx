@@ -15,7 +15,7 @@ export default function AuthPage (props: AuthPageProps) {
 
     useEffect(() => {
         document.title = t("titles.authPage");
-    });
+    }, []);
 
     return (
         <div className='auth-wrapper'>
