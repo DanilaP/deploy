@@ -13,8 +13,10 @@ import PermissionsPage from "./components/admin/permissions/permissions";
 import { GoodsPage } from "./components/admin/goods/goods";
 import ProductPage from "./components/shop/product-page/product-page";
 import ProductReviews from "./components/shop/product-reviews-page/product-reviews-page";
+import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import { CategoriesPage } from "./components/admin/categories/categories";
 import { t } from "i18next";
+import ProvidersPage from "./components/admin/providers/providers";
 import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import Favorites from "./components/favorites/favorites";
 import FeedBackPage from "./components/feed-back/feed-back.tsx";
@@ -56,7 +58,44 @@ export const routes = [
         path: '/checkout',
         component: CheckoutPage,
         children: null,
-        breadcrumb : t("breadcrumbs.shop")
+        breadcrumb : t("breadcrumbs.checkout")
+    },
+    {
+        path: "/checkout/product/:id",
+        component: ProductPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.shopProduct")
+    },
+    {
+        path: "/cart/checkout",
+        component: CheckoutPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.checkout")
+    },
+    {
+        path: "/cart/product/:id",
+        component: ProductPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.shopProduct")
+    },
+    {
+        path: "/cart/product/:id/reviews",
+        component: ProductReviews,
+        children: null,
+        breadcrumb : t("breadcrumbs.productReviews")
+    },
+
+    {
+        path: "/cart/checkout/product/:id",
+        component: ProductPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.shopProduct")
+    },
+    {
+        path: "/cart/checkout/product/:id/reviews",
+        component: ProductReviews,
+        children: null,
+        breadcrumb : t("breadcrumbs.productReviews")
     },
     {
         path: '/profile',
@@ -144,5 +183,11 @@ export const adminRoutes = [
         component: AdminPage,
         children: AdminFeedbackPage,
         breadcrumb : t("text.feedback")
+    },
+    {
+        path: '/admin/providers',
+        component: AdminPage,
+        children: ProvidersPage,
+        breadcrumb : t("text.providers")
     },
 ];

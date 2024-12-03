@@ -1,3 +1,5 @@
+import { t } from "i18next";
+
 const validateRequiredField = (value: any) => {
     if (!value) return false;
     if (value.length === 0) return false;
@@ -5,7 +7,7 @@ const validateRequiredField = (value: any) => {
 };
 const validateEmail = (email: string) => {
     return email.match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        /^(?!\.)(?!.*\.\.)[a-zA-Z0-9а-яА-ЯёЁ._%+-]{1,255}@[a-zA-Z0-9а-яА-ЯёЁ.-]{1,255}\.[a-zA-Zа-яА-ЯёЁ]{2,255}$/
     );
 };
 const validateWebsiteRef = (email: string) => {
@@ -13,10 +15,37 @@ const validateWebsiteRef = (email: string) => {
         /^(https?:\/\/)?([\w-]{1,32}\.[\w-]{1,32})[^\s@]*/
     );
 };
+const validateOgrn = (value: string) => {
+    return value.match(
+        /^[0-9]{13,13}$/
+    );
+};
+const validateInn = (value: string) => {
+    const isValid = value.match(/^[0-9]{12,12}$/) || value.match(/^[0-9]{10,10}$/);
+    return isValid;
+};
 const validatePhone = (phone: string) => {
     const cleanedTel = phone.replace(/\D/g, '');
     const russianTelLength = 11;
     return cleanedTel.length === russianTelLength;
 };
 
-export { validateRequiredField, validateEmail, validatePhone, validateWebsiteRef };
+const validateRequiredEmail = (email: string) => {
+    if (validateEmail(email)) {
+        return true;
+    } else {
+        if (validateRequiredField(email)) {
+            return t("text.invalidEmail");
+        }
+        return t("errors.requiredField");
+    }
+};
+export { 
+    validateRequiredField, 
+    validateEmail, 
+    validatePhone, 
+    validateWebsiteRef,
+    validateOgrn,
+    validateInn,
+    validateRequiredEmail
+};

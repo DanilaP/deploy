@@ -1,0 +1,53 @@
+.delivery-methods-wrapper {
+
+  .delivery-error {
+    color: #b71c1c !important;
+    margin-top: 16px;
+  }
+
+  .buttons-stack {
+    margin-top: 8px;
+  }
+
+  .pickup-card-text {
+    font-size: 18px;
+  }
+
+  .pickup-card-header {
+    font-size: 18px;
+  }
+
+  .pickup-card {
+    margin-top: 8px;
+      .order-duration {
+        margin-top: 10px;
+        font-size: 16px;
+        color: green;
+      }
+  }
+
+  .pickup-card, .address-card {
+    background-color: transparent;
+    margin-top: 16px;
+    width: 100%;
+    box-shadow: none;
+    border: 1px solid gray;
+  }
+
+  .address-card {
+
+    .address-fields, .comment, .address {
+      font-size: 18px;
+    }
+    .address-fields, .comment {
+      text-transform: lowercase;
+    }
+
+  }
+
+  .address-card-header {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+}
+

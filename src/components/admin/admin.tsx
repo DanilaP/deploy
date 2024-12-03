@@ -10,6 +10,7 @@ import { MdCategory } from "react-icons/md";
 import { FaListCheck } from "react-icons/fa6";
 import './admin.scss';
 import usePermissions from "../../helpers/permissions-helpers.ts";
+import { TbTruckDelivery } from "react-icons/tb";
 
 interface AdminPageProps {
     children: React.ReactElement | null
@@ -80,6 +81,12 @@ export default function AdminPage (props: AdminPageProps) {
                     {
                         <MenuItem onClick={ () => navigate("/admin/feedback") }>
                             <FaListCheck className='icon' />{ !isMenuTextExists ? t("text.feedback") : null }
+                        </MenuItem>
+                    }
+                    {
+                        permissionsExists.WathingProviders &&
+                        <MenuItem onClick={ () => navigate("/admin/providers") }>
+                            <TbTruckDelivery className='icon' />{ !isMenuTextExists ? t("text.providers") : null }
                         </MenuItem>
                     }
                 </div>
