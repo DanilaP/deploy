@@ -89,7 +89,7 @@ function App() {
                                 { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
                             </Link><br/>
                             <Link to='/feedback'><MdPhoneCallback className='icon' />{ !isMobile ? t('text.feedback') : null }</Link><br/>
-                            { checkPermissions() ?
+                            { (checkPermissions() && userStore.user?.isVerified) ?
                             (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">
                                 <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
@@ -112,7 +112,7 @@ function App() {
                                     />
                                 ))
                             }
-                            { checkPermissions() &&
+                            { (checkPermissions() && userStore.user?.isVerified) &&
                                 adminRoutes.map(({ path,  component: Component, children: Children }) => (
                                     <Route
                                         key={ path }
