@@ -1,0 +1,22 @@
+.orders-container {
+  .MuiCard-root {
+    background-color: var(--bg-color-block);
+    color: var(--text-color);
+    box-shadow: none;
+  }
+  margin-top: 20px;
+  margin-bottom: 20px;
+  .orders-card {
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .orders-card-content {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px
+  }
+
+}

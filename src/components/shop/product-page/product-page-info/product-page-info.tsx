@@ -8,10 +8,10 @@ import { useNavigate } from 'react-router';
 import './product-page-info.scss';
 import $api from '../../../../configs/axiosconfig/axios';
 
-export default function ProductInfo (props: { 
+export default function ProductInfo (props: {
     product: IProduct,
     variationInfo: any,
-    changeVariation: (variationName: string) => void 
+    changeVariation: (variationName: string) => void
 }) {
 
     const { t } = useTranslation();
@@ -20,11 +20,11 @@ export default function ProductInfo (props: {
 
     const addToBacket = () => {
         if (choosenNumber !== "") {
-            $api.post("/backet", { product: {
+            $api.post("/backet", [ {
                 id: props.product.id,
                 number: choosenNumber,
                 variation: props.variationInfo.name
-            } })
+            } ])
             .catch((error) => {
                 console.error(error);
             });
@@ -44,12 +44,12 @@ export default function ProductInfo (props: {
                     <MdOutlineFavorite className="icon favorite-icon" />
                 </div>
                 <div className="additional-information">
-                    <Rating 
+                    <Rating
                         className="rating"
-                        name="half-rating" 
-                        precision={ 0.5 } 
-                        readOnly 
-                        value = { props.product ? Number(getAverageEvaluation(props.product.reviews)) : 0 } 
+                        name="half-rating"
+                        precision={ 0.5 }
+                        readOnly
+                        value = { props.product ? Number(getAverageEvaluation(props.product.reviews)) : 0 }
                     />
                     { ` (${ props.product?.reviews.length }) ` }
                     <MdTextsms onClick = { () => navigation("reviews") } className='icon comment' />
@@ -57,13 +57,13 @@ export default function ProductInfo (props: {
                 </div>
             </div>
             <div className="variations">
-            { t("text.variations") }: 
+            { t("text.variations") }:
                 {
                     props.product?.variations.map((variation: any) => {
                         return (
                             <div key={ variation.name } className="variation">
-                                <div 
-                                    onClick={ () => props.changeVariation(variation.name) } 
+                                <div
+                                    onClick={ () => props.changeVariation(variation.name) }
                                     className="variation-name"
                                 >
                                         { variation.title }
@@ -74,15 +74,15 @@ export default function ProductInfo (props: {
                 }
             </div>
             <div className="settings">
-                <TextField 
+                <TextField
                     onChange={ (e) => setChoosenNumber(e.target.value) }
-                    inputProps = {{ min: 0 }}  
-                    type='number' 
+                    inputProps = {{ min: 0 }}
+                    type='number'
                     placeholder={ t("text.quantity") }>
                 </TextField>
-                <Button 
-                    onClick={ addToBacket } 
-                    className='product-page-button' 
+                <Button
+                    onClick={ addToBacket }
+                    className='product-page-button'
                     variant = "contained"
                 >
                     { t("text.toBacket") }
