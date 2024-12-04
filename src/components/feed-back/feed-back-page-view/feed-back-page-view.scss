@@ -1,0 +1,75 @@
+.call-back-page {
+    padding: 25px;
+    display: grid;
+    color: var(--text-color);
+    justify-content: center;
+    .title {
+        text-align: center;
+        font-size: 22px;
+        .title-actions {
+            color: var(--text-color);
+            &:hover {
+                color: var(--default-color);
+            }
+        }
+    }
+    .content {
+        margin-top: 20px;
+        .helper-text {
+            text-align: center;
+        }
+        .callback-data-table {
+            width: 65vw;
+            color: var(--text-color);
+            cursor: pointer;
+            .MuiDataGrid-columnHeader {
+                outline: none;
+                background-color: var(--bg-color-block);
+            }
+            .MuiToolbar-root {
+                background-color: var(--bg-color-block);
+                color: var(--text-color);
+            }
+            .MuiDataGrid-cell {
+                outline: none;
+                text-align: center;
+            }
+            .MuiDataGrid-columnSeparator {
+                display: none;
+            }
+            .MuiButtonBase-root {
+                padding: 0px;
+            }
+            .callback-edit-icon {
+                width: 100%;
+                height: 100%;
+                column-gap: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                justify-items: center;
+                .mui-icon-button {
+                    color: var(--text-color);
+                    &:hover {
+                        color: var(--default-color);
+                    }
+                }
+            }
+        }
+        .MuiDataGrid-row {
+            background-color: var(--bg-color-block);
+            &:hover {
+                background-color: var(--hover-color);
+            }
+        }
+        .waiting-status {
+            color: orange;
+        }
+        .done-status {
+            color: green;
+        }
+    }
+}
+.MuiDataGrid-columnHeaderTitleContainer {
+    text-align: center;
+}

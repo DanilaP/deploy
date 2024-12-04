@@ -16,6 +16,7 @@ import usePermissions from './helpers/permissions-helpers.ts';
 import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
 import cartApi from "./api/cart.ts";
 import { MdFavoriteBorder } from "react-icons/md";
+import { MdPhoneCallback } from "react-icons/md";
 import { RiArchiveLine } from "react-icons/ri";
 
 function App() {
@@ -88,8 +89,9 @@ function App() {
                                 <MdFavoriteBorder className='icon' />
                                 { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
                             </Link><br/>
-                            { (checkPermissions() && userStore.user?.isVerified) ?
+                            <Link to='/feedback'><MdPhoneCallback className='icon' />{ !isMobile ? t('text.feedback') : null }</Link><br/>
                             <Link to='/orders'><RiArchiveLine className='icon' />{ !isMobile ? t('breadcrumbs.orders') : null }</Link><br/>
+                            { (checkPermissions() && userStore.user?.isVerified) ?
                             (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">
                                 <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
