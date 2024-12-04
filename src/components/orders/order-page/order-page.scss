@@ -1,0 +1,57 @@
+.order-container {
+  margin: 20px 0;
+  .MuiCard-root {
+    background-color: var(--bg-color-block);
+    color: var(--text-color);
+  }
+  .card-content-wrapper {
+    padding: 0 10px 10px;
+  }
+  .products-list-wrapper {
+    border: 1px solid rgba(128, 128, 128, 0.247);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    .sum {
+      text-transform: lowercase;
+    }
+    .product-color {
+      color: dimgrey;
+    }
+    .product-item-wrapper {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.247);
+    }
+    .product-data {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .product-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+  }
+  .link-wrapper {
+    display: flex;
+    gap: 5px;
+    color: dimgray;
+    text-transform: lowercase;
+    margin-bottom: 10px;
+    &:hover {
+      color: darkslategrey;
+    }
+    .back-link {
+      text-decoration: none;
+      color: inherit;
+      align-self: flex-start;
+    }
+    .link-icon {
+      align-self: flex-end;
+    }
+  }
+}

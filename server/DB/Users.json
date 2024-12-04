@@ -1,6 +1,8 @@
 [
   {
     "id": 1727098679785,
+    "isActive": true,
+    "isVerified": true,
     "login": "danila@gmail.com",
     "password": "$2a$07$iJxbcrqGHQTYajyfktQwIuLYb7xRGeumn4p3fFr8WaK8Uune5vWMq",
     "country": "Россия",
@@ -8,7 +10,7 @@
     "name": "Данила",
     "tel": "89603222544",
     "role": "Администратор",
-    "avatar": "http://localhost:5000/avatar.jpg",
+    "avatar": "http://localhost:5000/test.jpg",
     "backet": [
       {
         "id": 1730210592801,
@@ -25,6 +27,8 @@
   },
   {
     "id": 1727158100336,
+    "isActive": false,
+    "isVerified": true,
     "login": "new@gmail.com",
     "password": "$2a$07$yeAFGaIvxta72M/4RzLiReAPt/hCKDPOvSB.FpG4sM/gi07HBtGL6",
     "country": "Россия",
@@ -42,6 +46,8 @@
   },
   {
     "id": 1727161785732,
+    "isActive": true,
+    "isVerified": true,
     "login": "newuser@gmail.com",
     "password": "$2a$07$ItQ8NTItTNk46S.PwwmdD.n.BrlwoO.Sc7ByhzR40f3quxyZUyt6S",
     "country": "Россия",
@@ -59,6 +65,8 @@
   },
   {
     "id": 1730462293031,
+    "isActive": true,
+    "isVerified": true,
     "login": "svetlana@gmail.com",
     "password": "$2a$07$wQA9hUv05QN12XtjpC5hJO2tsFiHTT.ZCJJAXzxhAcCbdyEvJUviW",
     "role": "Администратор",
@@ -67,30 +75,54 @@
     "city": "Москва",
     "name": "Светлана",
     "tel": "79264472217",
-    "backet": [
-      {
-        "id": 6,
-        "productId": 6,
-        "number": 4,
-        "variation": "Base"
-      },
-      {
-        "id": 7,
-        "productId": 7,
-        "number": 5,
-        "variation": "Full"
-      },
-      {
-        "id": 8,
-        "productId": 8,
-        "number": 3,
-        "variation": "Base"
-      }
-    ],
+    "backet": [],
     "favorites": [
       1,
       3,
       5
     ]
+  },
+  {
+    "id": 1732000951243,
+    "isActive": true,
+    "isVerified": false,
+    "login": "danila555@gmail.com",
+    "password": "$2a$07$/XHe1TE4gIxJg6r2jsmhTe1fFEfuY.5h7gxW1/o7VNTV3hNJ7QOhG",
+    "role": "Администратор",
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": [],
+    "favorites": []
+  },
+  {
+    "id": 1732528796810,
+    "login": "chattester@gmail.com",
+    "password": "$2a$07$GjmSFzJ3L/UX2jek6XsNiuGe4HCKE/iSM4dhkB31DYE6r5LEiD77u",
+    "role": "Пользователь",
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": [],
+    "favorites": [],
+    "isActive": true
+  },
+  {
+    "id": 1732604379612,
+    "isActive": true,
+    "isVerified": false,
+    "login": "chattester1@gmail.com",
+    "password": "$2a$07$jPCUw..FpZuq2Z4lkrHk4uIblMfdre1mzFuwXNi.1dD5U9qewCtte",
+    "role": "Пользователь",
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": [],
+    "favorites": []
+  },
+  {
+    "id": 1732780938181,
+    "isActive": true,
+    "isVerified": false,
+    "login": "chattester3@gmail.com",
+    "password": "$2a$07$cRi5kB9HeFS59Lk9LmtNKOH1dfiTSyfqfEX3CtzUjxvraP1oiQ7CG",
+    "role": "Пользователь",
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": [],
+    "favorites": []
   }
 ]

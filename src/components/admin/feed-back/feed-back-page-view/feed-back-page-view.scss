@@ -1,0 +1,50 @@
+.call-back-page-view {
+    display: grid;
+    row-gap: 10px;
+    .MuiInputBase-input {
+        padding: 7px;
+        border: none !important;
+    }
+    .call-back-title {
+        font-size: 24px;
+    }
+    .call-back-search {
+        display: flex;
+        column-gap: 5px;
+        .call-back-status-filter {
+            width: 200px;
+        }
+    }
+    .call-back-list {
+        display: grid;
+        row-gap: 10px;
+        .callback-data-table {
+            color: var(--text-color);
+            .MuiDataGrid-columnHeader {
+                outline: none;
+                background-color: var(--bg-color-block);
+            }
+            .MuiToolbar-root {
+                background-color: var(--bg-color-block);
+                color: var(--text-color);
+            }
+            .MuiDataGrid-cell {
+                text-align: center;
+                outline: none;
+            }
+            .done-status {
+                color: green;
+            }
+            .waiting-status {
+                color: orange;
+            }
+        }
+        .MuiDataGrid-row {
+            cursor: pointer;
+            background-color: var(--bg-color-block);
+            &:hover {
+                background-color: var(--hover-color);
+            }
+        }
+    }
+}

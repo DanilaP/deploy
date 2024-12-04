@@ -16,6 +16,10 @@ import usePermissions from './helpers/permissions-helpers.ts';
 import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
 import cartApi from "./api/cart.ts";
 import { MdFavoriteBorder } from "react-icons/md";
+import ChatWrapper from './components/chat/chat-wrapper.tsx';
+import Notification from './components/notification/notification.tsx';
+import { MdPhoneCallback } from "react-icons/md";
+import { RiArchiveLine } from "react-icons/ri";
 
 function App() {
     const [theme, setTheme] = useState("white-theme");
@@ -75,6 +79,32 @@ function App() {
         };
     }, []);
 
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        if (token) {
+            const socket = new WebSocket('ws://localhost:5000', token);
+            userStore.setSocketConnection(socket);
+            
+            socket.onopen = function() {
+                console.log('Соединение установлено');
+            };
+
+            socket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                userStore.setChatInfo(data);
+                userStore.setNotification({ 
+                    text: data.messages[data.messages.length - 1].text, 
+                    senderId:  data.messages[data.messages.length - 1].senderId
+                });
+                setTimeout(() => userStore.setNotification(null), 2500);
+            };
+
+            socket.onerror = function(error) {
+                console.error(`Ошибка: ${ error }`);
+            };
+        }
+    }, [userStore.user]);
+
     return (
         <>
             <div className='home-page-main'>
@@ -87,7 +117,9 @@ function App() {
                                 <MdFavoriteBorder className='icon' />
                                 { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
                             </Link><br/>
-                            { checkPermissions() ?
+                            <Link to='/feedback'><MdPhoneCallback className='icon' />{ !isMobile ? t('text.feedback') : null }</Link><br/>
+                            <Link to='/orders'><RiArchiveLine className='icon' />{ !isMobile ? t('breadcrumbs.orders') : null }</Link><br/>
+                            { (checkPermissions() && userStore.user?.isVerified) ?
                             (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">
                                 <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
@@ -110,7 +142,7 @@ function App() {
                                     />
                                 ))
                             }
-                            { checkPermissions() &&
+                            { (checkPermissions() && userStore.user?.isVerified) &&
                                 adminRoutes.map(({ path,  component: Component, children: Children }) => (
                                     <Route
                                         key={ path }
@@ -123,6 +155,15 @@ function App() {
                         </Routes>
                     }
                 </div>
+                { (isLoading && userStore.user && !checkPermissions()) ? <ChatWrapper /> : null }
+                {
+                    !userStore.isChatOpen 
+                    ?
+                        (userStore.notification && userStore.notification.senderId !== Number(userStore?.user?.id) )
+                            ? <Notification notification={ userStore.notification } />
+                            : null 
+                    : null
+                }
             </div>
         </>
     );

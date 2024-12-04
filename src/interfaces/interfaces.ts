@@ -1,10 +1,12 @@
 export interface IUser {
     id?: string,
+    isActive?: boolean,
+    isVerified?: boolean,
     country: string,
     city: string,
+    login?: string,
     name: string,
     tel: string,
-    login?: string,
     password?: string,
     role?: string,
     avatar?: string,
@@ -99,7 +101,7 @@ export interface IStore {
     products: {
         productId: number,
         variation: string,
-        amount: number,
+        number: number,
         productInfo: IProduct
     }[]
 }
@@ -114,6 +116,57 @@ export interface ISelect {
     id: string,
     label: string
 }
+export interface IMessage {
+    senderId: number,
+    recipientId: number,
+    date: string,
+    text: string
+}
+export interface IChat {
+    id: number,
+    members: number[],
+    messages: IMessage[]
+}
+
+export interface IAttachment {
+    src: string,
+    type: string
+}
+export interface IFeedBack {
+    id: number,
+    userId: number,
+    firstName: string,
+    secondName: string,
+    phoneNumber: string,
+    description: string,
+    typeOfBid: string,
+    email: string,
+    solved: boolean,
+    moderatorAnswer: string | null,
+    createdAt: string,
+    dateOfAnswer: string | null,
+    attachments: IAttachment[]
+}
+
+export interface IOrder {
+    orderId: number;
+    userId: number;
+    orderNumber: number;
+    orderStatus: "waiting" | "delivered" | "in-transit" | "cancelled" | string;
+    createdAt: string;
+    deliveredAt?: string;
+    estimatedDeliveryDate?: string;
+    paymentMethod: "card" | "cash" | "spb" | string;
+    deliveryMethod: "courier" | "pickup" | "other" | string;
+    address: IAddress;
+    orderPrice: number;
+    products: {
+        id: number;
+        amount: number;
+        variation: string;
+    }[];
+}
+
 export interface IContactPerson {
     id?: number,
     name: string,
