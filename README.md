@@ -25,6 +25,10 @@
     Здесь хранятся компоненты которые могут быть переиспользованы на разных
     страницах нашего приложения.
 
+### src/components/layouts
+    Здесь хранятся шаблоны для всех страниц (авторизации \ админов и т.п)
+
+
 ### src/helpers
 
   ### src/helpers/utils
@@ -54,8 +58,30 @@
 ### src/interfaces
   Здесь хранятся файлы с переиспользуемыми интерфейсами, не относящимеся к кокнретной сущности.
 
+# Структура глобальных стилей
 
-   
+  ### src/stylesheets/themes 
+    Здесь хранятся scss файлы с переменными для темизации интерфейса.
+    На каждую тему создается отдельный scss файл, например:
+      dark.scss
+      white.scss
+
+  ### src/stylesheets/main.scss  
+    Здесь прописываются глобальные стили, характерные для каждой страницы приложения.
+  
+  ### src/stylesheets/application.scss
+    Контейнер для всех глобальных файлов со стилями, который используется в App.tsx
+
+# Структура стилей
+  Рядом с каждым компонентом создается файл со стилями в соответствии с следующей структурой
+    component-name
+      component-name.tsx
+      component-name.scss
+
+  ### Использование important
+    Не используем в своих стилях important, если нужно повысить приоритет селектора, то
+    указывает его название несколько раз.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
@@ -105,7 +131,7 @@ If you are developing a production application, we recommend updating the config
   - Install `react-hooks-form`
 - Create vendors page for admin panel
 - Fix bugs for categories page and add new functionality
-  - integrate form with RHK
-  - moving categories with DnD
+  - integrate form with React Hook Form
+  - moving categories with Drag And Drop
   - create new fields for each category
-  - Add products warehouse page
+- Add products warehouse page
