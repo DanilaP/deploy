@@ -58,3 +58,4 @@ If you are developing a production application, we recommend updating the config
   - integrate form with RHK
   - moving categories with DnD
   - create new fields for each category
+  - Add products warehouse page
