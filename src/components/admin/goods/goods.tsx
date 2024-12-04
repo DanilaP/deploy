@@ -15,7 +15,7 @@ export const GoodsPage = () => {
 
     const { t } = useTranslation();
     const [modals, setModals] = useState({ manage: false, delete: false, unsaved: false });
-    const [currentMode, setCurrentMode] = useState<"create" | "edit" | null>(null);
+    const [currentMode, setCurrentMode] = useState<"create" | "edit" | "createFromCopy" | null>(null);
     const [currentProducts, setCurrentProducts] = useState<IProduct[]>([]);
     const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null);
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
@@ -30,6 +30,14 @@ export const GoodsPage = () => {
             return { ...prev, manage: true };
         });
         setCurrentMode("create");
+    };
+
+    const handleOpenCreatingFromCopyGoodModal = (product: IProduct) => {
+        setModals(prev => {
+            return { ...prev, manage: true };
+        });
+        setCurrentProduct(product);
+        setCurrentMode("createFromCopy");
     };
 
     const handleOpenEditingGoodModal = (product: IProduct) => {
@@ -48,7 +56,12 @@ export const GoodsPage = () => {
     };
 
     const handleApproveDeletingGood = () => {
-        const updatedProducts = currentProducts.filter(el => el.id !== currentProduct?.id);
+        const updatedProducts = currentProducts.map(el => {
+            if (el.id === currentProduct?.id) {
+                return { ...el, active: false };
+            }
+            return el;
+        });
         setCurrentProducts(updatedProducts);
         setFilteredProducts(updatedProducts);
         setModals(prev => {
@@ -277,12 +290,21 @@ export const GoodsPage = () => {
                                     >{ t("text.goto") }</Button>
                                     <Button
                                         variant='outlined'
-                                        onClick={ () => handleOpenEditingGoodModal(product) }
-                                    >{ t("text.edit") }</Button>
+                                        onClick={ () => handleOpenCreatingFromCopyGoodModal(product) }
+                                    >{ t("text.createFromCopy") }</Button>
                                     <Button
                                         variant='outlined'
-                                        onClick={ () => handleOpenDeleteGoodModal(product) }
-                                    >{ t("text.delete") }</Button>
+                                        onClick={ () => handleOpenEditingGoodModal(product) }
+                                    >{ t("text.edit") }</Button>
+                                    {
+                                        product.active
+                                        ? 
+                                        <Button
+                                            variant='outlined'
+                                            onClick={ () => handleOpenDeleteGoodModal(product) }
+                                        >{ t("text.delete") }</Button>
+                                        : null
+                                    }
                                 </div>
                             </div>
                         );

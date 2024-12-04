@@ -10,6 +10,6 @@ export const DEFAULT_PRODUCT_FORM_VALUES = {
     partNumber: "",
     provider: null,
     variations: [],
-    active: false,
+    active: true,
     published: false
 };

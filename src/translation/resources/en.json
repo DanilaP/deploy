@@ -68,6 +68,7 @@
         "provider": "Provider",
         "name": "Name",
         "value": "Value",
+        "createFromCopy": "Create copy",
         "roles": "Roles",
         "fullDescription": "Full description",
         "images": "Images",

@@ -11,8 +11,10 @@ import { convertFileListToBlobArray } from "../../../../../helpers/convert-file-
 import IconButton from "@mui/material/IconButton";
 import InputFile from "../../../../../components-ui/custom-file-nput/file-input";
 import "./ManageGood.scss";
+import { FiPlusCircle } from "react-icons/fi";
 
 interface IProductForm {
+    id?: number,
     additionalInfo: IAdditionalInfo[],
     category: ISelect[],
     description: string,
@@ -37,7 +39,7 @@ export const ManageGoodForm = ({
     handleUpdateGood,
     handleUnsavedDataExist
 }: {
-    mode: "edit" | "create" | null,
+    mode: "edit" | "create" | "createFromCopy" | null,
     goodData?: IProduct | null,
     categoriesForSelect: ISelect[],
     providersForSelect: ISelect[],
@@ -48,7 +50,8 @@ export const ManageGoodForm = ({
     
     const { t } = useTranslation();
     const isEdit = mode === "edit";
-    
+    const isCreateFromCopy = mode === "createFromCopy";
+
     const { 
         handleSubmit, 
         watch, 
@@ -62,6 +65,8 @@ export const ManageGoodForm = ({
         defaultValues: goodData 
             ? {
                 ...goodData,
+                active: goodData?.active,
+                published: goodData.published,
                 category: categoriesForSelect.filter(el => goodData.category.includes(el.id)),
                 provider: providersForSelect.find(el => goodData.provider === el.id),
                 additionalInfo: goodData.additionalInfo,
@@ -95,7 +100,12 @@ export const ManageGoodForm = ({
             provider: data.provider?.id || ""
         };
         if (isEdit) {
-            handleUpdateGood({ ...goodDataForSend, id: goodData?.id });
+            handleUpdateGood(goodDataForSend);
+        }
+        else if (isCreateFromCopy) {
+            const copyProductData = goodDataForSend;
+            delete copyProductData?.id;
+            handleUpdateGood(copyProductData);  
         } else {
             handleUpdateGood(goodDataForSend);
         }
@@ -383,7 +393,7 @@ export const ManageGoodForm = ({
                             additionalInfoFields.length === 0
                             ? (
                                 <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
-                                    <BiMessageSquareAdd />
+                                    <FiPlusCircle />
                                 </IconButton>
                             ) 
                             : null
@@ -425,7 +435,7 @@ export const ManageGoodForm = ({
                                         (index === additionalInfoFields?.length - 1) 
                                             ? (
                                                 <IconButton className="mui-actions" onClick={ handleAddAdditionalInfo }>
-                                                    <BiMessageSquareAdd />
+                                                    <FiPlusCircle />
                                                 </IconButton>
                                             ) 
                                             : null
@@ -446,7 +456,7 @@ export const ManageGoodForm = ({
                             variationsInfoFields.length === 0 
                             ? (
                                 <IconButton className="mui-actions" onClick={ handleAddVariation }>
-                                    <BiMessageSquareAdd />
+                                    <FiPlusCircle />
                                 </IconButton>
                             ) 
                             : null
@@ -510,7 +520,7 @@ export const ManageGoodForm = ({
                                         (index === variationsInfoFields?.length - 1) 
                                             ? (
                                                 <IconButton className="mui-actions" onClick={ handleAddVariation }>
-                                                    <BiMessageSquareAdd />
+                                                    <FiPlusCircle />
                                                 </IconButton>
                                             ) 
                                             : null
@@ -542,40 +552,25 @@ export const ManageGoodForm = ({
                     />
                 </div>
                 <div className="field">
-                    <div className="field-column">
-                        <div className="fields-half">
-                            <div className="column">
-                                <label className="label">{ t("text.publish") }</label>
-                                <Controller
-                                    name="published"
-                                    control={ control }
-                                    render={ ({ field }) => (
-                                        <Checkbox
-                                            className="field-checkbox"
-                                            { ...field }
-                                            defaultChecked={ goodData?.published }
-                                            onChange={ e => field.onChange(e.target.checked) }
-                                        />
-                                    ) }
-                                />
-                            </div>
-                            <div className="column">
-                                <label className="label">{ t("text.active") }</label>
-                                <Controller
-                                    name="active"
-                                    control={ control }
-                                    render={ ({ field }) => (
-                                        <Checkbox
-                                            className="field-checkbox"
-                                            { ...field }
-                                            defaultChecked={ goodData?.active }
-                                            onChange={ e => field.onChange(e.target.checked) }
-                                        />
-                                    ) }
-                                />
-                            </div>
-                        </div>
+                    <div className="column">
+                        <Checkbox
+                            className="field-checkbox"
+                            { ...register("published") }
+                            checked={ watch("published") }
+                        />
+                        <label className="label">{ t("text.publish") }</label>
                     </div>
+                    {
+                        isEdit ?
+                            <div className="column">
+                                <Checkbox
+                                    className="field-checkbox"
+                                    { ...register("active") }
+                                    checked={ watch("active") }
+                                />
+                                <label className="label">{ t("text.active") }</label>
+                        </div> : null
+                    }
                 </div>
                 <div className="form-actions">
                     <Button 
