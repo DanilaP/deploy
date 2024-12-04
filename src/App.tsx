@@ -18,6 +18,7 @@ import cartApi from "./api/cart.ts";
 import { MdFavoriteBorder } from "react-icons/md";
 import ChatWrapper from './components/chat/chat-wrapper.tsx';
 import Notification from './components/notification/notification.tsx';
+import { RiArchiveLine } from "react-icons/ri";
 
 function App() {
     const [theme, setTheme] = useState("white-theme");
@@ -115,6 +116,7 @@ function App() {
                                 <MdFavoriteBorder className='icon' />
                                 { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
                             </Link><br/>
+                            <Link to='/orders'><RiArchiveLine className='icon' />{ !isMobile ? t('breadcrumbs.orders') : null }</Link><br/>
                             { (checkPermissions() && userStore.user?.isVerified) ?
                             (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">

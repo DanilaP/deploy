@@ -4,9 +4,9 @@ export interface IUser {
     isVerified?: boolean,
     country: string,
     city: string,
+    login?: string,
     name: string,
     tel: string,
-    login?: string,
     password?: string,
     role?: string,
     avatar?: string,
@@ -101,7 +101,7 @@ export interface IStore {
     products: {
         productId: number,
         variation: string,
-        amount: number,
+        number: number,
         productInfo: IProduct
     }[]
 }
@@ -127,6 +127,26 @@ export interface IChat {
     members: number[],
     messages: IMessage[]
 }
+
+export interface IOrder {
+    orderId: number;
+    userId: number;
+    orderNumber: number;
+    orderStatus: "waiting" | "delivered" | "in-transit" | "cancelled" | string;
+    createdAt: string;
+    deliveredAt?: string;
+    estimatedDeliveryDate?: string;
+    paymentMethod: "card" | "cash" | "spb" | string;
+    deliveryMethod: "courier" | "pickup" | "other" | string;
+    address: IAddress;
+    orderPrice: number;
+    products: {
+        id: number;
+        amount: number;
+        variation: string;
+    }[];
+}
+
 export interface IContactPerson {
     id?: number,
     name: string,
