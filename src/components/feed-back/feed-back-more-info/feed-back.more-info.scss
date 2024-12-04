@@ -1,0 +1,29 @@
+.call-back-more-info {
+    margin: 15px 0px 15px 0px;
+    display: grid;
+    row-gap: 10px;
+    text-align: justify;
+    .description {
+        max-width: 600px;
+    }
+    .attachments {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .answer-border {
+        margin-top: 15px;
+    }
+    .moderator-answer {
+        max-width: 600px;
+    }
+    .status {
+        font-weight: 600;
+        .solved {
+            color: green;
+        }
+        .waiting {
+            color: orange;
+        }
+    }
+}

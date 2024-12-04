@@ -17,9 +17,10 @@ import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import { CategoriesPage } from "./components/admin/categories/categories";
 import { t } from "i18next";
 import ProvidersPage from "./components/admin/providers/providers";
-import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import Favorites from "./components/favorites/favorites";
 import Chats from "./components/admin/chats/chats.tsx";
+import FeedBackPage from "./components/feed-back/feed-back.tsx";
+import AdminFeedbackPage from "./components/admin/feed-back/feed-back.tsx";
 import OrdersPage from "./components/orders/orders-page.tsx";
 import OrderPage from "./components/orders/order-page/order-page.tsx";
 import ProductsWarehouse from "./components/admin/warehouses-page/products-warehouse.tsx";
@@ -135,6 +136,12 @@ export const routes = [
         breadcrumb : t("breadcrumbs.favorites")
     },
     {
+        path: "/feedback",
+        component: FeedBackPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.feedback")
+    },
+    {
         path: '*',
         component: NotFoundComponent,
         children: null,
@@ -190,6 +197,12 @@ export const adminRoutes = [
         component: AdminPage,
         children: Chats,
         breadcrumb : "Чаты"
+    },
+    {
+        path: '/admin/feedback',
+        component: AdminPage,
+        children: AdminFeedbackPage,
+        breadcrumb : t("text.feedback")
     },
     {
         path: '/admin/providers',

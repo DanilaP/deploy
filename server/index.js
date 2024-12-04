@@ -555,13 +555,13 @@ app.get('/user/data-delivery/:userid', async (req, res) => {
         const userDeliveryData = deliveryData.find((data) => data.userId === userId);
         res.status(200).json(userDeliveryData);
     } catch (error) {
-        res.status(400).json({message: "Ошибка при получении данных доставки"});
+        res.status(400).json({ message: "Ошибка при получении данных доставки" });
         console.error("get /delivery", error);
     }
 });
 
     app.put('/backet/updateCart', (req, res) => {
-        res.status(200).json({message: "Корзина успешно обновлена", cart: req.body});
+        res.status(200).json({ message: "Корзина успешно обновлена", cart: req.body });
     });
 
 
@@ -607,29 +607,28 @@ app.get("/order", async function(req, res) {
 });
 
 //Favorites
-    app.get("/favorites", async function (req, res) {
-        try {
-            const token = req.headers.authorization;
-            const userId = jwt_decode(token).id;
-            let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
-            let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
-            const user = currentUsers.filter(user => user.id === userId)[0];
-            const userFavorites = currentProducts.reduce((prev, product) => {
-                if (user.favorites.includes(product.id)) {
-                    return [...prev, product];
-                }
-                return prev;
-            }, []);
-            res.status(200).json({
-                message: "Успешное получение данных об избранных товарах!",
-                favorites: userFavorites
-            });
-        } catch (error) {
-            res.status(400).json({message: "Ошибка при получении избранных товаров!"});
-            console.error("get /favourites", error);
-        }
-    });
-
+app.get("/favorites", async function (req, res) {
+    try {
+        const token = req.headers.authorization;
+        const userId = jwt_decode(token).id;
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+        const user = currentUsers.filter(user => user.id === userId)[0];
+        const userFavorites = currentProducts.reduce((prev, product) => {
+            if (user.favorites.includes(product.id)) {
+                return [...prev, product];
+            }
+            return prev;
+        }, []);
+        res.status(200).json({
+            message: "Успешное получение данных об избранных товарах!",
+            favorites: userFavorites
+        });
+    } catch (error) {
+        res.status(400).json({ message: "Ошибка при получении избранных товаров!" });
+        console.error("get /favourites", error);
+    }
+});
 
 //Warehouses
 app.get("/warehouses", async function (req, res) {
@@ -665,40 +664,40 @@ app.get("/warehouses", async function (req, res) {
     app.get("/category", async function (req, res) {
         try {
             let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
-            res.status(200).json({message: "Данные о категориях получены", categoryList: currentCategoryList});
+            res.status(200).json({ message: "Данные о категориях получены", categoryList: currentCategoryList });
         } catch (error) {
             console.error("get /category", error);
-            res.status(400).json({message: "Ошибка получения данных о категории!"});
+            res.status(400).json({ message: "Ошибка получения данных о категории!" });
         }
     });
 
     app.post("/category", async function (req, res) {
         try {
             let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
-            res.status(200).json({message: "Добавлена новая категория", category: req.body});
+            res.status(200).json({ message: "Добавлена новая категория", category: req.body });
         } catch (error) {
             console.error("get /category", error);
-            res.status(400).json({message: "Ошибка добавления категории!"});
+            res.status(400).json({ message: "Ошибка добавления категории!" });
         }
     });
 
     app.put("/category", async function (req, res) {
         try {
             let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
-            res.status(200).json({message: "Категория обновлена", category: req.body});
+            res.status(200).json({ message: "Категория обновлена", category: req.body });
         } catch (error) {
             console.error("get /category", error);
-            res.status(400).json({message: "Ошибка обновления данных о категории!"});
+            res.status(400).json({ message: "Ошибка обновления данных о категории!" });
         }
     });
 
     app.delete("/category", async function (req, res) {
         try {
             let currentCategoryList = JSON.parse(fs.readFileSync('DB/Categories.json', 'utf8'));
-            res.status(200).json({message: "Категория удалена", category: req.body});
+            res.status(200).json({ message: "Категория удалена", category: req.body });
         } catch (error) {
             console.error("get /category", error);
-            res.status(400).json({message: "Ошибка удаления категории!"});
+            res.status(400).json({ message: "Ошибка удаления категории!" });
         }
     });
 
@@ -746,6 +745,7 @@ app.delete("/providers", async function(req, res) {
         res.status(400).json({ message: "Ошибка удаленя данных о поставщике!" });
     }
 });
+
 
 
 //Chat endpoints
@@ -915,6 +915,55 @@ wss.on('connection', (ws) => {
     ws.on('close', () => {
         console.log("Соединение закрыто!");
     });
+})
+// feedbacks
+
+app.get("/feedbacks", async function(req, res) {
+    try {
+        const feedbacksList = JSON.parse(fs.readFileSync('DB/Feedbacks.json', 'utf8'));
+        const userId = +req.query.userId;
+        const userFeedbacks = feedbacksList.filter(feedback => feedback.userId === userId);
+
+        res.status(200).json({ message: "Данные о заявках обратной связи получены", feedbacks: 
+            JSON.parse(req.query.userId) ? userFeedbacks : feedbacksList
+        });
+    }
+    catch(error) {
+        console.error("get /feedbacks", error);
+        res.status(400).json({ message: "Ошибка получения данных о заявках обратной связи!" });
+    }
+});
+
+app.post("/feedbacks", async function(req, res) {
+    try {
+        res.status(200).json({ message: "Данные о заявке с обратной связью сохранены", feedbacks: req.body });
+    }
+    catch(error) {
+        console.error("post /feedbacks", error);
+        res.status(400).json({ message: "Ошибка сохранения данных о заявке с обратной связью!" });
+    }
+});
+
+app.put("/feedbacks", async function(req, res) {
+    try {
+        res.status(200).json({ message: "Данные о заявке с обратной связью обновлены", feedbacks: req.body });
+    }
+    catch(error) {
+        console.error("post /feedbacks", error);
+        res.status(400).json({ message: "Ошибка обновления данных о заявке с обратной связью!" });
+    }
+});
+
+app.delete("/feedbacks", async function(req, res) {
+    try {
+        const feedbackId = req.query.feedbackId;
+        res.status(200).json({ message: "Данные о заявке с обратной связью удалены", feedbackId: feedbackId });
+    }
+    catch(error) {
+        console.error("post /feedbacks", error);
+        res.status(400).json({ message: "Ошибка удаления данных о заявке с обратной связью!" });
+    }
+
 });
 
 

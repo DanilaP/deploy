@@ -1,0 +1,68 @@
+.current-call-back-data {
+    margin-top: 10px;
+    padding: 15px 0px 15px 0px;
+    border-radius: 5px;
+    display: grid;
+    row-gap: 15px;
+    font-weight: 500;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: auto;
+    .type {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .description {
+        max-width: 600px;
+        text-align: justify;
+        grid-column: span 2;
+        font-weight: 400;
+    }
+    .attachments {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        .files {
+            display: flex;
+            gap: 10px;
+        }
+        .date {
+            color: gray;
+            font-weight: normal;
+            text-align: right;
+        }
+    }
+}
+.call-back-answer-form {
+    margin-top: 10px;
+    .MuiFormHelperText-root {
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        margin: 0px;
+        padding-left: 0px;
+        font-weight: normal;
+        letter-spacing: normal;
+    }
+    .MuiInputBase-root {
+        padding: 7px;
+        .Mui-disabled {
+            -webkit-text-fill-color: gray;
+        }
+    }
+    .MuiFormControl-root {
+        display: grid;
+        row-gap: 5px;
+    }
+    .label {
+        font-weight: 500;
+    }
+    .answer-date {
+        color: gray;
+        text-align: right;
+        margin-top: 15px;
+    }
+    .form-actions {
+        display: flex;
+        column-gap: 5px;
+        margin-top: 20px;
+    }
+}

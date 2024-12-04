@@ -29,6 +29,7 @@ const validatePhone = (phone: string) => {
     const russianTelLength = 11;
     return cleanedTel.length === russianTelLength;
 };
+
 const validateRequiredEmail = (email: string) => {
     if (validateEmail(email)) {
         return true;
