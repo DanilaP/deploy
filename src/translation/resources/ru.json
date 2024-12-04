@@ -118,6 +118,7 @@
         "groupName": "Наименование группы",
         "providers": "Поставщики",
         "invalidEmail": "Некорректный email",
+        "confirmAccount": "Подтвердите аккаунт",
         "image": "Изображение",
         "partNumber": "Артикул",
         "all": "Все",
@@ -254,7 +255,15 @@
         "deleteStore": "Удалить склад",
         "storeAddress": "Адрес склада",
         "storeName": "Наименование склада",
-        "deleteStoreConfirmation": "Вы уверены, что хотите удалить склад?"
+        "deleteStoreConfirmation": "Вы уверены, что хотите удалить склад?",
+        "confirmed": "Подтвержденный",
+        "unConfirmed": "Неподтвержденный",
+        "deleted": "Удаленный",
+        "recover": "Восстановить",
+        "recoverUserConfirmation": "Вы уверены, что хотите восстановить пользователя?",
+        "sendLink": "Отправить ссылку",
+        "sendingLink": "Отправка ссылки",
+        "sendLinkSuccessfully": "Ссылка успешно отправлена"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

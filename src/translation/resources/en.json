@@ -140,6 +140,7 @@
         "quantity": "Quantity",
         "uploadFiles": "Upload files",
         "invalidEmail": "Invalid email",
+        "confirmAccount": "Confirm your account",
         "image": "Image",
         "partNumber": "Partnumber",
         "all": "All",
@@ -245,7 +246,15 @@
         "deleteStore": "Delete store",
         "storeAddress": "Store address",
         "storeName": "Store name",
-        "deleteStoreConfirmation": "Are you sure you want to delete store?"
+        "deleteStoreConfirmation": "Are you sure you want to delete store?",
+        "confirmed": "Confirmed",
+        "unConfirmed": "Unconfirmed",
+        "deleted": "Deleted",
+        "recover": "Recover",
+        "recoverUserConfirmation": "Are you sure you want to recover user?",
+        "sendLink": "Send link",
+        "sendingLink": "Sending a link",
+        "sendLinkSuccessfully": "The link has been sent successfully"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",

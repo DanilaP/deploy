@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import $api from '../../configs/axiosconfig/axios';
 import { useNavigate } from 'react-router';
@@ -6,11 +6,13 @@ import { Button } from '@mui/material';
 import './profile.scss';
 import InputFile from '../../components-ui/custom-file-nput/file-input';
 import { useStore } from '../../stores';
+import CustomModal from '../../components-ui/custom-modal/custom-modal';
 import cartApi from "../../api/cart.ts";
 
 export default function ProfilePage () {
     const { t } = useTranslation();
 
+    const [linkSended, setLinkSended] = useState<boolean>(false);
     const { userStore, cartStore } = useStore();
     const user = userStore.user;
 
@@ -58,6 +60,15 @@ export default function ProfilePage () {
                         <img src={ user?.avatar }></img>
                         <div className="user-login">{ user?.login }</div>
                         <div className="user-role">{ user?.role }</div>
+                        <div className="user-status">
+                            {  (!user?.isVerified) && (
+                                    <>
+                                        <p className='confirmation'>{ t("text.confirmAccount") }</p>
+                                        <p onClick={ () => setLinkSended(true) } className='send-link-text'>{ t("text.sendLink") }</p>
+                                    </>
+                                )  
+                            }
+                        </div>
                         <InputFile />
                     </div>
                     <div className="user-settings">
@@ -73,6 +84,15 @@ export default function ProfilePage () {
                     <div className="item town">Lorem, ipsum dolor.</div>
                 </div>
             </div>
+            <CustomModal
+                isDisplay={ linkSended }
+                title = { t("text.sendingLink") }
+                typeOfActions='none'
+                actionConfirmed={ () => setLinkSended(false) }
+                closeModal={ () => setLinkSended(false) }
+            >
+                <div>{ t("text.sendLinkSuccessfully") }</div>
+            </CustomModal>
         </div>
     );
 }
