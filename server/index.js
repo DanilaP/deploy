@@ -635,7 +635,7 @@ app.get("/order", async function(req, res) {
 app.get("/warehouses", async function (req, res) {
     try {
         let currentStores = JSON.parse(fs.readFileSync('DB/Warehouses.json', 'utf8'));
-        let currentProducts= JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
 
         let storesInfo = currentStores.map((store) => {
             return (
@@ -651,26 +651,6 @@ app.get("/warehouses", async function (req, res) {
                 }
             );
         });
-    app.get("/warehouses", async function (req, res) {
-        try {
-            let currentStores = JSON.parse(fs.readFileSync('DB/Warehouses.json', 'utf8'));
-            let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
-
-            let storesInfo = currentStores.map((store) => {
-                return (
-                  {
-                      ...store,
-                      products: store.products.map((product) => {
-                          const foundedProduct = currentProducts.find(el => el.id === product.productId);
-                          return {
-                              ...product,
-                              productInfo: foundedProduct
-                          }
-                      })
-                  }
-                );
-            });
-
         res.status(200).json({ message: "Данные о товарах успешно получены", stores: storesInfo });
     }
     catch (error) {
@@ -678,12 +658,6 @@ app.get("/warehouses", async function (req, res) {
         console.error("get /warehouses", error);
     }
 })
-            res.status(200).json({message: "Данные о товарах успешно получены", stores: storesInfo});
-        } catch (error) {
-            res.status(400).json({message: "Ошибка при получении информации о складах"});
-            console.error("get /warehouses", error);
-        }
-    })
 
 
 // categories
