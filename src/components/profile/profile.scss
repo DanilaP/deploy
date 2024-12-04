@@ -67,6 +67,29 @@
                 border-radius: 50%;
                 margin-bottom: 20px;
             }
+
+            .user-status {
+                text-align: center;
+                
+                .confirmation {
+                    font-weight: 600;
+                    color: orange;
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+
+                .send-link-text {
+                    color: var(--default-color);
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
         }
 
         .user-settings {

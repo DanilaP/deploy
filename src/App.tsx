@@ -88,8 +88,8 @@ function App() {
                                 <MdFavoriteBorder className='icon' />
                                 { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
                             </Link><br/>
+                            { (checkPermissions() && userStore.user?.isVerified) ?
                             <Link to='/orders'><RiArchiveLine className='icon' />{ !isMobile ? t('breadcrumbs.orders') : null }</Link><br/>
-                            { checkPermissions() ?
                             (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">
                                 <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
@@ -112,7 +112,7 @@ function App() {
                                     />
                                 ))
                             }
-                            { checkPermissions() &&
+                            { (checkPermissions() && userStore.user?.isVerified) &&
                                 adminRoutes.map(({ path,  component: Component, children: Children }) => (
                                     <Route
                                         key={ path }

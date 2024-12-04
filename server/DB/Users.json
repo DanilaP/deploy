@@ -1,6 +1,8 @@
 [
   {
     "id": 1727098679785,
+    "isActive": true,
+    "isVerified": true,
     "login": "danila@gmail.com",
     "password": "$2a$07$iJxbcrqGHQTYajyfktQwIuLYb7xRGeumn4p3fFr8WaK8Uune5vWMq",
     "country": "Россия",
@@ -25,6 +27,8 @@
   },
   {
     "id": 1727158100336,
+    "isActive": false,
+    "isVerified": true,
     "login": "new@gmail.com",
     "password": "$2a$07$yeAFGaIvxta72M/4RzLiReAPt/hCKDPOvSB.FpG4sM/gi07HBtGL6",
     "country": "Россия",
@@ -42,6 +46,8 @@
   },
   {
     "id": 1727161785732,
+    "isActive": true,
+    "isVerified": true,
     "login": "newuser@gmail.com",
     "password": "$2a$07$ItQ8NTItTNk46S.PwwmdD.n.BrlwoO.Sc7ByhzR40f3quxyZUyt6S",
     "country": "Россия",
@@ -59,6 +65,8 @@
   },
   {
     "id": 1730462293031,
+    "isActive": true,
+    "isVerified": true,
     "login": "svetlana@gmail.com",
     "password": "$2a$07$wQA9hUv05QN12XtjpC5hJO2tsFiHTT.ZCJJAXzxhAcCbdyEvJUviW",
     "role": "Администратор",
@@ -73,5 +81,16 @@
       3,
       5
     ]
+  },
+  {
+    "id": 1732000951243,
+    "isActive": true,
+    "isVerified": false,
+    "login": "danila555@gmail.com",
+    "password": "$2a$07$/XHe1TE4gIxJg6r2jsmhTe1fFEfuY.5h7gxW1/o7VNTV3hNJ7QOhG",
+    "role": "Администратор",
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": [],
+    "favorites": []
   }
 ]
