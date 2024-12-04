@@ -525,7 +525,6 @@ app.get('/stores/addresses', (req, res) => {
 
 
 
-
 // UserDeliveryData
 app.get('/user/data-delivery/:userid', async (req, res) => {
     try {

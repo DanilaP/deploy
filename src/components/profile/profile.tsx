@@ -12,7 +12,6 @@ import cartApi from "../../api/cart.ts";
 export default function ProfilePage () {
     const { t } = useTranslation();
 
-
     const [linkSended, setLinkSended] = useState<boolean>(false);
     const { userStore, cartStore } = useStore();
     const user = userStore.user;
