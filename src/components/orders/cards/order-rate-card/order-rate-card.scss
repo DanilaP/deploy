@@ -1,0 +1,19 @@
+
+.order-rate-card {
+  .order-details {
+    border: 1px solid rgba(128, 128, 128, 0.247);
+    display: flex;
+    justify-content: space-between;
+  }
+  .product-images {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    .product-image {
+      border-radius: 3px;
+      height: 50px;
+      width: 50px;
+      cursor: pointer;
+    }
+  }
+}

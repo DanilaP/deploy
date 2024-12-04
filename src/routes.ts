@@ -17,10 +17,11 @@ import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import { CategoriesPage } from "./components/admin/categories/categories";
 import { t } from "i18next";
 import ProvidersPage from "./components/admin/providers/providers";
-import CheckoutPage from "./components/checkout/checkout-page.tsx";
 import Favorites from "./components/favorites/favorites";
 import FeedBackPage from "./components/feed-back/feed-back.tsx";
 import AdminFeedbackPage from "./components/admin/feed-back/feed-back.tsx";
+import OrdersPage from "./components/orders/orders-page.tsx";
+import OrderPage from "./components/orders/order-page/order-page.tsx";
 import ProductsWarehouse from "./components/admin/warehouses-page/products-warehouse.tsx";
 
 export const routes = [
@@ -96,6 +97,18 @@ export const routes = [
         component: ProductReviews,
         children: null,
         breadcrumb : t("breadcrumbs.productReviews")
+    },
+    {
+        path: '/orders',
+        component: OrdersPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.orders")
+    },
+    {
+        path: "/orders/order/:id",
+        component: OrderPage,
+        children: null,
+        breadcrumb : t("breadcrumbs.order")
     },
     {
         path: '/profile',

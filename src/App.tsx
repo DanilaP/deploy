@@ -17,6 +17,7 @@ import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
 import cartApi from "./api/cart.ts";
 import { MdFavoriteBorder } from "react-icons/md";
 import { MdPhoneCallback } from "react-icons/md";
+import { RiArchiveLine } from "react-icons/ri";
 
 function App() {
     const [theme, setTheme] = useState("white-theme");
@@ -89,6 +90,7 @@ function App() {
                                 { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
                             </Link><br/>
                             <Link to='/feedback'><MdPhoneCallback className='icon' />{ !isMobile ? t('text.feedback') : null }</Link><br/>
+                            <Link to='/orders'><RiArchiveLine className='icon' />{ !isMobile ? t('breadcrumbs.orders') : null }</Link><br/>
                             { (checkPermissions() && userStore.user?.isVerified) ?
                             (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
                             <div className="change-theme">

@@ -153,7 +153,6 @@
         "invalidEmail": "Некорректный email",
         "confirmAccount": "Подтвердите аккаунт",
         "image": "Изображение",
-        "partNumber": "Артикул",
         "all": "Все",
         "cart": {
             "more": "Подробнее о товаре",
@@ -248,6 +247,36 @@
             "emptyDeliveryVar": "Способ доставки не выбран",
             "emptyPaymentVar": "Способ оплаты не выбран"
         },
+        "checkout": {
+            "free": "Бесплатно",
+            "orderDeliveryMethods": {
+                "courier": "Доставка курьером",
+                "pickup": "Самовывоз"
+            },
+            "orderPaymentMethods": {
+                "cash": "Оплата наличными при получении",
+                "spb": "Оплата по QR-коду СБП",
+                "card": "Оплата банковской картой"
+            },
+            "courierFormLabels": {
+                "fullAddress": "Адрес",
+                "houseNumber": "Дом",
+                "apartment": "Квартира",
+                "entrance": "Подъезд",
+                "floor": "Этаж",
+                "intercom": "Код домофона",
+                "comment": "Комментарий курьеру"
+            },
+            "recipient": "Получатель"
+        },
+        "vendorsLogistic": {
+            "shippingStatuses": {
+                "waiting": "Ожидает",
+                "delivered": "Доставлен",
+                "in-transit": "В пути",
+                "cancelled": "Отменен"
+            }
+        },
         "createGoods": "Создать товар",
         "unsavedChanges": "У вас есть несохраненные изменения. Вы уверены",
         "cost": "Стоимость",
@@ -276,6 +305,18 @@
         "selectAll": "Выбрать всё",
         "numberOfProducts": "Количество товаров",
         "amount": "На сумму",
+        "orderPrice": "Сумма заказа",
+        "delivery": "Доставка",
+        "deliveryDate": "Дата доставки",
+        "toOrdersList": "К списку заказов",
+        "repeatOrder": "Повторить заказ",
+        "paid": "Оплачено",
+        "rateOrder": "Оценить заказ",
+        "send": "Отправить",
+        "yourComment": "Ваш комментарий",
+        "willBeDelivered": "Будет доставлен",
+        "noOrders": "У вас пока нет заказов",
+        "goToShopping": "К покупкам",
         "product": "Продукт",
         "inStock": "В наличии",
         "notInStock": "Нет в наличии",
@@ -296,7 +337,12 @@
         "recoverUserConfirmation": "Вы уверены, что хотите восстановить пользователя?",
         "sendLink": "Отправить ссылку",
         "sendingLink": "Отправка ссылки",
-        "sendLinkSuccessfully": "Ссылка успешно отправлена"
+        "sendLinkSuccessfully": "Ссылка успешно отправлена",
+        "deleteStoreConfirmation": "Вы уверены, что хотите удалить склад?",
+        "expandFeedback": "Хочу сказать больше",
+        "disadvantages": "Недостатки",
+        "advantages": "Достоинства",
+        "thankYouMessage": "Благодарим за отзыв"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",
@@ -351,7 +397,9 @@
         "shopProduct": "Продукт",
         "productReviews": "Отзывы о продукте",
         "favorites": "Избранное",
-        "feedback": "Обратная связь"
+        "feedback": "Обратная связь",
+        "orders": "Заказы",
+        "order": "Заказ"
     },
     "errors": {
         "requiredField": "Это обязательное поле",

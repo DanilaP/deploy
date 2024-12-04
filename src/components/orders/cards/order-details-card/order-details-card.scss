@@ -1,0 +1,29 @@
+.order-data-card {
+  padding: 5px;
+  height: 250px;
+  border: 1px solid rgba(128, 128, 128, 0.247);
+  .order-status-wrapper {
+    padding-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+
+    .status-chip-wrapper {
+      display: flex;
+      flex-direction: column;
+      .status-chip {
+        align-self: flex-end;
+      }
+    }
+    .order-number {
+      font-weight: bold;
+    }
+    .status-text {
+      font-size: 16px;
+      color: #9e9e9e;
+    }
+  }
+  .address, .address-fields, .comment, .recipient {
+    font-size: 16px;
+    color: slategrey;
+  }
+}

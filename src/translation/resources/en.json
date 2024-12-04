@@ -174,7 +174,6 @@
         "invalidEmail": "Invalid email",
         "confirmAccount": "Confirm your account",
         "image": "Image",
-        "partNumber": "Partnumber",
         "all": "All",
         "cart": {
             "productChoose": "Select products to proceed to checkout",
@@ -199,6 +198,35 @@
             "confirmDeleteMessage": "Are you sure you want to delete the product?",
             "delete": "Delete",
             "cancel": "Cancel"
+        },
+        "checkout": {
+            "free": "Free",
+            "orderDeliveryMethods": {
+                "addresses": "Courier Delivery",
+                "pickup": "Store Pickup"
+            },
+            "orderPaymentMethods": {
+                "cash": "Cash on Delivery",
+                "spb": "Payment via SBP QR code",
+                "card": "Payment by Bank Card"
+            },
+            "courierFormLabels": {
+                "fullAddress": "Address",
+                "apartment": "Apartment",
+                "entrance": "Entrance",
+                "floor": "Floor",
+                "intercom": "Intercom Code",
+                "comment": "Comment for Courier"
+            },
+            "recipient": "Recipient"
+        },
+        "vendorsLogistic": {
+            "shippingStatuses": {
+                "waiting": "Waiting",
+                "delivered": "Delivered",
+                "in-transit": "In transit",
+                "cancelled": "Cancelled"
+            }
         },
         "checkout": {
             "selectAddress": "Select address",
@@ -265,7 +293,6 @@
         "addToBasket": "Add to basket",
         "selectAll": "Select all",
         "numberOfProducts": "Number of products",
-        "amount": "Amount",
         "product": "Product",
         "inStock": "In stock",
         "notInStock": "Not in stock",
@@ -278,6 +305,24 @@
         "deleteStore": "Delete store",
         "storeAddress": "Store address",
         "storeName": "Store name",
+        "deleteStoreConfirmation": "Are you sure you want to delete store?",
+        "amount": "Amount",
+        "orderPrice": "Order Price",
+        "delivery": "Delivery",
+        "deliveryDate": "Delivery Date",
+        "toOrdersList": "To orders list",
+        "repeatOrder": "Repeat order",
+        "paid": "Paid",
+        "rateOrder": "Rate order",
+        "send": "Send",
+        "yourComment": "Your comment",
+        "willBeDelivered": "Will be delivered",
+        "noOrders": "You have no orders yet",
+        "goToShopping": "Go to shopping",
+        "expandFeedback": "I want to say more",
+        "disadvantages": "Disadvantages",
+        "advantages": "Advantages",
+        "thankYouMessage": "Thank you for your feedback",
         "deleteStoreConfirmation": "Are you sure you want to delete store?",
         "confirmed": "Confirmed",
         "unConfirmed": "Unconfirmed",
@@ -340,7 +385,9 @@
         "shopProduct": "Product",
         "productReviews": "Reviews of the product",
         "favorites": "Favorites",
-        "feedback": "Feedback"
+        "feedback": "Feedback",
+        "orders": "Orders",
+        "order": "Order"
     },
     "errors": {
         "requiredField": "This field is requiered",
