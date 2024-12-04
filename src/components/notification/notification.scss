@@ -1,0 +1,14 @@
+.notification {
+    width: 300px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: var(--default-color);
+    font-weight: 600;
+    position: fixed;
+    right: 20px;
+    top: 120px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 20px;
+}

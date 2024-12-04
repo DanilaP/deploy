@@ -116,6 +116,17 @@ export interface ISelect {
     id: string,
     label: string
 }
+export interface IMessage {
+    senderId: number,
+    recipientId: number,
+    date: string,
+    text: string
+}
+export interface IChat {
+    id: number,
+    members: number[],
+    messages: IMessage[]
+}
 
 export interface IAttachment {
     src: string,

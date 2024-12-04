@@ -16,6 +16,8 @@ import usePermissions from './helpers/permissions-helpers.ts';
 import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
 import cartApi from "./api/cart.ts";
 import { MdFavoriteBorder } from "react-icons/md";
+import ChatWrapper from './components/chat/chat-wrapper.tsx';
+import Notification from './components/notification/notification.tsx';
 import { MdPhoneCallback } from "react-icons/md";
 import { RiArchiveLine } from "react-icons/ri";
 
@@ -77,6 +79,32 @@ function App() {
         };
     }, []);
 
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        if (token) {
+            const socket = new WebSocket('ws://localhost:5000', token);
+            userStore.setSocketConnection(socket);
+            
+            socket.onopen = function() {
+                console.log('Соединение установлено');
+            };
+
+            socket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                userStore.setChatInfo(data);
+                userStore.setNotification({ 
+                    text: data.messages[data.messages.length - 1].text, 
+                    senderId:  data.messages[data.messages.length - 1].senderId
+                });
+                setTimeout(() => userStore.setNotification(null), 2500);
+            };
+
+            socket.onerror = function(error) {
+                console.error(`Ошибка: ${ error }`);
+            };
+        }
+    }, [userStore.user]);
+
     return (
         <>
             <div className='home-page-main'>
@@ -127,6 +155,15 @@ function App() {
                         </Routes>
                     }
                 </div>
+                { (isLoading && userStore.user && !checkPermissions()) ? <ChatWrapper /> : null }
+                {
+                    !userStore.isChatOpen 
+                    ?
+                        (userStore.notification && userStore.notification.senderId !== Number(userStore?.user?.id) )
+                            ? <Notification notification={ userStore.notification } />
+                            : null 
+                    : null
+                }
             </div>
         </>
     );

@@ -10,7 +10,7 @@
     "name": "Данила",
     "tel": "89603222544",
     "role": "Администратор",
-    "avatar": "http://localhost:5000/avatar.jpg",
+    "avatar": "http://localhost:5000/test.jpg",
     "backet": [
       {
         "id": 1730210592801,
@@ -89,6 +89,38 @@
     "login": "danila555@gmail.com",
     "password": "$2a$07$/XHe1TE4gIxJg6r2jsmhTe1fFEfuY.5h7gxW1/o7VNTV3hNJ7QOhG",
     "role": "Администратор",
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": [],
+    "favorites": []
+  },
+  {
+    "id": 1732528796810,
+    "login": "chattester@gmail.com",
+    "password": "$2a$07$GjmSFzJ3L/UX2jek6XsNiuGe4HCKE/iSM4dhkB31DYE6r5LEiD77u",
+    "role": "Пользователь",
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": [],
+    "favorites": [],
+    "isActive": true
+  },
+  {
+    "id": 1732604379612,
+    "isActive": true,
+    "isVerified": false,
+    "login": "chattester1@gmail.com",
+    "password": "$2a$07$jPCUw..FpZuq2Z4lkrHk4uIblMfdre1mzFuwXNi.1dD5U9qewCtte",
+    "role": "Пользователь",
+    "avatar": "http://localhost:5000/avatar.jpg",
+    "backet": [],
+    "favorites": []
+  },
+  {
+    "id": 1732780938181,
+    "isActive": true,
+    "isVerified": false,
+    "login": "chattester3@gmail.com",
+    "password": "$2a$07$cRi5kB9HeFS59Lk9LmtNKOH1dfiTSyfqfEX3CtzUjxvraP1oiQ7CG",
+    "role": "Пользователь",
     "avatar": "http://localhost:5000/avatar.jpg",
     "backet": [],
     "favorites": []

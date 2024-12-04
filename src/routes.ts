@@ -18,6 +18,7 @@ import { CategoriesPage } from "./components/admin/categories/categories";
 import { t } from "i18next";
 import ProvidersPage from "./components/admin/providers/providers";
 import Favorites from "./components/favorites/favorites";
+import Chats from "./components/admin/chats/chats.tsx";
 import FeedBackPage from "./components/feed-back/feed-back.tsx";
 import AdminFeedbackPage from "./components/admin/feed-back/feed-back.tsx";
 import OrdersPage from "./components/orders/orders-page.tsx";
@@ -190,6 +191,12 @@ export const adminRoutes = [
         component: AdminPage,
         children: CategoriesPage,
         breadcrumb : t("text.categories")
+    },
+    {
+        path: '/admin/chats',
+        component: AdminPage,
+        children: Chats,
+        breadcrumb : "Чаты"
     },
     {
         path: '/admin/feedback',

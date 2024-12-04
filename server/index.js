@@ -8,6 +8,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwt_decode = require('jwt-decode');
 const path = require('path');
+const WebSocket = require('ws');
+const { error } = require('console');
 
 const generateAccessToken = (id) => {
     const payload = {
@@ -562,6 +564,36 @@ app.get('/user/data-delivery/:userid', async (req, res) => {
         res.status(200).json({ message: "Корзина успешно обновлена", cart: req.body });
     });
 
+
+//Warehouses
+app.get("/warehouses", async function (req, res) {
+    try {
+        let currentStores = JSON.parse(fs.readFileSync('DB/Warehouses.json', 'utf8'));
+        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+
+        let storesInfo = currentStores.map((store) => {
+            return (
+              {
+                  ...store,
+                  products: store.products.map((product) => {
+                      const foundedProduct = currentProducts.find(el => el.id === product.productId);
+                      return {
+                          ...product,
+                          productInfo: foundedProduct
+                      }
+                  })
+              }
+            );
+        });
+
+        res.status(200).json({message: "Данные о товарах успешно получены", stores: storesInfo});
+    } catch (error) {
+        res.status(400).json({message: "Ошибка при получении информации о складах"});
+        console.error("get /warehouses", error);
+    }
+})
+    
+
 app.get("/order", async function(req, res) {
     try {
         const currentOrders = JSON.parse(fs.readFileSync('DB/Orders.json', 'utf8'));
@@ -573,6 +605,7 @@ app.get("/order", async function(req, res) {
         res.status(400).json({ message: "Ошибка получения данных о заказе!" });
     }
 });
+
 //Favorites
 app.get("/favorites", async function (req, res) {
     try {
@@ -598,31 +631,33 @@ app.get("/favorites", async function (req, res) {
 });
 
 //Warehouses
-    app.get("/warehouses", async function (req, res) {
-        try {
-            let currentStores = JSON.parse(fs.readFileSync('DB/Warehouses.json', 'utf8'));
-            let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+app.get("/warehouses", async function (req, res) {
+    try {
+        let currentStores = JSON.parse(fs.readFileSync('DB/Warehouses.json', 'utf8'));
+        let currentProducts = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
 
-            let storesInfo = currentStores.map((store) => {
-                return (
-                    {
-                        ...store,
-                        products: store.products.map((product) => {
-                            const foundedProduct = currentProducts.find(el => el.id === product.productId);
-                            return {
-                                ...product,
-                                productInfo: foundedProduct
-                            };
-                        })
-                    }
-                );
-            });
-            res.status(200).json({ message: "Данные о товарах успешно получены", stores: storesInfo });
-        } catch (error) {
-            res.status(400).json({ message: "Ошибка при получении информации о складах" });
-            console.error("get /warehouses", error);
-        }
-    });
+        let storesInfo = currentStores.map((store) => {
+            return (
+                {
+                    ...store,
+                    products: store.products.map((product) => {
+                        const foundedProduct = currentProducts.find(el => el.id === product.productId);
+                        return {
+                            ...product,
+                            productInfo: foundedProduct
+                        }
+                    })
+                }
+            );
+        });
+        res.status(200).json({ message: "Данные о товарах успешно получены", stores: storesInfo });
+    }
+    catch (error) {
+        res.status(400).json({ message: "Ошибка при получении информации о складах" });
+        console.error("get /warehouses", error);
+    }
+})
+
 
 // categories
 
@@ -667,7 +702,6 @@ app.get("/favorites", async function (req, res) {
     });
 
 // providers
-
 app.get("/providers", async function(req, res) {
     try {
         let currentProvidersList = JSON.parse(fs.readFileSync('DB/Providers.json', 'utf8'));
@@ -712,6 +746,176 @@ app.delete("/providers", async function(req, res) {
     }
 });
 
+
+
+//Chat endpoints
+app.get("/chats", async function(req, res) {
+    try {
+        const token = req.headers.authorization;
+        const userId = jwt_decode(token).id;
+        let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        let chats = currentChats.filter((chat) => chat.members.includes(userId));
+        let opponentInfo = currentUsers.find(user => (user.id !== userId && chats[0].members.includes(user.id)));
+
+        res.status(200).json({ message: "Данные о чатах успешно получены", chats: chats, opponentInfo: opponentInfo ? {
+            id: opponentInfo.id,
+            avatar: opponentInfo.avatar
+        } : {} });
+    }
+    catch(error) {
+        console.error("get /chats", error);
+        res.status(400).json({ message: "Ошибка получения данных о чатах!" });
+    }
+});
+
+app.get("/admin/chats", async function(req, res) {
+    try {
+        let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8')); 
+
+        let detailedChatsInfo = currentChats.map(chat => {
+            return {
+                ...chat,
+                members: currentUsers.filter(user => chat.members.includes(user.id))
+            };
+        });
+
+        res.status(200).json({ message: "Данные о чатах успешно получены", chats: currentChats, detailedChatsInfo: detailedChatsInfo });
+    }
+    catch(error) {
+        console.error("get /admin/chats", error);
+        res.status(400).json({ message: "Ошибка получения данных о чатах!" });
+    }
+});
+
+app.post("/admin/chat", async function(req, res) {
+    try {
+        const token = req.headers.authorization;
+        const userId = jwt_decode(token).id;
+        const choosenChat = req.body;
+        const currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        const currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+
+        let updatedChats = currentChats.map((chat) => {
+            if (chat.id === choosenChat.id && !chat.members.includes(userId)) {
+                return {
+                    ...chat,
+                    members: chat.members.map(id => {
+                        if (id === null) {
+                            return userId;
+                        } 
+                        return id;
+                    }),
+                    messages: chat.messages.map((message) => {
+                        return {
+                            ...message,
+                            recipientId: userId
+                        };
+                    })
+                };
+            }
+            return chat;
+        });
+        fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
+
+        let chat = updatedChats.find(chat => chat.id === choosenChat.id);
+        let opponentInfo = currentUsers.find(user => (user.id !== userId && chat.members.includes(user.id)));
+
+        res.status(200).json({ message: "Успешное закрепление за чатом", chat: chat, opponentInfo: opponentInfo });
+    }   
+    catch (error) {
+        res.status(400).json({ message: "Ошибка закрепления админа за чатом" });
+        console.error("post /admin/chat", error);
+    }
+});
+
+//Chat websocket
+const wss = new WebSocket.Server({ server });
+let clients = [];
+
+wss.on('connection', (ws) => {
+    clients = [...clients, { userws: ws, userId: jwt_decode(ws.protocol).id }];
+
+    ws.on('message', async (message) => {
+        try {
+            const newMessageData = JSON.parse(message);
+            const senderId = jwt_decode(newMessageData.senderToken).id;
+            const recipientId = newMessageData.recipientId;
+            let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+
+            let isChatExists = currentChats.filter((chat) => {
+                if (chat.members.includes(senderId) && chat.members.includes(recipientId)) {
+                    return true;
+                }
+                return false;
+            });
+
+            if (isChatExists.length > 0) {
+                const newChats = currentChats.map((chat) => {
+                    if (isChatExists[0].id === chat.id) {
+                        return {
+                            ...chat,
+                            messages: [ ...chat.messages, {
+                                senderId,
+                                recipientId,
+                                date: newMessageData.date,
+                                text: newMessageData.message,
+                            } ]
+                        };
+                    } else return chat;
+                });
+                fs.writeFileSync('DB/Chats.json', JSON.stringify(newChats, null, 2));
+            } 
+            else {
+                currentChats = [ ...currentChats, {
+                    id: Date.now(),
+                    members: [senderId, null],
+                    messages: [{
+                        senderId,
+                        recipientId: null,
+                        date: newMessageData.date,
+                        text: newMessageData.message,
+                    }]
+                } ];
+                fs.writeFileSync('DB/Chats.json', JSON.stringify(currentChats, null, 2));
+            }
+
+            clients.map((client) => {
+                if (client.userId === recipientId || client.userId === senderId) {
+                    if (isChatExists.length > 0) {
+                        client.userws.send(JSON.stringify({
+                            ...isChatExists[0],
+                            messages: [...isChatExists[0].messages, {
+                                senderId: senderId,
+                                recipientId: recipientId,
+                                date: newMessageData.date,
+                                text: newMessageData.message,
+                            }]
+                        }));
+                    } else {
+                        client.userws.send(JSON.stringify({
+                            ...currentChats[currentChats.length - 1],
+                            messages: [{
+                                senderId: senderId,
+                                recipientId: null,
+                                date: newMessageData.date,
+                                text: newMessageData.message,
+                            }]
+                        }));
+                    }
+                }
+            });
+        } 
+        catch (error) {
+            console.log(error);
+        }
+    });
+
+    ws.on('close', () => {
+        console.log("Соединение закрыто!");
+    });
+})
 // feedbacks
 
 app.get("/feedbacks", async function(req, res) {
@@ -759,6 +963,7 @@ app.delete("/feedbacks", async function(req, res) {
         console.error("post /feedbacks", error);
         res.status(400).json({ message: "Ошибка удаления данных о заявке с обратной связью!" });
     }
+
 });
 
 

@@ -329,6 +329,11 @@
         "deleted": "Deleted",
         "recover": "Recover",
         "recoverUserConfirmation": "Are you sure you want to recover user?",
+        "yourChats": "Your chats",
+        "freeChats": "Free chats",
+        "chat": "Chat",
+        "send": "Send",
+        "yourMessage": "Your message",
         "sendLink": "Send link",
         "sendingLink": "Sending a link",
         "sendLinkSuccessfully": "The link has been sent successfully"
