@@ -1,4 +1,5 @@
-import { IUser } from "../../../../../interfaces/interfaces";
+import { IUser } from "../../../../../models/user/user";
+
 
 
 export default function FreeChats (props: { chats: any[], changeChat: (chat: any) => void }) {

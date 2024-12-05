@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from '../../../../../translation/i18n.js';
-import { IRole, IUser } from '../../../../../interfaces/interfaces.js';
 import './manipulate-user.scss';
 import $api from '../../../../../configs/axiosconfig/axios.js';
 import { Autocomplete, Button, TextField } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { validateEmail, validateRequiredEmail, validateRequiredField } from '../../../../../helpers/validators-helper.js';
+import { IUser } from '../../../../../models/user/user.js';
+import { IRole } from '../../../../../models/role/role.js';
+
 
 interface formData {
     role: string,

@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import './permissions-group-list.scss';
-import { IPermissionGroup } from '../../../../../interfaces/interfaces.ts';
 import Permission from '../permission-component/permission.tsx';
 import Masonry from '@mui/lab/Masonry';
 import usePermissions from "../../../../../helpers/permissions-helpers.ts";
+import { IPermissionGroup } from '../../../../../models/permission-group/permission-group.ts';
 
 export default function PermissionsGroupList (props: {
     permissionsGroups: IPermissionGroup[],
