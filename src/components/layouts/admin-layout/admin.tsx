@@ -13,11 +13,11 @@ import './admin.scss';
 import usePermissions from "../../../helpers/permissions-helpers.ts";
 import { TbTruckDelivery } from "react-icons/tb";
 
-interface AdminPageProps {
+interface AdminLayoutProps {
     children: React.ReactElement | null
 }
 
-export default function AdminPage (props: AdminPageProps) {
+export default function AdminLayout (props: AdminLayoutProps) {
     const { t } = useTranslation();
     const { children } = props;
     const navigate = useNavigate();

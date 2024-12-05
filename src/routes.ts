@@ -1,6 +1,4 @@
 import NotFoundComponent from "./components/pages/service/404.tsx";
-import AdminPage from "./components/pages/admin/admin.tsx";
-import AuthPage from "./components/pages/auth/auth.tsx";
 import SignIn from "./components/pages/auth/sign-in/sign-in.tsx";
 import SignUp from "./components/pages/auth/sign-up/sign-up.tsx";
 import AboutPage from "./components/pages/about/about.tsx";
@@ -24,6 +22,8 @@ import AdminFeedbackPage from "./components/pages/admin/feed-back/feed-back.tsx"
 import OrdersPage from "./components/pages/orders/orders-page.tsx";
 import OrderPage from "./components/pages/orders/order-page/order-page.tsx";
 import ProductsWarehouse from "./components/pages/admin/warehouses-page/products-warehouse.tsx";
+import AdminLayout from "./components/layouts/admin-layout/admin.tsx";
+import AuthLayout from "./components/layouts/auth-layout/auth.tsx";
 
 export const routes = [
     {
@@ -34,13 +34,13 @@ export const routes = [
     },
     {
         path: '/auth/signin',
-        component: AuthPage,
+        component: AuthLayout,
         children: SignIn,
         breadcrumb : ''
     },
     {
         path: '/auth/signup',
-        component: AuthPage,
+        component: AuthLayout,
         children: SignUp,
         breadcrumb : ''
     },
@@ -152,61 +152,61 @@ export const routes = [
 export const adminRoutes = [
     {
         path: '/admin',
-        component: AdminPage,
+        component: AdminLayout,
         children: null,
         breadcrumb : t("breadcrumbs.adminPage")
     },
     {
         path: '/admin/users',
-        component: AdminPage,
+        component: AdminLayout,
         children: UsersList,
         breadcrumb : t("breadcrumbs.adminUsers")
     },
     {
         path: '/admin/roles',
-        component: AdminPage,
+        component: AdminLayout,
         children: RolesPage,
         breadcrumb : t("breadcrumbs.adminRoles")
     },
     {
         path: '/admin/permissions',
-        component: AdminPage,
+        component: AdminLayout,
         children: PermissionsPage,
         breadcrumb : t("breadcrumbs.adminPermissions")
     },
     {
         path: '/admin/goods',
-        component: AdminPage,
+        component: AdminLayout,
         children: GoodsPage,
         breadcrumb : t("titles.goodsPage")
     },
     {
         path: '/admin/productsWarehouse',
-        component: AdminPage,
+        component: AdminLayout,
         children: ProductsWarehouse,
         breadcrumb : t("titles.productsStorePage")
     },
     {
         path: '/admin/categories',
-        component: AdminPage,
+        component: AdminLayout,
         children: CategoriesPage,
         breadcrumb : t("text.categories")
     },
     {
         path: '/admin/chats',
-        component: AdminPage,
+        component: AdminLayout,
         children: Chats,
         breadcrumb : "Чаты"
     },
     {
         path: '/admin/feedback',
-        component: AdminPage,
+        component: AdminLayout,
         children: AdminFeedbackPage,
         breadcrumb : t("text.feedback")
     },
     {
         path: '/admin/providers',
-        component: AdminPage,
+        component: AdminLayout,
         children: ProvidersPage,
         breadcrumb : t("text.providers")
     },
