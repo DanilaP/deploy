@@ -1,11 +1,11 @@
 import { Checkbox, Rating } from '@mui/material';
 import { getAverageEvaluation } from '../../../../helpers/product-page-helpers';
 import { MdOutlineFavorite } from 'react-icons/md';
-import { IProduct } from '../../../../interfaces/interfaces';
 import './favorite-item.scss';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { t } from 'i18next';
+import { IProduct } from '../../../../models/products/products';
 
 export default function FavoriteItem (props: { 
     product: IProduct, 
@@ -22,7 +22,7 @@ export default function FavoriteItem (props: {
             props.changeChoosenProducts([...props.choosenProducts, props.product]);
         }
         else {
-            let filteredProducts = props.choosenProducts.filter((product) => product.id !== props.product.id);
+            const filteredProducts = props.choosenProducts.filter((product) => product.id !== props.product.id);
             props.changeChoosenProducts(filteredProducts);
         }
     };
@@ -48,7 +48,7 @@ export default function FavoriteItem (props: {
                     readOnly
                     value = { Number(getAverageEvaluation(props.product.reviews)) }
                 />
-                <Checkbox checked={ isActive ? true : false} onChange={ changeInputState } className='checkbox' />
+                <Checkbox checked={ isActive ? true : false } onChange={ changeInputState } className='checkbox' />
             </div>
             <div className="settings">
                 <div className="price">{ props.product.variations[0].price } { t("text.rub") }</div>

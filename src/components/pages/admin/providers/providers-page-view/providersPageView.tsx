@@ -11,7 +11,6 @@ import {
     TableRow, 
     TextField 
 } from "@mui/material";
-import { IProvider } from "../../../../../interfaces/interfaces";
 import { MdDelete } from "react-icons/md";
 import { FaEdit, FaTrashRestoreAlt } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
@@ -20,6 +19,7 @@ import { DEFAULT_PROVIDER } from "../constants";
 import ProvidersManageForm from "../providers-manage-form/providersManageForm";
 import CustomModal from "../../../../components-ui/custom-modal/custom-modal";
 import "./providersPageView.scss";
+import { IProvider } from "../../../../../models/providers/providers";
 
 interface IProvidersPageViewProps {
     providers: IProvider[],

@@ -11,10 +11,10 @@ import { observer } from 'mobx-react-lite';
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import './product-card.scss';
-import { IProduct } from "../../../../interfaces/interfaces.ts";
 import { useNavigate } from "react-router";
 import ProductInfoTooltip from "../../../components-ui/product-info-tooltip/product-info-tooltip.tsx";
 import { formatCurrency } from "../../../../helpers/cart-helpers.tsx";
+import { IProduct } from "../../../../models/products/products.ts";
 
 const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
     const { t } = useTranslation();

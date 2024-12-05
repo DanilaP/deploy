@@ -10,7 +10,7 @@ import {
     CardMedia,
 } from "@mui/material";
 import OrderDetailsCard from "../cards/order-details-card/order-details-card.tsx";
-import { IOrder, IProduct, IVariation } from "../../../../interfaces/interfaces.ts";
+import { IOrder } from "../../../../interfaces/interfaces.ts";
 import Card from "@mui/material/Card";
 import { useTranslation } from "react-i18next";
 import { MdArrowBack, MdFavoriteBorder } from "react-icons/md";
@@ -22,6 +22,7 @@ import PaymentDetailsCard from "../cards/payment-details-card/payment-details-ca
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.tsx";
 import OrderRateForm from "../order-rate-form/order-rate-form.tsx";
 import OrderRateCard from "../cards/order-rate-card/order-rate-card.tsx";
+import { IProduct, IVariation } from "../../../../models/products/products.ts";
 
 const OrderPage = () => {
     const query = useParams();

@@ -5,10 +5,10 @@ import { useNavigate, useParams } from 'react-router';
 import $api from "../../../../configs/axiosconfig/axios";
 import { Button, Rating, TextField } from '@mui/material';
 import Review from './review/review';
-import { IReview } from '../../../../interfaces/interfaces';
 import { getAverageEvaluation } from '../../../../helpers/product-page-helpers';
 import InputFile from '../../../components-ui/custom-file-nput/file-input';
 import { useStore } from '../../../../stores';
+import { IReview } from '../../../../models/products/products';
 
 export default function ProductReviews () {
     const params = useParams();
@@ -154,9 +154,9 @@ export default function ProductReviews () {
                                     name="half-rating"
                                     value={ userReviewInfo.evaluation }
                                     precision={ 0.5 }
-                                    onChange={(event, newValue) => {
+                                    onChange={ (event, newValue) => {
                                         setUserReviewInfo({ ...userReviewInfo, evaluation: newValue });
-                                    }}
+                                    } }
                                 />
                             }
                         </div>

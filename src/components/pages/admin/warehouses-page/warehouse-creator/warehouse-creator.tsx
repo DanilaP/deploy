@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { OPTIONS } from './constants/constants';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { validateRequiredField } from "../../../../../helpers/validators-helper";
+import { validateRequiredField } from "../../../../../helpers/validators/validators-helper";
 
 interface formData {
     storeName: string,

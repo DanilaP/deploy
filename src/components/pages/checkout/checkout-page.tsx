@@ -14,12 +14,13 @@ import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid2";
 import ProductCard from "./product-card/product-card.tsx";
 import './checkout-page.scss';
-import { IPrevDelivery, IProduct, IStore } from "../../../interfaces/interfaces.ts";
+import { IPrevDelivery, IStore } from "../../../interfaces/interfaces.ts";
 import cartApi from "../../../api/cart.ts";
 import CheckoutCard from "./checkout-card/checkout-card.tsx";
 import { formatCurrency, formatPhoneNumber } from "../../../helpers/cart-helpers.tsx";
 import UserData from "./user-data-form/user-data.tsx";
 import { validateRequiredField } from "../../../validators-helper.tsx";
+import { IProduct } from "../../../models/products/products.ts";
 
 interface ValidationErrors {
     isErrors: boolean,

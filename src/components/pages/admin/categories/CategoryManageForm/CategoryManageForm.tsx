@@ -1,13 +1,13 @@
 import { Controller, useForm } from "react-hook-form";
 import { DEFAULT_CATEGORY_FORM } from "../constants";
-import { ICategory } from "../../../../../interfaces/interfaces";
 import { Box, Button, FormControl, FormLabel, TextField, Tooltip } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { validateRequiredField } from "../../../../../helpers/validators-helper";
+import { validateRequiredField } from "../../../../../helpers/validators/validators-helper";
 import "./CategoryManageForm.scss";
 import { useEffect } from "react";
 import InputFile from "../../../../components-ui/custom-file-nput/file-input";
 import { convertFileListToBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
+import { ICategory } from "../../../../../models/categories/categories";
 
 interface ICategoryManageFormProps {
     currentCategory: ICategory | null,

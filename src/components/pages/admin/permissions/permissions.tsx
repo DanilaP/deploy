@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './permissions.scss';
 import { Button, TextField } from '@mui/material';
@@ -6,7 +6,7 @@ import { IPermission, IPermissionGroup } from '../../../../interfaces/interfaces
 import $api from '../../../../configs/axiosconfig/axios.js';
 import PermissionsList from './permissions-list/permissions-list.tsx';
 import PermissionsGroupList from './permissions-group-list/permissions-group-list.tsx';
-import useDebounceFunction from '../../../../helpers/use-debounce.tsx';
+import useDebounceFunction from '../../../../hooks/use-debounce.tsx';
 import usePermissions from "../../../../helpers/permissions-helpers.ts";
 
 export default function PermissionsPage () {

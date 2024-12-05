@@ -2,7 +2,6 @@ import { Button, MenuItem, Select, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { ManageGoodForm } from "./forms/ManageGood/ManageGood.js";
-import { IProduct, IProvider } from "../../../../interfaces/interfaces.js";
 import { useNavigate } from "react-router";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.js";
 import { IoMdSearch } from "react-icons/io";
@@ -10,6 +9,8 @@ import "./goods.scss";
 import { useCategories } from "../../../../models/categories/use-categories.js";
 import { useProviders } from "../../../../models/providers/use-providers.js";
 import { createProduct, getProducts } from "../../../../models/products/products-api.js";
+import { IProvider } from "../../../../models/providers/providers.js";
+import { IProduct } from "../../../../models/products/products.js";
 
 export const GoodsPage = () => {
 

@@ -3,8 +3,8 @@ import { useTranslation } from '../../../translation/i18n';
 import MediaCard from './card/card';
 import './shop.scss';
 import { Button, MenuItem, Select, TextField } from '@mui/material';
-import { IProduct } from '../../../interfaces/interfaces';
 import { getProducts } from '../../../models/products/products-api';
+import { IProduct } from '../../../models/products/products';
 
 export default function ShopPage () {
 

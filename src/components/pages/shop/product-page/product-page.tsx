@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { IProduct } from "../../../../interfaces/interfaces";
 import $api from "../../../../configs/axiosconfig/axios";
 import { useNavigate, useParams } from "react-router";
 import "./product-page.scss";
@@ -7,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import ProductInfo from "./product-page-info/product-page-info";
 import ProductSlider from "./product-page-slider/product-page-slider";
 import { Skeleton } from "@mui/material";
+import { IProduct } from "../../../../models/products/products";
 
 export default function ProductPage () {
     
