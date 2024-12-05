@@ -1,12 +1,13 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { CardMedia, Typography } from "@mui/material";
-import { formatCurrency, formatDate } from "../../../../../helpers/common-helpers.tsx";
 import { FC } from "react";
-import { IOrder } from "../../../../../interfaces/interfaces.ts";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import './order-rate-card.scss';
+import IOrder from "../../../../../models/order/order.ts";
+import formatDate from "../../../../../helpers/utils/format-date.ts";
+import formatCurrency from "../../../../../helpers/utils/format-сurrency.ts";
 
 const OrderRateCard:FC<{ order: IOrder, productsData: any }> = ( { order, productsData }) => {
     const { t } = useTranslation();

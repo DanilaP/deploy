@@ -12,15 +12,15 @@ import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IAddress } from "../../../../../interfaces/interfaces.ts";
 import { AddressSuggestions, DaDataAddress, DaDataSuggestion } from 'react-dadata';
-import { getFormatAddressStringForSelect, getFormattedAddressString } from "../../../../../helpers/cart-helpers.tsx";
 import 'react-dadata/dist/react-dadata.css';
 import './courier-form.scss';
 import IconButton from "@mui/material/IconButton";
 import { FaTimes } from 'react-icons/fa';
 import CustomModal from "../../../../components-ui/custom-modal/custom-modal.tsx";
 import _ from 'lodash';
-
 import { useForm, Controller, useWatch } from 'react-hook-form';
+import getFormatAddressStringForSelect from "../../../../../helpers/utils/get-format-address-string-for-select.ts";
+import getFormattedAddressString from "../../../../../helpers/utils/get-formatted-address-string.tsx";
 
 interface CourierDialogProps {
     currentAddress: IAddress | null;

@@ -13,8 +13,8 @@ import { useTranslation } from "react-i18next";
 import './product-card.scss';
 import { useNavigate } from "react-router";
 import ProductInfoTooltip from "../../../components-ui/product-info-tooltip/product-info-tooltip.tsx";
-import { formatCurrency } from "../../../../helpers/cart-helpers.tsx";
 import { IProduct } from "../../../../models/products/products.ts";
+import formatCurrency from "../../../../helpers/utils/format-сurrency.ts";
 
 const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
     const { t } = useTranslation();

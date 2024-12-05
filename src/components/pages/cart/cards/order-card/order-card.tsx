@@ -6,7 +6,7 @@ import { FC } from 'react';
 import './order-card.scss';
 import { useStore } from '../../../../../stores/index.ts';
 import { observer } from 'mobx-react-lite';
-import { formatCurrency } from "../../../../../helpers/cart-helpers.tsx";
+import formatCurrency from "../../../../../helpers/utils/format-сurrency.ts";
 
 interface OrderPromptProps {
     sumToShow: string;

@@ -39,24 +39,6 @@ export interface IAddress {
     comment?: string;
 }
 
-export interface IPrevDelivery {
-    id: number,
-    wareHouseId: number | null,
-    address: IAddress | null,
-    timeStamp: string,
-    type: string,
-    payment: {
-        method: string,
-        timeStamp: string,
-    },
-    comment: string,
-}
-
-export interface IDeliveryData {
-    userId: number,
-    prevDeliveries: IPrevDelivery[],
-}
-
 export interface IStore {
     id: number,
     name: string,
@@ -87,23 +69,4 @@ export interface IChat {
 export interface IAttachment {
     src: string,
     type: string
-}
-
-export interface IOrder {
-    orderId: number;
-    userId: number;
-    orderNumber: number;
-    orderStatus: "waiting" | "delivered" | "in-transit" | "cancelled" | string;
-    createdAt: string;
-    deliveredAt?: string;
-    estimatedDeliveryDate?: string;
-    paymentMethod: "card" | "cash" | "spb" | string;
-    deliveryMethod: "courier" | "pickup" | "other" | string;
-    address: IAddress;
-    orderPrice: number;
-    products: {
-        id: number;
-        amount: number;
-        variation: string;
-    }[];
 }

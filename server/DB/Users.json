@@ -75,7 +75,14 @@
     "city": "Москва",
     "name": "Светлана",
     "tel": "79264472217",
-    "backet": [],
+    "backet": [
+      {
+        "id": 1733400764140,
+        "productId": 1,
+        "number": 5,
+        "variation": "Base"
+      }
+    ],
     "favorites": [
       1,
       3,

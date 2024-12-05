@@ -1,13 +1,13 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { Button, CardActions, Divider, Typography } from "@mui/material";
-import { formatCurrency } from "../../../../../helpers/common-helpers.tsx";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import './payment-details-card.scss';
-import { IOrder } from "../../../../../interfaces/interfaces.ts";
 import $api from "../../../../../configs/axiosconfig/axios.js";
 import { useNavigate } from "react-router";
+import IOrder from "../../../../../models/order/order.ts";
+import formatCurrency from "../../../../../helpers/utils/format-сurrency.ts";
 
 interface PaymentDetailsCardProps {
     order: IOrder,

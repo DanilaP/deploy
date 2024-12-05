@@ -1,11 +1,13 @@
 import { FC } from "react";
 import { CardMedia, Chip, Typography, Card, CardContent } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { IOrder } from "../../../../../interfaces/interfaces.ts";
 import { useNavigate } from "react-router";
-import { formatCurrency, formatDate, getStatusColor } from "../../../../../helpers/common-helpers.tsx";
 import "./preview-card.scss";
 import { IProduct, IVariation } from "../../../../../models/products/products.ts";
+import IOrder from "../../../../../models/order/order.ts";
+import {getStatusColor} from "../../../../../helpers/utils/get-status-color.ts";
+import formatDate from "../../../../../helpers/utils/format-date.ts";
+import formatCurrency from "../../../../../helpers/utils/format-сurrency.ts";
 
 interface PreviewCardProps {
     order: IOrder,

@@ -5,10 +5,10 @@ import InputMask from "react-input-mask";
 import { useForm, Controller } from "react-hook-form";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../../stores/index.ts";
-import { validatePhone } from "../../../../validators-helper.tsx";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.tsx";
 import "./user-data.scss";
 import Grid from "@mui/material/Grid2";
+import { validatePhone } from "../../../../helpers/validators/validators-helper.ts";
 
 const UserData = () => {
     const { t } = useTranslation();
