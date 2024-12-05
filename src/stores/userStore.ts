@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
-import { IUser, IPermission, IChat } from "../interfaces/interfaces.ts";
+import { IPermission, IChat } from "../interfaces/interfaces.ts";
+import { IUser } from "../models/user/user.ts";
 
 class UserStore {
     user: IUser | null = null

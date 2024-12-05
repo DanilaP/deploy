@@ -10,13 +10,13 @@ import {
 import { FC, FormEvent } from "react";
 import './pickup-form.scss';
 import { useTranslation } from "react-i18next";
-import { IStore } from "../../../../../interfaces/interfaces.ts";
+import { IWarehouse } from "../../../../../models/warehouse/warehouse.ts";
 
 interface PickupDialogProps {
     handleClose: () => void;
     selectedWareHouseId: number | null;
     setSelectedWareHouseId: (id: number) => void;
-    wareHouses: IStore[];
+    wareHouses: IWarehouse[];
     handleSaveDeliveryAddressData: (deliveryMethod: string) => void;
 }
 
@@ -41,7 +41,7 @@ const PickupForm: FC<PickupDialogProps> = ({
                     value={ selectedWareHouseId }
                     onChange={ (e) => setSelectedWareHouseId(Number(e.target.value)) }
                 >
-                    { wareHouses.map((wareHouse: IStore) => (
+                    { wareHouses.map((wareHouse: IWarehouse) => (
                         <Card
                             key={ wareHouse.id }
                             className={ `store-card ${ selectedWareHouseId === wareHouse.id ? 'selected pickup-dialog-card' : 'pickup-dialog-card' }` }

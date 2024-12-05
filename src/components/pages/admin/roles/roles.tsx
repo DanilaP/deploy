@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import $api from '../../../../configs/axiosconfig/axios.js';
-import { IPermission, IPermissionGroup, IRole } from "../../../../interfaces/interfaces.ts";
+import { IPermission } from "../../../../interfaces/interfaces.ts";
 import './roles.scss';
 import TableComponent from "./roles-table/table.tsx";
 import { Button, TextField } from "@mui/material";
 import usePermissions from "../../../../helpers/permissions-helpers.ts";
+import { IRole } from "../../../../models/role/role.ts";
+import { IPermissionGroup } from "../../../../models/permission-group/permission-group.ts";
 
 export default function RolesPage () {
     const { t } = useTranslation();

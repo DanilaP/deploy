@@ -1,7 +1,7 @@
 import './chats.scss';
 import $api from '../../../../configs/axiosconfig/axios';
 import { useEffect, useState } from 'react';
-import { IChat, IUser } from '../../../../interfaces/interfaces';
+import { IChat } from '../../../../interfaces/interfaces';
 import { useStore } from '../../../../stores';
 import Chat from '../../chat/chat/chat';
 import FreeChats from './free-chats.tsx/free-chats';
