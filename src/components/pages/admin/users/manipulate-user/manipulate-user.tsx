@@ -4,14 +4,9 @@ import './manipulate-user.scss';
 import $api from '../../../../../configs/axiosconfig/axios.js';
 import { Autocomplete, Button, TextField } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-<<<<<<< HEAD
-import { validateEmail, validateRequiredEmail, validateRequiredField } from '../../../../../helpers/validators-helper.js';
 import { IUser } from '../../../../../models/user/user.js';
 import { IRole } from '../../../../../models/role/role.js';
-
-=======
-import { validateEmail, validateRequiredEmail, validateRequiredField } from '../../../../../helpers/validators/validators-helper.js';
->>>>>>> ad30da4adf23e1622957887b5b039ae7e6b469fe
+import { validateRequiredEmail, validateRequiredField } from '../../../../../helpers/validators/validators-helper.js';
 
 interface formData {
     role: string,
