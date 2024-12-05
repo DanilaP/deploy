@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import './permissions-list.scss';
-import { IPermission, IPermissionGroup } from '../../../../../interfaces/interfaces.ts';
+import { IPermission } from '../../../../../interfaces/interfaces.ts';
 import Permission from '../permission-component/permission.tsx';
 import usePermissions from "../../../../../helpers/permissions-helpers.ts";
+import { IPermissionGroup } from '../../../../../models/permission-group/permission-group.ts';
 
 export default function PermissionsList (props: {
     permissions: IPermission[],

@@ -2,19 +2,19 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import $api from '../../../../configs/axiosconfig/axios';
 import './products-warehouse.scss';
-import { IStore } from '../../../../interfaces/interfaces';
 import { Button, Checkbox, MenuItem, Select, TextField } from '@mui/material';
 import { IoMdSearch } from 'react-icons/io';
 import WarehouseTable from './warehouse-table/warehouse-table';
 import CustomModal from '../../../components-ui/custom-modal/custom-modal';
 import WarehouseCreator from './warehouse-creator/warehouse-creator';
+import { IWarehouse } from '../../../../models/warehouse/warehouse';
 
 export default function ProductsWarehouse () {
 
     const { t } = useTranslation();
-    const [stores, setStores] = useState<IStore[]>([]);
-    const [currentStoreInfo, setCurrentStoreInfo] = useState<IStore>();
-    const [filteredStoreInfo, setFilteredStoreInfo] = useState<IStore>();
+    const [stores, setStores] = useState<IWarehouse[]>([]);
+    const [currentStoreInfo, setCurrentStoreInfo] = useState<IWarehouse>();
+    const [filteredStoreInfo, setFilteredStoreInfo] = useState<IWarehouse>();
     const [onlyNotInStock, setOnlyNotInStock] = useState<boolean>(false);
     const [modalOpen, setModalOpen] = useState({
         creatingStore: false,
@@ -58,7 +58,7 @@ export default function ProductsWarehouse () {
         } else setFilteredStoreInfo(currentStoreInfo);
     };
 
-    const endManipulationWithStore = (storesInfo: IStore[], currentStoreInfo: IStore) => {
+    const endManipulationWithStore = (storesInfo: IWarehouse[], currentStoreInfo: IWarehouse) => {
         setStores(storesInfo);
         setCurrentStoreInfo(currentStoreInfo);
         setModalOpen({ ...modalOpen, creatingStore: false , deletingStore: false });
@@ -79,7 +79,7 @@ export default function ProductsWarehouse () {
     };
 
     const deleteStore = () => {
-        const newStores = stores.filter((store: IStore) => store.id !== currentStoreInfo?.id);
+        const newStores = stores.filter((store: IWarehouse) => store.id !== currentStoreInfo?.id);
         const lastStore = newStores[newStores.length - 1];
         endManipulationWithStore(newStores, lastStore);
     };
@@ -116,7 +116,7 @@ export default function ProductsWarehouse () {
                                 defaultValue={ stores[0].id }
                             >
                                 {
-                                    stores.map((store: IStore) => {
+                                    stores.map((store: IWarehouse) => {
                                         return <MenuItem key={ store.id } value = { store.id }>{ store.name }</MenuItem>;
                                     })
                                 }

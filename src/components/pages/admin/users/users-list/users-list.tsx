@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import $api from '../../../../../configs/axiosconfig/axios.js';
-import { IUser } from '../../../../../interfaces/interfaces.js';
 import './users-list.scss';
 import CustomModal from '../../../../components-ui/custom-modal/custom-modal.js';
 import ManipulateUser from '../manipulate-user/manipulate-user.js';
 import { Button, TextField } from '@mui/material';
 import usePermissions from "../../../../../helpers/permissions-helpers.ts";
+import { IUser } from '../../../../../models/user/user.ts';
 
 export default function UsersList () {
     const { t } = useTranslation();

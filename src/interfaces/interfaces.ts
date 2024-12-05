@@ -1,33 +1,9 @@
 import { IProduct } from "../models/products/products";
 
-export interface IUser {
-    id?: string,
-    isActive?: boolean,
-    isVerified?: boolean,
-    country: string,
-    city: string,
-    login?: string,
-    name: string,
-    tel: string,
-    password?: string,
-    role?: string,
-    avatar?: string,
-    backet?: any[],
-    favorites?: number[]
-}
 export interface IPermission {
     name: string,
     description: string
 }
-export interface IRole {
-    name: string,
-    permissions: string[]
-}
-export interface IPermissionGroup {
-    name: string,
-    permissions: string[]
-}
-
 export interface IAddress {
     id?: number;
     fullAddress: string;
