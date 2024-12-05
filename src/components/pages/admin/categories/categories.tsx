@@ -3,12 +3,12 @@ import { useState } from "react";
 import { ICategory } from "../../../../interfaces/interfaces.js";
 import { useTranslation } from "react-i18next";
 import { Button, TextField } from "@mui/material";
-import { useCategoryHelper } from "../../../../helpers/use-category-helper.js";
 import { IoMdSearch } from "react-icons/io";
 import CategoriesTreeItems from "./CategoriesTreeItems/CategoriesTreeItems.js";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.js";
 import "./categories.scss";
 import CategoryManageForm, { ICategoryForm } from './CategoryManageForm/CategoryManageForm.js';
+import { useCategories } from '../../../../models/categories/use-categories.js';
 
 export const CategoriesPage = () => {
 
@@ -33,7 +33,7 @@ export const CategoriesPage = () => {
         handleUpdateCategory,
         handleMoveCategoryIntoNewCategory,
         handleMoveCategoryAsRoot
-    } = useCategoryHelper();
+    } = useCategories();
     
     const handleOpenAddSubCategory = (e: any, category: ICategory | null) => {
         e.stopPropagation();

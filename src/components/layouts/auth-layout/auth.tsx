@@ -5,10 +5,10 @@ import './auth-pages.scss';
 import { Button } from '@mui/material';
 import { MdExitToApp } from "react-icons/md";
 
-interface AuthPageProps {
+interface AuthLayoutProps {
     children: React.ReactElement | null
 }
-export default function AuthPage (props: AuthPageProps) {
+export default function AuthLayout (props: AuthLayoutProps) {
 
     const { t } = useTranslation();
     const { children } = props;
