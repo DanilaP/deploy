@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import FeedbackMoreInfo from "./feed-back-more-info/feed-back-more.info";
 import { Button } from "@mui/material";
 import FeedBackForm, { IFeedFormData } from "./feed-back-form/feed-back-form";
-import { useFeedbacksHelper } from "../../../helpers/use-feedbacks-helper";
+import { useFeedbacks } from "../../../models/feedbacks/use-feedbacks";
 
 export default function FeedBackPage() {
 
@@ -20,7 +20,7 @@ export default function FeedBackPage() {
         handleCreateNewUserFeedBack,
         handleUpdateFeedbackData,
         handleDeleteFeedbackById
-    } = useFeedbacksHelper(userId ? userId : null);
+    } = useFeedbacks(userId ? userId : null);
 
     const [currentFeedback, setCurrentFeedback] = useState<IFeedBack | null>(null);
     const [mode, setMode] = useState<"create" | "edit" | null>(null);

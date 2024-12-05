@@ -5,11 +5,11 @@ import { ManageGoodForm } from "./forms/ManageGood/ManageGood.js";
 import { IProduct, IProvider } from "../../../../interfaces/interfaces.js";
 import { useNavigate } from "react-router";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.js";
-import $api from '../../../../configs/axiosconfig/axios.js';
 import { IoMdSearch } from "react-icons/io";
 import "./goods.scss";
-import { useProvidersHelper } from "../../../../helpers/use-providers-helper.js";
-import { useCategoryHelper } from "../../../../helpers/use-category-helper.js";
+import { useCategories } from "../../../../models/categories/use-categories.js";
+import { useProviders } from "../../../../models/providers/use-providers.js";
+import { createProduct, getProducts } from "../../../../models/products/products-api.js";
 
 export const GoodsPage = () => {
 
@@ -21,9 +21,9 @@ export const GoodsPage = () => {
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
     const [unSavedDataExist, setUnsavedDataExist] = useState<boolean>(false);
     const [currentActiveFilter, setCurrentActiveFilter] = useState<boolean>(true);
-    const { categoriesForSelect } = useCategoryHelper();
+    const { categoriesForSelect } = useCategories();
     const navigate = useNavigate();
-    const { providersForSelect, providers } = useProvidersHelper();
+    const { providersForSelect, providers } = useProviders();
     
     const handleOpenCreatingGoodModal = () => {
         setModals(prev => {
@@ -71,27 +71,7 @@ export const GoodsPage = () => {
     };
 
     const handleUpdateGood = (goodData: IProduct) => {
-        const formData = new FormData();
-        formData.append('additionalInfo', JSON.stringify(goodData.additionalInfo));
-        formData.append('category', JSON.stringify(goodData.category));
-        formData.append('description', JSON.stringify(goodData.description));
-        formData.append('fullDescription', JSON.stringify(goodData.fullDescription));
-        formData.append('name', JSON.stringify(goodData.name));
-        formData.append('provider', JSON.stringify(goodData.provider));
-        formData.append('reviews', JSON.stringify(goodData.reviews));
-        formData.append('variations', JSON.stringify(goodData.variations));
-        formData.append('video', goodData.video[0]);
-        formData.append('price', JSON.stringify(goodData.price));
-        formData.append('active', JSON.stringify(goodData.active));
-        formData.append('published', JSON.stringify(goodData.published));
-        
-        for (let i = 0; i < goodData.images.length; i++) {
-            formData.append('images', goodData.images[i]);
-        }
-        if (goodData.id) {
-            formData.append('id', JSON.stringify(goodData.id));
-        }
-        const response = $api.post("/product", formData);
+        const response = createProduct(goodData);
         response.then((res: any) => {
             if (res.data) {
                 let updatedProducts = [];
@@ -198,7 +178,7 @@ export const GoodsPage = () => {
     }, [currentProducts]);
 
     useEffect(() => {
-        const response = $api.get("/products");
+        const response = getProducts();
         response.then((res: any) => {
             if (res.data.products) {
                 setCurrentProducts(res.data.products);

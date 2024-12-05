@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import $api from "../configs/axiosconfig/axios.js";
-import { IFeedBack } from "../interfaces/interfaces.js";
-import { IFeedFormData } from "../components/pages/feed-back/feed-back-form/feed-back-form.js";
+import { IFeedBack } from "../../interfaces/interfaces.js";
+import { IFeedFormData } from "../../components/pages/feed-back/feed-back-form/feed-back-form.js";
 import { GridColDef } from "@mui/x-data-grid";
 import { useTranslation } from "react-i18next";
+import { deleteFeedback, getFeedbacks } from "./feedbacks.api.js";
 
-export const useFeedbacksHelper = (userId: string | null) => {
+export const useFeedbacks = (userId: string | null) => {
 
     const [loading, setLoading] = useState<boolean>(true);
     const [userFeedBacks, setUserFeedbacks] = useState<IFeedBack[]>([]);
@@ -96,7 +96,7 @@ export const useFeedbacksHelper = (userId: string | null) => {
     };
 
     const handleDeleteFeedbackById = (feedback: IFeedBack) => {
-        $api.delete(`/feedbacks?feedbackId=${feedback.id}`)
+        deleteFeedback(feedback.id)
             .then(res => {
                 if (res.data.feedbackId) {
                     const updatedFeedbacks = userFeedBacks.filter(el => el.id !== feedback.id);
@@ -113,7 +113,7 @@ export const useFeedbacksHelper = (userId: string | null) => {
 
     useEffect(() => {
         const userIdQuery = userId ? Number(userId) : null;
-        $api.get(`/feedbacks?userId=${userIdQuery}`)
+        getFeedbacks(userIdQuery)
             .then(res => {
                 if (res.data.feedbacks) {
                     const feedbackDataForGrid = handleGetFeedbacksDataForDataGrid(res.data.feedbacks);

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { ICategory, ISelect } from "../interfaces/interfaces.js";
-import $api from "../configs/axiosconfig/axios.js";
+import { ICategory } from "./categories.js";
+import { ISelect } from "../../interfaces/interfaces.js";
+import { createCategory, getCategories } from "./categories-api.js";
 
-export const useCategoryHelper = () => {
+export const useCategories = () => {
 
     const [categories, setCategories] = useState<ICategory[]>([]);
     const [categoriesForSelect, setCategoriesForSelect] = useState<ISelect[]>([]);
@@ -20,7 +21,7 @@ export const useCategoryHelper = () => {
     const handleAddRootCategory = (categoryTitle: string, description: string, image: string) => {
         const isCategoryExist = handleCheckIsCategoryExist(categoryTitle, categories).length !== 0;
         if (isCategoryExist) return;
-        $api.post("/category", { title: categoryTitle }).then(res => {
+        createCategory(categoryTitle).then(res => {
             if (res.data) {
                 const newCategory = { id: String(Date.now()), title: categoryTitle, description, image };
                 const updatedCategory = [...categories, newCategory];
@@ -185,7 +186,7 @@ export const useCategoryHelper = () => {
     };
 
     useEffect(() => {
-        $api.get("/category").then(res => {
+        getCategories().then(res => {
             if (res.data) {
                 setCategories(res.data.categoryList);
                 setFilteredCategories(res.data.categoryList);

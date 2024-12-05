@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useFeedbacksHelper } from "../../../../helpers/use-feedbacks-helper";
 import AdminFeedbackPageView from "./feed-back-page-view/feed-back-page-view";
 import { IFeedBack } from "../../../../interfaces/interfaces";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 import { useTranslation } from "react-i18next";
 import FeedBackAnswerForm from "./feed-back-answer-form/feed-back-answer-form";
 import { Button } from "@mui/material";
+import { useFeedbacks } from "../../../../models/feedbacks/use-feedbacks";
 
 export default function AdminFeedbackPage() {
 
@@ -16,7 +16,7 @@ export default function AdminFeedbackPage() {
         handleUpdateFeedbackData,
         handleFilterUserFeedbacksDataGridByStatus,
         handleSearchFeedbacksByAllFields
-    } = useFeedbacksHelper(null);
+    } = useFeedbacks(null);
     
     const [choosedFeedback, setChoosedFeedback] = useState<IFeedBack | null>(null);
     const [choosedStatusFilter, setChoosedStatusFilter] = useState<boolean | null>(null);
