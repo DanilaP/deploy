@@ -1,6 +1,5 @@
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { useState } from "react";
-import { ICategory } from "../../../../interfaces/interfaces.js";
 import { useTranslation } from "react-i18next";
 import { Button, TextField } from "@mui/material";
 import { IoMdSearch } from "react-icons/io";
@@ -9,6 +8,7 @@ import CustomModal from "../../../components-ui/custom-modal/custom-modal.js";
 import "./categories.scss";
 import CategoryManageForm, { ICategoryForm } from './CategoryManageForm/CategoryManageForm.js';
 import { useCategories } from '../../../../models/categories/use-categories.js';
+import { ICategory } from '../../../../models/categories/categories.js';
 
 export const CategoriesPage = () => {
 

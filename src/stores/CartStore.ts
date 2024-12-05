@@ -1,13 +1,13 @@
 import { makeAutoObservable } from "mobx";
-import { IProduct } from "../interfaces/interfaces.ts";
+import { IProduct } from "../models/products/products";
 
 class CartStore {
-    cart: IProduct[] = []
-    selectedProductIds: number[] = []
-    totalSum: number = 0
-    isAllSelected: boolean = true
-    selectedTotalQuantity: number = 0
-    totalBasketQuantity: number = 0
+    cart: IProduct[] = [];
+    selectedProductIds: number[] = [];
+    totalSum: number = 0;
+    isAllSelected: boolean = true;
+    selectedTotalQuantity: number = 0;
+    totalBasketQuantity: number = 0;
     constructor() {
         if (typeof window !== 'undefined') {
             const storedIds = localStorage.getItem('selectedProductsIds');

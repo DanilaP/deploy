@@ -1,11 +1,11 @@
-import { Button, FormControl, FormLabel, TextField, Tooltip } from "@mui/material";
+import { Button, FormControl, FormLabel, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { validateRequiredField } from "../../../../../helpers/validators-helper";
-import { IFeedBack } from "../../../../../interfaces/interfaces";
+import { validateRequiredField } from "../../../../../helpers/validators/validators-helper";
 import "./feed-back-answer-form.scss";
 import { useEffect } from "react";
 import FeedbackAttachment from "../../../feed-back/feed-back-attachment/feed-back-attachment";
+import { IFeedBack } from "../../../../../models/feedbacks/feedbacks";
 
 export interface IFeedbackAnswerData {
     answer: string

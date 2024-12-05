@@ -1,7 +1,7 @@
 import { t } from "i18next";
-import { IProduct } from "../../../../interfaces/interfaces";
 import './modal-content.scss';
 import { Button } from "@mui/material";
+import { IProduct } from "../../../../models/products/products";
 
 export default function ModalContent (props: { products: IProduct[], removeProduct: (productId: number) => void }) {
 
@@ -16,7 +16,7 @@ export default function ModalContent (props: { products: IProduct[], removeProdu
                             <div className="price">{ product.variations[0].price } { t("text.rub") }</div>
                             <Button onClick={ () => props.removeProduct(product.id) } variant='outlined'>{ t("text.delete") }</Button>
                         </div>
-                    )
+                    );
                 })
             }
         </div>

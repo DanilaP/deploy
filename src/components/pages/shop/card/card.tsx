@@ -6,8 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTranslation } from 'react-i18next';
-import { IProduct } from '../../../../interfaces/interfaces';
 import { useNavigate } from 'react-router-dom';
+import { IProduct } from '../../../../models/products/products';
 
 export default function MediaCard(props: { product: IProduct }) {
 

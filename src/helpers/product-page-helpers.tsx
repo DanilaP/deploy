@@ -1,4 +1,4 @@
-import { IReview } from "../interfaces/interfaces";
+import { IReview } from "../models/products/products";
 
 export const getAverageEvaluation = (reviews: IReview[]) => {
     const evaluationQuantity = reviews.length;

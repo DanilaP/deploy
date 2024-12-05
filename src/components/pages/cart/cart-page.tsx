@@ -9,10 +9,10 @@ import Card from '@mui/material/Card';
 import EmptyCartCard from './cards/empty-cart-card/empty-cart-card.tsx';
 import { useStore } from '../../../stores/index.ts';
 import { observer } from 'mobx-react-lite';
-import { IProduct } from "../../../interfaces/interfaces.ts";
 import { useNavigate } from "react-router";
 import cartApi from "../../../api/cart.ts";
 import $api from "../../../configs/axiosconfig/axios.js";
+import { IProduct } from '../../../models/products/products.ts';
 
 const CartPage = () => {
     const { t } = useTranslation();

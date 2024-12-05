@@ -3,10 +3,11 @@ import $api from "../../../configs/axiosconfig/axios.js";
 import { useStore } from "../../../stores/index.ts";
 import { Container, Card, CardContent, Typography, Button } from "@mui/material";
 import PreviewCard from "./cards/preview-card/preview-card.tsx";
-import { IOrder, IProduct } from "../../../interfaces/interfaces.ts";
+import { IOrder } from "../../../interfaces/interfaces.ts";
 import { useTranslation } from "react-i18next";
 import "./orders-page.scss";
 import { useNavigate } from "react-router";
+import { IProduct } from "../../../models/products/products.ts";
 
 const OrdersPage = () => {
     const [orders, setOrders] = useState([]);

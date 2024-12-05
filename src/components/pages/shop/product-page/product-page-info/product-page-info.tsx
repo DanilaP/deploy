@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from '../../../../../translation/i18n';
 import { Button, Rating, TextField } from '@mui/material';
 import { MdOutlineFavorite, MdTextsms } from "react-icons/md";
-import { IProduct } from '../../../../../interfaces/interfaces';
 import { getAverageEvaluation } from '../../../../../helpers/product-page-helpers';
 import { useNavigate } from 'react-router';
 import './product-page-info.scss';
 import $api from '../../../../../configs/axiosconfig/axios';
+import { IProduct } from '../../../../../models/products/products';
 
 export default function ProductInfo (props: {
     product: IProduct,
@@ -76,7 +76,7 @@ export default function ProductInfo (props: {
             <div className="settings">
                 <TextField
                     onChange={ (e) => setChoosenNumber(e.target.value) }
-                    inputProps = {{ min: 0 }}
+                    inputProps = { { min: 0 } }
                     type='number'
                     placeholder={ t("text.quantity") }>
                 </TextField>

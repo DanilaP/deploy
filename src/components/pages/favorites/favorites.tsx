@@ -3,12 +3,12 @@ import { useTranslation } from '../../../translation/i18n';
 import './favorites.scss';
 import { Button, Checkbox } from '@mui/material';
 import $api from '../../../configs/axiosconfig/axios';
-import { IProduct } from '../../../interfaces/interfaces';
 import FavoriteItem from './favorite-item/favorite-item';
 import { useStore } from '../../../stores';
 import CustomModal from '../../components-ui/custom-modal/custom-modal';
 import ModalContent from './modal-content/modal-content';
 import { useNavigate } from 'react-router';
+import { IProduct } from '../../../models/products/products';
 
 
 export default function Favorites () {
@@ -35,7 +35,7 @@ export default function Favorites () {
     };
 
     const removeFromChoosenList = (id: number) => {
-        let filteredListOfChoosenProducts = choosenProducts.filter((product) => product.id !== id);
+        const filteredListOfChoosenProducts = choosenProducts.filter((product) => product.id !== id);
         setChoosenProducts(filteredListOfChoosenProducts);
     };
 
@@ -47,14 +47,14 @@ export default function Favorites () {
             setAllProductsSelected(true);
             setChoosenProducts(favorites);
         }
-    }
+    };
 
     useEffect(() => {
         if (choosenProducts) {
             let sum = 0;
             choosenProducts.map((product: IProduct) => {
                 sum += product.variations[0].price;
-            })
+            });
             setCurrentTotalInfo({ sum: sum, quantity: choosenProducts.length });
 
             if (choosenProducts.length === 0) {
@@ -67,7 +67,7 @@ export default function Favorites () {
                 setAllProductsSelected(true);
             }
         }
-    }, [choosenProducts])
+    }, [choosenProducts]);
 
     useEffect(() => {
         document.title = t("breadcrumbs.favorites");
@@ -80,11 +80,11 @@ export default function Favorites () {
         })
         .catch((error) => {
             console.error(error);
-        })
+        });
     }, []);
 
     useEffect(() => {
-        let productIds = favorites?.map((product) => product.id);
+        const productIds = favorites?.map((product) => product.id);
         userStore.setUser({ ...userStore.user, favorites: productIds });
     }, [favorites]);
 
@@ -126,7 +126,7 @@ export default function Favorites () {
                                     changeChoosenProducts = { setChoosenProducts }
                                     choosenProducts={ choosenProducts }
                                 />
-                            )
+                            );
                         })
                     : 
                         <div className='message'>{ t("text.favoritesAreClear") }</div>
