@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { t } from 'i18next';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { ruRU } from '@mui/x-data-grid/locales';
-import { useProvidersHelper } from '../../../../../helpers/use-providers-helper';
+import { useProviders } from '../../../../../models/providers/use-providers';
 
 export default function WarehouseTable (props: { currentStoreInfo: IStore }) {
     
@@ -12,7 +12,7 @@ export default function WarehouseTable (props: { currentStoreInfo: IStore }) {
         remains: 0,
         cost: 0
     });
-    const { providers } = useProvidersHelper();
+    const { providers } = useProviders();
 
     useEffect(() => {
         const totalInfo = { remains: 0, cost: 0 };

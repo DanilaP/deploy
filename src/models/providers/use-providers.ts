@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import $api from "../configs/axiosconfig/axios.js";
-import { IProvider, ISelect } from "../interfaces/interfaces.js";
+import { IProvider } from "./providers.js";
+import { ISelect } from "../../interfaces/interfaces.js";
+import { getProviders, updateProvider } from "./providers-api.js";
 
-export const useProvidersHelper = () => {
+export const useProviders = () => {
 
     const [providers, setProviders] = useState<IProvider[]>([]);
     const [filteredProviders, setFilteredProviders] = useState<IProvider[]>([] as IProvider[]);
     const [providersForSelect, setProvidersForSelect] = useState<ISelect[]>([] as ISelect[]);
 
     const fetchProvidersData = async () => {
-        const response = await $api.get("/providers");
+        const response = await getProviders();
         if (response.data.providers) {
             setProviders(response.data.providers);
             setFilteredProviders(response.data.providers);
@@ -64,9 +65,7 @@ export const useProvidersHelper = () => {
     };
 
     const handleUpdateProvider = (newProviderData: IProvider) => {
-        $api.put("/providers", {
-            body: newProviderData
-        }).then(res => {
+        updateProvider(newProviderData).then(res => {
             if (res.data.provider) {
                 setProviders(prev => prev.map(el => {
                     if (el.id === newProviderData.id) return newProviderData;

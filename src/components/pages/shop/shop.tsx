@@ -3,8 +3,8 @@ import { useTranslation } from '../../../translation/i18n';
 import MediaCard from './card/card';
 import './shop.scss';
 import { Button, MenuItem, Select, TextField } from '@mui/material';
-import $api from '../../../configs/axiosconfig/axios';
 import { IProduct } from '../../../interfaces/interfaces';
+import { getProducts } from '../../../models/products/products-api';
 
 export default function ShopPage () {
 
@@ -16,13 +16,13 @@ export default function ShopPage () {
     }, []);
 
     useEffect(() => {
-        $api.get("/products")
-        .then((res) => {
-            setProducts(res.data.products);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+        getProducts()
+            .then((res) => {
+                setProducts(res.data.products);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }, []);
 
     return (

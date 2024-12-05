@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useProvidersHelper } from "../../../../helpers/use-providers-helper";
 import ProvidersPageView from "./providers-page-view/providersPageView";
 import { IProvider } from "../../../../interfaces/interfaces";
 import { DEFAULT_PROVIDER } from "./constants";
+import { useProviders } from "../../../../models/providers/use-providers";
 
 export default function ProvidersPage() {
     
@@ -15,7 +15,7 @@ export default function ProvidersPage() {
         handleSearchProvidersByAllFields,
         handleSearchProviderByTypesNumber,
         handleRestoreProviderAnywhere
-    } = useProvidersHelper();
+    } = useProviders();
 
     const [modals, setModals] = useState({ 
         manage: false, 
