@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import $api from "../configs/axiosconfig/axios.js";
 import { IFeedBack } from "../interfaces/interfaces.js";
-import { IFeedFormData } from "../components/feed-back/feed-back-form/feed-back-form.js";
+import { IFeedFormData } from "../components/pages/feed-back/feed-back-form/feed-back-form.js";
 import { GridColDef } from "@mui/x-data-grid";
 import { useTranslation } from "react-i18next";
 
