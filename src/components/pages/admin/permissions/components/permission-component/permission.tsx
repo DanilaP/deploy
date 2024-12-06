@@ -1,6 +1,6 @@
 import "./permission.scss";
 import { useRef } from "react";
-import { useStore } from "../../../../../stores";
+import { useStore } from "../../../../../../stores";
 
 export default function Permission (props: {
     name: string,
