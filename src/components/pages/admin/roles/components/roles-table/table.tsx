@@ -5,14 +5,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { IPermission } from '../../../../../interfaces/interfaces.ts';
+import { IPermission } from '../../../../../../interfaces/interfaces.ts';
 import { Checkbox } from '@mui/material';
 import { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import CustomModal from '../../../../components-ui/custom-modal/custom-modal.tsx';
-import usePermissions from "../../../../../helpers/permissions-helpers.ts";
-import { IRole } from '../../../../../models/role/role.ts';
-import { IPermissionGroup } from '../../../../../models/permission-group/permission-group.ts';
+import CustomModal from '../../../../../components-ui/custom-modal/custom-modal.tsx';
+import usePermissions from "../../../../../../helpers/permissions-helpers.ts";
+import { IRole } from '../../../../../../models/role/role.ts';
+import { IPermissionGroup } from '../../../../../../models/permission-group/permission-group.ts';
 
 export default function TableComponent(props: {
     update: (data: IRole[]) => void,
