@@ -1,11 +1,11 @@
 import { Checkbox, Rating } from '@mui/material';
-import { getAverageEvaluation } from '../../../../helpers/product-page-helpers';
 import { MdOutlineFavorite } from 'react-icons/md';
 import './favorite-item.scss';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { t } from 'i18next';
-import { IProduct } from '../../../../models/products/products';
+import { IProduct } from '../../../../../models/products/products';
+import { getAverageEvaluation } from '../../../../../helpers/product-page-helpers';
 
 export default function FavoriteItem (props: { 
     product: IProduct, 

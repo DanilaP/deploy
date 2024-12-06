@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import $api from '../../../../../configs/axiosconfig/axios.js';
-import './users-list.scss';
-import CustomModal from '../../../../components-ui/custom-modal/custom-modal.js';
-import ManipulateUser from '../manipulate-user/manipulate-user.js';
+import './users.scss';
+import CustomModal from '../../../components-ui/custom-modal/custom-modal.js';
 import { Button, TextField } from '@mui/material';
-import usePermissions from "../../../../../helpers/permissions-helpers.ts";
-import { IUser } from '../../../../../models/user/user.ts';
+import usePermissions from "../../../../helpers/permissions-helpers.ts";
+import { IUser } from '../../../../models/user/user.ts';
+import ManipulateUser from './components/manipulate-user/manipulate-user.tsx';
+import { deleteUser, getUsers, updateUser } from '../../../../models/user/user-api.tsx';
 
-export default function UsersList () {
+export default function Users () {
     const { t } = useTranslation();
     const [users, setUsers] = useState<IUser[]>();
     const [modalState, setModalState] = useState({ manipulateModal: false, deleteModal: false, recoverModal: false });
@@ -24,14 +24,16 @@ export default function UsersList () {
     };
 
     const aproveDeleteUser = () => {
-        $api.delete(`/users?id=${choosenUser?.id}`)
-        .then((res) => {
-            setUsers(res.data.users);
-            setModalState({ ...modalState, deleteModal: false });
-        })
-        .catch((error) => {
-            console.error(t("methods.deleteUserMethod"), error);
-        });
+        if (choosenUser && choosenUser.id) {
+            deleteUser(choosenUser.id)
+            .then((res) => {
+                setUsers(res.data.users);
+                setModalState({ ...modalState, deleteModal: false });
+            })
+            .catch((error) => {
+                console.error(t("methods.deleteUserMethod"), error);
+            });
+        }
     };
 
     const startManipulating = (user: IUser | null) => {
@@ -49,24 +51,24 @@ export default function UsersList () {
     };
 
     const recoverUser = () => {
-        $api.put("/users", { ...choosenUser, isActive: true })
+        updateUser({ ...choosenUser, isActive: true })
         .then((res) => {
             setUsers(res.data.user);
             setModalState({ ...modalState, recoverModal: false });
         })
         .catch((error) => {
             console.error(error);
-        });
+        });        
     };
 
     useEffect(() => {
-        $api.get("/users")
+        getUsers()
         .then((res) => {
             setUsers(res.data.users);
         })
         .catch((error) => {
             console.error(t("methods.getUsersMethod"), error);
-        });
+        });  
     }, []);
 
     useEffect(() => {

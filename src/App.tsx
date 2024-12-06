@@ -17,7 +17,7 @@ import BreadCrumbs from './components/pages/breadcrumbs/bread-crumbs.tsx';
 import cartApi from "./api/cart.ts";
 import { MdFavoriteBorder } from "react-icons/md";
 import ChatWrapper from './components/pages/chat/chat-wrapper.tsx';
-import Notification from './components/pages/notification/notification.tsx';
+import Notification from './components/partials/notification/notification.tsx';
 import { MdPhoneCallback } from "react-icons/md";
 import { RiArchiveLine } from "react-icons/ri";
 

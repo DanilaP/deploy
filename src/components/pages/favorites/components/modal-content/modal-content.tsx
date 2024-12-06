@@ -1,7 +1,7 @@
 import { t } from "i18next";
 import './modal-content.scss';
 import { Button } from "@mui/material";
-import { IProduct } from "../../../../models/products/products";
+import { IProduct } from "../../../../../models/products/products";
 
 export default function ModalContent (props: { products: IProduct[], removeProduct: (productId: number) => void }) {
 

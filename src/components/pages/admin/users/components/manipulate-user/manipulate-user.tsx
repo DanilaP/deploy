@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from '../../../../../translation/i18n.js';
+import { useTranslation } from '../../../../../../translation/i18n.js';
 import './manipulate-user.scss';
-import $api from '../../../../../configs/axiosconfig/axios.js';
 import { Autocomplete, Button, TextField } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { IUser } from '../../../../../models/user/user.js';
-import { IRole } from '../../../../../models/role/role.js';
-import { validateRequiredEmail, validateRequiredField } from '../../../../../helpers/validators/validators-helper.js';
+import { IUser } from '../../../../../../models/user/user.js';
+import { IRole } from '../../../../../../models/role/role.js';
+import { validateRequiredEmail, validateRequiredField } from '../../../../../../helpers/validators/validators-helper.js';
+import { getRoles } from '../../../../../../models/role/role-api.js';
+import { createUser, updateUser } from '../../../../../../models/user/user-api.js';
 
 interface formData {
     role: string,
@@ -31,7 +32,7 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
                 role: newUserData.role,
                 password: newUserData.password !== "" ? newUserData.password : props.user.password
             };
-            $api.put("/users", newUser)
+            updateUser(newUser)
             .then((res) => {
                 props.handleUpdateUsers(res.data.user);
                 props.cancel();
@@ -41,7 +42,7 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
             });
         }
         else {
-            $api.post("/users", { ...newUserData })
+            createUser({ ...newUserData })
             .then((res) => {
                 props.handleUpdateUsers(res.data.users);
                 props.cancel();
@@ -53,7 +54,7 @@ export default function ManipulateUser (props: {user: IUser | null, cancel: Void
     };
 
     useEffect(() => {
-        $api.get("/roles")
+        getRoles()
         .then((res) => {
             setRoles(res.data.roles);
         })
