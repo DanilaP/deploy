@@ -27,8 +27,6 @@ export default function FeedBackAnswerForm({
     const {
         register,
         handleSubmit,
-        watch,
-        control,
         formState: { errors , submitCount, isValid, isDirty },
     } = useForm<IFeedbackAnswerData>({
         defaultValues: {
