@@ -1,16 +1,12 @@
-import { Button, MenuItem, Select, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { ManageGoodForm } from "./forms/ManageGood/ManageGood.js";
 import { useNavigate } from "react-router";
-import CustomModal from "../../../components-ui/custom-modal/custom-modal.js";
-import { IoMdSearch } from "react-icons/io";
-import "./goods.scss";
 import { useCategories } from "../../../../models/categories/use-categories.js";
 import { useProviders } from "../../../../models/providers/use-providers.js";
 import { createProduct, getProducts } from "../../../../models/products/products-api.js";
 import { IProvider } from "../../../../models/providers/providers.js";
 import { IProduct } from "../../../../models/products/products.js";
+import GoodsPageView from "./components/goods-page-view/goods-page-view.js";
 
 export const GoodsPage = () => {
 
@@ -53,6 +49,13 @@ export const GoodsPage = () => {
         setCurrentProduct(product);
         setModals(prev => {
             return { ...prev, delete: true };
+        });
+    };
+
+    const handleCloseDeleteGoodModal = () => {
+        setCurrentProduct(null);
+        setModals(prev => {
+            return { ...prev, delete: false };
         });
     };
 
@@ -189,157 +192,30 @@ export const GoodsPage = () => {
     }, []);
     
     return (
-        <div className="goods">
-            <div className="title">{ t("text.managingGoods") }</div>
-            <div className="goods-actions">
-                <div className="filters">
-                    <TextField
-                        onChange={ (e) => handleSearchProduct(e.target.value) } 
-                        placeholder={ t("text.searchAll") }
-                        InputProps={ {
-                            startAdornment: (
-                                <IoMdSearch fontSize={ 25 } />
-                            ),
-                        } }
-                    />
-                    <TextField 
-                        onChange={ (e) => handleSearchProductByProvider(e.target.value) } 
-                        placeholder={ t("text.provider") }
-                        className="search-field"
-                        InputProps={ {
-                            startAdornment: (
-                                <IoMdSearch fontSize={ 25 } />
-                            ),
-                        } }
-                    />
-                    <Select
-                        className="product-active-filter"
-                        defaultValue={ 1 }
-                        onChange={ (e) => handleFilterProductsByActive(Boolean(e.target.value)) }
-                    >
-                        <MenuItem value={ 1 }>{ t("text.active") }</MenuItem>
-                        <MenuItem value={ 0 }>{ t("text.inactive") }</MenuItem>
-                    </Select>
-                </div>
-                <div className="buttons">
-                    <Button
-                        variant='contained'
-                        onClick={ handleOpenCreatingGoodModal }
-                    >{ t("text.createGoods") }</Button>
-                </div>
-            </div>
-            <div className="list">
-                {
-                    filteredProducts.map(product => {
-                        const providerInfo = providers.filter(el => el.id === +product.provider)[0];
-                        return (
-                            <div 
-                                className="wrapper" 
-                                key={ product.id }
-                            >
-                                <div className="good-avatar" onClick={ () => handleOpenEditingGoodModal(product) } >
-                                    <img 
-                                        className="good-image" 
-                                        src={ product.images[0] } 
-                                        width="50px" 
-                                        height="50px"
-                                    />
-                                </div>
-                                <div className="good-info" onClick={ () => handleOpenEditingGoodModal(product) } >
-                                    <div className="good-info-main">
-                                        <div className="good-title">{ product.name }</div>
-                                        <div className="good-price">
-                                            { t("text.price") }:
-                                            {
-                                                product.variations.length === 0
-                                                    ? product.price
-                                                    : product.variations[0].price
-                                            }
-                                        </div>
-                                        <div className="good-provider">{ providerInfo?.name }</div>
-                                    </div>
-                                    <div className="good-info-more">
-                                        <div className="good-description">
-                                            { t("text.description") }: { product.description }
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="good-actions">
-                                    <Button
-                                        variant='outlined'
-                                        onClick={ () => handleGotoProductPage(product) }
-                                    >{ t("text.goto") }</Button>
-                                    <Button
-                                        variant='outlined'
-                                        onClick={ () => handleOpenCreatingFromCopyGoodModal(product) }
-                                    >{ t("text.createFromCopy") }</Button>
-                                    <Button
-                                        variant='outlined'
-                                        onClick={ () => handleOpenEditingGoodModal(product) }
-                                    >{ t("text.edit") }</Button>
-                                    {
-                                        product.active
-                                        ? 
-                                        <Button
-                                            variant='outlined'
-                                            onClick={ () => handleOpenDeleteGoodModal(product) }
-                                        >{ t("text.delete") }</Button>
-                                        : null
-                                    }
-                                </div>
-                            </div>
-                        );
-                    })
-                }
-            </div>
-            <CustomModal
-                isHidden={ modals.unsaved }
-                isDisplay={ modals.manage }
-                title = { handleGetTitleForManagingGoodsModal() }
-                typeOfActions='none'
-                actionConfirmed={ () => handleCancelUpdating(unSavedDataExist) }
-                closeModal={ () => handleCancelUpdating(unSavedDataExist) }
-            >
-                <ManageGoodForm 
-                    handleUpdateGood={ handleUpdateGood }
-                    handleCancelUpdating={ () => handleCancelUpdating(unSavedDataExist) }
-                    handleUnsavedDataExist={ handleUnsavedDataExist }
-                    mode={ currentMode }
-                    categoriesForSelect={ categoriesForSelect }
-                    providersForSelect={ providersForSelect }
-                    goodData={ currentProduct }
-                />
-            </CustomModal>
-            <CustomModal 
-                isDisplay={ modals.delete }
-                title={ t("text.deleteGoods") }
-                typeOfActions='default'
-                actionConfirmed={ handleApproveDeletingGood }
-                closeModal={ () => setModals({ ...modals, delete: false }) }
-            >
-                <div className="delete-text">{ t("text.approveDeletingGood") }?</div>
-            </CustomModal>
-            <CustomModal 
-                isDisplay={ modals.unsaved }
-                title={ t("text.approveAction") }
-                typeOfActions='custom'
-                actionConfirmed={ () => handleCancelUpdating(false) }
-                closeModal={ handleCloseUnsavedData }
-                actionsComponent={
-                    <>
-                        <Button 
-                            variant="contained"
-                            onClick={ () => handleCancelUpdating(false) }
-                        >{ t("text.close") }</Button>
-                        <Button
-                            onClick={ handleCloseUnsavedData }
-                            variant="contained"
-                        >{ t("text.cancel") }</Button>
-                    </>
-                }
-            >
-                <div className="delete-text">{ t("text.unsavedChanges") }?</div>
-            </CustomModal>
-        </div>
+        <GoodsPageView
+            modals={ modals }
+            currentMode={ currentMode }
+            filteredProducts={ filteredProducts }
+            categoriesForSelect={ categoriesForSelect }
+            providersForSelect={ providersForSelect }
+            providers={ providers }
+            currentProduct={ currentProduct }
+            unSavedDataExist={ unSavedDataExist }
+            handleApproveDeletingGood={ handleApproveDeletingGood }
+            handleCancelUpdating={ handleCancelUpdating }
+            handleCloseDeleteGoodModal={ handleCloseDeleteGoodModal }
+            handleCloseUnsavedData={ handleCloseUnsavedData }
+            handleFilterProductsByActive={ handleFilterProductsByActive }
+            handleGetTitleForManagingGoodsModal={ handleGetTitleForManagingGoodsModal }
+            handleGotoProductPage={ handleGotoProductPage }
+            handleOpenCreatingFromCopyGoodModal={ handleOpenCreatingFromCopyGoodModal }
+            handleOpenCreatingGoodModal={ handleOpenCreatingGoodModal }
+            handleOpenDeleteGoodModal={ handleOpenDeleteGoodModal }
+            handleOpenEditingGoodModal={ handleOpenEditingGoodModal }
+            handleSearchProduct={ handleSearchProduct }
+            handleSearchProductByProvider={ handleSearchProductByProvider }
+            handleUnsavedDataExist={ handleUnsavedDataExist }
+            handleUpdateGood={ handleUpdateGood }
+        />
     );
 };

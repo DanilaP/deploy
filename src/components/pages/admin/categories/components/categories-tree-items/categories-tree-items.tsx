@@ -3,7 +3,7 @@ import { IconButton } from "@mui/material";
 import { FaEdit } from "react-icons/fa";
 import { BiMessageSquareAdd } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import { ICategory } from '../../../../../models/categories/categories';
+import { ICategory } from '../../../../../../models/categories/categories';
 
 interface ICategoriesTreeItemsProps {
     items: ICategory[],

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import AdminFeedbackPageView from "./feed-back-page-view/feed-back-page-view";
-import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 import { useTranslation } from "react-i18next";
-import FeedBackAnswerForm from "./feed-back-answer-form/feed-back-answer-form";
 import { Button } from "@mui/material";
 import { useFeedbacks } from "../../../../models/feedbacks/use-feedbacks";
 import { IFeedBack } from "../../../../models/feedbacks/feedbacks";
+import FeedBackAnswerForm from "./components/feed-back-answer-form/feed-back-answer-form";
+import AdminFeedbackPageView from "./components/feed-back-page-view/feed-back-page-view";
+import CustomModal from "../../../components-ui/custom-modal/custom-modal";
 
 export default function AdminFeedbackPage() {
 

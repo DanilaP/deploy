@@ -2,16 +2,16 @@ import { Button, Autocomplete, TextField, Tooltip, Checkbox } from "@mui/materia
 import { Fragment, useEffect } from "react";
 import { DEFAULT_PRODUCT_FORM_VALUES } from "./constants";
 import { useTranslation } from "react-i18next";
-import { ISelect } from "../../../../../../interfaces/interfaces";
+import { ISelect } from "../../../../interfaces/interfaces";
 import { MdDelete } from "react-icons/md";
 import { useForm, Controller, useFieldArray, FieldArrayWithId } from "react-hook-form";
-import { validateRequiredField } from "../../../../../../helpers/validators/validators-helper";
-import { convertFileListToBlobArray } from "../../../../../../helpers/convert-file-list-to-blob-array";
+import { validateRequiredField } from "../../../../helpers/validators/validators-helper";
+import { convertFileListToBlobArray } from "../../../../helpers/convert-file-list-to-blob-array";
 import IconButton from "@mui/material/IconButton";
-import InputFile from "../../../../../components-ui/custom-file-nput/file-input";
+import InputFile from "../../../components-ui/custom-file-nput/file-input";
 import "./ManageGood.scss";
 import { FiPlusCircle } from "react-icons/fi";
-import { IAdditionalInfo, IProduct, IVariation } from "../../../../../../models/products/products";
+import { IAdditionalInfo, IProduct, IVariation } from "../../../../models/products/products";
 
 interface IProductForm {
     id?: number,

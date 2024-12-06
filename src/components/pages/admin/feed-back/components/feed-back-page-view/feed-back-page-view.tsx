@@ -1,9 +1,9 @@
 import { MenuItem, Select, TextField } from "@mui/material";
-import "./feed-back-page-view.scss";
 import { useTranslation } from "react-i18next";
 import { IoMdSearch } from "react-icons/io";
 import { DataGrid } from "@mui/x-data-grid";
 import { ruRU } from '@mui/x-data-grid/locales';
+import "./feed-back-page-view.scss";
 
 interface IAdminFeedbackPageViewProps {
     feedbacksDataGrid: { columns: any[], rows: any[] },

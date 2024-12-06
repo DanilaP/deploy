@@ -4,9 +4,16 @@ import { useTranslation } from "react-i18next";
 import { Button, Checkbox } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import InputMask from 'react-input-mask';
-import { validateEmail, validateInn, validateOgrn, validatePhone, validateRequiredField, validateWebsiteRef } from "../../../../../helpers/validators/validators-helper";
+import { 
+    validateEmail,
+    validateInn, 
+    validateOgrn,
+    validatePhone, 
+    validateRequiredField, 
+    validateWebsiteRef 
+} from "../../../../../../helpers/validators/validators-helper";
 import "./providersManageForm.scss";
-import { IProvider } from "../../../../../models/providers/providers";
+import { IProvider } from "../../../../../../models/providers/providers";
 
 interface IProvidersManageFormProps {
     choosedProvider: IProvider,
