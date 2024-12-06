@@ -10,8 +10,8 @@ import "./checkout-card.scss";
 import CardContent from "@mui/material/CardContent";
 import { useTranslation } from "react-i18next";
 import { useStore } from "../../../../stores/index.ts";
-import { formatCurrency } from "../../../../helpers/cart-helpers.tsx";
 import { FC } from "react";
+import formatCurrency from "../../../../helpers/utils/format-сurrency.ts";
 
 interface CheckoutCard {
     selectedPayment: string;

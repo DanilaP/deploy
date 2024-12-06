@@ -10,12 +10,10 @@ import {
     CardMedia,
 } from "@mui/material";
 import OrderDetailsCard from "../cards/order-details-card/order-details-card.tsx";
-import { IOrder } from "../../../../interfaces/interfaces.ts";
 import Card from "@mui/material/Card";
 import { useTranslation } from "react-i18next";
 import { MdArrowBack, MdFavoriteBorder } from "react-icons/md";
 import CardContent from "@mui/material/CardContent";
-import { formatCurrency } from "../../../../helpers/common-helpers.tsx";
 import "./order-page.scss";
 import Grid from "@mui/material/Grid2";
 import PaymentDetailsCard from "../cards/payment-details-card/payment-details-card.tsx";
@@ -23,6 +21,8 @@ import CustomModal from "../../../components-ui/custom-modal/custom-modal.tsx";
 import OrderRateForm from "../order-rate-form/order-rate-form.tsx";
 import OrderRateCard from "../cards/order-rate-card/order-rate-card.tsx";
 import { IProduct, IVariation } from "../../../../models/products/products.ts";
+import IOrder from "../../../../models/order/order.ts";
+import formatCurrency from "../../../../helpers/utils/format-сurrency.ts";
 
 const OrderPage = () => {
     const query = useParams();

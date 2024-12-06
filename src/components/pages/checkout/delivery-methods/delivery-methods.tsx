@@ -10,9 +10,10 @@ import PickupForm from "./pickup-form/pickup-form.tsx";
 import CourierForm from "./courier-form/courier-form.tsx";
 import './delivery-methods.scss';
 import { useTranslation } from "react-i18next";
-import { IAddress, IPrevDelivery } from "../../../../interfaces/interfaces.ts";
-import { getFormattedAddressString } from "../../../../helpers/cart-helpers.tsx";
+import { IAddress } from "../../../../interfaces/interfaces.ts";
 import CustomModal from "../../../components-ui/custom-modal/custom-modal.tsx";
+import { IPrevDelivery } from "../../../../models/user-delivery-data/user-delivery-data.ts";
+import getFormattedAddressString from "../../../../helpers/utils/get-formatted-address-string.tsx";
 import { IWarehouse } from '../../../../models/warehouse/warehouse.ts';
 
 interface DeliveryMethodsProps {
