@@ -12,7 +12,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { ChangeEvent, FC, useState } from "react";
 import './order-rate-form.scss';
-import InputFile from "../../../components-ui/custom-file-nput/file-input.tsx";
+import InputFile from "../../../../components-ui/custom-file-nput/file-input.tsx";
 import Grid from "@mui/material/Grid2";
 import {
     BiChevronDown,
@@ -199,7 +199,7 @@ const OrderRateForm: FC<{ closeModal: () => void }> = ({ closeModal }) => {
                                                 { advantagesFields.map((field, index) => (
                                                     <div className="advantage-field" key={ field.id }>
                                                         <Controller
-                                                            name={`advantages[${index}].info`}
+                                                            name={ `advantages[${index}].info` }
                                                             control={ control }
                                                             render={ ({ field }) => (
                                                                 <TextField
@@ -234,7 +234,7 @@ const OrderRateForm: FC<{ closeModal: () => void }> = ({ closeModal }) => {
                                                 { disadvantagesFields.map((field, index) => (
                                                     <div className="disadvantage-field" key={ field.id }>
                                                         <Controller
-                                                            name={`disadvantages[${index}].info`}
+                                                            name={ `disadvantages[${index}].info` }
                                                             control={ control }
                                                             render={ ({ field }) => (
                                                                 <TextField

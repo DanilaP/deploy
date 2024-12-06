@@ -12,13 +12,13 @@ import {
     MdStore,
 } from "react-icons/md";
 import { useTranslation } from "react-i18next";
-import { useStore } from "../../../../../stores/index.ts";
+import { useStore } from "../../../../../../stores";
 import './order-details-card.scss';
-import IOrder from "../../../../../models/order/order.ts";
-import { getStatusColor } from "../../../../../helpers/utils/get-status-color.ts";
-import formatDate from "../../../../../helpers/utils/format-date.ts";
-import formatPhoneNumber from "../../../../../helpers/utils/format-phone-number.ts";
-import getFormattedAddressString from "../../../../../helpers/utils/get-formatted-address-string.tsx";
+import IOrder from "../../../../../../models/order/order.ts";
+import { getStatusColor } from "../../../../../../helpers/utils/get-status-color.ts";
+import formatDate from "../../../../../../helpers/utils/format-date.ts";
+import formatPhoneNumber from "../../../../../../helpers/utils/format-phone-number.ts";
+import getFormattedAddressString from "../../../../../../helpers/utils/get-formatted-address-string.tsx";
 
 const OrderDetailsCard:FC<{ order: IOrder }> = ({ order }) => {
     const { t } = useTranslation();
@@ -28,7 +28,7 @@ const OrderDetailsCard:FC<{ order: IOrder }> = ({ order }) => {
         <Card className="order-data-card">
             <CardContent className="order-status-wrapper">
                 <Typography className="order-number">
-                    { t('breadcrumbs.order') } №{ order.orderNumber } от { formatDate(order.createdAt) }
+                    { t('breadcrumbs.order') } №{ order.orderNumber } { t('text.from') } { formatDate(order.createdAt) }
                 </Typography>
                 <div className="status-chip-wrapper">
                     <Chip

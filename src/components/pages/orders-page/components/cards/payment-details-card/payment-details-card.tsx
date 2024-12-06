@@ -4,10 +4,10 @@ import { Button, CardActions, Divider, Typography } from "@mui/material";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import './payment-details-card.scss';
-import $api from "../../../../../configs/axiosconfig/axios.js";
 import { useNavigate } from "react-router";
-import IOrder from "../../../../../models/order/order.ts";
-import formatCurrency from "../../../../../helpers/utils/format-сurrency.ts";
+import IOrder from "../../../../../../models/order/order.ts";
+import formatCurrency from "../../../../../../helpers/utils/format-сurrency.ts";
+import { addProductToUserBacket } from "../../../../../../models/user/user-api.tsx";
 
 interface PaymentDetailsCardProps {
     order: IOrder,
@@ -18,9 +18,9 @@ const PaymentDetailsCard:FC<PaymentDetailsCardProps> = ({ productsData, order })
     const { t } = useTranslation();
     const navigate = useNavigate();
     const handleRepeatOrder = () => {
-        $api.post("/backet", order.products)
+        addProductToUserBacket(order.products)
             .then(() => navigate('/cart'))
-            .catch((error) => {
+            .catch((error: unknown) => {
                 console.error(error);
             });
     };

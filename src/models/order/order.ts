@@ -6,15 +6,15 @@ import { IAddress } from "../../interfaces/interfaces.ts";
     orderNumber: number;
     orderStatus: "waiting" | "delivered" | "in-transit" | "cancelled" | string;
     createdAt: string;
-    deliveredAt?: string;
-    estimatedDeliveryDate?: string;
+    deliveredAt: string;
+    estimatedDeliveryDate: string;
     paymentMethod: "card" | "cash" | "spb" | string;
     deliveryMethod: "courier" | "pickup" | "other" | string;
     address: IAddress;
     orderPrice: number;
     products: {
         id: number;
-        amount: number;
+        number: number;
         variation: string;
     }[];
 }

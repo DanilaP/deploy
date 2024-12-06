@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
-import $api from "../../../../configs/axiosconfig/axios.js";
 import { Link } from 'react-router-dom';
 import {
     Container,
@@ -9,20 +8,23 @@ import {
     CardActions,
     CardMedia,
 } from "@mui/material";
-import OrderDetailsCard from "../cards/order-details-card/order-details-card.tsx";
+import OrderDetailsCard from "../orders-page/components/cards/order-details-card/order-details-card.tsx";
 import Card from "@mui/material/Card";
 import { useTranslation } from "react-i18next";
 import { MdArrowBack, MdFavoriteBorder } from "react-icons/md";
 import CardContent from "@mui/material/CardContent";
 import "./order-page.scss";
 import Grid from "@mui/material/Grid2";
-import PaymentDetailsCard from "../cards/payment-details-card/payment-details-card.tsx";
-import CustomModal from "../../../components-ui/custom-modal/custom-modal.tsx";
-import OrderRateForm from "../order-rate-form/order-rate-form.tsx";
-import OrderRateCard from "../cards/order-rate-card/order-rate-card.tsx";
-import { IProduct, IVariation } from "../../../../models/products/products.ts";
-import IOrder from "../../../../models/order/order.ts";
-import formatCurrency from "../../../../helpers/utils/format-сurrency.ts";
+import PaymentDetailsCard from "../orders-page/components/cards/payment-details-card/payment-details-card.tsx";
+import CustomModal from "../../components-ui/custom-modal/custom-modal.tsx";
+import OrderRateForm from "../orders-page/components/order-rate-form/order-rate-form.tsx";
+import OrderRateCard from "../orders-page/components/cards/order-rate-card/order-rate-card.tsx";
+import { IProduct, IVariation } from "../../../models/products/products.ts";
+import IOrder from "../../../models/order/order.ts";
+import formatCurrency from "../../../helpers/utils/format-сurrency.ts";
+import { addProductToUserBacket } from "../../../models/user/user-api.tsx";
+import { getOrder } from "../../../models/order/order-api.ts";
+import { getProducts } from "../../../models/products/products-api.ts";
 
 const OrderPage = () => {
     const query = useParams();
@@ -34,26 +36,27 @@ const OrderPage = () => {
     const navigate = useNavigate();
 
     const addToBacket = (id: number, variation: string) => {
-            $api.post("/backet", [ {
-                    id,
-                    number: 1,
-                    variation,
-                } ])
-                .catch((error) => {
-                    console.error(error);
-                });
+        const productInfo = [ {
+            id,
+            number: 1,
+            variation,
+        } ];
+
+        addProductToUserBacket(productInfo)
+            .catch((error: unknown) => {
+                console.error(error);
+            });
     };
 
     useEffect(() => {
         Promise.all([
-            $api.get(`/order/?id=${query.id}`),
-            $api.get(`/products`),
+            getOrder(query.id!),
+            getProducts(),
         ])
             .then(([orderResponse, productsResponse]) => {
-                const orderData = orderResponse.data.order;
                 const products = productsResponse.data.products;
 
-                const productsData = orderData.products.map((orderProduct) => {
+                const productsData = orderResponse.products.map((orderProduct) => {
                     const product = products.find((p: IProduct) => p.id === orderProduct.id);
                     const variation = product?.variations?.find((v: IVariation) => v.name === orderProduct.variation);
                     const { description } = product.additionalInfo.find(({ name }) => name === "Цвет");
@@ -69,7 +72,7 @@ const OrderPage = () => {
                         variation: orderProduct.variation,
                     };
                 });
-                setOrder(orderData);
+                setOrder(orderResponse);
                 setProductsData(productsData);
             })
             .catch((error) => console.error(error));

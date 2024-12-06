@@ -3,11 +3,11 @@ import { CardMedia, Chip, Typography, Card, CardContent } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import "./preview-card.scss";
-import { IProduct, IVariation } from "../../../../../models/products/products.ts";
-import IOrder from "../../../../../models/order/order.ts";
-import {getStatusColor} from "../../../../../helpers/utils/get-status-color.ts";
-import formatDate from "../../../../../helpers/utils/format-date.ts";
-import formatCurrency from "../../../../../helpers/utils/format-сurrency.ts";
+import { IProduct, IVariation } from "../../../../../../models/products/products.ts";
+import IOrder from "../../../../../../models/order/order.ts";
+import { getStatusColor } from "../../../../../../helpers/utils/get-status-color.ts";
+import formatDate from "../../../../../../helpers/utils/format-date.ts";
+import formatCurrency from "../../../../../../helpers/utils/format-сurrency.ts";
 
 interface PreviewCardProps {
     order: IOrder,
@@ -24,7 +24,7 @@ const PreviewCard: FC<PreviewCardProps> = ({ order, products }) => {
         const variation = product
             .variations?.find((v: IVariation) => v.name === orderProduct.variation);
         return variation?.images
-            .map((img) => ({ name: product.name, img, productId: product.id })) || []
+            .map((img: string) => ({ name: product.name, img, productId: product.id })) || []
             .slice(0, imagesCountForPreview);
     });
 

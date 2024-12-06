@@ -5,9 +5,9 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import './order-rate-card.scss';
-import IOrder from "../../../../../models/order/order.ts";
-import formatDate from "../../../../../helpers/utils/format-date.ts";
-import formatCurrency from "../../../../../helpers/utils/format-сurrency.ts";
+import IOrder from "../../../../../../models/order/order.ts";
+import formatDate from "../../../../../../helpers/utils/format-date.ts";
+import formatCurrency from "../../../../../../helpers/utils/format-сurrency.ts";
 
 const OrderRateCard:FC<{ order: IOrder, productsData: any }> = ( { order, productsData }) => {
     const { t } = useTranslation();
@@ -18,11 +18,9 @@ const OrderRateCard:FC<{ order: IOrder, productsData: any }> = ( { order, produc
             <CardContent className="order-details">
                 <div>
                     <Typography variant="body2">
-                        { t('breadcrumbs.order') } №{ order.orderNumber } от { formatDate(order.createdAt) }
-                        { " " }
-                        &#8226;
-                        { " " }
-                        { formatCurrency(order.orderPrice) } { t ('text.rub') }
+                        { `${ t('breadcrumbs.order') } №${ order.orderNumber } ${ t('text.from') } 
+                          ${ formatDate(order.createdAt) } • 
+                          ${ formatCurrency(order.orderPrice) } ${ t('text.rub') }` }
                     </Typography>
                     <Typography variant="caption">
                         { t(`text.checkout.orderDeliveryMethods.${order.deliveryMethod}`) }: { order.orderStatus === 'delivered' ? formatDate(order.deliveredAt) : '' }

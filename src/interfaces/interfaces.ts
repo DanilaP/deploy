@@ -1,5 +1,3 @@
-import { IProduct } from "../models/products/products";
-
 export interface IPermission {
     name: string,
     description: string

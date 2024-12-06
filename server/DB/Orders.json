@@ -38,7 +38,7 @@
     "orderStatus": "in-transit",
     "createdAt": "2024-11-24T09:00:00Z",
     "estimatedDeliveryDate": "2024-11-30T09:00:00Z",
-    "deliveredAt": null,
+    "deliveredAt": "",
     "paymentMethod": "cash",
     "deliveryMethod": "pickup",
     "address": {
