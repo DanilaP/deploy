@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { IMessage } from '../../../../../interfaces/interfaces';
+import { IMessage } from '../../../../../../interfaces/interfaces';
 import './message-list.scss';
-import { IUser } from '../../../../../models/user/user';
+import { IUser } from '../../../../../../models/user/user';
 
 export default function MessageList (props: { messages: IMessage[], user: IUser, opponentInfo: {
     id: number,

@@ -3,10 +3,10 @@ import $api from '../../../../configs/axiosconfig/axios';
 import { useEffect, useState } from 'react';
 import { IChat } from '../../../../interfaces/interfaces';
 import { useStore } from '../../../../stores';
-import Chat from '../../chat/chat/chat';
-import FreeChats from './free-chats.tsx/free-chats';
-import AdminChats from './admin-chats.tsx/admin-chats';
 import { t } from 'i18next';
+import Chat from '../../chat/components/chat/chat';
+import AdminChats from './components/admin-chats.tsx/admin-chats';
+import FreeChats from './components/free-chats.tsx/free-chats';
 
 export default function Chats () {
     

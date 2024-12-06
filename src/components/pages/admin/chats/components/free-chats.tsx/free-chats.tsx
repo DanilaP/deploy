@@ -1,4 +1,4 @@
-import { IUser } from "../../../../../models/user/user";
+import { IUser } from "../../../../../../models/user/user";
 
 
 

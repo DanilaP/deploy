@@ -1,4 +1,4 @@
-import { IUser } from "../../../../../models/user/user";
+import { IUser } from "../../../../../../models/user/user";
 
 
 export default function AdminChats (props: { chats: any[], user: IUser, changeChat: (chat: any) => void }) {

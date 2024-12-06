@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import './chat.scss';
-import { useStore } from '../../../../stores';
+import { useStore } from '../../../../../stores';
 import { useEffect, useState } from 'react';
-import { IChat } from '../../../../interfaces/interfaces';
+import { IChat } from '../../../../../interfaces/interfaces';
 import { Button, TextField } from '@mui/material';
 import MessageList from './message-list/message-list';
 import { transformDateToString } from './chat-helpers/helpers';
