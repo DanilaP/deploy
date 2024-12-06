@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { t } from 'i18next';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { ruRU } from '@mui/x-data-grid/locales';
-import { useProviders } from '../../../../../models/providers/use-providers';
-import { IWarehouse } from '../../../../../models/warehouse/warehouse';
+import { useProviders } from '../../../../../../models/providers/use-providers';
+import { IWarehouse } from '../../../../../../models/warehouse/warehouse';
 
 export default function WarehouseTable (props: { currentStoreInfo: IWarehouse }) {
     
