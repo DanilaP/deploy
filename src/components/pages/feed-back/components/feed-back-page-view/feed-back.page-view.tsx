@@ -4,9 +4,9 @@ import { IconButton } from "@mui/material";
 import { ruRU } from '@mui/x-data-grid/locales';
 import { FiPlusCircle } from "react-icons/fi";
 import { FaRegEdit } from "react-icons/fa";
-import "./feed-back-page-view.scss";
 import { MdDelete } from "react-icons/md";
-import { IFeedBack } from "../../../../models/feedbacks/feedbacks";
+import { IFeedBack } from "../../../../../models/feedbacks/feedbacks";
+import "./feed-back-page-view.scss";
 
 interface IFeedBackPageViewProps {
     userFeedbacksData: IFeedBack[],

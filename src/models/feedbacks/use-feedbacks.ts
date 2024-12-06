@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IFeedFormData } from "../../components/pages/feed-back/feed-back-form/feed-back-form.js";
+import { IFeedFormData } from "../../components/pages/feed-back/components/feed-back-form/feed-back-form.js";
 import { GridColDef } from "@mui/x-data-grid";
 import { useTranslation } from "react-i18next";
 import { deleteFeedback, getFeedbacks } from "./feedbacks.api.js";

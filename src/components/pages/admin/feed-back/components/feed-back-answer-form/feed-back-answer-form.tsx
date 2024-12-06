@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { validateRequiredField } from "../../../../../../helpers/validators/validators-helper";
 import { useEffect } from "react";
 import { IFeedBack } from "../../../../../../models/feedbacks/feedbacks";
-import FeedbackAttachment from "../../../../feed-back/feed-back-attachment/feed-back-attachment";
+import FileAttachment from "../../../../../partials/file-attachment/file-attachment";
 import "./feed-back-answer-form.scss";
 
 export interface IFeedbackAnswerData {
@@ -65,7 +65,7 @@ export default function FeedBackAnswerForm({
                         {
                             currentFeedback?.attachments.map(attachment => {
                                 return (
-                                    <FeedbackAttachment
+                                    <FileAttachment
                                         key={ attachment.src }
                                         attachment={ attachment }
                                     />

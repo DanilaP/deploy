@@ -1,17 +1,17 @@
 import { Tooltip } from "@mui/material";
-import { IAttachment } from "../../../../interfaces/interfaces";
-import "./feed-back-attachment.scss";
+import { IAttachment } from "../../../interfaces/interfaces";
+import "./file-attachment.scss";
 
-interface IFeedbackAttachmentProps {
+interface IFileAttachmentProps {
     attachment: IAttachment
 }
 
-export default function FeedbackAttachment({
+export default function FileAttachment({
     attachment
-}: IFeedbackAttachmentProps) {
+}: IFileAttachmentProps) {
     return (
-        <div className="feedback-attachment">
-            <div className="wrapper" key={ attachment.src }>
+        <div className="file-attachment">
+            <div className="attachment-wrapper" key={ attachment.src }>
                 {
                     attachment.type.includes("image") &&
                         <Tooltip

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useStore } from "../../../stores";
-import FeedBackPageView from "./feed-back-page-view/feed-back.page-view";
-import CustomModal from "../../components-ui/custom-modal/custom-modal";
 import { useTranslation } from "react-i18next";
-import FeedbackMoreInfo from "./feed-back-more-info/feed-back-more.info";
 import { Button } from "@mui/material";
-import FeedBackForm, { IFeedFormData } from "./feed-back-form/feed-back-form";
 import { useFeedbacks } from "../../../models/feedbacks/use-feedbacks";
 import { IFeedBack } from "../../../models/feedbacks/feedbacks";
+import FeedBackForm, { IFeedFormData } from "./components/feed-back-form/feed-back-form";
+import FeedBackPageView from "./components/feed-back-page-view/feed-back.page-view";
+import CustomModal from "../../components-ui/custom-modal/custom-modal";
+import FeedbackMoreInfo from "./components/feed-back-more-info/feed-back-more.info";
 
 export default function FeedBackPage() {
 

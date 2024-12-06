@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import "./feed-back.more-info.scss";
-import FeedbackAttachment from "../feed-back-attachment/feed-back-attachment";
-import { IFeedBack } from "../../../../models/feedbacks/feedbacks";
+import FeedbackAttachment from "../../../../partials/file-attachment/file-attachment";
+import { IFeedBack } from "../../../../../models/feedbacks/feedbacks";
 
 interface IFeedbackMoreInfoProps {
     feedback: IFeedBack | null

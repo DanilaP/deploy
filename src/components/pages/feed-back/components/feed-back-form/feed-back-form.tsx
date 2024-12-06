@@ -1,15 +1,15 @@
-import { Autocomplete, Button, FormControl, FormLabel, TextField, Tooltip } from "@mui/material";
+import { Autocomplete, Button, FormControl, FormLabel, TextField } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { validateEmail, validatePhone, validateRequiredField } from "../../../../helpers/validators/validators-helper";
-import "./feed-back-form.scss";
+import { validateEmail, validatePhone, validateRequiredField } from "../../../../../helpers/validators/validators-helper";
 import { useEffect } from "react";
+import { IAttachment } from "../../../../../interfaces/interfaces";
+import { convertFileListToAttachmentsFormatBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
+import { IFeedBack } from "../../../../../models/feedbacks/feedbacks";
+import FileAttachment from "../../../../partials/file-attachment/file-attachment";
 import InputMask from 'react-input-mask';
-import { IAttachment } from "../../../../interfaces/interfaces";
-import InputFile from "../../../components-ui/custom-file-nput/file-input";
-import { convertFileListToAttachmentsFormatBlobArray } from "../../../../helpers/convert-file-list-to-blob-array";
-import FeedbackAttachment from "../feed-back-attachment/feed-back-attachment";
-import { IFeedBack } from "../../../../models/feedbacks/feedbacks";
+import InputFile from "../../../../components-ui/custom-file-nput/file-input";
+import "./feed-back-form.scss";
 
 interface IFeedBackFormProps {
     mode: "create" | "edit" | null,
@@ -132,7 +132,7 @@ export default function FeedBackForm({
                 <div className="attachments">
                     {
                         watch("attachments", []).map((attachment: IAttachment) => (
-                            <FeedbackAttachment
+                            <FileAttachment
                                 key={ attachment.src }
                                 attachment={ attachment }
                             />
