@@ -15,17 +15,6 @@ export interface IAddress {
     comment?: string;
 }
 
-export interface IStore {
-    id: number,
-    name: string,
-    address: string,
-    products: {
-        productId: number,
-        variation: string,
-        number: number,
-        productInfo: IProduct
-    }[]
-}
 export interface ISelect {
     id: string,
     label: string
