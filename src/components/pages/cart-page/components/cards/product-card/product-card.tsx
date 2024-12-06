@@ -18,16 +18,18 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './product-card.scss';
 import { useNavigate } from "react-router";
-import ProductInfoTooltip from "../../../../components-ui/product-info-tooltip/product-info-tooltip.tsx";
-import './product-card.scss'
-import CustomModal from '../../../../components-ui/custom-modal/custom-modal.tsx';
+import ProductInfoTooltip from "../../../../../components-ui/product-info-tooltip/product-info-tooltip.tsx";
+import './product-card.scss';
+import CustomModal from '../../../../../components-ui/custom-modal/custom-modal.tsx';
+import { IAdditionalInfo, IVariation } from "../../../../../../models/products/products.ts";
+import { ICartProduct } from "../../../../../../interfaces/interfaces.ts";
 
 interface ProductCardProps {
     isSelected: boolean;
     onSelect: () => void;
     handleProductRemove: () => void;
     onQuantityChange: (quantity: number) => void;
-    product: any;
+    product: ICartProduct;
 }
 
 const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, handleProductRemove, onQuantityChange }) => {
@@ -37,10 +39,13 @@ const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, hand
 
     const navigate = useNavigate();
 
-    const currentVariation = variations.find((variation: any) => variation.name === product.variation);
-    const currentColor = additionalInfo.find((info: any) => info.name === 'Цвет')?.description || t('text.cart.noColor');
-    const { stock, price, title, images } = currentVariation;
+    const currentVariation = variations.find((variation: IVariation) => variation.name === product.variation);
+    const currentColor = additionalInfo.find((info: IAdditionalInfo) => info.name === 'Цвет')?.description || t('text.cart.noColor');
 
+    if (!currentVariation) {
+        throw new Error('Variation not found');
+    }
+    const { stock, price, title, images } = currentVariation || {};
     const [open, setOpen] = useState<boolean>(false);
 
     const handleOpenDialog = () => setOpen(true);

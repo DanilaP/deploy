@@ -1,18 +1,23 @@
-import { Button, Checkbox, Container, Stack, Typography } from '@mui/material';
+import {
+    Button,
+    Checkbox,
+    Container,
+    Stack,
+    Typography,
+    Card,
+} from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
-import ProductCard from './cards/product-card/product-card.tsx';
-import OrderCard from './cards/order-card/order-card.tsx';
+import ProductCard from './components/cards/product-card/product-card.tsx';
+import OrderCard from './components/cards/order-card/order-card.tsx';
 import './cart-page.scss';
-import Card from '@mui/material/Card';
-import EmptyCartCard from './cards/empty-cart-card/empty-cart-card.tsx';
-import { useStore } from '../../../stores/index.ts';
+import EmptyCartCard from './components/cards/empty-cart-card/empty-cart-card.tsx';
+import { useStore } from '../../../stores';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from "react-router";
-import cartApi from "../../../api/cart.ts";
-import $api from "../../../configs/axiosconfig/axios.js";
-import { IProduct } from '../../../models/products/products.ts';
+import { deleteProductFromUserBacket, getUserBacketInfo } from "../../../models/user/user-api.tsx";
+import { ICartProduct } from "../../../interfaces/interfaces.ts";
 
 const CartPage = () => {
     const { t } = useTranslation();
@@ -29,39 +34,46 @@ const CartPage = () => {
     const isSomeSelected = selectedProductIds.length > 0;
 
     useEffect(() => {
-        const fetchBasketData = async () => {
-            try {
-                const { data: { backet } } = await $api.get('/backet');
+        getUserBacketInfo()
+            .then(({ data: { backet } }: { data: { backet: ICartProduct[] } }) => {
                 cartStore.setCart(backet);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchBasketData();
+            })
+            .catch((error: unknown) => console.error(error));
     }, []);
 
     const handleSelectAllChange = () => {
         if (isAllSelected) {
-            cartStore.setSelectedProductIds([]);
+            cartStore.setIsAllSelected(false);
+            cartStore.setSelectedIds([]);
         } else {
-            const newSelectedIds = cart.map(product => product.id);
-            cartStore.setSelectedProductIds(newSelectedIds);
+            const allIds = cart.map((product) => product.id);
+            cartStore.setIsAllSelected(true);
+            cartStore.setSelectedIds(allIds);
         }
     };
 
     const handleProductSelect = (productId: number) => {
-        cartStore.toggleProductSelection(productId);
+        const newSelectedIds = selectedProductIds.includes(productId)
+            ? selectedProductIds.filter((id) => id !== productId)
+            : [...selectedProductIds, productId];
+        const newIsAllSelected = cart.length > 0 && newSelectedIds.length === cart.length;
+
+        cartStore.setSelectedIds(newSelectedIds);
+        cartStore.setIsAllSelected(newIsAllSelected);
     };
 
     const removeProducts = async (ids: number[]) => {
-            const apiCart = cartApi();
-            apiCart.removeProductByIds(ids.join(','))
-                .then((updatedCart) => {
-                    const filteredIds = updatedCart.map((product: IProduct) => product.id);
-                    const filteredBasket = cart.filter((item) => filteredIds.includes(item.id));
-                    cartStore.setCart(filteredBasket);
-                })
-                .catch((error) => console.error('Ошибка удаления товаров из корзины', error));
+        const selectedIdsBeforeRemoval = selectedProductIds;
+
+        deleteProductFromUserBacket(ids.join(','))
+            .then(({ data: { backet } }: { data: { backet: ICartProduct[] } }) => {
+                const actualCartIds = backet.map((product: ICartProduct) => product.id);
+                const updatedCart = cart.filter((item) => actualCartIds.includes(item.id));
+                cartStore.setCart(updatedCart);
+                const updatedSelectedIds = selectedIdsBeforeRemoval.filter((id) => actualCartIds.includes(id));
+                cartStore.setSelectedIds(updatedSelectedIds);
+            })
+            .catch((error: unknown) => console.error('Ошибка удаления товаров из корзины', error));
     };
 
     const handleProductRemove = (productId: number) => {
@@ -73,7 +85,7 @@ const CartPage = () => {
     };
 
     const handleProductQuantityChange = async(productId: number, newQuantity: number) => {
-        cartStore.updateProductQuantity(productId, newQuantity);
+        cartStore.setCartProductQuantity(productId, newQuantity);
     };
 
     const handleProceedToCheckout = () => {
@@ -122,7 +134,7 @@ const CartPage = () => {
                         </Card>
 
                         <Stack spacing={ 1 } className="basket-stack">
-                            { cart.map((product: IProduct) => (
+                            { cart.map((product: ICartProduct) => (
                                 <ProductCard
                                     key={ product.id }
                                     isSelected={ selectedProductIds.includes(product.id) }

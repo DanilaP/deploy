@@ -19,17 +19,27 @@ import PaymentDetailsCard from "../orders-page/components/cards/payment-details-
 import CustomModal from "../../components-ui/custom-modal/custom-modal.tsx";
 import OrderRateForm from "../orders-page/components/order-rate-form/order-rate-form.tsx";
 import OrderRateCard from "../orders-page/components/cards/order-rate-card/order-rate-card.tsx";
-import { IProduct, IVariation } from "../../../models/products/products.ts";
-import IOrder from "../../../models/order/order.ts";
+import { IAdditionalInfo, IProduct, IVariation } from "../../../models/products/products.ts";
+import IOrder, { IOrderProduct } from "../../../models/order/order.ts";
 import formatCurrency from "../../../helpers/utils/format-сurrency.ts";
 import { addProductToUserBacket } from "../../../models/user/user-api.tsx";
 import { getOrder } from "../../../models/order/order-api.ts";
 import { getProducts } from "../../../models/products/products-api.ts";
 
+
+type ProductData = Pick<IProduct, 'name' | 'description'>
+    & Pick<IVariation, 'price' | 'title'>
+    & Pick<IOrderProduct, 'id' | 'number' | 'variation'>
+    & {
+    img: IVariation['images'][number];
+    color: IAdditionalInfo['description'];
+};
+
+
 const OrderPage = () => {
     const query = useParams();
     const [order, setOrder] = useState<IOrder | null>(null);
-    const [productsData, setProductsData] = useState<any>([]);
+    const [productsData, setProductsData] = useState<ProductData[]>([]);
     const [isOpenModal, setIsOpenModal] = useState(false);
 
     const { t } = useTranslation();
@@ -56,10 +66,10 @@ const OrderPage = () => {
             .then(([orderResponse, productsResponse]) => {
                 const products = productsResponse.data.products;
 
-                const productsData = orderResponse.products.map((orderProduct) => {
+                const productsData = orderResponse.products.map((orderProduct: IOrderProduct) => {
                     const product = products.find((p: IProduct) => p.id === orderProduct.id);
                     const variation = product?.variations?.find((v: IVariation) => v.name === orderProduct.variation);
-                    const { description } = product.additionalInfo.find(({ name }) => name === "Цвет");
+                    const { description } = product.additionalInfo.find(({ name }: IAdditionalInfo) => name === "Цвет");
                     return {
                         id: product?.id,
                         name: product?.name,
@@ -113,7 +123,7 @@ const OrderPage = () => {
                                     ) }
                                 </div>
 
-                                { productsData.map((product) => (
+                                { productsData.map((product: ProductData) => (
                                     <div className="product-item-wrapper" key={ product.id }>
                                         <CardContent className="product-data">
                                             <CardMedia

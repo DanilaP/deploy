@@ -1,19 +1,24 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import { Button, Typography, CardActions, Divider } from '@mui/material';
+import {
+    Button,
+    Typography,
+    CardActions,
+    Divider,
+    Card,
+    CardContent,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { FC } from 'react';
 import './order-card.scss';
-import { useStore } from '../../../../../stores/index.ts';
+import { useStore } from '../../../../../../stores';
 import { observer } from 'mobx-react-lite';
-import formatCurrency from "../../../../../helpers/utils/format-сurrency.ts";
+import formatCurrency from "../../../../../../helpers/utils/format-сurrency.ts";
 
 interface OrderPromptProps {
     sumToShow: string;
     totalQuantity: number;
 }
 
-const EmptyOrderPrompt = () => {
+const EmptyOrderPrompt: FC = () => {
     const { t } = useTranslation();
     return (
         <CardContent className="empty-prompt-card-content">
@@ -48,7 +53,7 @@ const OrderPrompt: FC<OrderPromptProps> = ({  sumToShow, totalQuantity }) => {
     );
 };
 
-const orderCard: FC<{ isSomeSelected: boolean, handleProceedToCheckout: () => void }> = ({ isSomeSelected, handleProceedToCheckout }) => {
+const OrderCard: FC<{ isSomeSelected: boolean, handleProceedToCheckout: () => void }> = ({ isSomeSelected, handleProceedToCheckout }) => {
     const { cartStore } = useStore();
     const {
         totalSum,
@@ -82,4 +87,4 @@ const orderCard: FC<{ isSomeSelected: boolean, handleProceedToCheckout: () => vo
     );
 };
 
-export default observer(orderCard);
+export default observer(OrderCard);

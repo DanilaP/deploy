@@ -1,11 +1,9 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, Card, CardContent } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import './empty-cart-card.scss';
 
-const emptyCartCard = () => {
+const EmptyCartCard = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
@@ -30,4 +28,4 @@ const emptyCartCard = () => {
     );
 };
 
-export default emptyCartCard;
+export default EmptyCartCard;

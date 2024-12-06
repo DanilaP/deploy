@@ -9,7 +9,7 @@ const getFormatAddressStringForSelect = (addressFieldsData: IAddress, t: TFuncti
             return `${ text }: ${ value }`;
         })
         .join(', ')
-        .slice(0, 50)
+        .slice(0, 50);
 };
 
 export default getFormatAddressStringForSelect;

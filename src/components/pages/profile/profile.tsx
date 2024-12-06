@@ -7,13 +7,12 @@ import './profile.scss';
 import InputFile from '../../components-ui/custom-file-nput/file-input.tsx';
 import { useStore } from '../../../stores/index.ts';
 import CustomModal from '../../components-ui/custom-modal/custom-modal.tsx';
-import cartApi from "../../../api/cart.ts";
 
 export default function ProfilePage () {
     const { t } = useTranslation();
 
     const [linkSended, setLinkSended] = useState<boolean>(false);
-    const { userStore, cartStore } = useStore();
+    const { userStore } = useStore();
     const user = userStore.user;
 
     const navigate = useNavigate();
@@ -38,17 +37,6 @@ export default function ProfilePage () {
     }, [userStore]);
 
     useEffect(() => {
-        const apiCart = cartApi();
-        apiCart.getUserCart()
-            .then((res) => {
-                cartStore.setCart(res);
-            })
-            .catch((error) => {
-                console.error('Ошибка загрузки данных корзины', error);
-            });
-    }, []);
-
-    useEffect(() => {
         document.title = t("titles.profilePage");
     });
 
@@ -66,7 +54,7 @@ export default function ProfilePage () {
                                         <p className='confirmation'>{ t("text.confirmAccount") }</p>
                                         <p onClick={ () => setLinkSended(true) } className='send-link-text'>{ t("text.sendLink") }</p>
                                     </>
-                                )  
+                                )
                             }
                         </div>
                         <InputFile />

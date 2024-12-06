@@ -1,5 +1,11 @@
 import { IAddress } from "../../interfaces/interfaces.ts";
 
+export interface IOrderProduct {
+    id: number;
+    number: number;
+    variation: string;
+}
+
  interface IOrder {
     orderId: number;
     userId: number;
@@ -12,11 +18,7 @@ import { IAddress } from "../../interfaces/interfaces.ts";
     deliveryMethod: "courier" | "pickup" | "other" | string;
     address: IAddress;
     orderPrice: number;
-    products: {
-        id: number;
-        number: number;
-        variation: string;
-    }[];
+    products: IOrderProduct[];
 }
 
 export default IOrder;
