@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import $api from '../../../../configs/axiosconfig/axios';
 import './products-warehouse.scss';
 import { Button, Checkbox, MenuItem, Select, TextField } from '@mui/material';
 import { IoMdSearch } from 'react-icons/io';
-import WarehouseTable from './warehouse-table/warehouse-table';
 import CustomModal from '../../../components-ui/custom-modal/custom-modal';
-import WarehouseCreator from './warehouse-creator/warehouse-creator';
+import WarehouseCreator from './components/warehouse-creator/warehouse-creator';
 import { IWarehouse } from '../../../../models/warehouse/warehouse';
+import WarehouseTable from './components/warehouse-table/warehouse-table';
+import { getWarehouses } from '../../../../models/warehouse/warehouse-api';
 
 export default function ProductsWarehouse () {
 
@@ -89,7 +89,7 @@ export default function ProductsWarehouse () {
     }, []);
 
     useEffect(() => {
-        $api.get("/warehouses")
+        getWarehouses()
         .then((res) => {
             setStores(res.data.stores);
             setCurrentStoreInfo(res.data.stores[0]);

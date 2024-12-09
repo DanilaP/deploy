@@ -1,14 +1,8 @@
-import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Button, TextField } from "@mui/material";
-import { IoMdSearch } from "react-icons/io";
-import CategoriesTreeItems from "./CategoriesTreeItems/CategoriesTreeItems.js";
-import CustomModal from "../../../components-ui/custom-modal/custom-modal.js";
-import "./categories.scss";
-import CategoryManageForm, { ICategoryForm } from './CategoryManageForm/CategoryManageForm.js';
 import { useCategories } from '../../../../models/categories/use-categories.js';
 import { ICategory } from '../../../../models/categories/categories.js';
+import { ICategoryForm } from './components/category-manage-form/category-manage-form.js';
+import CategoriesPageView from './components/categories-page-view/categories-page-view.js';
 
 export const CategoriesPage = () => {
 
@@ -20,7 +14,6 @@ export const CategoriesPage = () => {
     const [draggableCategory, setDraggableCategory] = useState<ICategory | null>(null);
     const [categoryForAdding, setCategoryForAdding] = useState<ICategory | null>(null);
 
-    const { t } = useTranslation();
     const { 
         categories,
         filteredCategories,
@@ -59,6 +52,13 @@ export const CategoriesPage = () => {
             return { ...prev, deletionConfirm: true };
         });
         setCurrentCategory(category);
+    };
+    
+    const handleCloseConfirmDeletion = () => {
+        setModals(prev => {
+            return { ...prev, deletionConfirm: false };
+        });
+        setCurrentCategory(null);
     };
 
     const handleApproveAddingCategory = (formData: ICategoryForm) => {
@@ -182,95 +182,30 @@ export const CategoriesPage = () => {
     };
 
     return (
-        <div 
-            className="category-page"
-            onDragEnter={ handleDragEnterToCategoriesPage }
-        >
-            <div className="category-page-title">Управление категориями</div>
-            <div className="category-page-search">
-                <div className="category-page-search-value">
-                    <TextField 
-                        onChange={ (e) => handleStartSearchingCategories(e.target.value) } 
-                        placeholder={ t("text.name") }
-                        InputProps={ {
-                            startAdornment: (
-                                <IoMdSearch fontSize={ 25 } />
-                            ),
-                        } }
-                    />
-                </div>
-                <div className="categore-page-actions">
-                    <Button
-                        variant='contained'
-                        onClick={ (e) => handleOpenAddSubCategory(e, null) }
-                    >{ t("text.createCategory") }</Button>
-                </div>
-            </div>
-            <div className="category-page-content">
-                <SimpleTreeView expandedItems={ expandedItems }>
-                    <CategoriesTreeItems
-                        items={ filteredCategories }
-                        categoryForAdding={ categoryForAdding }
-                        draggableCategory={ draggableCategory }
-                        handleClickTreeItem={ handleClickTreeItem }
-                        handleOpenAddSubCategory={ handleOpenAddSubCategory }
-                        handleOpenConfirmDeletion={ handleOpenConfirmDeletion }
-                        handleOpenEditCategory={ handleOpenEditCategory }
-                        handleUpdateDraggableCategory={ handleUpdateDraggableCategory }
-                        handleUpdateAddingCategory={ handleUpdateAddingCategory }
-                        handleMoveCategoryIntoNewCategoryWithFiltered={ handleMoveCategoryIntoNewCategoryWithFiltered }
-                    />
-                </SimpleTreeView>
-            </div>
-            <CustomModal
-                isHidden={ modals.unsavedData }
-                isDisplay={ modals.manage }
-                title = { mode === "edit" ? t("text.editCategory") : t("text.addCategory") }
-                typeOfActions='none'
-                actionConfirmed={ handleCloseWithUnsavedData }
-                closeModal={ handleCancelAddingCategory }
-            >
-                <CategoryManageForm
-                    currentCategory={ currentCategory }
-                    handleApproveAddingCategory={ handleApproveAddingCategory }
-                    handleUpdateUnsavedData={ handleUpdateUnsavedData }
-                    handleCancelAddingCategory={ handleCancelAddingCategory }
-                    mode={ mode }
-                />
-            </CustomModal>
-            <CustomModal
-                isDisplay={ modals.unsavedData }
-                title={ t("text.approveAction") }
-                typeOfActions='custom'
-                actionConfirmed={ handleCancelAddingCategory }
-                closeModal={ handleCancelAddingCategory }
-                actionsComponent={
-                    <>
-                        <Button 
-                            variant="contained"
-                            onClick={ handleCloseWithUnsavedData }
-                        >{ t("text.close") }</Button>
-                        <Button
-                            onClick={ handleCloseUnsavedData }
-                            variant="contained"
-                        >{ t("text.cancel") }</Button>
-                    </>
-                }
-            >
-                <div className="delete-text">{ t("text.unsavedChanges") }?</div>
-            </CustomModal>
-            <CustomModal 
-                isDisplay={ modals.deletionConfirm }
-                title={ t("text.approveAction") }
-                typeOfActions='default'
-                actionConfirmed={ () => handleApproveDeleteSubCategory(currentCategory) }
-                closeModal={ () => setModals(prev => { 
-                        return { ...prev, deletionConfirm: false };
-                    }
-                ) }
-            >
-                <div className="delete-text">{ t("text.confirmDeletingCategory") }?</div>
-            </CustomModal>
-        </div>
+        <CategoriesPageView
+            modals={ modals }
+            mode={ mode }
+            categoryForAdding={ categoryForAdding }
+            filteredCategories={ filteredCategories }
+            currentCategory={ currentCategory }
+            draggableCategory={ draggableCategory }
+            expandedItems={ expandedItems }
+            handleApproveAddingCategory={ handleApproveAddingCategory }
+            handleApproveDeleteSubCategory={ handleApproveDeleteSubCategory }
+            handleCancelAddingCategory={ handleCancelAddingCategory }
+            handleClickTreeItem={ handleClickTreeItem }
+            handleCloseConfirmDeletion={ handleCloseConfirmDeletion }
+            handleCloseUnsavedData={ handleCloseUnsavedData }
+            handleCloseWithUnsavedData={ handleCloseWithUnsavedData }
+            handleDragEnterToCategoriesPage={ handleDragEnterToCategoriesPage }
+            handleMoveCategoryIntoNewCategoryWithFiltered={ handleMoveCategoryIntoNewCategoryWithFiltered }
+            handleOpenAddSubCategory={ handleOpenAddSubCategory }
+            handleOpenConfirmDeletion={ handleOpenConfirmDeletion } 
+            handleOpenEditCategory={ handleOpenEditCategory }
+            handleStartSearchingCategories={ handleStartSearchingCategories }
+            handleUpdateAddingCategory={ handleUpdateAddingCategory }
+            handleUpdateDraggableCategory={ handleUpdateDraggableCategory }
+            handleUpdateUnsavedData={ handleUpdateUnsavedData } 
+        />
     );
 };

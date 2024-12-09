@@ -1,0 +1,57 @@
+[
+    {
+        "type": "receipt",
+        "id": 123321456654,
+        "dateFrom": "2024-12-02",
+        "provider": "Поставщик 1",
+        "warehouse": 1,
+        "status": "Проведена",
+        "products": [
+            {
+                "id": 1,
+                "name": "Product 1",
+                "price": 2000,
+                "amount": 5,
+                "sum": 10000
+            },
+            {
+                "id": 2,
+                "name": "Product 2",
+                "price": 4000,
+                "amount": 3,
+                "sum": 12000
+            },
+            {
+                "id": 5,
+                "name": "Product 5",
+                "price": 4000,
+                "amount": 3,
+                "sum": 12000
+            }
+        ]
+    },
+    {
+        "type": "expense",
+        "id": 654456321123,
+        "dateFrom": "2024-12-02",
+        "provider": "Поставщик 2",
+        "warehouse": 2,
+        "status": "Не проведена",
+        "products": [
+            {
+                "id": 2,
+                "name": "Product 2",
+                "price": 12000,
+                "amount": 5,
+                "sum": 60000
+            },
+            {
+                "id": 3,
+                "name": "Product 3",
+                "price": 6000,
+                "amount": 3,
+                "sum": 18000
+            }
+        ]
+    }
+]

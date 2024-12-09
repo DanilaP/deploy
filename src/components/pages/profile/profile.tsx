@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import $api from '../../../configs/axiosconfig/axios.js';
 import { useNavigate } from 'react-router';
 import { Button } from '@mui/material';
 import './profile.scss';
 import InputFile from '../../components-ui/custom-file-nput/file-input.tsx';
 import { useStore } from '../../../stores/index.ts';
 import CustomModal from '../../components-ui/custom-modal/custom-modal.tsx';
+import { getUser } from '../../../models/user/user-api.tsx';
 
 export default function ProfilePage () {
     const { t } = useTranslation();
@@ -26,7 +26,7 @@ export default function ProfilePage () {
     };
 
     useEffect(() => {
-        $api.get("/profile")
+        getUser()
         .then((res) => {
             userStore.setUser(res.data.user[0]);
             userStore.setPermissions(res.data.permissions);
@@ -38,7 +38,7 @@ export default function ProfilePage () {
 
     useEffect(() => {
         document.title = t("titles.profilePage");
-    });
+    }, []);
 
     return (
         <div className='profile'>

@@ -9,12 +9,16 @@ export const createUser = (newUserData: any) => {
     const response = $api.post("/users", { ...newUserData });
     return response;
 };
-export const deleteUser = (user: IUser | null) => {
-    const response = $api.delete(`/users?id=${ user?.id }`);
+export const deleteUser = (userId: string) => {
+    const response = $api.delete(`/users?id=${ userId }`);
     return response;
 };
 export const updateUser = (updatedUserInfo: IUser) => {
     const response = $api.put("/users", updatedUserInfo);
+    return response;
+};
+export const getUsers = () => {
+    const response = $api.get("/users");
     return response;
 };
 export const getUserBacketInfo = () => {
