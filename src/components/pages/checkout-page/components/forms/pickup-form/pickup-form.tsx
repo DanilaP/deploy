@@ -1,3 +1,5 @@
+import { FC, FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 import {
     Button,
     Card,
@@ -7,10 +9,8 @@ import {
     RadioGroup,
     Typography
 } from "@mui/material";
-import { FC, FormEvent } from "react";
+import { IWarehouse } from "../../../../../../models/warehouse/warehouse.ts";
 import './pickup-form.scss';
-import { useTranslation } from "react-i18next";
-import { IWarehouse } from "../../../../../models/warehouse/warehouse.ts";
 
 interface PickupDialogProps {
     handleClose: () => void;

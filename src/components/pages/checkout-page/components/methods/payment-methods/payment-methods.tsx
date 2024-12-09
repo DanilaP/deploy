@@ -46,6 +46,7 @@ const PaymentMethods: FC<PaymentFormProps> = ({
         <Grid className="payment-form-wrapper" container spacing={ 2 }>
             { Object.keys(paymentMethodsData).map((method) => {
                 const methodKey = method as PaymentMethodKey;
+
                 return (
                     <Grid key={ method } size={ { xs:  12, sm: 4 } }>
                         <Card className={ `card-wrapper ${selectedPayment === method ? 'selected' : '' }` }>

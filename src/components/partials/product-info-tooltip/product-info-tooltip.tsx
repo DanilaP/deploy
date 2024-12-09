@@ -17,7 +17,7 @@ const ProductInfoTooltip: FC<any> = ({ additionalInfo, onClickHandler }) => {
             }
             arrow
         >
-            <IconButton onClick={onClickHandler} className="info-button">
+            <IconButton onClick={ onClickHandler } className="info-button">
                 <BsInfoCircle size={ 20 } />
             </IconButton>
         </Tooltip>

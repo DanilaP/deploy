@@ -1,30 +1,27 @@
-import {
-    Box,
-    Container,
-    Typography,
-} from "@mui/material";
 import { useTranslation } from "react-i18next";
-import DeliveryForm from "./delivery-methods/delivery-methods.tsx";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import PaymentMethods from "./payment-methods/payment-methods.tsx";
-import { useStore } from "../../../stores/index.ts";
-import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from "react";
+import { observer } from 'mobx-react-lite';
+import { useStore } from "../../../stores";
+import { Box, Container, Typography, Card, CardContent, Button } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import ProductCard from "./product-card/product-card.tsx";
-import './checkout-page.scss';
-import cartApi from "../../../api/cart.ts";
-import CheckoutCard from "./checkout-card/checkout-card.tsx";
-import UserData from "./user-data-form/user-data.tsx";
+import DeliveryForm from "./components/methods/delivery-methods/delivery-methods.tsx";
+import PaymentMethods from "./components/methods/payment-methods/payment-methods.tsx";
+import ProductCard from "./components/cards/product-card/product-card.tsx";
+import CheckoutCard from "./components/cards/checkout-card/checkout-card.tsx";
+import CustomModal from "../../components-ui/custom-modal/custom-modal.tsx";
+import UserDataForm from "./components/forms/user-data-form/user-data-form.tsx";
 import { IWarehouse } from "../../../models/warehouse/warehouse.ts";
-import { IProduct } from "../../../models/products/products.ts";
-import { validateRequiredField } from "../../../helpers/validators/validators-helper.ts";
 import { IPrevDelivery } from "../../../models/user-delivery-data/user-delivery-data.ts";
+import { ICartProduct } from "../../../interfaces/interfaces.ts";
+import { validateRequiredField } from "../../../helpers/validators/validators-helper.ts";
 import formatPhoneNumber from "../../../helpers/utils/format-phone-number.ts";
 import formatCurrency from "../../../helpers/utils/format-сurrency.ts";
+import { getWarehouses } from "../../../models/warehouse/warehouse-api.ts";
+import { getUserDeliveryData } from "../../../models/user-delivery-data/user-delivery-data-api.ts";
+import { getUserBacketInfo } from "../../../models/user/user-api.tsx";
+import './checkout-page.scss';
 
-interface ValidationErrors {
+interface CheckoutPageValidationErrors {
     isErrors: boolean,
     errors: {
         payment?: string;
@@ -42,13 +39,12 @@ const CheckoutPage = () => {
         selectedProductIds,
     } = cartStore;
 
-    const [deliveryData, setDeliveryData] = useState<IPrevDelivery[] | null>(null);
     const [wareHouses, setWareHouses] = useState<Array<IWarehouse>>([]);
-
+    const [prevDeliveries, setPrevDeliveries] = useState<IPrevDelivery[]>([]);
     const [selectedPayment, setSelectedPayment] = useState('');
-    const [selectedDelivery, setSelectedDelivery] = useState('');
+    const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState('');
 
-    const [formErrors, setFormErrors] = useState<ValidationErrors>({
+    const [checkoutPageErrors, setCheckoutPageErrors] = useState<CheckoutPageValidationErrors>({
         isErrors: false,
         errors: {
             payment: '',
@@ -58,7 +54,7 @@ const CheckoutPage = () => {
 
     const fieldSetters = {
         payment: setSelectedPayment,
-        delivery: setSelectedDelivery,
+        delivery: setSelectedDeliveryMethod,
     };
 
     const handleChange = (field: keyof typeof fieldSetters, value: string) => {
@@ -67,7 +63,7 @@ const CheckoutPage = () => {
             fieldSetter(value);
         }
 
-        setFormErrors(prev => ({
+        setCheckoutPageErrors(prev => ({
             ...prev,
             errors: {
                 ...prev.errors,
@@ -78,10 +74,10 @@ const CheckoutPage = () => {
 
     const handleConfirmCheckout = (): boolean => {
         const isValidPaymentMethod = validateRequiredField(selectedPayment);
-        const isValidDeliveryMethod = validateRequiredField(selectedDelivery);
+        const isValidDeliveryMethod = validateRequiredField(selectedDeliveryMethod);
 
         if (isValidPaymentMethod && isValidDeliveryMethod) {
-            setFormErrors({
+            setCheckoutPageErrors({
                 isErrors: false,
                 errors: {
                     payment: '',
@@ -91,7 +87,7 @@ const CheckoutPage = () => {
             return true;
         }
 
-        setFormErrors({
+        setCheckoutPageErrors({
             isErrors: true,
             errors: {
                 payment: !isValidPaymentMethod ? t('text.checkout.errors.emptyPayment') : '',
@@ -102,34 +98,35 @@ const CheckoutPage = () => {
     };
 
     useEffect(() => {
-        const api = cartApi();
-
         Promise.all([
-            api.getWareHouses(),
-            api.getUserDeliveryData(Number(userStore.user?.id)),
-            api.getUserCart(),
+            getWarehouses(),
+            getUserDeliveryData(Number(userStore.user?.id)),
+            getUserBacketInfo(),
         ])
-            .then(([warehousesData, deliveryData, basketData]) => {
-                const sortedDeliveries = deliveryData.prevDeliveries
-                    .sort((a, b) => new Date(b.timeStamp) - new Date(a.timeStamp));
+            .then(([warehousesResponse, deliveryResponse, cartResponse]) => {
+                if (deliveryResponse) {
+                    const sortedDeliveries = deliveryResponse.prevDeliveries.sort(
+                        (a: IPrevDelivery, b: IPrevDelivery) =>
+                            new Date(b.timeStamp).getTime() - new Date(a.timeStamp).getTime()
+                    );
+                    setPrevDeliveries(sortedDeliveries);
+                    setSelectedPayment(sortedDeliveries[0]?.payment?.method || 'card');
+                    setSelectedDeliveryMethod(sortedDeliveries[0]?.type || 'pickup');
+                }
 
-                setDeliveryData(sortedDeliveries);
-                setWareHouses(warehousesData);
-                setSelectedPayment(sortedDeliveries[0]?.payment?.method || '');
-                setSelectedDelivery(sortedDeliveries[0]?.type || '');
-                cartStore.setCart(basketData);
+                setWareHouses(warehousesResponse.data.stores);
+                cartStore.setCart(cartResponse.data.backet);
             })
             .catch((error) => {
                 console.error(error);
             });
     }, []);
 
+    const [open, setOpen] = useState(false);
 
-    const formattedTotalSum = formatCurrency(totalSum);
+    const selectedProducts = cart.filter((product: ICartProduct) => selectedProductIds.includes(product.id));
 
-    const filteredCart = cart.filter((product: IProduct) => selectedProductIds.includes(product.id));
-
-    return (deliveryData &&
+    return (
         <Container className="checkout-wrapper" maxWidth="lg">
             <Grid container rowSpacing={ 1 } columnSpacing={ 2 }>
                 <Grid size={ { sm: 12, md: 7, lg: 7, xl: 6 } } gap={ 2 }>
@@ -140,8 +137,20 @@ const CheckoutPage = () => {
                           { t('text.checkout.recipient') }
                       </Typography>
                       <Typography> { userStore?.user?.name }, { formatPhoneNumber(userStore?.user?.tel || '') }</Typography>
-                      <Box display="flex" justifyContent="flex-end">
-                        <UserData />
+                      <Box className="user-data-form-wrapper">
+                          <Button onClick={ () => setOpen(true) } color="primary" className="user-data-btn">
+                              { t("text.checkout.editRecipient") }
+                          </Button>
+                          <CustomModal
+                              isDisplay={ open }
+                              title={ t("text.checkout.editRecipient") }
+                              typeOfActions="none"
+                              closeModal={ () => setOpen(false) }
+                              actionConfirmed={ () => setOpen(false) }
+                          >
+                              <UserDataForm setOpen={ setOpen } />
+                          </CustomModal>
+
                       </Box>
                     </CardContent>
                   </Card>
@@ -153,10 +162,10 @@ const CheckoutPage = () => {
                       </Typography>
                         <DeliveryForm
                           wareHouses={ wareHouses }
-                          deliveryData={ deliveryData }
+                          deliveryData={ prevDeliveries }
                           handleChange={ handleChange }
-                          selectedDelivery={ selectedDelivery }
-                          deliveryError={ formErrors.errors.delivery }
+                          selectedDelivery={ selectedDeliveryMethod }
+                          deliveryError={ checkoutPageErrors.errors.delivery }
                         />
                     </CardContent>
                   </Card>
@@ -169,20 +178,17 @@ const CheckoutPage = () => {
                       <PaymentMethods
                         selectedPayment={ selectedPayment }
                         handleChange={ handleChange }
-                        paymentError={ formErrors.errors.payment }
+                        paymentError={ checkoutPageErrors.errors.payment }
                       />
                     </CardContent>
                   </Card>
                   <Card className="products-card-wrapper">
                     <Typography className="products-list-title" variant="subtitle1" gutterBottom>
-                        { t('text.checkout.orderProcessing') }
-                        { ' ' }
-                        { t('text.cart.productsCount.product', { count: selectedTotalQuantity }) }
-                        { ' ' }
-                        { t('text.checkout.forTotalSum') } { formattedTotalSum } <span className="total-price">{ t('text.rub') }</span>
+                        { `${t('text.checkout.orderProcessing')} ${t('text.cart.productsCount.product', { count: selectedTotalQuantity }) } ` }
+                        { t('text.checkout.forTotalSum') } { formatCurrency(totalSum) } <span className="total-price">{ t('text.rub') }</span>
                     </Typography>
                     <Grid container>
-                        { filteredCart.map((product) => (
+                        { selectedProducts.map((product) => (
                             <ProductCard
                                 key={ product.id }
                                 product={ product }
@@ -195,7 +201,7 @@ const CheckoutPage = () => {
                 <Grid className="sticky-grid" size={ { sm: 12, md: 4, lg: 4, xl: 6 } }>
                   <CheckoutCard
                     selectedPayment={ selectedPayment }
-                    selectedDelivery={ selectedDelivery }
+                    selectedDelivery={ selectedDeliveryMethod }
                     handleConfirmCheckout={ handleConfirmCheckout }
                   />
                 </Grid>

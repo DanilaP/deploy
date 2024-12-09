@@ -3,47 +3,35 @@
   flex-direction: column;
   padding: 2px;
   box-shadow: none;
-
   .checkout-content {
-
     .payment-stack {
       margin-top: 8px;
       margin-bottom: 8px;
     }
-
     .checkout-text {
       font-size: 16px;
     }
-
     .checkout-total {
       display: flex;
       justify-content: space-between;
       font-size: 16px;
     }
-
     .checkout-info {
       font-size: 16px;
       display: flex;
       justify-content: space-between;
     }
-
     .price {
       text-transform: uppercase;
       font-size: 16px;
     }
-
     .total-price {
       font-size: 16px;
       font-weight: bold;
     }
-
     .delivery-price {
       font-size: 16px;
       color: green;
     }
   }
-
 }
-
-
-

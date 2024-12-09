@@ -1,4 +1,4 @@
-import { FC , useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
     Button,
     Stack,
@@ -6,15 +6,15 @@ import {
     CardContent,
     Typography,
 } from '@mui/material';
-import PickupForm from "./pickup-form/pickup-form.tsx";
-import CourierForm from "./courier-form/courier-form.tsx";
+import PickupForm from "../../forms/pickup-form/pickup-form.tsx";
+import CourierForm from "../../forms/courier-form/courier-form.tsx";
 import './delivery-methods.scss';
 import { useTranslation } from "react-i18next";
-import { IAddress } from "../../../../interfaces/interfaces.ts";
-import CustomModal from "../../../components-ui/custom-modal/custom-modal.tsx";
-import { IPrevDelivery } from "../../../../models/user-delivery-data/user-delivery-data.ts";
-import getFormattedAddressString from "../../../../helpers/utils/get-formatted-address-string.tsx";
-import { IWarehouse } from '../../../../models/warehouse/warehouse.ts';
+import { IAddress } from "../../../../../../interfaces/interfaces.ts";
+import CustomModal from "../../../../../components-ui/custom-modal/custom-modal.tsx";
+import { IPrevDelivery } from "../../../../../../models/user-delivery-data/user-delivery-data.ts";
+import getFormattedAddressString from "../../../../../../helpers/utils/get-formatted-address-string.tsx";
+import { IWarehouse } from '../../../../../../models/warehouse/warehouse.ts';
 
 interface DeliveryMethodsProps {
     deliveryData: IPrevDelivery[];
@@ -26,6 +26,7 @@ interface DeliveryMethodsProps {
 
 const initialAddressFieldsData = {
     fullAddress: '',
+    houseNumber: '',
     apartment: '',
     entrance: '',
     floor: '',
@@ -47,29 +48,32 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
     });
 
     const [selectedWareHouseId, setSelectedWareHouseId] = useState(deliveryData[0]?.wareHouseId || null);
-    const [addresses, setAddresses] = useState<IAddress[]>(
-        deliveryData
+    const [addresses, setAddresses] = useState<IAddress[]>([]);
+    const [currentAddressId, setCurrentAddressId] = useState<number | null>(null);
+    const [currentAddress, setCurrentAddress] = useState<IAddress>(initialAddressFieldsData);
+
+    useEffect(() => {
+        const filteredAddresses = deliveryData
             .filter((delivery: IPrevDelivery) => delivery.type === "courier")
             .map((delivery: IPrevDelivery) => ({
                 ...delivery.address,
                 comment: delivery.comment,
                 id: delivery.id,
                 fullAddress: delivery.address?.fullAddress || "",
-            })) || []
-    );
-    const [currentAddressId, setCurrentAddressId] = useState<number | null>(
-        deliveryData.length > 0 ? deliveryData[0].id : null
-    );
+            }));
 
-    const [currentAddress, setCurrentAddress] = useState<IAddress>(
-        deliveryData.length > 0 && deliveryData[0].address
-            ? {
+        setAddresses(filteredAddresses);
+
+        if (deliveryData.length > 0) {
+            setCurrentAddressId(deliveryData[0].id);
+            setCurrentAddress({
                 ...deliveryData[0].address,
-                comment: deliveryData[0].comment,
+                comment: deliveryData[0].comment || "",
                 id: deliveryData[0].id,
-            }
-            : initialAddressFieldsData
-    );
+            });
+        }
+    }, [deliveryData]);
+
 
     const currentStore = wareHouses.find(({ id }) => id === selectedWareHouseId);
     const formattedAddress = currentAddress && getFormattedAddressString(currentAddress, t);
@@ -189,3 +193,4 @@ const DeliveryMethods: FC<DeliveryMethodsProps> = ({
 };
 
 export default DeliveryMethods;
+

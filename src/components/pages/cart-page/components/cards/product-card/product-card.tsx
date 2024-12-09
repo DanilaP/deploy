@@ -18,7 +18,7 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './product-card.scss';
 import { useNavigate } from "react-router";
-import ProductInfoTooltip from "../../../../../components-ui/product-info-tooltip/product-info-tooltip.tsx";
+import ProductInfoTooltip from "../../../../../partials/product-info-tooltip/product-info-tooltip.tsx";
 import './product-card.scss';
 import CustomModal from '../../../../../components-ui/custom-modal/custom-modal.tsx';
 import { IAdditionalInfo, IVariation } from "../../../../../../models/products/products.ts";
@@ -34,8 +34,8 @@ interface ProductCardProps {
 
 const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, handleProductRemove, onQuantityChange }) => {
     const { t } = useTranslation();
-    const { productInfo, number, id,  } = product;
-    const { variations, additionalInfo } = productInfo;
+    const { productInfo, number  } = product;
+    const { variations, additionalInfo, id } = productInfo;
 
     const navigate = useNavigate();
 
@@ -113,7 +113,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, isSelected, onSelect, hand
                         <Box className="actionIcons">
                             <ProductInfoTooltip
                                 additionalInfo={ additionalInfo }
-                                onClickHandler={ () => navigate(`/cart/product/${id}`) }
+                                onClickHandler={ () => navigate(`/shop/product/${ id }`) }
                             />
                             <IconButton color="inherit" size="small">
                                 <FavoriteBorder fontSize="small" />

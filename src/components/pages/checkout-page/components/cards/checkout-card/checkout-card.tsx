@@ -1,17 +1,9 @@
-import Card from "@mui/material/Card";
-import {
-    Button,
-    CardActions,
-    Divider,
-    Stack,
-    Typography,
-} from "@mui/material";
-import "./checkout-card.scss";
-import CardContent from "@mui/material/CardContent";
-import { useTranslation } from "react-i18next";
-import { useStore } from "../../../../stores/index.ts";
 import { FC } from "react";
-import formatCurrency from "../../../../helpers/utils/format-сurrency.ts";
+import { useTranslation } from "react-i18next";
+import { useStore } from "../../../../../../stores";
+import { Button, CardActions, Divider, Stack, Typography, Card, CardContent } from "@mui/material";
+import formatCurrency from "../../../../../../helpers/utils/format-сurrency.ts";
+import "./checkout-card.scss";
 
 interface CheckoutCard {
     selectedPayment: string;
@@ -21,7 +13,6 @@ interface CheckoutCard {
 
 const CheckoutCard: FC<CheckoutCard>  = ({ selectedPayment, selectedDelivery, handleConfirmCheckout }) => {
     const { t } = useTranslation();
-
     const { cartStore } = useStore();
     const { totalSum, selectedTotalQuantity } = cartStore;
 
@@ -34,7 +25,7 @@ const CheckoutCard: FC<CheckoutCard>  = ({ selectedPayment, selectedDelivery, ha
                 <Typography gutterBottom variant="subtitle1" component="div" className="checkout-info">
                     { t('text.products') }, { selectedTotalQuantity } { t('text.cart.pcs') }.
                     <Typography className="price">
-                        { `${priceToShow} ${t('symbols.rub')}` }
+                        { `${ priceToShow } ${ t('symbols.rub') }` }
                     </Typography>
                 </Typography>
 

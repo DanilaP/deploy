@@ -553,6 +553,9 @@ app.get('/user/data-delivery/:userid', async (req, res) => {
         const userId = jwt_decode(token).id;
         const deliveryData = JSON.parse(fs.readFileSync('DB/UserDeliveryData.json', 'utf8'));
         const userDeliveryData = deliveryData.find((data) => data.userId === userId);
+        if (!userDeliveryData) {
+            return res.status(200).json(null);
+        }
         res.status(200).json(userDeliveryData);
     } catch (error) {
         res.status(400).json({ message: "Ошибка при получении данных доставки" });
@@ -592,7 +595,7 @@ app.get("/warehouses", async function (req, res) {
         console.error("get /warehouses", error);
     }
 })
-    
+
 
 app.get("/order", async function(req, res) {
     try {
@@ -772,7 +775,7 @@ app.get("/chats", async function(req, res) {
 app.get("/admin/chats", async function(req, res) {
     try {
         let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
-        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8')); 
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
 
         let detailedChatsInfo = currentChats.map(chat => {
             return {
@@ -804,7 +807,7 @@ app.post("/admin/chat", async function(req, res) {
                     members: chat.members.map(id => {
                         if (id === null) {
                             return userId;
-                        } 
+                        }
                         return id;
                     }),
                     messages: chat.messages.map((message) => {
@@ -823,7 +826,7 @@ app.post("/admin/chat", async function(req, res) {
         let opponentInfo = currentUsers.find(user => (user.id !== userId && chat.members.includes(user.id)));
 
         res.status(200).json({ message: "Успешное закрепление за чатом", chat: chat, opponentInfo: opponentInfo });
-    }   
+    }
     catch (error) {
         res.status(400).json({ message: "Ошибка закрепления админа за чатом" });
         console.error("post /admin/chat", error);
@@ -866,7 +869,7 @@ wss.on('connection', (ws) => {
                     } else return chat;
                 });
                 fs.writeFileSync('DB/Chats.json', JSON.stringify(newChats, null, 2));
-            } 
+            }
             else {
                 currentChats = [ ...currentChats, {
                     id: Date.now(),
@@ -906,7 +909,7 @@ wss.on('connection', (ws) => {
                     }
                 }
             });
-        } 
+        }
         catch (error) {
             console.log(error);
         }
@@ -924,7 +927,7 @@ app.get("/feedbacks", async function(req, res) {
         const userId = +req.query.userId;
         const userFeedbacks = feedbacksList.filter(feedback => feedback.userId === userId);
 
-        res.status(200).json({ message: "Данные о заявках обратной связи получены", feedbacks: 
+        res.status(200).json({ message: "Данные о заявках обратной связи получены", feedbacks:
             JSON.parse(req.query.userId) ? userFeedbacks : feedbacksList
         });
     }

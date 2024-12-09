@@ -1,22 +1,17 @@
-import Grid from "@mui/material/Grid2";
-import Card from "@mui/material/Card";
-import {
-    Box,
-    Button,
-    CardMedia,
-    Typography,
-} from "@mui/material";
-import CardContent from "@mui/material/CardContent";
-import { observer } from 'mobx-react-lite';
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import './product-card.scss';
+import { observer } from 'mobx-react-lite';
 import { useNavigate } from "react-router";
-import ProductInfoTooltip from "../../../components-ui/product-info-tooltip/product-info-tooltip.tsx";
-import { IProduct } from "../../../../models/products/products.ts";
-import formatCurrency from "../../../../helpers/utils/format-сurrency.ts";
+import { Box, Button, CardMedia, Typography, CardContent, Card } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import formatCurrency from "../../../../../../helpers/utils/format-сurrency.ts";
+import ProductInfoTooltip from "../../../../../partials/product-info-tooltip/product-info-tooltip.tsx";
+import './product-card.scss';
+import { ICartProduct } from "../../../../../../interfaces/interfaces.ts";
+import { IAdditionalInfo } from "../../../../../../models/products/products.ts";
 
-const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
+
+const ProductCard: FC<{ product: ICartProduct }> = ({ product }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
@@ -24,10 +19,13 @@ const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
     const { variations, additionalInfo, name } = productInfo;
 
     const currentVariation = variations.find((variation) => variation.name === product.variation);
-    const currentColor = additionalInfo.find((info: any) => info.name === 'Цвет')?.description || t('text.cart.noColor');
-    const { price, title, images } = currentVariation;
+    const currentColor = additionalInfo.find((info: IAdditionalInfo) => info.name === 'Цвет')?.description || t('text.cart.noColor');
 
-    const formattedProductPrice = formatCurrency(price);
+    if (!currentVariation) {
+        throw new Error('Variation not found');
+    }
+
+    const { price, title, images } = currentVariation;
 
     const handleNavigate = () => {
         navigate(`/cart/checkout/product/${ id }`);
@@ -63,7 +61,7 @@ const ProductCard: FC<{ product: IProduct }> = ({ product }) => {
                         { t('text.cart.color') }: { currentColor }
                     </Typography>
                     <Typography component="div" className="card-price" variant="h6">
-                        ({ number } { t('text.cart.pcs') }) { formattedProductPrice } { t('text.rub') }
+                        ({ number } { t('text.cart.pcs') }) { formatCurrency(price) } { t('text.rub') }
                     </Typography>
                 </CardContent>
             </Card>
