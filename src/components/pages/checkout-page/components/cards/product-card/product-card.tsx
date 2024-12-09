@@ -15,8 +15,8 @@ const ProductCard: FC<{ product: ICartProduct }> = ({ product }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
-    const { productInfo, id, number } = product;
-    const { variations, additionalInfo, name } = productInfo;
+    const { productInfo, number } = product;
+    const { variations, additionalInfo, name, id } = productInfo;
 
     const currentVariation = variations.find((variation) => variation.name === product.variation);
     const currentColor = additionalInfo.find((info: IAdditionalInfo) => info.name === 'Цвет')?.description || t('text.cart.noColor');
