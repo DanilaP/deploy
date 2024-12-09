@@ -3,7 +3,7 @@ import { useTranslation } from '../../../translation/i18n.ts';
 import { useNavigate } from 'react-router';
 import { MenuItem } from '@mui/material';
 import { MdSupervisedUserCircle } from "react-icons/md";
-import { FaUsersCog, FaWarehouse } from "react-icons/fa";
+import { FaFileInvoiceDollar, FaUsersCog, FaWarehouse } from "react-icons/fa";
 import { MdOutlineSecurity } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
@@ -92,6 +92,11 @@ export default function AdminLayout (props: AdminLayoutProps) {
                         permissionsExists.WathingProviders &&
                         <MenuItem onClick={ () => navigate("/admin/providers") }>
                             <TbTruckDelivery className='icon' />{ !isMenuTextExists ? t("text.providers") : null }
+                        </MenuItem>
+                    }
+                    {
+                        <MenuItem onClick={ () => navigate("/admin/productAccounting") }>
+                            <FaFileInvoiceDollar className='icon'/>{ !isMenuTextExists ? t("titles.productAccounting") : null }
                         </MenuItem>
                     }
                 </div>

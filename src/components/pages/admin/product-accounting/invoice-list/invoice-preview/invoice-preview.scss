@@ -1,0 +1,22 @@
+.invoice-preview {
+    display: flex;
+    gap: 5px;
+    padding: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.247);
+    border-radius: 5px;
+    background-color: var(--bg-color-block);
+    cursor: pointer;
+    justify-content: space-between;
+
+    .list-item {
+        width: 200px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-weight: 600;
+    }
+
+    &:hover {
+        border-color: var(--default-color);
+    }
+}

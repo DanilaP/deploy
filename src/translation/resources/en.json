@@ -21,7 +21,8 @@
         "technics": "technics",
         "rolesPage": "Roles page",
         "goodsPage": "Goods page",
-        "productsStorePage": "Products store"
+        "productsStorePage": "Products store",
+        "productAccounting": "Product accounting"
     },
     "labels": {
         "loading": "Loading..."
@@ -336,7 +337,10 @@
         "yourMessage": "Your message",
         "sendLink": "Send link",
         "sendingLink": "Sending a link",
-        "sendLinkSuccessfully": "The link has been sent successfully"
+        "sendLinkSuccessfully": "The link has been sent successfully",
+        "receiptInvoice": "Receipt invoice",
+        "expenseInvoice": "Expense invoice",
+        "invoiceForm": "Invoice form"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",

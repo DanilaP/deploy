@@ -24,6 +24,7 @@ import ProductsWarehouse from "./components/pages/admin/warehouses-page/products
 import AdminLayout from "./components/layouts/admin-layout/admin.tsx";
 import AuthLayout from "./components/layouts/auth-layout/auth.tsx";
 import Users from "./components/pages/admin/users/users.tsx";
+import ProductAccounting from "./components/pages/admin/product-accounting/product-accounting.tsx";
 
 export const routes = [
     {
@@ -209,5 +210,11 @@ export const adminRoutes = [
         component: AdminLayout,
         children: ProvidersPage,
         breadcrumb : t("text.providers")
+    },
+    {
+        path: '/admin/productAccounting',
+        component: AdminLayout,
+        children: ProductAccounting,
+        breadcrumb : t("titles.productAccounting")
     },
 ];
