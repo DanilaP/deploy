@@ -1,4 +1,4 @@
-import { IProduct } from "../models/products/products";
+import { IProduct } from "../models/products/products.ts";
 
 export interface IPermission {
     name: string,
@@ -34,4 +34,11 @@ export interface IChat {
 export interface IAttachment {
     src: string,
     type: string
+}
+
+export interface ICartProduct {
+    id: number;
+    number: number;
+    variation: string;
+    productInfo: IProduct;
 }
