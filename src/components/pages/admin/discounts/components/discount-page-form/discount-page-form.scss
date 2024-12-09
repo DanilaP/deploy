@@ -13,7 +13,13 @@
             padding: 0px;
         }
     }
+    .form-actions {
+        margin-top: 10px;
+        display: flex;
+        column-gap: 5px;
+    }
     .MuiChip-label {
+        max-width: 150px;
         color: var(--text-color);
     }
     .MuiInputBase-input {
@@ -33,9 +39,7 @@
         font-weight: normal;
         letter-spacing: normal;
     }
-    .form-actions {
-        margin-top: 10px;
-        display: flex;
-        column-gap: 5px;
+    .MuiInputBase-root.MuiAutocomplete-inputRoot {
+        padding: 3px;
     }
 }
