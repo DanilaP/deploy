@@ -8,7 +8,11 @@ export default function DiscountsPage() {
 
     const { 
         discounts,
+        discountTypesForSelect,
         handleGetCountOfProductsForDiscount,
+        handleCreateDiscount,
+        handleDeleteDiscount,
+        handleUpdateDiscount
     } = useDiscounts();
 
     const {
@@ -47,9 +51,9 @@ export default function DiscountsPage() {
 
     const handleSaveDiscountData = (discountData: IDiscount) => {
         if (discountData.id) {
-            console.log('edit', discountData);
+            handleUpdateDiscount(discountData);
         } else {
-            console.log('create', discountData);
+            handleCreateDiscount(discountData);
         }
         setModals(prev => {
             return { ...prev, manage: false };
@@ -67,7 +71,12 @@ export default function DiscountsPage() {
     };
 
     const handleConfirmDeletingDiscount = () => {
-        console.log('delete', currentDiscount);
+        if (currentDiscount) {
+            handleDeleteDiscount(currentDiscount);
+            setModals(prev => {
+                return { ...prev, confirmDeleting: false };
+            });
+        }
     };
 
     const handleCancelDeletingDiscount = () => {
@@ -83,6 +92,7 @@ export default function DiscountsPage() {
             currentDiscount={ currentDiscount }
             discounts={ discounts }
             categoriesForSelect={ categoriesForSelect }
+            discountTypesForSelect={ discountTypesForSelect }
             handleSaveDiscountData={ handleSaveDiscountData }
             handleGetCountOfProductsForDiscount={ handleGetCountOfProductsForDiscount }
             handleCloseManageDiscountModal={ handleCloseManageDiscountModal }

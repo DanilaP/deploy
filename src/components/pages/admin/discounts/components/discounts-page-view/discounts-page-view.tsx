@@ -25,6 +25,7 @@ interface IDiscountsPageViewProps {
     currentDiscount: IDiscount | null,
     modals: { manage: boolean, confirmDeleting: boolean },
     categoriesForSelect: ISelect[],
+    discountTypesForSelect: ISelect[],
     handleGetCountOfProductsForDiscount: (discount: IDiscount) => number,
     handleOpenCreateDiscountModal: () => void,
     handleOpenEditDiscountModal: (discountId: number) => void,
@@ -40,6 +41,7 @@ export default function DiscountsPageView({
     modals,
     currentDiscount,
     categoriesForSelect,
+    discountTypesForSelect,
     handleGetCountOfProductsForDiscount,
     handleOpenCreateDiscountModal,
     handleOpenEditDiscountModal,
@@ -89,12 +91,11 @@ export default function DiscountsPageView({
                     <Table>
                         <TableHead>
                             <TableRow className="discount-row">
-                                <TableCell>ID</TableCell>
                                 <TableCell>{ t("text.name") }</TableCell>
                                 <TableCell>{ t("text.dateStart") }</TableCell>
                                 <TableCell>{ t("text.dateEnd") }</TableCell>
                                 <TableCell>{ t("text.active") }</TableCell>
-                                <TableCell>{ t("text.percentage") }</TableCell>
+                                <TableCell>{ t("text.value") }</TableCell>
                                 <TableCell>{ t("text.countOfProducts") }</TableCell>
                                 <TableCell>
                                     { t("text.delete") }
@@ -110,7 +111,6 @@ export default function DiscountsPageView({
                                             key={ el.id }
                                             onClick={ () => handleOpenEditDiscountModal(el.id) }
                                         >
-                                            <TableCell>{ el.id }</TableCell>
                                             <TableCell>{ el.name }</TableCell>
                                             <TableCell>{ el.dateStart }</TableCell>
                                             <TableCell>
@@ -127,7 +127,13 @@ export default function DiscountsPageView({
                                                     : <span className="inactive-discount">{ t("text.inactive") }</span>
                                                 }
                                             </TableCell>
-                                            <TableCell>{ el.percentage }%</TableCell>
+                                            <TableCell>
+                                                {
+                                                    el.type === "promo"
+                                                    ? el.value + "р"
+                                                    : el.value + "%"
+                                                }
+                                            </TableCell>
                                             <TableCell>
                                                 {
                                                     handleGetCountOfProductsForDiscount(el)
@@ -162,18 +168,19 @@ export default function DiscountsPageView({
                 <DiscountPageForm
                     currentDiscount={ currentDiscount }
                     categoriesForSelect={ categoriesForSelect }
+                    discountTypesForSelect={ discountTypesForSelect }
                     handleCloseModal={ handleCloseManageDiscountModal }
                     handleSaveDiscountData={ handleSaveDiscountData }
                 />
             </CustomModal>
             <CustomModal 
                 isDisplay={ modals.confirmDeleting }
-                title={ t("text.deleteGoods") }
+                title={ t("text.disableDiscount") }
                 typeOfActions='default'
                 actionConfirmed={ handleConfirmDeletingDiscount }
                 closeModal={ handleCancelDeletingDiscount }
             >
-                <div className="delete-text">{ t("text.approveDeletingGood") }?</div>
+                <div className="delete-text">{ t("text.approveDisablingDiscount") }?</div>
             </CustomModal>
         </div>
     );

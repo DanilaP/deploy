@@ -9,6 +9,7 @@ import "./discount-page-form.scss";
 interface IDiscountPageFormProps {
     currentDiscount: IDiscount | null,
     categoriesForSelect: ISelect[],
+    discountTypesForSelect: ISelect[],
     handleCloseModal: () => void,
     handleSaveDiscountData: (discount: IDiscount) => void
 }
@@ -17,17 +18,19 @@ interface IDiscountForm {
     id?: number,
     name: string,
     systemKey: string,
-    percentage: number,
+    value: number,
     dateStart: string,
     dateEnd: string | null,
     categories: ISelect[],
     active: boolean,
-    deletedAt: string | null
+    deletedAt: string | null,
+    type: ISelect
 }
 
 export default function DiscountPageForm({
     currentDiscount,
     categoriesForSelect,
+    discountTypesForSelect,
     handleCloseModal,
     handleSaveDiscountData
 }: IDiscountPageFormProps) {
@@ -42,10 +45,12 @@ export default function DiscountPageForm({
         defaultValues: currentDiscount 
             ? {
                 ...currentDiscount,
-                categories: categoriesForSelect.filter(el => currentDiscount.categories?.includes(el.id))
+                categories: categoriesForSelect.filter(el => currentDiscount.categories?.includes(el.id)),
+                type: discountTypesForSelect.find(el => el.id === currentDiscount.type)
             }
             : {
-                categories: []
+                categories: [],
+                type: discountTypesForSelect[0]
             }
     });
     
@@ -54,13 +59,71 @@ export default function DiscountPageForm({
     const handleSaveDiscountFormData = (data: IDiscountForm) => {
         const updatedDiscountData: IDiscount = {
             ...data,
-            categories: data.categories?.map(el => el.id) || []
+            categories: data.categories?.map(el => el.id) || [],
+            type: data.type.id
         };
         handleSaveDiscountData(updatedDiscountData);
     };
 
+    const handleValidateDiscountValue = (value: number) => {
+        if (!validateRequiredField(value)) return t("errors.requiredField");
+        if (watch("type").id === "discount") {
+            if (value <= 0 || value >= 100) return t("errors.invalidDiscountValue");
+        }
+        return true;
+    };
+
     return (
         <form className="discount-page-form" onSubmit={ handleSubmit(handleSaveDiscountFormData) }>
+            <FormControl>
+                <FormLabel 
+                    className="discount-field-label"
+                >{ t("text.typeOfDiscount") }</FormLabel>
+                <Controller
+                    name="type"
+                    control={ control }
+                    rules={ { required: t("errors.requiredField") } }
+                    render={ ({ field }) => (
+                        <Autocomplete
+                            { ...field }
+                            options={ discountTypesForSelect }
+                            onChange={ (_, value) => field.onChange(value) }
+                            renderInput={ (params) => (
+                                <TextField
+                                    placeholder={ t("text.search") }
+                                    { ...params }
+                                    id="type-of-discount"
+                                    error={ Boolean(errors.type) }
+                                    helperText={ String(errors.type?.message || "") }
+                                />
+                            ) }
+                        />
+                    ) }
+                />
+            </FormControl>
+            <FormControl>
+                <FormLabel 
+                    className="discount-field-label"
+                    htmlFor="discount-category-value"
+                >
+                    { 
+                        watch("type").id === "promo" 
+                        ? t("text.promoSum")
+                        : t("text.discountValue")
+                    }
+                </FormLabel>
+                <TextField
+                    type="number"
+                    error={ Boolean(errors.value) }
+                    helperText={ String(errors.value?.message || "") }
+                    id="update-discount-value"
+                    placeholder={ t("text.value") }
+                    { ...register("value", {
+                        validate: (value: number) => handleValidateDiscountValue(value),
+                        valueAsNumber: true
+                    }) }
+                />
+            </FormControl>
             <FormControl>
                 <FormLabel 
                     className="discount-field-label"
@@ -150,23 +213,6 @@ export default function DiscountPageForm({
                     id="update-discount-dateEnd"
                     placeholder={ t("text.dateEnd") }
                     { ...register("dateEnd") }
-                />
-            </FormControl>
-            <FormControl>
-                <FormLabel 
-                    className="discount-field-label"
-                    htmlFor="discount-category-percentage"
-                >{ t("text.percentage") }</FormLabel>
-                <TextField
-                    type="number"
-                    error={ Boolean(errors.percentage) }
-                    helperText={ String(errors.percentage?.message || "") }
-                    id="update-discount-percentage"
-                    placeholder={ t("text.percentage") }
-                    { ...register("percentage", {
-                        validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField"),
-                        valueAsNumber: true
-                    }) }
                 />
             </FormControl>
             <div className="horizontal-form-control">

@@ -6,12 +6,17 @@ export const createDiscount = (newDiscount: IDiscount) => {
     return response;
 };
 
+export const updateDiscount = (newDiscount: IDiscount) => {
+    const response = $api.put("/discounts", newDiscount);
+    return response;
+};
+
 export const getDiscounts = () => {
     const response = $api.get("/discounts");
     return response;
 };
 
-export const deleteProduct = (discountId: number) => {
-    const response = $api.delete(`/discountId?discountId=${discountId}`);
+export const deleteDiscount = (discountId: number) => {
+    const response = $api.delete(`/discounts?discountId=${discountId}`);
     return response;
 };

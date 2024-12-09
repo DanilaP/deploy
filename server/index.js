@@ -982,7 +982,7 @@ app.get("/discounts", async function(req, res) {
 app.post("/discounts", async function(req, res) {
     try {
         let discountsList = JSON.parse(fs.readFileSync('DB/Discounts.json', 'utf8'));
-        res.status(200).json({ message: "Данные об акциях сохранены", discounts: req.body });
+        res.status(200).json({ message: "Данные об акциях сохранены", discount: req.body });
     }
     catch(error) {
         console.error("post /discounts", error);
@@ -990,10 +990,21 @@ app.post("/discounts", async function(req, res) {
     }
 });
 
+app.put("/discounts", async function(req, res) {
+    try {
+        let discountsList = JSON.parse(fs.readFileSync('DB/Discounts.json', 'utf8'));
+        res.status(200).json({ message: "Данные об акции обновлены", discount: req.body });
+    }
+    catch(error) {
+        console.error("post /discounts", error);
+        res.status(400).json({ message: "Ошибка обновления данных об акциии!" });
+    }
+});
+
 app.delete("/discounts", async function(req, res) {
     try {
         let discountsList = JSON.parse(fs.readFileSync('DB/Discounts.json', 'utf8'));
-        res.status(200).json({ message: "Данные об акции удалены", discounts: req.body });
+        res.status(200).json({ message: "Данные об акции удалены", discount: req.body });
     }
     catch(error) {
         console.error("delete /discounts", error);

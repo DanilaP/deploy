@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { IDiscount } from "./discounts";
 import { IProduct } from "../products/products";
 import { useProducts } from "../products/use-products.js";
-import { getDiscounts } from "./discounts-api.js";
+import { createDiscount, deleteDiscount, getDiscounts, updateDiscount } from "./discounts-api.js";
 
 export const useDiscounts = () => {
 
     const [discounts, setDiscounts] = useState<IDiscount[]>([]);
+    const discountTypesForSelect = [
+        { id: "promo", label: "Промокод" },
+        { id: "discount", label: "Скидка" }
+    ];
 
     const { products } = useProducts();
 
@@ -23,7 +27,7 @@ export const useDiscounts = () => {
     ) => {
         let status = false;
         productCategories.forEach(el => {
-            if (categoriesForDiscount?.includes(el) || categoriesForDiscount === null) {
+            if (categoriesForDiscount?.includes(el) || categoriesForDiscount.length === 0) {
                 status = true;
                 return;
             }
@@ -49,10 +53,48 @@ export const useDiscounts = () => {
             if (
                 handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount(product.category, discount.categories)
             ) {
-                allowedPercentage = [...allowedPercentage, discount.percentage];
+                allowedPercentage = [...allowedPercentage, discount.value];
             }
         });
         return Math.max(...allowedPercentage);
+    };
+
+    const handleCreateDiscount = (discount: IDiscount) => {
+        createDiscount(discount).then(res => {
+            if (res.data.discount) {
+                setDiscounts(prev => {
+                    return [...prev, { ...discount, id: Date.now() }];
+                });
+            }
+        });
+    };
+
+    const handleUpdateDiscount = (newDiscountData: IDiscount) => {
+        updateDiscount(newDiscountData).then(res => {
+            if (res.data.discount) {
+                setDiscounts(prev => {
+                    return prev.map(el => {
+                        if (el.id === newDiscountData.id) return newDiscountData;
+                        return el;
+                    });
+                });
+            }
+        });
+    };
+
+    const handleDeleteDiscount = (discount: IDiscount) => {
+        if (discount.id) {
+            deleteDiscount(discount.id).then(res => {
+                if (res.data.discount) {
+                    setDiscounts(prev => prev.map(el => {
+                        if (el.id === discount.id) {
+                            return { ...el, active: false };
+                        }
+                        return el;
+                    }));
+                }
+            });
+        }
     };
 
     useEffect(() => {
@@ -61,7 +103,11 @@ export const useDiscounts = () => {
 
     return {
         discounts,
+        discountTypesForSelect,
         handleGetCountOfProductsForDiscount,
-        handleGetBestDiscountForProductById
+        handleGetBestDiscountForProductById,
+        handleCreateDiscount,
+        handleUpdateDiscount,
+        handleDeleteDiscount
     };
 };

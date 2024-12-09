@@ -2,10 +2,11 @@ export interface IDiscount  {
     id?: number,
     name: string,
     systemKey: string,
-    percentage: number,
+    value: number,
     dateStart: string,
     dateEnd: string | null,
     categories: string[],
     active: boolean,
-    deletedAt: string | null
+    deletedAt: string | null,
+    type: string
 }
