@@ -49,7 +49,7 @@ export const useDiscounts = () => {
 
     const handleGetBestDiscountForProductById = (product: IProduct) => {
         let allowedPercentage: number[] = [];
-        discounts.forEach((discount) => {
+        discounts.filter(el => el.type === "discount").forEach((discount) => {
             if (
                 handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount(product.category, discount.categories)
             ) {

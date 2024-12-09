@@ -94,7 +94,7 @@ export default function DiscountsPageView({
                                 <TableCell>{ t("text.name") }</TableCell>
                                 <TableCell>{ t("text.dateStart") }</TableCell>
                                 <TableCell>{ t("text.dateEnd") }</TableCell>
-                                <TableCell>{ t("text.active") }</TableCell>
+                                <TableCell>{ t("text.status") }</TableCell>
                                 <TableCell>{ t("text.value") }</TableCell>
                                 <TableCell>{ t("text.countOfProducts") }</TableCell>
                                 <TableCell>
