@@ -1,11 +1,11 @@
 .providers-page-view {
     .title {
         font-size: 24px;
+        margin-bottom: 10px;
     }
     .actions {
         display: grid;
         grid-template-columns: calc(100% - 250px) 250px;
-        margin: 10px 0 10px 0;
         .search {
             display: flex;
             column-gap: 5px;
@@ -23,8 +23,8 @@
             justify-content: right;
         }
     }
-    .content {
-        padding: 0px;
+    .providers-content {
+        margin-top: 10px;
         .MuiTableHead-root {
             background-color: var(--bg-color-block);
         }

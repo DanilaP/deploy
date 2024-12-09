@@ -98,7 +98,7 @@ export default function ProvidersPageView({
                     >{ t("text.createProvider") }</Button>
                 </div>
             </div>
-            <div className="content">
+            <div className="providers-content">
                 <TableContainer>
                     <Table>
                         <TableHead>
