@@ -42,9 +42,19 @@
         "close": "Закрыть",
         "inactive": "Неактивный",
         "publish": "Опубликовать",
+        "unlimited": "Бессрочно",
         "active": "Активный",
         "admin": "Администратор",
+        "editDiscount": "Изменить акцию",
         "published": "опубликован",
+        "createDiscount": "Создать акцию",
+        "dateStart": "Дата начала",
+        "typeOfDiscount": "Тип акции",
+        "dateEnd": "Дата окочания",
+        "percentage": "Процент",
+        "discounts": "Акции",
+        "manageDiscounts": "Управление акциями",
+        "countOfProducts": "Количество товара",
         "unPublished": "неопубликован",
         "deletingUser": "Удаление пользователя",
         "deletingUserConfirmation": "Хотите удалить пользователя?",
@@ -122,12 +132,16 @@
         "myOrders": "Мои заказы",
         "variations": "Вариации",
         "good": "Товар",
+        "promoSum": "Сумма промокода",
+        "discountValue": "Размер скидки (%)",
         "video": "Видео",
         "additionalProductInfo": "Характеристики (название, значение)",
         "variationsOfProduct": "Вариации (системный ключ, название, остаток, цена)",
         "createGroup": "Создать группу",
         "confirmDeletingCategory": "Вы уверены, что хотите удалить категорию",
         "deleteGroup": "Удалить группу",
+        "disableDiscount": "Отключить акцию",
+        "approveDisablingDiscount": "Подтвердите отключение акции",
         "partNumber": "Артикул",
         "editCategory": "Редактировать категорию",
         "createCategory": "Создать категорию",
@@ -390,6 +404,10 @@
         "ManagingProviders": "Редактирование постащиков",
         "WathingProviders": "Просмотр поставщиков"
     },
+    "discountTypes": {
+        "promo": "Промокод",
+        "discount": "Скидка"
+    },
     "symbols": {
         "rub": "\u20BD"
     },
@@ -408,7 +426,8 @@
         "favorites": "Избранное",
         "feedback": "Обратная связь",
         "orders": "Заказы",
-        "order": "Заказ"
+        "order": "Заказ",
+        "discounts": "Акции"
     },
     "errors": {
         "requiredField": "Это обязательное поле",
@@ -419,6 +438,7 @@
         "website": "Некорректная ссылка на сайт",
         "phone": "Некорректный номер телефона",
         "ogrn": "Некорректный формат ОГРН",
-        "inn": "Некорректный формат ИНН"
+        "inn": "Некорректный формат ИНН",
+        "invalidDiscountValue": "Значение скидки от 1% до 99%"
     }
 }

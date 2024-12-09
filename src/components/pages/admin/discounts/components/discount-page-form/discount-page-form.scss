@@ -1,0 +1,45 @@
+.discount-page-form {
+    display: grid;
+    row-gap: 10px;
+    margin: 10px 0 0 0;
+    .discount-field-label {
+        font-weight: 500;
+    }
+    .horizontal-form-control {
+        display: flex;
+        column-gap: 5px;
+        align-items: center;
+        .MuiButtonBase-root {
+            padding: 0px;
+        }
+    }
+    .form-actions {
+        margin-top: 10px;
+        display: flex;
+        column-gap: 5px;
+    }
+    .MuiChip-label {
+        max-width: 150px;
+        color: var(--text-color);
+    }
+    .MuiInputBase-input {
+        padding: 0px;
+        border: none !important;
+    }
+    .MuiInputBase-root {
+        max-width: 600px;
+        border: none;
+        padding: 8px 10px 8px 10px;
+    }
+    .MuiFormHelperText-root {
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        padding-left: 0px;
+        margin-left: 0px;
+        font-weight: normal;
+        letter-spacing: normal;
+    }
+    .MuiInputBase-root.MuiAutocomplete-inputRoot {
+        padding: 3px;
+    }
+}

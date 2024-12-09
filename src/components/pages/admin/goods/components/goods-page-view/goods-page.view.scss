@@ -1,0 +1,38 @@
+.goods {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    .title {
+        font-size: 24px;
+    }
+    .goods-actions {
+        display: grid;
+        grid-template-columns: calc(100% - 250px) 250px;
+        .filters {
+            display: flex;
+            column-gap: 5px;
+            .product-active-filter {
+                width: 200px;
+                height: 36px;
+            }
+        }
+        .buttons {
+            display: flex;
+            justify-content: right;
+        }
+        .MuiInputBase-input {
+            height: 3.5px;
+            border: none !important;
+        }
+    }
+    .list {
+        display: grid;
+        row-gap: 10px;
+    }
+    .delete-text {
+        margin: 15px 0px 10px 0px;
+    }
+}
+.MuiSvgIcon-root, .MuiInputBase-root {
+    color: var(--text-color) !important;
+}

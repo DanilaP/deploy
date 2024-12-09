@@ -580,18 +580,18 @@ app.get("/warehouses", async function (req, res) {
                       return {
                           ...product,
                           productInfo: foundedProduct
-                      }
+                      };
                   })
               }
             );
         });
 
-        res.status(200).json({message: "Данные о товарах успешно получены", stores: storesInfo});
+        res.status(200).json({ message: "Данные о товарах успешно получены", stores: storesInfo });
     } catch (error) {
-        res.status(400).json({message: "Ошибка при получении информации о складах"});
+        res.status(400).json({ message: "Ошибка при получении информации о складах" });
         console.error("get /warehouses", error);
     }
-})
+});
     
 
 app.get("/order", async function(req, res) {
@@ -645,7 +645,7 @@ app.get("/warehouses", async function (req, res) {
                         return {
                             ...product,
                             productInfo: foundedProduct
-                        }
+                        };
                     })
                 }
             );
@@ -656,7 +656,7 @@ app.get("/warehouses", async function (req, res) {
         res.status(400).json({ message: "Ошибка при получении информации о складах" });
         console.error("get /warehouses", error);
     }
-})
+});
 
 
 // categories
@@ -915,7 +915,7 @@ wss.on('connection', (ws) => {
     ws.on('close', () => {
         console.log("Соединение закрыто!");
     });
-})
+});
 // feedbacks
 
 app.get("/feedbacks", async function(req, res) {
@@ -966,6 +966,7 @@ app.delete("/feedbacks", async function(req, res) {
 
 });
 
+
 //Invoices
 app.get("/invoices", async function(req, res) {
     try {
@@ -975,6 +976,51 @@ app.get("/invoices", async function(req, res) {
     catch (error) {
         res.status(400).json({ message: "Ошибка получения накладных!" });
         console.error(error);
+    }
+});
+// discounts
+
+app.get("/discounts", async function(req, res) {
+    try {
+        let discountsList = JSON.parse(fs.readFileSync('DB/Discounts.json', 'utf8'));
+        res.status(200).json({ message: "Данные об акциях получены", discounts: discountsList });
+    }
+    catch(error) {
+        console.error("get /discounts", error);
+        res.status(400).json({ message: "Ошибка получения данных об акциях!" });
+    }
+});
+
+app.post("/discounts", async function(req, res) {
+    try {
+        let discountsList = JSON.parse(fs.readFileSync('DB/Discounts.json', 'utf8'));
+        res.status(200).json({ message: "Данные об акциях сохранены", discount: req.body });
+    }
+    catch(error) {
+        console.error("post /discounts", error);
+        res.status(400).json({ message: "Ошибка сохранения данных об акциях!" });
+    }
+});
+
+app.put("/discounts", async function(req, res) {
+    try {
+        let discountsList = JSON.parse(fs.readFileSync('DB/Discounts.json', 'utf8'));
+        res.status(200).json({ message: "Данные об акции обновлены", discount: req.body });
+    }
+    catch(error) {
+        console.error("post /discounts", error);
+        res.status(400).json({ message: "Ошибка обновления данных об акциии!" });
+    }
+});
+
+app.delete("/discounts", async function(req, res) {
+    try {
+        let discountsList = JSON.parse(fs.readFileSync('DB/Discounts.json', 'utf8'));
+        res.status(200).json({ message: "Данные об акции удалены", discount: req.body });
+    }
+    catch(error) {
+        console.error("delete /discounts", error);
+        res.status(400).json({ message: "Ошибка удаления данных об акции!" });
     }
 });
 

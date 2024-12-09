@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "Новогодние скидки",
+        "systemKey": "newYearDiscount",
+        "value": 70,
+        "dateStart": "2024-12-01",
+        "dateEnd": "2025-01-30",
+        "categories": ["1", "2", "3"],
+        "active": true,
+        "deletedAt": false,
+        "type": "discount"
+    },
+    {
+        "id": 2,
+        "name": "Распродажа",
+        "systemKey": "discountSales",
+        "value": 80,
+        "dateStart": "2024-12-01",
+        "dateEnd": "2025-01-30",
+        "categories": ["4", "5", "6"],
+        "active": true,
+        "deletedAt": false,
+        "type": "discount"
+    },
+    {
+        "id": 3,
+        "name": "Осенняя акция",
+        "systemKey": "autumnDiscount",
+        "value": 40,
+        "dateStart": "2024-09-01",
+        "dateEnd": null,
+        "categories": [],
+        "active": false,
+        "deletedAt": false,
+        "type": "discount"
+    },
+    {
+        "id": 4,
+        "name": "Промокод 2025",
+        "systemKey": "NY2025",
+        "value": 1000,
+        "dateStart": "2024-09-01",
+        "dateEnd": null,
+        "categories": [],
+        "active": false,
+        "deletedAt": false,
+        "type": "promo"
+    }
+]

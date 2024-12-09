@@ -12,6 +12,7 @@ import { FaListCheck } from "react-icons/fa6";
 import './admin.scss';
 import usePermissions from "../../../helpers/permissions-helpers.ts";
 import { TbTruckDelivery } from "react-icons/tb";
+import { RiDiscountPercentLine } from 'react-icons/ri';
 
 interface AdminLayoutProps {
     children: React.ReactElement | null
@@ -97,6 +98,11 @@ export default function AdminLayout (props: AdminLayoutProps) {
                     {
                         <MenuItem onClick={ () => navigate("/admin/productAccounting") }>
                             <FaFileInvoiceDollar className='icon'/>{ !isMenuTextExists ? t("titles.productAccounting") : null }
+                        </MenuItem>
+                    }
+                    {   
+                        <MenuItem onClick={ () => navigate("/admin/discounts") }>
+                            <RiDiscountPercentLine className='icon' />{ !isMenuTextExists ? t("text.discounts") : null }
                         </MenuItem>
                     }
                 </div>

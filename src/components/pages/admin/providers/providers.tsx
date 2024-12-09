@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import ProvidersPageView from "./providers-page-view/providersPageView";
 import { DEFAULT_PROVIDER } from "./constants";
 import { useProviders } from "../../../../models/providers/use-providers";
 import { IProvider } from "../../../../models/providers/providers";
+import ProvidersPageView from "./components/providers-page-view/providersPageView";
 
 export default function ProvidersPage() {
     
