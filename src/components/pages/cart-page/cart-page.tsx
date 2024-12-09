@@ -37,6 +37,7 @@ const CartPage = () => {
         getUserBacketInfo()
             .then(({ data: { backet } }: { data: { backet: ICartProduct[] } }) => {
                 cartStore.setCart(backet);
+                cartStore.updateSelectionStatus();
             })
             .catch((error: unknown) => console.error(error));
     }, []);
@@ -70,6 +71,7 @@ const CartPage = () => {
                 const actualCartIds = backet.map((product: ICartProduct) => product.id);
                 const updatedCart = cart.filter((item) => actualCartIds.includes(item.id));
                 cartStore.setCart(updatedCart);
+                cartStore.updateSelectionStatus();
                 const updatedSelectedIds = selectedIdsBeforeRemoval.filter((id) => actualCartIds.includes(id));
                 cartStore.setSelectedIds(updatedSelectedIds);
             })

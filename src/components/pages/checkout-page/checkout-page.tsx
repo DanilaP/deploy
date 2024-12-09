@@ -116,6 +116,7 @@ const CheckoutPage = () => {
 
                 setWareHouses(warehousesResponse.data.stores);
                 cartStore.setCart(cartResponse.data.backet);
+                cartStore.updateSelectionStatus();
             })
             .catch((error) => {
                 console.error(error);

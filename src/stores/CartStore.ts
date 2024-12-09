@@ -31,10 +31,9 @@ class CartStore {
 
     setCart(cart: ICartProduct[]) {
         this.cart = cart;
-        this.updateSelectionStatus();
     }
 
-    private updateSelectionStatus() {
+     updateSelectionStatus() {
         const cartProductIds = this.cart.map(({ id}) => id);
         this.selectedProductIds = this.selectedProductIds.filter((id) => cartProductIds.includes(id));
         this.isAllSelected = this.cart.length > 0 && this.selectedProductIds.length === this.cart.length;
