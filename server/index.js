@@ -966,6 +966,17 @@ app.delete("/feedbacks", async function(req, res) {
 
 });
 
+//Invoices
+app.get("/invoices", async function(req, res) {
+    try {
+        let currentInvoices = JSON.parse(fs.readFileSync('DB/Invoices.json', 'utf8'));
+        res.status(200).json({ message: "Накладные успешно получены", invoices: currentInvoices });
+    }
+    catch (error) {
+        res.status(400).json({ message: "Ошибка получения накладных!" });
+        console.error(error);
+    }
+});
 
 async function startApp() {
     try {

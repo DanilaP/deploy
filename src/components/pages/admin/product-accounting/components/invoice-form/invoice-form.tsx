@@ -2,11 +2,12 @@ import { useTranslation } from 'react-i18next';
 import './invoice-form.scss';
 import { Button, MenuItem, Select, TextField } from '@mui/material';
 import InvoiceProductsTable from './invoice-products-table/invoice-products-table';
-import { IInvoice } from '../../../../../models/invoice/invoice';
-import { IWarehouse } from '../../../../../models/warehouse/warehouse';
+import { IInvoice } from '../../../../../../models/invoice/invoice';
+import { IWarehouse } from '../../../../../../models/warehouse/warehouse';
 
 export default function InvoiceForm (props: { invoice: IInvoice, stores: IWarehouse[], close: () => void }) {
     
+    const completed = props.invoice.status === "Проведена";
     const { t } = useTranslation();
 
     return (
@@ -26,10 +27,16 @@ export default function InvoiceForm (props: { invoice: IInvoice, stores: IWareho
                 </Select>
             </div>
             <div className="invoice-products">
-                <InvoiceProductsTable invoiceInfo={ props.invoice } />
+                <InvoiceProductsTable completed = { completed } invoiceInfo={ props.invoice } />
             </div>
             <div className='buttons'>
-                <Button onClick={ props.close } variant='contained'>Провести</Button>
+                <Button
+                    disabled = { completed } 
+                    onClick={ props.close } 
+                    variant='contained'
+                >
+                    Провести
+                </Button>
                 <Button onClick={ props.close } variant='contained'>Отменить</Button>
             </div>
         </div>

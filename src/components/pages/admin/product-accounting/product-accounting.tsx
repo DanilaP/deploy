@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './product-accounting.scss';
 import $api from '../../../../configs/axiosconfig/axios';
-import InvoiceList from './invoice-list/invoice-list';
+import InvoiceList from './components/invoice-list/invoice-list';
 import CustomModal from '../../../components-ui/custom-modal/custom-modal';
-import InvoiceForm from './invoice-form/invoice-form';
+import InvoiceForm from './components/invoice-form/invoice-form';
 import { IInvoice } from '../../../../models/invoice/invoice';
 import { IWarehouse } from '../../../../models/warehouse/warehouse';
 

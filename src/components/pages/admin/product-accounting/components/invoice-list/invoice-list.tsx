@@ -1,4 +1,4 @@
-import { IInvoice } from '../../../../../models/invoice/invoice';
+import { IInvoice } from '../../../../../../models/invoice/invoice';
 import './invoice-list.scss';
 import InvoicePreview from './invoice-preview/invoice-preview';
 

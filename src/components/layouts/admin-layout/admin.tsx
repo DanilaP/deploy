@@ -32,7 +32,7 @@ export default function AdminLayout (props: AdminLayoutProps) {
 
     useEffect(() => {
         window.addEventListener("resize", () => {
-            if (window.innerWidth <= 1100) {
+            if (window.innerWidth <= 1335) {
                 setIsMenuTextExists(true);
             } else {
                 setIsMenuTextExists(false);
