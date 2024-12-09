@@ -38,7 +38,16 @@
         "close": "Close",
         "admin": "Admin",
         "editGood": "Edit good",
+        "unlimited": "Unlimited",
+        "editDiscount": "Edit discount",
+        "createDiscount": "Create discount",
+        "dateStart": "Date start",
+        "dateEnd": "Date end",
+        "percentage": "Percantage",
+        "manageDiscounts": "Manage discounts",
+        "countOfProducts": "Count of products",
         "managingGoods": "Managing goods",
+        "discounts": "Discounts",
         "deleteGoods": "Delete good",
         "deletingUser": "Deleting user",
         "all": "All",
@@ -392,7 +401,8 @@
         "favorites": "Favorites",
         "feedback": "Feedback",
         "orders": "Orders",
-        "order": "Order"
+        "order": "Order",
+        "discounts": "Discounts"
     },
     "errors": {
         "requiredField": "This field is requiered",

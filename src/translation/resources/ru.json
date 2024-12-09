@@ -41,9 +41,18 @@
         "close": "Закрыть",
         "inactive": "Неактивный",
         "publish": "Опубликовать",
+        "unlimited": "Бессрочно",
         "active": "Активный",
         "admin": "Администратор",
+        "editDiscount": "Изменить акцию",
         "published": "опубликован",
+        "createDiscount": "Создать акцию",
+        "dateStart": "Дата начала",
+        "dateEnd": "Дата окочания",
+        "percentage": "Процент",
+        "discounts": "Акции",
+        "manageDiscounts": "Управление акциями",
+        "countOfProducts": "Количество товара",
         "unPublished": "неопубликован",
         "deletingUser": "Удаление пользователя",
         "deletingUserConfirmation": "Хотите удалить пользователя?",
@@ -404,7 +413,8 @@
         "favorites": "Избранное",
         "feedback": "Обратная связь",
         "orders": "Заказы",
-        "order": "Заказ"
+        "order": "Заказ",
+        "discounts": "Акции"
     },
     "errors": {
         "requiredField": "Это обязательное поле",

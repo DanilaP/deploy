@@ -1,0 +1,59 @@
+.discounts-page-view {
+    display: grid;
+    row-gap: 15px;
+    .discount-page-title {
+        font-size: 24px;
+    }
+    .discount-page-actions {
+        display: grid;
+        grid-template-columns: calc(100% - 200px) 200px;
+        .filters {
+            display: flex;
+            column-gap: 5px;
+            .discount-active-filter {
+                width: 150px;
+            }
+        }
+        .buttons {
+            display: flex;
+            justify-content: right
+        }
+        .MuiInputBase-input {
+            padding: 7px;
+            border: none !important;
+        }
+    }
+    .discount-page-content {
+        .MuiTableHead-root {
+            background-color: var(--bg-color-block);
+        }
+        .MuiTableCell-root {
+            padding: 10px;
+            text-align: center;
+            color: var(--text-color);
+        }
+        .MuiTableBody-root {
+            .discount-row {
+                background-color: var(--bg-color-block);
+                cursor: pointer;
+                .active-discount {
+                    color: green;
+                }
+                .inactive-discount {
+                    color: orange;
+                }
+                &:hover {
+                    background-color: var(--hover-color);
+                }
+            }
+        }
+        .discounts-actions {
+            .mui-actions {
+                color: var(--text-color);
+                &:hover {
+                    color: var(--default-color);
+                }
+            }
+        }
+    }
+}

@@ -24,6 +24,7 @@ import OrderPage from "./components/pages/orders/order-page/order-page.tsx";
 import ProductsWarehouse from "./components/pages/admin/warehouses-page/products-warehouse.tsx";
 import AdminLayout from "./components/layouts/admin-layout/admin.tsx";
 import AuthLayout from "./components/layouts/auth-layout/auth.tsx";
+import DiscountsPage from "./components/pages/admin/discounts/discounts.tsx";
 
 export const routes = [
     {
@@ -209,5 +210,11 @@ export const adminRoutes = [
         component: AdminLayout,
         children: ProvidersPage,
         breadcrumb : t("text.providers")
+    },
+    {
+        path: "/admin/discounts",
+        component: AdminLayout,
+        children: DiscountsPage,
+        breadcrumb : t("breadcrumbs.discounts")
     },
 ];

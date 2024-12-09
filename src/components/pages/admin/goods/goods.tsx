@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useCategories } from "../../../../models/categories/use-categories.js";
 import { useProviders } from "../../../../models/providers/use-providers.js";
-import { createProduct, getProducts } from "../../../../models/products/products-api.js";
-import { IProvider } from "../../../../models/providers/providers.js";
 import { IProduct } from "../../../../models/products/products.js";
+import { useProducts } from "../../../../models/products/use-products.js";
 import GoodsPageView from "./components/goods-page-view/goods-page-view.js";
 
 export const GoodsPage = () => {
@@ -13,15 +12,24 @@ export const GoodsPage = () => {
     const { t } = useTranslation();
     const [modals, setModals] = useState({ manage: false, delete: false, unsaved: false });
     const [currentMode, setCurrentMode] = useState<"create" | "edit" | "createFromCopy" | null>(null);
-    const [currentProducts, setCurrentProducts] = useState<IProduct[]>([]);
     const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null);
-    const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
     const [unSavedDataExist, setUnsavedDataExist] = useState<boolean>(false);
     const [currentActiveFilter, setCurrentActiveFilter] = useState<boolean>(true);
+
     const { categoriesForSelect } = useCategories();
-    const navigate = useNavigate();
     const { providersForSelect, providers } = useProviders();
+    const navigate = useNavigate();
     
+    const { 
+        products: currentProducts, 
+        filteredProducts,
+        handleDeleteGood,
+        handleSearchProduct,
+        handleSearchProductByProvider,
+        handleUpdateGood,
+        handleSearchProductsByActive
+    } = useProducts();
+
     const handleOpenCreatingGoodModal = () => {
         setModals(prev => {
             return { ...prev, manage: true };
@@ -60,76 +68,22 @@ export const GoodsPage = () => {
     };
 
     const handleApproveDeletingGood = () => {
-        const updatedProducts = currentProducts.map(el => {
-            if (el.id === currentProduct?.id) {
-                return { ...el, active: false };
-            }
-            return el;
-        });
-        setCurrentProducts(updatedProducts);
-        setFilteredProducts(updatedProducts);
-        setModals(prev => {
-            return { ...prev, delete: false };
-        });
+        if (currentProduct) {
+            handleDeleteGood(currentProduct);
+            setModals(prev => {
+                return { ...prev, delete: false };
+            });
+            setCurrentProduct(null);
+        }
+    };
+
+    const handleApproveUpdatingGood = (goodData: IProduct) => {
+        handleUpdateGood(goodData);
         setCurrentProduct(null);
-    };
-
-    const handleUpdateGood = (goodData: IProduct) => {
-        const response = createProduct(goodData);
-        response.then((res: any) => {
-            if (res.data) {
-                let updatedProducts = [];
-                if (goodData.id) {               
-                    updatedProducts = currentProducts.map(el => {
-                        if (el.id === goodData.id) {
-                            return { ...goodData, images: goodData.images };
-                        }
-                        return el;
-                    }); 
-                } else {  
-                    updatedProducts = [...currentProducts, { 
-                        ...goodData, 
-                        id: Date.now(),
-                        images: goodData.images
-                    }];
-                }
-                setFilteredProducts(updatedProducts);
-                setCurrentProducts(updatedProducts);
-                setCurrentProduct(null);
-                setModals(prev => {
-                    return { ...prev, manage: false };
-                });
-                setUnsavedDataExist(false);
-            }
+        setModals(prev => {
+            return { ...prev, manage: false };
         });
-    };
-
-    const handleSearchProduct = (inputValue: string) => {
-        if (inputValue.length <= import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH && inputValue.length !== 0) return;
-        const searchValue = inputValue.toLowerCase();
-        setFilteredProducts(currentProducts.filter(el => {
-            return el.name.toLowerCase().includes(searchValue) ||
-                el.description.toLowerCase().includes(searchValue) ||
-                el.fullDescription.toLowerCase().includes(searchValue) ||
-                el.partNumber.includes(searchValue) ||
-                String(el.variations[0].price).includes(searchValue);
-        }));
-    };
-
-    const handleSearchProductByProvider = (inputValue: string) => {
-        if (inputValue.length === 0) {
-            setFilteredProducts(currentProducts);
-            return;
-        } 
-        if (inputValue.length <= import.meta.env.VITE_APP_MIN_LENGTH_FOR_SEARCH) return;
-        const searchValue = inputValue.toLowerCase();
-        const findedProviders = providers.reduce((prev: number[], provider: IProvider): number[] => {
-            if (provider.name.toLowerCase().includes(searchValue) && provider.id) {
-                return [...prev, provider.id];
-            }
-            return prev;
-        }, []);
-        setFilteredProducts(currentProducts.filter(el => findedProviders.includes(+el.provider)));
+        setUnsavedDataExist(false);
     };
 
     const handleCancelUpdating = (status: boolean) => {
@@ -153,7 +107,7 @@ export const GoodsPage = () => {
 
     const handleFilterProductsByActive = (active: boolean) => {
         setCurrentActiveFilter(active);
-        setFilteredProducts(currentProducts.filter(el => el.active === active));
+        handleSearchProductsByActive(active);
     };
 
     const handleCloseUnsavedData = () => {
@@ -180,16 +134,6 @@ export const GoodsPage = () => {
     useEffect(() => {
         handleFilterProductsByActive(currentActiveFilter);
     }, [currentProducts]);
-
-    useEffect(() => {
-        const response = getProducts();
-        response.then((res: any) => {
-            if (res.data.products) {
-                setCurrentProducts(res.data.products);
-                setFilteredProducts(res.data.products);
-            }
-        });
-    }, []);
     
     return (
         <GoodsPageView
@@ -215,7 +159,7 @@ export const GoodsPage = () => {
             handleSearchProduct={ handleSearchProduct }
             handleSearchProductByProvider={ handleSearchProductByProvider }
             handleUnsavedDataExist={ handleUnsavedDataExist }
-            handleUpdateGood={ handleUpdateGood }
+            handleUpdateGood={ handleApproveUpdatingGood }
         />
     );
 };
