@@ -20,7 +20,8 @@
         "productPage": "Страница продукта",
         "productReviewsPage": "Страница отзывов о продукте",
         "goodsPage": "Товары",
-        "productsStorePage": "Склад товаров"
+        "productsStorePage": "Склад товаров",
+        "productAccounting": "Учёт продукции"
     },
     "labels": {
         "loading": "Загрузка..."
@@ -361,7 +362,10 @@
         "expandFeedback": "Хочу сказать больше",
         "disadvantages": "Недостатки",
         "advantages": "Достоинства",
-        "thankYouMessage": "Благодарим за отзыв"
+        "thankYouMessage": "Благодарим за отзыв",
+        "receiptInvoice": "Приходная накладная",
+        "expenseInvoice": "Расходная накладная",
+        "invoiceForm": "Форма накладной"
     },
     "methods": {
         "modifyUserMethod": "Метод редактирования пользователя",

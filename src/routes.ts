@@ -4,7 +4,6 @@ import SignUp from "./components/pages/auth/sign-up/sign-up.tsx";
 import AboutPage from "./components/pages/about/about.tsx";
 import ShopPage from "./components/pages/shop/shop.tsx";
 import CartPage from "./components/pages/cart/cart-page.tsx";
-import UsersList from "./components/pages/admin/users/users-list/users-list.tsx";
 import ProfilePage from "./components/pages/profile/profile.tsx";
 import RolesPage from "./components/pages/admin/roles/roles.tsx";
 import PermissionsPage from "./components/pages/admin/permissions/permissions.tsx";
@@ -24,6 +23,8 @@ import OrderPage from "./components/pages/orders/order-page/order-page.tsx";
 import ProductsWarehouse from "./components/pages/admin/warehouses-page/products-warehouse.tsx";
 import AdminLayout from "./components/layouts/admin-layout/admin.tsx";
 import AuthLayout from "./components/layouts/auth-layout/auth.tsx";
+import Users from "./components/pages/admin/users/users.tsx";
+import ProductAccounting from "./components/pages/admin/product-accounting/product-accounting.tsx";
 import DiscountsPage from "./components/pages/admin/discounts/discounts.tsx";
 
 export const routes = [
@@ -160,7 +161,7 @@ export const adminRoutes = [
     {
         path: '/admin/users',
         component: AdminLayout,
-        children: UsersList,
+        children: Users,
         breadcrumb : t("breadcrumbs.adminUsers")
     },
     {
@@ -210,6 +211,12 @@ export const adminRoutes = [
         component: AdminLayout,
         children: ProvidersPage,
         breadcrumb : t("text.providers")
+    },
+    {
+        path: '/admin/productAccounting',
+        component: AdminLayout,
+        children: ProductAccounting,
+        breadcrumb : t("titles.productAccounting")
     },
     {
         path: "/admin/discounts",

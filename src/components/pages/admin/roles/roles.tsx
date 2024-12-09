@@ -3,11 +3,12 @@ import { useTranslation } from "react-i18next";
 import $api from '../../../../configs/axiosconfig/axios.js';
 import { IPermission } from "../../../../interfaces/interfaces.ts";
 import './roles.scss';
-import TableComponent from "./roles-table/table.tsx";
 import { Button, TextField } from "@mui/material";
 import usePermissions from "../../../../helpers/permissions-helpers.ts";
 import { IRole } from "../../../../models/role/role.ts";
 import { IPermissionGroup } from "../../../../models/permission-group/permission-group.ts";
+import TableComponent from "./components/roles-table/table.tsx";
+import { updateRole } from "../../../../models/role/role-api.ts";
 
 export default function RolesPage () {
     const { t } = useTranslation();
@@ -20,28 +21,20 @@ export default function RolesPage () {
     const permissionsExists = checkConcretePermissions();
 
     const updateRolesInfo = () => {
-        $api.put("/roles", { roles })
+        updateRole(roles)
         .catch((error) => {
             console.error(t("methods.updateRolesMethod"), error);
-        });
+        }); 
     };
 
     const addNewRole = () => {
         const newRoles = [...roles, newRole];
         setRoles(newRoles);
-        /*
-        $api.post("/roles", newRole)
-        .then((res) => {
-            setRoles(res.data.roles);
-        })
-        .catch((error) => {
-            console.error(t("methods.addRoleMethod"), error);
-        });*/
     };
 
     useEffect(() => {
         document.title = t("titles.rolesPage");
-    });
+    }, []);
 
     useEffect(() => {
         if (roles.length !== 0 && permissionsExists.ModifyRoles) {

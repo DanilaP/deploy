@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import './permissions.scss';
 import { Button, TextField } from '@mui/material';
 import { IPermission } from '../../../../interfaces/interfaces.ts';
-import $api from '../../../../configs/axiosconfig/axios.js';
-import PermissionsList from './permissions-list/permissions-list.tsx';
-import PermissionsGroupList from './permissions-group-list/permissions-group-list.tsx';
 import useDebounceFunction from '../../../../hooks/use-debounce.tsx';
 import usePermissions from "../../../../helpers/permissions-helpers.ts";
 import { IPermissionGroup } from '../../../../models/permission-group/permission-group.ts';
+import PermissionsGroupList from './components/permissions-group-list/permissions-group-list.tsx';
+import PermissionsList from './components/permissions-list/permissions-list.tsx';
+import { getPermissionGroups, updatePermissionGroups } from '../../../../models/permission-group/permission-group-api.ts';
 
 export default function PermissionsPage () {
     const { t } = useTranslation();
@@ -23,7 +23,7 @@ export default function PermissionsPage () {
     const permissionsExists = checkConcretePermissions();
 
     const saveChanges = () => {
-        $api.put("/permissions/groups", { permissionsGroups: permissionsGroups })
+        updatePermissionGroups(permissionsGroups)
         .catch((error) => {
             console.error(t("methods.changeGroupOfPermissions"), error);
         });
@@ -145,10 +145,10 @@ export default function PermissionsPage () {
 
     useEffect(() => {
         document.title = t("titles.permissionsPage");
-    });
+    }, []);
 
     useEffect(() => {
-        $api.get("/permissions/groups")
+        getPermissionGroups()
         .then((res) => {
             setPermissions(res.data.permissions);
             setPermissionsGroups(res.data.permissionsGroups);

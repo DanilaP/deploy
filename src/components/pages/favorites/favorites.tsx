@@ -3,12 +3,12 @@ import { useTranslation } from '../../../translation/i18n';
 import './favorites.scss';
 import { Button, Checkbox } from '@mui/material';
 import $api from '../../../configs/axiosconfig/axios';
-import FavoriteItem from './favorite-item/favorite-item';
 import { useStore } from '../../../stores';
 import CustomModal from '../../components-ui/custom-modal/custom-modal';
-import ModalContent from './modal-content/modal-content';
+import ModalContent from './components/modal-content/modal-content';
 import { useNavigate } from 'react-router';
 import { IProduct } from '../../../models/products/products';
+import FavoriteItem from './components/favorite-item/favorite-item';
 
 
 export default function Favorites () {

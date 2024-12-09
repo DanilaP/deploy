@@ -2,9 +2,9 @@ import { Button } from '@mui/material';
 import { useTranslation } from '../../../translation/i18n';
 import './chat-wrapper.scss';
 import { useEffect, useState } from 'react';
-import Chat from './chat/chat';
 import $api from '../../../configs/axiosconfig/axios';
 import { useStore } from '../../../stores';
+import Chat from './components/chat/chat';
 
 export default function ChatWrapper () {
 
