@@ -11,35 +11,5 @@
         padding-bottom: 10px;
         gap: 10px;
     }
-    
-    .MuiDataGrid-cell {
-        display: flex;
-        align-items: center;
-    }
-    
-    .MuiDataGrid-container--top {
-        background-color: var(--bg-color-block);
-    }   
-
-    .MuiDataGrid-row {
-        background-color: var(--bg-color-block);
-        color: var(--text-color);
-    }
-
-    .MuiDataGrid-menuIcon, .MuiSvgIcon-root {
-        color: black !important;
-    }
-
-    .MuiToolbar-root {
-        background-color: var(--bg-color-block);
-        color: var(--text-color);
-
-        .MuiSvgIcon-root {
-            color: var(--text-color) !important;
-        }
-    }
-
-    .MuiInputBase-input {
-        border: 0px !important;
-    }
 }
+

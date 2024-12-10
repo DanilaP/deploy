@@ -12,19 +12,6 @@
         background-color: var(--bg-color-block);
         border: 1px solid rgba(128, 128, 128, 0.247);
 
-        .MuiPaper-root {
-            background-color: var(--bg-color-block);
-            
-            th, td {
-                color: var(--text-color);
-            }
-
-            span, input, svg {
-                color: var(--text-color);
-                border-color: var(--text-color);
-            }
-        }
-
         .delete-button {
             font-size: 12px;
             cursor: pointer;
@@ -40,9 +27,5 @@
         flex-wrap: wrap;
         align-items: center;
         gap: 10px;
-
-        .MuiInputBase-input {
-            height: 3.5px;
-        }
     }
 }
