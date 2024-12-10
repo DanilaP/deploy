@@ -3,6 +3,10 @@
     flex-direction: column;
     gap: 10px;
 
+    .MuiInputBase-root {
+        height: 36.5px;
+    }
+    
     .roles-content {
         display: flex;
         box-sizing: border-box;

@@ -8,6 +8,10 @@
     border: 1px solid rgba(128, 128, 128, 0.247);
     height: calc(100vh - 150px);
 
+    .MuiInputBase-root {
+        height: 36.5px;
+    }
+    
     .permissions-settings {
         display: flex;
         gap: 10px;
