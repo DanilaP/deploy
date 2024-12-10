@@ -11,5 +11,10 @@
         padding-bottom: 10px;
         gap: 10px;
     }
+
+    .MuiDataGrid-cell {
+        display: flex;
+        align-items: center;
+    }
 }
 

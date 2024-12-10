@@ -34,24 +34,6 @@
 }
 .call-back-answer-form {
     margin-top: 10px;
-    .MuiFormHelperText-root {
-        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-        font-size: 12px;
-        margin: 0px;
-        padding-left: 0px;
-        font-weight: normal;
-        letter-spacing: normal;
-    }
-    .MuiInputBase-root {
-        padding: 7px;
-        .Mui-disabled {
-            -webkit-text-fill-color: gray;
-        }
-    }
-    .MuiFormControl-root {
-        display: grid;
-        row-gap: 5px;
-    }
     .label {
         font-weight: 500;
     }

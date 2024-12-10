@@ -31,11 +31,6 @@
     
     //DataGrid
     .MuiDataGrid-root {
-        .MuiDataGrid-cell {
-            display: flex;
-            align-items: center;
-        }
-    
         .MuiDataGrid-columnHeader {
             color: var(--text-color);
             background-color: var(--bg-color-block);
@@ -86,17 +81,27 @@
         }
     }
     
+    //Mui errors
     .Mui-error .MuiOutlinedInput-notchedOutline {
         border-color: #d32f2f;
     }
-    .Mui-error .MuiOutlinedInput-notchedOutline {
-        border-color: #d32f2f;
+
+    .MuiFormHelperText-root {
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        padding-left: 0px;
+        margin-left: 0px;
+        font-weight: normal;
+        letter-spacing: normal;
     }
-    .Mui-error .MuiOutlinedInput-notchedOutline {
-        border-color: #d32f2f;
-    }
+    
+    //Icons
     .icon {
         font-size: 25px;
+    }
+    
+    .MuiSvgIcon-root {
+        color: var(--text-color);
     }
 }
 
