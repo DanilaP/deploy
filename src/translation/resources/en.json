@@ -21,7 +21,8 @@
         "technics": "technics",
         "rolesPage": "Roles page",
         "goodsPage": "Goods page",
-        "productsStorePage": "Products store"
+        "productsStorePage": "Products store",
+        "productAccounting": "Product accounting"
     },
     "labels": {
         "loading": "Loading..."
@@ -38,10 +39,19 @@
         "close": "Close",
         "admin": "Admin",
         "editGood": "Edit good",
+        "unlimited": "Unlimited",
+        "editDiscount": "Edit discount",
+        "createDiscount": "Create discount",
+        "dateStart": "Date start",
+        "typeOfDiscount": "Type of discount",
+        "dateEnd": "Date end",
+        "percentage": "Percentage",
+        "manageDiscounts": "Manage discounts",
+        "countOfProducts": "Count of products",
         "managingGoods": "Managing goods",
+        "discounts": "Discounts",
         "deleteGoods": "Delete good",
         "deletingUser": "Deleting user",
-        "all": "All",
         "deletingUserConfirmation": "Do you want to delete the user?",
         "manipulateUser": "User manipulating",
         "creating": "(Creation)",
@@ -74,6 +84,8 @@
         "images": "Images",
         "video": "Video",
         "saveChanges": "Save changes",
+        "promoSum": "Sum for promocode",
+        "discountValue": "Value for discount (%)",
         "additionalProductInfo": "Additional info (title, value)",
         "variationsOfProduct": "Variations (title, value, stock, price)",
         "addRole": "Add role",
@@ -98,19 +110,14 @@
         "editProvider": "Edit provider",
         "isActive": "Is Active",
         "post": "Post",
-        "active": "Active",
         "inActive": "Inactive",
-        "phoneNumber": "Phone number",
         "website": "Web site",
         "contactPerson": "Contant person",
-        "status": "Status",
         "visitWebsite": "Visit website",
         "contactPersonLabel": "Contant person (name, phone, post)",
-        "dateOfCreation": "Date of creation",
         "approveDeletingProvider": "Confirm deleting provider",
         "createProvider": "Create provider",
         "articleNumber": "Article number",
-        "deleted": "Delted",
         "inn": "INN",
         "ogrn": "OGRN",
         "partNumber": "Part number",
@@ -131,11 +138,12 @@
         "stock": "In stock",
         "rub": "rub.",
         "pcs": "pcs.",
-        "email": "Email",
         "toBacket": "To backet",
         "category": "Category",
         "editCategory": "Edit category",
         "productReviews": "Product reviews",
+        "disableDiscount": "Disable discount",
+        "approveDisablingDiscount": "Approve disabling discount",
         "averageEvaluation": "Average evaluation",
         "yourReview": "Your review",
         "sendReview": "Send review",
@@ -170,11 +178,10 @@
         "review": "Review",
         "image": "Image",
         "quantity": "Quantity",
-        "uploadFiles": "Upload files",
         "invalidEmail": "Invalid email",
         "confirmAccount": "Confirm your account",
-        "image": "Image",
         "all": "All",
+        "from": "от",
         "cart": {
             "productChoose": "Select products to proceed to checkout",
             "preDeliverInfo": "Available delivery methods and times can be selected when placing an order",
@@ -199,27 +206,6 @@
             "delete": "Delete",
             "cancel": "Cancel"
         },
-        "checkout": {
-            "free": "Free",
-            "orderDeliveryMethods": {
-                "addresses": "Courier Delivery",
-                "pickup": "Store Pickup"
-            },
-            "orderPaymentMethods": {
-                "cash": "Cash on Delivery",
-                "spb": "Payment via SBP QR code",
-                "card": "Payment by Bank Card"
-            },
-            "courierFormLabels": {
-                "fullAddress": "Address",
-                "apartment": "Apartment",
-                "entrance": "Entrance",
-                "floor": "Floor",
-                "intercom": "Intercom Code",
-                "comment": "Comment for Courier"
-            },
-            "recipient": "Recipient"
-        },
         "vendorsLogistic": {
             "shippingStatuses": {
                 "waiting": "Waiting",
@@ -229,6 +215,8 @@
             }
         },
         "checkout": {
+            "free": "Free",
+            "recipient": "Recipient",
             "selectAddress": "Select address",
             "orderProcessing": "Processing order",
             "deleteAddress": "Delete this address",
@@ -305,7 +293,6 @@
         "deleteStore": "Delete store",
         "storeAddress": "Store address",
         "storeName": "Store name",
-        "deleteStoreConfirmation": "Are you sure you want to delete store?",
         "amount": "Amount",
         "orderPrice": "Order Price",
         "delivery": "Delivery",
@@ -332,11 +319,13 @@
         "yourChats": "Your chats",
         "freeChats": "Free chats",
         "chat": "Chat",
-        "send": "Send",
         "yourMessage": "Your message",
         "sendLink": "Send link",
         "sendingLink": "Sending a link",
-        "sendLinkSuccessfully": "The link has been sent successfully"
+        "sendLinkSuccessfully": "The link has been sent successfully",
+        "receiptInvoice": "Receipt invoice",
+        "expenseInvoice": "Expense invoice",
+        "invoiceForm": "Invoice form"
     },
     "methods": {
         "modifyUserMethod": "Modify user method",
@@ -375,6 +364,10 @@
         "ManagingProviders": "Managing providers",
         "WathingProviders": "Watching providers"
     },
+    "discountTypes": {
+        "promo": "Promocode",
+        "discount": "Discount"
+    },
     "symbols": {
         "rub": "\u20BD"
     },
@@ -392,7 +385,8 @@
         "favorites": "Favorites",
         "feedback": "Feedback",
         "orders": "Orders",
-        "order": "Order"
+        "order": "Order",
+        "discounts": "Discounts"
     },
     "errors": {
         "requiredField": "This field is requiered",
@@ -403,6 +397,7 @@
         "website": "Inccorect website ref",
         "phone": "Incorrect phone number",
         "ogrn": "Incorrect format for OGRN",
-        "inn": "Incorrect format for INN"
+        "inn": "Incorrect format for INN",
+        "invalidDiscountValue": "Discount value from 1% to 99%"
     }
 }

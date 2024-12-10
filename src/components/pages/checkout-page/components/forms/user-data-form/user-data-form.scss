@@ -1,0 +1,12 @@
+.user-data-wrapper {
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  .form-grid {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+  .buttons-wrapper {
+    text-align: end;
+  }
+}

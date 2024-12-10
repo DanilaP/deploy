@@ -1,0 +1,21 @@
+.pickup-form-wrapper {
+  margin-top: 24px;
+  .radio-group {
+    border: 2px solid lightgray;
+    border-radius: 3px;
+    padding: 24px;
+  }
+  .btn-wrapper {
+    text-align: end;
+    margin-top: 24px;
+  }
+  .pickup-dialog-card {
+    margin-bottom: 16px;
+    border: 2px solid lightgray;
+    border-radius: 7px;
+    box-shadow: none;
+    &.selected {
+      border-color: #1976d2 !important;
+    }
+  }
+}

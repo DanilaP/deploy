@@ -1,0 +1,25 @@
+.invoice-wrapper {
+    min-width: 800px;
+    max-width: max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .invoice-header {
+        display: flex;
+        flex-direction: column;
+        padding-top: 20px;
+        box-sizing: border-box;
+        gap: 20px;
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(.5);
+        }
+    }
+
+    .buttons {
+        display: flex;
+        gap: 10px;
+    }
+}

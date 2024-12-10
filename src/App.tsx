@@ -13,11 +13,11 @@ import './stylesheets/themes/white.scss';
 import { adminRoutes, routes } from './routes';
 import { useStore } from './stores';
 import usePermissions from './helpers/permissions-helpers.ts';
-import BreadCrumbs from './components/breadcrumbs/bread-crumbs.tsx';
+import BreadCrumbs from './components/pages/breadcrumbs/bread-crumbs.tsx';
 import cartApi from "./api/cart.ts";
 import { MdFavoriteBorder } from "react-icons/md";
-import ChatWrapper from './components/chat/chat-wrapper.tsx';
-import Notification from './components/notification/notification.tsx';
+import ChatWrapper from './components/pages/chat/chat-wrapper.tsx';
+import Notification from './components/partials/notification/notification.tsx';
 import { MdPhoneCallback } from "react-icons/md";
 import { RiArchiveLine } from "react-icons/ri";
 
@@ -69,7 +69,7 @@ function App() {
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 1100);
+            setIsMobile(window.innerWidth <= 1335);
         };
 
         window.addEventListener("resize", handleResize);

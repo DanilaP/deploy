@@ -1,0 +1,15 @@
+.product-accounting-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .product-accounting-menu {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .MuiInputBase-root {
+            height: 36.5px;
+        }
+    }
+}

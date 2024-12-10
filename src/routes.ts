@@ -1,29 +1,32 @@
-import NotFoundComponent from "./components/service/404";
-import AdminPage from "./components/admin/admin";
-import AuthPage from "./components/auth/auth";
-import SignIn from "./components/auth/sign-in/sign-in";
-import SignUp from "./components/auth/sign-up/sign-up";
-import AboutPage from "./components/about/about";
-import ShopPage from "./components/shop/shop";
-import CartPage from "./components/cart/cart-page.tsx";
-import UsersList from "./components/admin/users/users-list/users-list";
-import ProfilePage from "./components/profile/profile";
-import RolesPage from "./components/admin/roles/roles";
-import PermissionsPage from "./components/admin/permissions/permissions";
-import { GoodsPage } from "./components/admin/goods/goods";
-import ProductPage from "./components/shop/product-page/product-page";
-import ProductReviews from "./components/shop/product-reviews-page/product-reviews-page";
-import CheckoutPage from "./components/checkout/checkout-page.tsx";
-import { CategoriesPage } from "./components/admin/categories/categories";
+import NotFoundComponent from "./components/pages/service/404.tsx";
+import SignIn from "./components/pages/auth/sign-in/sign-in.tsx";
+import SignUp from "./components/pages/auth/sign-up/sign-up.tsx";
+import AboutPage from "./components/pages/about/about.tsx";
+import ShopPage from "./components/pages/shop/shop.tsx";
+import CartPage from "./components/pages/cart-page/cart-page.tsx";
+import UsersList from "./components/pages/admin/users/users-list/users-list.tsx";
+import ProfilePage from "./components/pages/profile/profile.tsx";
+import RolesPage from "./components/pages/admin/roles/roles.tsx";
+import PermissionsPage from "./components/pages/admin/permissions/permissions.tsx";
+import { GoodsPage } from "./components/pages/admin/goods/goods.tsx";
+import ProductPage from "./components/pages/shop/product-page/product-page.tsx";
+import ProductReviews from "./components/pages/shop/product-reviews-page/product-reviews-page.tsx";
+import CheckoutPage from "./components/pages/checkout-page/checkout-page.tsx";
+import { CategoriesPage } from "./components/pages/admin/categories/categories.tsx";
 import { t } from "i18next";
-import ProvidersPage from "./components/admin/providers/providers";
-import Favorites from "./components/favorites/favorites";
-import Chats from "./components/admin/chats/chats.tsx";
-import FeedBackPage from "./components/feed-back/feed-back.tsx";
-import AdminFeedbackPage from "./components/admin/feed-back/feed-back.tsx";
-import OrdersPage from "./components/orders/orders-page.tsx";
-import OrderPage from "./components/orders/order-page/order-page.tsx";
-import ProductsWarehouse from "./components/admin/warehouses-page/products-warehouse.tsx";
+import ProvidersPage from "./components/pages/admin/providers/providers.tsx";
+import Favorites from "./components/pages/favorites/favorites.tsx";
+import Chats from "./components/pages/admin/chats/chats.tsx";
+import FeedBackPage from "./components/pages/feed-back/feed-back.tsx";
+import AdminFeedbackPage from "./components/pages/admin/feed-back/feed-back.tsx";
+import OrdersPage from "./components/pages/orders-page/orders-page.tsx";
+import OrderPage from "./components/pages/order-page/order-page.tsx";
+import ProductsWarehouse from "./components/pages/admin/warehouses-page/products-warehouse.tsx";
+import AdminLayout from "./components/layouts/admin-layout/admin.tsx";
+import AuthLayout from "./components/layouts/auth-layout/auth.tsx";
+import Users from "./components/pages/admin/users/users.tsx";
+import ProductAccounting from "./components/pages/admin/product-accounting/product-accounting.tsx";
+import DiscountsPage from "./components/pages/admin/discounts/discounts.tsx";
 
 export const routes = [
     {
@@ -34,13 +37,13 @@ export const routes = [
     },
     {
         path: '/auth/signin',
-        component: AuthPage,
+        component: AuthLayout,
         children: SignIn,
         breadcrumb : ''
     },
     {
         path: '/auth/signup',
-        component: AuthPage,
+        component: AuthLayout,
         children: SignUp,
         breadcrumb : ''
     },
@@ -152,62 +155,74 @@ export const routes = [
 export const adminRoutes = [
     {
         path: '/admin',
-        component: AdminPage,
+        component: AdminLayout,
         children: null,
         breadcrumb : t("breadcrumbs.adminPage")
     },
     {
         path: '/admin/users',
-        component: AdminPage,
-        children: UsersList,
+        component: AdminLayout,
+        children: Users,
         breadcrumb : t("breadcrumbs.adminUsers")
     },
     {
         path: '/admin/roles',
-        component: AdminPage,
+        component: AdminLayout,
         children: RolesPage,
         breadcrumb : t("breadcrumbs.adminRoles")
     },
     {
         path: '/admin/permissions',
-        component: AdminPage,
+        component: AdminLayout,
         children: PermissionsPage,
         breadcrumb : t("breadcrumbs.adminPermissions")
     },
     {
         path: '/admin/goods',
-        component: AdminPage,
+        component: AdminLayout,
         children: GoodsPage,
         breadcrumb : t("titles.goodsPage")
     },
     {
         path: '/admin/productsWarehouse',
-        component: AdminPage,
+        component: AdminLayout,
         children: ProductsWarehouse,
         breadcrumb : t("titles.productsStorePage")
     },
     {
         path: '/admin/categories',
-        component: AdminPage,
+        component: AdminLayout,
         children: CategoriesPage,
         breadcrumb : t("text.categories")
     },
     {
         path: '/admin/chats',
-        component: AdminPage,
+        component: AdminLayout,
         children: Chats,
         breadcrumb : "Чаты"
     },
     {
         path: '/admin/feedback',
-        component: AdminPage,
+        component: AdminLayout,
         children: AdminFeedbackPage,
         breadcrumb : t("text.feedback")
     },
     {
         path: '/admin/providers',
-        component: AdminPage,
+        component: AdminLayout,
         children: ProvidersPage,
         breadcrumb : t("text.providers")
+    },
+    {
+        path: '/admin/productAccounting',
+        component: AdminLayout,
+        children: ProductAccounting,
+        breadcrumb : t("titles.productAccounting")
+    },
+    {
+        path: "/admin/discounts",
+        component: AdminLayout,
+        children: DiscountsPage,
+        breadcrumb : t("breadcrumbs.discounts")
     },
 ];
