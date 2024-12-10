@@ -8,8 +8,12 @@
   .MuiTypography-root {
     color: var(--text-color);
   }
-  .MuiCheckbox-root {
-    color: var(--text-color);
+  .payment-error {
+    color: #b71c1c;
+  }
+  .delivery-error {
+    color: #b71c1c;
+    margin-top: 16px;
   }
   .sticky-grid {
     @media (min-width: 960px) {
@@ -53,4 +57,7 @@
     font-size: 14px;
     padding-bottom: 0;
   }
+}
+.MuiInputBase-root, .MuiInputBase-input {
+  height: 50px;
 }
