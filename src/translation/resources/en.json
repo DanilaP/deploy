@@ -132,6 +132,7 @@
         "description": "Description",
         "feedbackAnswer": "Feedback answer",
         "no": "No",
+        "verifyNotARobot": "Please, verify that you are not a robot",
         "statusSearch": "Search by status",
         "answer": "Answer",
         "managingFeedbacks": "Managing feedbacks",

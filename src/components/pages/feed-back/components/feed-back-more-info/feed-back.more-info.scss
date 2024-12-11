@@ -26,4 +26,17 @@
             color: orange;
         }
     }
+    .bid-history {
+        .bid-history-content-next, .bid-history-content-prev {
+            display: flex;
+            column-gap: 5px;
+            .history-bid-wrapper {
+                color: var(--default-color);
+                &:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
 }

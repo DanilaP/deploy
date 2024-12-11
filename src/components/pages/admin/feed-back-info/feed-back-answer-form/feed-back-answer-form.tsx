@@ -29,6 +29,7 @@ export default function FeedBackAnswerForm({
         register,
         handleSubmit,
         setValue,
+        reset,
         formState: { errors , submitCount, isValid },
     } = useForm<IFeedbackAnswerData>({
         defaultValues: {
@@ -63,6 +64,7 @@ export default function FeedBackAnswerForm({
         if (!currentFeedback?.moderatorAnswer) {
             setValue("answer", "");
         } else {
+            reset();
             setValue("answer", currentFeedback?.moderatorAnswer);
         }
     }, [currentFeedback?.moderatorAnswer]);

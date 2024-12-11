@@ -2,7 +2,7 @@ import { Autocomplete, Button, FormControl, FormLabel, TextField } from "@mui/ma
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { validateEmail, validatePhone, validateRequiredField } from "../../../../../helpers/validators/validators-helper";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { IAttachment } from "../../../../../interfaces/interfaces";
 import { convertFileListToAttachmentsFormatBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
 import { IFeedBack } from "../../../../../models/feedbacks/feedbacks";
@@ -10,6 +10,7 @@ import FileAttachment from "../../../../partials/file-attachment/file-attachment
 import InputMask from 'react-input-mask';
 import InputFile from "../../../../components-ui/custom-file-nput/file-input";
 import "./feed-back-form.scss";
+import ReCaptcha from "../../../../partials/re-captcha/re-captcha";
 
 interface IFeedBackFormProps {
     mode: "create" | "edit" | null,
@@ -44,6 +45,8 @@ export default function FeedBackForm({
 
     const isEdit = mode === "edit";
 
+    const [isCaptchaPassed, setIsCaptchaPassed] = useState<boolean>(false);
+
     const handleGetInithialValuesForForm = () => {
         if (isEdit && currentFeedback) return currentFeedback;
         if (feedbackForRedo) return {
@@ -76,6 +79,14 @@ export default function FeedBackForm({
         }
     };
 
+    const handleGetSubmitButtonDisabled = () => {
+        if (isEdit) {
+            return !isValid || !isCaptchaPassed;
+        } else {
+            return submitCount !== 0 && (!isValid || !isCaptchaPassed);
+        }
+    };
+
     const handleVaalidatePhone = (value: string) => {
         const clearedValueLength = getValues("phoneNumber").trim().length;
         if (clearedValueLength === 2) return true;
@@ -87,6 +98,10 @@ export default function FeedBackForm({
         if (value.length === 0) return t("errors.requiredField");
         if (!validateEmail(value)) return t("errors.email");
         return true;
+    };
+    
+    const handleSuccessfulPassing = (key: string | null) => {
+        setIsCaptchaPassed(key ? true : false);
     };
     
     useEffect(() => {
@@ -218,11 +233,17 @@ export default function FeedBackForm({
                     }) }
                 />
             </FormControl>
+            <FormControl>
+                <ReCaptcha
+                    title="text.verifyNotARobot"
+                    handleSuccessfulPassing={ handleSuccessfulPassing }
+                />
+            </FormControl>
             <div className="form-actions">
                 <Button 
                     type="submit" 
                     variant="contained"
-                    disabled={ submitCount !== 0 && !isValid }
+                    disabled={ handleGetSubmitButtonDisabled() }
                 >{ t("text.save") }</Button>
                 <Button 
                     variant="contained" 

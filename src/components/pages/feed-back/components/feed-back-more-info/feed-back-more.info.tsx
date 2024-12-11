@@ -4,14 +4,28 @@ import FeedbackAttachment from "../../../../partials/file-attachment/file-attach
 import { IFeedBack } from "../../../../../models/feedbacks/feedbacks";
 
 interface IFeedbackMoreInfoProps {
-    feedback: IFeedBack | null
+    feedback: IFeedBack | null,
+    handleSearchNextFeedbacksForFeedback: (feedback: IFeedBack) => IFeedBack[],
+    handleSearchPrevFeedbacksForFeedback: (feedback: IFeedBack) => IFeedBack[],
+    handleSwapCurrentFeedback: (feedback: IFeedBack) => void,
 }
 
 export default function FeedbackMoreInfo({
-    feedback
+    feedback,
+    handleSearchNextFeedbacksForFeedback,
+    handleSearchPrevFeedbacksForFeedback,
+    handleSwapCurrentFeedback
 }: IFeedbackMoreInfoProps) {
 
     const { t } = useTranslation();
+    const prevFeedbacks = 
+        feedback 
+            ? [...handleSearchNextFeedbacksForFeedback(feedback)]
+            : [];
+    const nextFeedbacks = 
+        feedback 
+            ? [...handleSearchPrevFeedbacksForFeedback(feedback)]
+            : [];       
 
     return (
         <div className="call-back-more-info">
@@ -58,6 +72,37 @@ export default function FeedbackMoreInfo({
                         ? <span className="solved"> { t("text.solved") }</span> 
                         : <span className="waiting"> { t("text.waiting") }</span>
                 }
+            </div>
+            <hr />
+            <div className="bid-history">
+                <div className="bid-history-content-prev">
+                    <span>Предыдущие заявки: </span>
+                    {
+                        prevFeedbacks.map(el => {
+                            return (
+                                <div 
+                                    className="history-bid-wrapper"
+                                    key={ el.id }
+                                    onClick={ () => handleSwapCurrentFeedback(el) }
+                                >Заявка { el.id }</div>
+                            );
+                        })
+                    }
+                </div>
+                <div className="bid-history-content-next">
+                    <span>Следующие заявки: </span>
+                    {
+                        nextFeedbacks.map(el => {
+                            return (
+                                <div 
+                                    className="history-bid-wrapper"
+                                    key={ el.id }
+                                    onClick={ () => handleSwapCurrentFeedback(el) }
+                                >Заявка { el.id }</div>
+                            );
+                        })
+                    }
+                </div>
             </div>
         </div>
     );

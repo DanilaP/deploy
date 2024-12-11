@@ -142,6 +142,7 @@
         "feedback": "Обратная связь",
         "addCategory": "Добавить категорию",
         "historyOfAnswers": "Связанные заявки",
+        "verifyNotARobot": "Пожалуйста, подтвердите что Вы не робот",
         "yourActiveFeedbacks": "Ваши активные заявки обратной связи",
         "youHaveNoFeedbacksYet": "Вы пока не оставляли заявки с обратной связью",
         "dateOfCreation": "Дата добавления",

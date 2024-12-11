@@ -19,7 +19,9 @@ export default function FeedBackPage() {
         feedbacksDataGrid: userFeedbacksDataGrid,
         handleCreateNewUserFeedBack,
         handleUpdateFeedbackData,
-        handleDeleteFeedbackById
+        handleDeleteFeedbackById,
+        handleSearchNextFeedbacksForFeedback,
+        handleSearchPrevFeedbacksForFeedback
     } = useFeedbacks(userId ? userId : null);
 
     const [currentFeedback, setCurrentFeedback] = useState<IFeedBack | null>(null);
@@ -43,6 +45,10 @@ export default function FeedBackPage() {
                 return { ...prev, moreInfo: true };
             });
         }
+    };
+
+    const handleSwapCurrentFeedback = (feedback: IFeedBack) => {
+        setCurrentFeedback(feedback);
     };
 
     const handleCloseFeedbackMoreInfo = () => {
@@ -189,6 +195,9 @@ export default function FeedBackPage() {
             >
                 <FeedbackMoreInfo
                     feedback={ currentFeedback }
+                    handleSearchPrevFeedbacksForFeedback={ handleSearchPrevFeedbacksForFeedback }
+                    handleSearchNextFeedbacksForFeedback={ handleSearchNextFeedbacksForFeedback }
+                    handleSwapCurrentFeedback={ handleSwapCurrentFeedback }
                 />
             </CustomModal>
             <CustomModal
