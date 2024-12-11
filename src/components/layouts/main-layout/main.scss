@@ -1,0 +1,25 @@
+.main-layout {
+    display: grid;
+    .main-menu {
+        padding: 10px 0px 10px 0px;
+        padding-left: 25px;
+        background-color: var(--bg-color-block);
+        border-right: 1px solid rgba(128, 128, 128, 0.247);
+        min-height: 40px;
+        display: flex;
+        column-gap: 20px;
+        align-items: center;
+        .catalog-button {
+            min-width: 150px;
+        }
+        .search-input {
+            min-width: 20%;
+        }
+        .MuiInputBase-input {
+            padding: 6px;
+        }
+    }
+    .main-children {
+
+    }
+}
