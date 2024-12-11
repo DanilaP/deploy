@@ -99,7 +99,7 @@ export default function FeedBackPage() {
     };
 
     const handleCheckIsChildrenExistsForFeedback = (feedbackId: number) => {
-        return userFeedBacks.find(el => el.parentFeedbackId === feedbackId);
+        return Boolean(userFeedBacks.find(el => el.parentFeedbackId === feedbackId));
     };
 
     const handleCloseDeleteFeedbackModal = () => {

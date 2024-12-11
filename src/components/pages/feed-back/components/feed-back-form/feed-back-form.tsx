@@ -89,7 +89,7 @@ export default function FeedBackForm({
     };
 
     const handleGetSubmitButtonDisabled = () => {
-        if (isEdit) {
+        if (isEdit || feedbackForRedo) {
             return !isValid || !isCaptchaPassed;
         } else {
             return submitCount !== 0 && (!isValid || !isCaptchaPassed);
