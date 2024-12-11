@@ -48,6 +48,7 @@ export default function Chats () {
                 <div className="list">
                     { (adminChats && userStore.user) && 
                         <AdminChats 
+                            changeChatsInfo = { setAdminChats }
                             changeChat={ changeChat } 
                             user={ userStore.user } 
                             chats={ adminChats } 

@@ -6,7 +6,8 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-
+    position: relative;
+    
     .chat-header {
         width: 100%;
 
@@ -41,12 +42,32 @@
         justify-content: space-between;
         gap: 20px;
 
-        .MuiButtonBase-root {
-            height: 36.5px;
+        .emoji-icon {
+            width: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            height: 100%;
+            color: var(--default-color);
+            background-color: var(--bg-color);
+            border: 1px solid rgba(128, 128, 128, 0.247);
         }
 
-        .MuiInputBase-input {
-            height: 3.5px;
+        .MuiButtonBase-root {
+            height: 36.5px;
+            width: 150px;
+        }
+
+        .MuiInputBase-root {
+            height: 36.5px;
         }
     }
+
+    .emoji-wrapper {
+        position: absolute;
+        bottom: 60px;
+        left: 10px;
+    }
 }
+

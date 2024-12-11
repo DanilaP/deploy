@@ -27,6 +27,7 @@ export interface IMessage {
 }
 export interface IChat {
     id: number,
+    fixed: boolean,
     members: number[],
     messages: IMessage[]
 }

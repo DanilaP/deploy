@@ -1,6 +1,7 @@
 [
   {
     "id": 1732687844526,
+    "fixed": false,
     "members": [
       1732528796810,
       1727098679785
@@ -40,6 +41,7 @@
   },
   {
     "id": 1732773201086,
+    "fixed": false,
     "members": [
       1732604379612,
       1727098679785
@@ -79,22 +81,29 @@
   },
   {
     "id": 1732780994089,
+    "fixed": false,
     "members": [
       1732780938181,
-      null
+      1727098679785
     ],
     "messages": [
       {
         "senderId": 1732780938181,
-        "recipientId": null,
+        "recipientId": 1727098679785,
         "date": "2024/11/28 11:03",
         "text": "test from chat tester 3"
       },
       {
-        "senderId": 1732780938181,
-        "recipientId": null,
-        "date": "2024/11/28 11:03",
-        "text": "another message"
+        "senderId": 1727098679785,
+        "recipientId": 1732780938181,
+        "date": "2024/12/11 13:24",
+        "text": "test 123😀😄😆 123"
+      },
+      {
+        "senderId": 1727098679785,
+        "recipientId": 1732780938181,
+        "date": "2024/12/11 13:24",
+        "text": "test 123😀😄😆 123"
       }
     ]
   }

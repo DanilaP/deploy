@@ -749,9 +749,35 @@ app.delete("/providers", async function(req, res) {
     }
 });
 
-
-
 //Chat endpoints
+app.post("/chat/pin", async function(req, res) {
+    try {
+        let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        let updatedChats = currentChats.map((chat) => {
+            if (chat.id === req.body.id) {
+                return {
+                    ...chat,
+                    fixed: chat.fixed ? false : true
+                };
+            }
+            else return chat;
+        });
+        let detailedChatsInfo = updatedChats.map(chat => {
+            return {
+                ...chat,
+                members: currentUsers.filter(user => chat.members.includes(user.id))
+            };
+        });
+        fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
+        res.status(200).json({ message: "Успешное закрепление чата", chats: detailedChatsInfo });
+    }
+    catch (error) {
+        res.status(400).json({ message: "Ошибка при закреплении чата" });
+        console.error(error);
+    }
+});
+
 app.get("/chats", async function(req, res) {
     try {
         const token = req.headers.authorization;
