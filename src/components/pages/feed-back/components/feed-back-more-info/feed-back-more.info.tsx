@@ -39,7 +39,7 @@ export default function FeedbackMoreInfo({
                 <b>{ t("text.description") }</b>: { feedback?.description }
             </div>
             <div className="type-of-bid">
-                <b>{ t("text.typeOfBid") }</b>: { feedback?.typeOfBid }
+                <b>{ t("text.typeOfBid") }</b>: { t(`typesOfFeedbacks.${feedback?.typeOfBid || ""}`) }
             </div>
             <div className="email">
                 <b>{ t("text.email") }</b>: { feedback?.email }

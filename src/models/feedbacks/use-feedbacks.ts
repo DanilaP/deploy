@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { IFeedFormData } from "../../components/pages/feed-back/components/feed-back-form/feed-back-form.js";
 import { GridColDef } from "@mui/x-data-grid";
 import { useTranslation } from "react-i18next";
-import { deleteFeedback, getFeedbacks } from "./feedbacks-api.js";
-import { IFeedBack } from "./feedbacks.js";
+import { deleteFeedback, getFeedbacks, getFeedbackTypes } from "./feedbacks-api.js";
+import { IFeedBack, IFeedbackType } from "./feedbacks.js";
 
 export const useFeedbacks = (userId: string | null) => {
 
     const [loading, setLoading] = useState<boolean>(true);
     const [userFeedBacks, setUserFeedbacks] = useState<IFeedBack[]>([]);
+    const [feedbackTypes, setFeedbackTypes] = useState<IFeedbackType[]>([]);
     const [userFeedbacksDataGrid, setUserFeedbacksDataGrid] = useState<{ columns: any[], rows: any[]} >({
         columns: [], rows: []
     });
@@ -19,8 +20,17 @@ export const useFeedbacks = (userId: string | null) => {
 
     const handleGetFeedbacksDataForDataGrid = (feedbacks: IFeedBack[]) => {
         const rows = feedbacks.map(el => {
-            const { id, firstName, secondName, createdAt, typeOfBid, phoneNumber, solved } = el;
-            return { id, firstName, secondName, typeOfBid, createdAt, phoneNumber, solved };
+            const translatedTypeOfBid = t(`typesOfFeedbacks.${el.typeOfBid}`);
+            const currentRow = {
+                id: el.id,
+                firstName: el.firstName,
+                secondName: el.secondName,
+                createdAt: el.createdAt,
+                typeOfBid: translatedTypeOfBid,
+                phoneNumber: el.phoneNumber,
+                solved: el.solved,
+            };
+            return currentRow;
         });
         const columns: GridColDef<(typeof rows)[number]>[] = [
             { field: "id", headerName: "№", minWidth: 50, headerAlign: "center" },
@@ -147,11 +157,21 @@ export const useFeedbacks = (userId: string | null) => {
             });
     }, [userId]);
 
+    useEffect(() => {
+        getFeedbackTypes()
+            .then(res => {
+                if (res.data.types) {
+                    setFeedbackTypes(res.data.types);
+                }
+            });
+    }, []);
+
     return {
         loading,
         feedbacks: userFeedBacks,
         feedbacksDataGrid: userFeedbacksDataGrid,
         fitleredFeedbacksDataGrid: fitleredUserFeedbacksDataGrid,
+        feedbackTypes,
         handleCreateNewUserFeedBack,
         handleUpdateFeedbackData,
         handleFilterUserFeedbacksDataGridByStatus,

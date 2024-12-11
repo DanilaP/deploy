@@ -377,6 +377,11 @@
         "promo": "Промокод",
         "discount": "Скидка"
     },
+    "typesOfFeedbacks": {
+        "complaint": "Жалоба",
+        "other": "Другое",
+        "review": "Отзыв"
+    },
     "symbols": {
         "rub": "\u20BD"
     },

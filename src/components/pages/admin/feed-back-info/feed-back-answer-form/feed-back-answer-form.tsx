@@ -75,7 +75,7 @@ export default function FeedBackAnswerForm({
                 <div className="name">
                     { currentFeedback?.firstName } { currentFeedback?.secondName } { currentFeedback?.phoneNumber }
                 </div>
-                <div className="type">{ currentFeedback?.typeOfBid }</div>
+                <div className="type">{ t(`typesOfFeedbacks.${currentFeedback?.typeOfBid || ""}`) }</div>
                 <div className="description">{ currentFeedback?.description }</div>
                 <div className="attachments">
                     <div className="files">

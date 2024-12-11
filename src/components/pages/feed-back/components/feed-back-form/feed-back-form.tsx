@@ -5,7 +5,7 @@ import { validateEmail, validatePhone, validateRequiredField } from "../../../..
 import { useEffect, useState } from "react";
 import { IAttachment } from "../../../../../interfaces/interfaces";
 import { convertFileListToAttachmentsFormatBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
-import { IFeedBack } from "../../../../../models/feedbacks/feedbacks";
+import { IFeedBack, IFeedbackType } from "../../../../../models/feedbacks/feedbacks";
 import FileAttachment from "../../../../partials/file-attachment/file-attachment";
 import InputMask from 'react-input-mask';
 import InputFile from "../../../../components-ui/custom-file-nput/file-input";
@@ -16,6 +16,7 @@ interface IFeedBackFormProps {
     mode: "create" | "edit" | null,
     currentFeedback: IFeedBack | null,
     feedbackForRedo: IFeedBack | null,
+    feedbackTypes: IFeedbackType[],
     handleCloseCreatingNewFeedback: () => void,
     handleSaveNewFeedback: (feedback: IFeedFormData) => void,
     handleUpdateUnsavedDataExist: (unsavedDataExists: boolean) => void
@@ -37,6 +38,7 @@ export default function FeedBackForm({
     mode,
     currentFeedback,
     feedbackForRedo,
+    feedbackTypes,
     handleCloseCreatingNewFeedback,
     handleSaveNewFeedback,
     handleUpdateUnsavedDataExist,
@@ -47,8 +49,13 @@ export default function FeedBackForm({
 
     const [isCaptchaPassed, setIsCaptchaPassed] = useState<boolean>(false);
 
+    const { t } = useTranslation();
+
     const handleGetInithialValuesForForm = () => {
-        if (isEdit && currentFeedback) return currentFeedback;
+        if (isEdit && currentFeedback) return {
+            ...currentFeedback,
+            typeOfBid: t(`typesOfFeedbacks.${currentFeedback?.typeOfBid}`)
+        };
         if (feedbackForRedo) return {
             firstName: feedbackForRedo?.firstName || "",
             secondName: feedbackForRedo?.secondName || "",
@@ -69,13 +76,15 @@ export default function FeedBackForm({
         defaultValues: handleGetInithialValuesForForm()
     });
 
-    const { t } = useTranslation();
-
     const handleCreateNewFeedback = (data: IFeedFormData) => {
+        const finalData: IFeedFormData = {
+            ...data,
+            typeOfBid: feedbackTypes.find(el => t(`typesOfFeedbacks.${el.systemKey}`) === data.typeOfBid)?.systemKey || ""
+        };
         if (isEdit) {
-            handleEditCurrentFeedback(data);
+            handleEditCurrentFeedback(finalData);
         } else {
-            handleSaveNewFeedback(data);
+            handleSaveNewFeedback(finalData);
         }
     };
 
@@ -87,7 +96,7 @@ export default function FeedBackForm({
         }
     };
 
-    const handleVaalidatePhone = (value: string) => {
+    const handleValidatePhone = (value: string) => {
         const clearedValueLength = getValues("phoneNumber").trim().length;
         if (clearedValueLength === 2) return true;
         if (!validatePhone(value)) return t("errors.phoneNumber");
@@ -179,14 +188,12 @@ export default function FeedBackForm({
                 <Controller
                     name="typeOfBid"
                     control={ control }
-                    defaultValue="Отзыв"
                     rules={ { required: t("errors.requiredField") } }
+                    defaultValue={ t(`typesOfFeedbacks.${feedbackTypes[0]?.systemKey}`) }
                     render={ ({ field }) => (
                         <Autocomplete
                             { ...field }
-                            options={ [
-                                "Жалоба", "Отзыв", "Другое"
-                            ] }
+                            options={ feedbackTypes.map(el => t(`typesOfFeedbacks.${el.systemKey}`)) }
                             onChange={ (_, value) => field.onChange(value) }
                             renderInput={ (params) => (
                                 <TextField
@@ -204,7 +211,7 @@ export default function FeedBackForm({
                 <FormLabel className="label">{ t("text.phoneNumber") }</FormLabel>
                 <InputMask
                     { ...register("phoneNumber", {
-                        validate: (value) => handleVaalidatePhone(value)
+                        validate: (value) => handleValidatePhone(value)
                     }) }
                     mask="+7 999 999 99 99"
                     maskChar=" "

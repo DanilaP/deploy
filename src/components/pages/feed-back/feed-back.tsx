@@ -17,6 +17,7 @@ export default function FeedBackPage() {
     const {
         feedbacks: userFeedBacks,
         feedbacksDataGrid: userFeedbacksDataGrid,
+        feedbackTypes,
         handleCreateNewUserFeedBack,
         handleUpdateFeedbackData,
         handleDeleteFeedbackById,
@@ -215,6 +216,7 @@ export default function FeedBackPage() {
                     mode={ mode }
                     currentFeedback={ currentFeedback }
                     feedbackForRedo={ feedbackForRedo }
+                    feedbackTypes={ feedbackTypes }
                     handleCloseCreatingNewFeedback={ handleCloseCreatingNewFeedback }
                     handleSaveNewFeedback={ handleCreateNewFeedback }
                     handleUpdateUnsavedDataExist={ handleUpdateUnsavedDataExist }

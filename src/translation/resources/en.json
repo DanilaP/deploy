@@ -366,6 +366,11 @@
         "ManagingProviders": "Managing providers",
         "WathingProviders": "Watching providers"
     },
+    "typesOfFeedbacks": {
+        "complaint": "Complaint",
+        "other": "Other",
+        "review": "Review"
+    },
     "discountTypes": {
         "promo": "Promocode",
         "discount": "Discount"
