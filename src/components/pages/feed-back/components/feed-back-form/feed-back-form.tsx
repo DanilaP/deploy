@@ -60,9 +60,9 @@ export default function FeedBackForm({
             firstName: feedbackForRedo?.firstName || "",
             secondName: feedbackForRedo?.secondName || "",
             email: feedbackForRedo?.email || "",
-            parentFeedBackId: feedbackForRedo.id
+            parentFeedbackId: feedbackForRedo.id
         };
-        return { parentFeedBackId: null };
+        return { parentFeedbackId: null };
     };
 
     const {

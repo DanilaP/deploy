@@ -12,7 +12,7 @@ export const FeedBackInfoPage = () => {
         feedbacks,
         handleUpdateFeedbackData,
         handleSearchNextFeedbacksForFeedback,
-        handleSearchPrevFeedbacksForFeedback
+        handleSearchChildrenFeedbacksForFeedback
     } = useFeedbacks(null);
 
     const [currentFeedback, setCurrentFeedback] = useState<IFeedBack | null>(null);
@@ -34,7 +34,7 @@ export const FeedBackInfoPage = () => {
             setCurrentFeedbackHistory(
                 [
                     ...handleSearchNextFeedbacksForFeedback(currentFeedback),
-                    ...handleSearchPrevFeedbacksForFeedback(currentFeedback),
+                    ...handleSearchChildrenFeedbacksForFeedback(currentFeedback),
                     currentFeedback
                 ]
             );
