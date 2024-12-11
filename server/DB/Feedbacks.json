@@ -4,7 +4,7 @@
         "userId": 1727098679785,
         "firstName": "Egor",
         "secondName": "Platonov",
-        "phoneNumber": "+7 (969) 346-36-19",
+        "phoneNumber": "+7 969 346 36 19",
         "description": "Жалоба на качество полученного товара. Товар пришел ненадлежащеого качества, хотелось бы как-то решить этот вопрос и получить какую-то компенсацию.",
         "typeOfBid": "Жалоба",
         "email": "eplat0220@gmail.com",
@@ -21,21 +21,22 @@
                 "type": "video", 
                 "src": "http://localhost:5000/video/video1.mp4" 
             }
-        ]
+        ],
+        "parentFeedbackId": null
     },
     {
         "id": 2,
         "userId": 1727098679785,
         "firstName": "Egor",
         "secondName": "Platonov",
-        "phoneNumber": "+7 (969) 346-36-20",
+        "phoneNumber": "+7 969 346 36 20",
         "description": "Долго не могу получить ответ по предыдущей заявке. Создал заявку около двух часов назад, а она до сих пор осталась без овтета. Хотелось бы поскорее получить результат.",
         "typeOfBid": "Отзыв",
         "email": "eplat0220@gmail.com",
         "solved": true,
-        "moderatorAnswer": "Извините, из - за большого количества обращений может быть задержка с ответом. В скором времени Вам ответят.",
-        "createdAt": "10-06-2024 14:45",
-        "dateOfAnswer": "10-06-2024 15:00",
+        "moderatorAnswer": "Извините, в скором времени Вам ответит модератор.",
+        "createdAt": "10-06-2024 16:45",
+        "dateOfAnswer": "10-06-2024 17:00",
         "attachments": [
             { 
                 "type": "image", 
@@ -45,15 +46,41 @@
                 "type": "video", 
                 "src": "http://localhost:5000/video/video1.mp4" 
             }
-        ]
+        ],
+        "parentFeedbackId": 1
     },
     {
         "id": 3,
+        "userId": 1727098679780,
+        "firstName": "Egor",
+        "secondName": "Platonov",
+        "phoneNumber": "+7 969 346 36 20",
+        "description": "ОЧЕНЬ Долго не могу получить ответ по предыдущей заявке. Создал заявку около двух часов назад, а она до сих пор осталась без овтета. Хотелось бы поскорее получить результат.",
+        "typeOfBid": "Отзыв",
+        "email": "eplat0220@gmail.com",
+        "solved": true,
+        "moderatorAnswer": "Извините, из - за большого количества обращений может быть задержка с ответом. В скором времени Вам ответят.",
+        "createdAt": "10-06-2024 17:45",
+        "dateOfAnswer": "10-06-2024 18:00",
+        "attachments": [
+            { 
+                "type": "image", 
+                "src": "http://localhost:5000/products/product1.jpg" 
+            },
+            { 
+                "type": "video", 
+                "src": "http://localhost:5000/video/video1.mp4" 
+            }
+        ],
+        "parentFeedbackId": 2
+    },
+    {
+        "id": 4,
         "userId": 1727161785732,
         "firstName": "New",
         "secondName": "User",
-        "phoneNumber": "+7 (969) 346-36-25",
-        "description": "Долго не могу получить ответ по предыдущей заявке. Создал заявку около двух часов назад, а она до сих пор осталась без овтета. Хотелось бы поскорее получить результат.",
+        "phoneNumber": "+7 969 346 36 21",
+        "description": "Всё ещё жду ответ по моей заявке, на первую так не и ответили",
         "typeOfBid": "Другое",
         "email": "newuser@gmail.com",
         "solved": true,
@@ -69,21 +96,23 @@
                 "type": "video", 
                 "src": "http://localhost:5000/video/video1.mp4" 
             }
-        ]
+        ],
+        "parentFeedbackId": null
     },
     {
-        "id": 4,
+        "id": 5,
         "userId": 1730462293031,
         "firstName": "Firstname",
         "secondName": "Secondname",
-        "phoneNumber": "+7 (969) 346-36-25",
-        "description": "Долго не могу получить ответ по предыдущей заявке. Создала заявку около двух часов назад, а она до сих пор осталась без овтета. Хотелось бы поскорее получить результат.",
+        "phoneNumber": "+7 969 346 36 22",
+        "description": "Понравился Ваш магазин, удобно заказывать товары. Всё приходит быстро, недостатков нет.",
         "typeOfBid": "Другое",
         "email": "newuser@gmail.com",
         "solved": true,
-        "moderatorAnswer": "Извините, из - за большого количества обращений может быть задержка с ответом. В скором времени Вам ответят.",
+        "moderatorAnswer": "Добрый день, спасибо за Ваш отзыв.",
         "createdAt": "10-06-2024 14:45",
         "dateOfAnswer": "10-06-2024 14:50",
-        "attachments": []
+        "attachments": [],
+        "parentFeedbackId": null
     }
 ]

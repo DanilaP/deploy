@@ -36,7 +36,7 @@ export default function FeedbackMoreInfo({
             <div className="attachments">
                 <b>{ t("text.attachments") }: </b>
                 {
-                    feedback?.attachments.map(attachment => (
+                    feedback?.attachments?.map(attachment => (
                         <FeedbackAttachment
                             key={ attachment.src }
                             attachment={ attachment }

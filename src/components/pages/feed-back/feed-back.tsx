@@ -23,6 +23,7 @@ export default function FeedBackPage() {
     } = useFeedbacks(userId ? userId : null);
 
     const [currentFeedback, setCurrentFeedback] = useState<IFeedBack | null>(null);
+    const [feedbackForRedo, setFeedbackForRedo] = useState<IFeedBack | null>(null);
     const [mode, setMode] = useState<"create" | "edit" | null>(null);
     const [modals, setModals] = useState({ 
         moreInfo: false, 
@@ -79,6 +80,17 @@ export default function FeedBackPage() {
         }
     };
 
+    const handleOpenRedoFeedbackModal = (feedbackId: number) => {
+        const findedFeedback = userFeedBacks.find(el => el.id === feedbackId);
+        if (findedFeedback) {
+            setFeedbackForRedo(findedFeedback);
+            setMode("create");
+            setModals(prev => {
+                return { ...prev, manage: true };
+            });
+        }
+    };
+
     const handleCloseDeleteFeedbackModal = () => {
         setCurrentFeedback(null);
         setModals(prev => {
@@ -96,7 +108,6 @@ export default function FeedBackPage() {
         }
     };
 
-
     const handleCloseCreatingNewFeedback = () => {
         if (unsavedDataExists) {
             setModals(prev => {
@@ -107,6 +118,8 @@ export default function FeedBackPage() {
         setModals(prev => {
             return { ...prev, manage: false };
         });
+        setCurrentFeedback(null);
+        setFeedbackForRedo(null);
         setMode(null);
     };
 
@@ -117,6 +130,7 @@ export default function FeedBackPage() {
         });
         setMode(null);
         setCurrentFeedback(null);
+        setFeedbackForRedo(null);
     };
 
     const handleEditCurrentFeedback = (feedbackData: IFeedFormData) => {
@@ -130,6 +144,7 @@ export default function FeedBackPage() {
             });
             setMode(null);
             setCurrentFeedback(null);
+            setFeedbackForRedo(null);
         }
     };
 
@@ -160,6 +175,7 @@ export default function FeedBackPage() {
                 handleOpenCreatingNewFeedback={ handleOpenCreatingNewFeedback }
                 handleOpenEditFeedbackModal={ handleOpenEditFeedbackModal }
                 handleOpenDeleteFeedbackModal={ handleOpenDeleteFeedbackModal }
+                handleOpenRedoFeedbackModal={ handleOpenRedoFeedbackModal }
             />
             <CustomModal
                 isDisplay={ modals.moreInfo }
@@ -189,6 +205,7 @@ export default function FeedBackPage() {
                 <FeedBackForm
                     mode={ mode }
                     currentFeedback={ currentFeedback }
+                    feedbackForRedo={ feedbackForRedo }
                     handleCloseCreatingNewFeedback={ handleCloseCreatingNewFeedback }
                     handleSaveNewFeedback={ handleCreateNewFeedback }
                     handleUpdateUnsavedDataExist={ handleUpdateUnsavedDataExist }

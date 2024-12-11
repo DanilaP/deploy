@@ -8,6 +8,6 @@ class RootStore {
         this.userStore = new UserStore();
         this.cartStore = new CartStore();
     }
-};
+}
 
 export default RootStore;

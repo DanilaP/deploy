@@ -23,7 +23,7 @@ export const useFeedbacks = (userId: string | null) => {
             return { id, firstName, secondName, typeOfBid, createdAt, phoneNumber, solved };
         });
         const columns: GridColDef<(typeof rows)[number]>[] = [
-            { field: "id", headerName: "ID", minWidth: 50, headerAlign: "center" },
+            { field: "id", headerName: "№", minWidth: 50, headerAlign: "center" },
             { field: "firstName", headerName: t("text.firstName"), minWidth: 50, headerAlign: "center" },
             { field: "secondName", headerName: t("text.secondName"), minWidth: 50, headerAlign: "center" },
             { field: "createdAt", headerName: t("text.dateOfCreation"), flex: 1, headerAlign: "center" },
@@ -55,7 +55,7 @@ export const useFeedbacks = (userId: string | null) => {
                 solved: false,
                 moderatorAnswer: null,
                 createdAt: dateOfCreation,
-                dateOfAnswer: null
+                dateOfAnswer: null,
             };
             const updatedFeedbacks = [...userFeedBacks, newUserFeedback];
             setUserFeedbacks(updatedFeedbacks);
@@ -111,6 +111,24 @@ export const useFeedbacks = (userId: string | null) => {
             });
     };
 
+    const handleSearchPrevFeedbacksForFeedback = (feedback: IFeedBack) => {
+        let findedFeedbacks: IFeedBack[] = [];
+        const findedFeedback = userFeedBacks.find(el => el.parentFeedbackId === feedback.id);
+        if (findedFeedback) {
+            findedFeedbacks = [...findedFeedbacks, findedFeedback, ...handleSearchPrevFeedbacksForFeedback(findedFeedback)];
+        }
+        return findedFeedbacks;
+    };
+
+    const handleSearchNextFeedbacksForFeedback = (feedback: IFeedBack) => {
+        let findedFeedbacks: IFeedBack[] = [];
+        const parentFeedback = userFeedBacks.find(el => el.id === feedback.parentFeedbackId);
+        if (parentFeedback) {
+            findedFeedbacks = [...findedFeedbacks, parentFeedback, ...handleSearchNextFeedbacksForFeedback(parentFeedback)];
+        }
+        return findedFeedbacks;
+    };
+
     useEffect(() => {
         const userIdQuery = userId ? Number(userId) : null;
         getFeedbacks(userIdQuery)
@@ -138,6 +156,8 @@ export const useFeedbacks = (userId: string | null) => {
         handleUpdateFeedbackData,
         handleFilterUserFeedbacksDataGridByStatus,
         handleSearchFeedbacksByAllFields,
-        handleDeleteFeedbackById
+        handleDeleteFeedbackById,
+        handleSearchNextFeedbacksForFeedback,
+        handleSearchPrevFeedbacksForFeedback
     };
 };

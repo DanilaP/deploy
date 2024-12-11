@@ -14,6 +14,7 @@ import "./feed-back-form.scss";
 interface IFeedBackFormProps {
     mode: "create" | "edit" | null,
     currentFeedback: IFeedBack | null,
+    feedbackForRedo: IFeedBack | null,
     handleCloseCreatingNewFeedback: () => void,
     handleSaveNewFeedback: (feedback: IFeedFormData) => void,
     handleUpdateUnsavedDataExist: (unsavedDataExists: boolean) => void
@@ -27,12 +28,14 @@ export interface IFeedFormData {
     phoneNumber: string,
     description: string,
     typeOfBid: string,
-    attachments: IAttachment[]
+    attachments: IAttachment[],
+    parentFeedbackId: number | null
 }
 
 export default function FeedBackForm({
     mode,
     currentFeedback,
+    feedbackForRedo,
     handleCloseCreatingNewFeedback,
     handleSaveNewFeedback,
     handleUpdateUnsavedDataExist,
@@ -41,15 +44,26 @@ export default function FeedBackForm({
 
     const isEdit = mode === "edit";
 
+    const handleGetInithialValuesForForm = () => {
+        if (isEdit && currentFeedback) return currentFeedback;
+        if (feedbackForRedo) return {
+            firstName: feedbackForRedo?.firstName || "",
+            secondName: feedbackForRedo?.secondName || "",
+            email: feedbackForRedo?.email || "",
+            parentFeedBackId: feedbackForRedo.id
+        };
+        return { parentFeedBackId: null };
+    };
+
     const {
         register,
         handleSubmit,
         watch,
+        getValues,
         control,
         formState: { errors , submitCount, isValid, isDirty },
     } = useForm<IFeedFormData>({
-        defaultValues: 
-            isEdit && currentFeedback ? currentFeedback : {}
+        defaultValues: handleGetInithialValuesForForm()
     });
 
     const { t } = useTranslation();
@@ -60,6 +74,13 @@ export default function FeedBackForm({
         } else {
             handleSaveNewFeedback(data);
         }
+    };
+
+    const handleVaalidatePhone = (value: string) => {
+        const clearedValueLength = getValues("phoneNumber").trim().length;
+        if (clearedValueLength === 2) return true;
+        if (!validatePhone(value)) return t("errors.phoneNumber");
+        return true;
     };
 
     const handleValidateEmailField = (value: string) => {
@@ -91,9 +112,7 @@ export default function FeedBackForm({
                     error={ Boolean(errors.secondName) }
                     helperText={ String(errors.secondName?.message || "") }
                     placeholder={ t("text.yourSecondName") }
-                    { ...register("secondName", { 
-                        validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                    }) }
+                    { ...register("secondName") }
                 />
             </FormControl>
             <FormControl>
@@ -170,9 +189,9 @@ export default function FeedBackForm({
                 <FormLabel className="label">{ t("text.phoneNumber") }</FormLabel>
                 <InputMask
                     { ...register("phoneNumber", {
-                        validate: (value) => validatePhone(value) ? true : t("errors.phoneNumber")
+                        validate: (value) => handleVaalidatePhone(value)
                     }) }
-                    mask="+7 (999) 999-99-99"
+                    mask="+7 999 999 99 99"
                     maskChar=" "
                     alwaysShowMask={ true }
                 >
