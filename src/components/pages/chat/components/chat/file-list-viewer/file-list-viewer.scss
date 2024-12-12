@@ -1,0 +1,36 @@
+.file-list-viewer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding-top: 10px;
+    box-sizing: border-box;
+
+    .file-list {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        height: 170px;
+        overflow-y: scroll;
+        
+        .file {
+            display: flex;
+            align-items: center;
+            position: relative;
+    
+            .file-icon {
+                font-size: 50px;
+            }
+    
+            .remove-file-button {
+                position: absolute;
+                font-size: 30px;
+                right: 0px;
+                cursor: pointer;
+    
+                &:hover {
+                    color: var(--default-color);
+                }
+            }
+        }
+    }
+}

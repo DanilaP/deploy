@@ -8,6 +8,9 @@ import MessageList from './message-list/message-list';
 import { isDateWithin15Minutes, transformDateToString } from './chat-helpers/helpers';
 import { MdEmojiEmotions } from "react-icons/md";
 import EmojiPicker from '../../../../partials/emoji-picker/emoji-picker';
+import { FiPaperclip } from "react-icons/fi";
+import CustomModal from '../../../../components-ui/custom-modal/custom-modal';
+import FileListViewer from './file-list-viewer/file-list-viewer';
 
 export default function Chat (props: { 
     close: () => void, 
@@ -24,6 +27,7 @@ export default function Chat (props: {
     const [userMessage, setUserMessage] = useState<string>("");
     const [chat, setChat] = useState<IChat | null>(props.chatInfo);
     const [emojiOpen, setEmojiOpen] = useState<boolean>(false);
+    const [userFiles, setUserFiles] = useState<File[] | null>([]);
     const { t } = useTranslation();
 
     const openEmoji = () => {
@@ -32,6 +36,19 @@ export default function Chat (props: {
 
     const addEmojiToMessage = (emoji: string) => {
         setUserMessage(userMessage + emoji);
+    };
+
+    const handleFileChange = (fileList: FileList | null) => {
+        if (fileList) {
+            const files = Array.from(fileList); 
+            setUserFiles(files);
+        }
+    };
+
+    const deleteFile = (index: number) => {
+        if (userFiles) {
+            setUserFiles(() => userFiles?.filter((file: File, fileIndex: number) => fileIndex !== index));
+        }
     };
 
     const sendMessage = () => {
@@ -52,6 +69,7 @@ export default function Chat (props: {
                 senderToken: sessionStorage.getItem("token"),
                 recipientId: chat?.members.filter((memberId: number) => memberId !== Number(userStore.user?.id))[0],
                 message: userMessage,
+                files: userFiles
             };
             socket?.send(JSON.stringify(messageData));
         }
@@ -97,11 +115,36 @@ export default function Chat (props: {
                     className='item' 
                 />
                 <MdEmojiEmotions onClick={ openEmoji } className='emoji-icon' />
+                <Button
+                    className='file-input-button'
+                    variant="outlined"
+                    component="label"
+                >
+                    <FiPaperclip className='file-input-icon' />
+                    <input
+                        multiple
+                        onChange={ (e) => handleFileChange(e.target.files) }
+                        type="file"
+                        hidden
+                    />
+                </Button>
                 <Button onClick={ sendMessage } className='item' variant='contained'>{ t("text.send") }</Button>
             </div>
             <div className="emoji-wrapper">
                 { emojiOpen && <EmojiPicker updateInputString={ addEmojiToMessage } /> }
             </div>
+            {
+                userFiles && 
+                <CustomModal
+                    isDisplay = { userFiles?.length > 0 }
+                    closeModal = { () => setUserFiles(null) }
+                    title = "Загрузка файлов"
+                    typeOfActions='default'
+                    actionConfirmed={ () => console.log("файлы успешно отправлены") }
+                >
+                    <FileListViewer setUserMessage = { setUserMessage } deleteFile={ deleteFile } fileList={ userFiles } />
+                </CustomModal>
+            }
         </div>
     );
 }

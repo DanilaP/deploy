@@ -1093,7 +1093,6 @@ cron.schedule('*/15 * * * *', () => {
         else return chat;
     });
     fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
-    console.log('running a task every 1 minute');
 });
 
 async function startApp() {
