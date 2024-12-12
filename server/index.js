@@ -10,6 +10,7 @@ const jwt_decode = require('jwt-decode');
 const path = require('path');
 const WebSocket = require('ws');
 const { error } = require('console');
+const cron = require('node-cron');
 
 const generateAccessToken = (id) => {
     const payload = {
@@ -839,7 +840,8 @@ app.post("/admin/chat", async function(req, res) {
                     messages: chat.messages.map((message) => {
                         return {
                             ...message,
-                            recipientId: userId
+                            recipientId: message.recipientId === null ? userId : message.recipientId,
+                            senderId: message.senderId === null ? userId : message.senderId
                         };
                     })
                 };
@@ -1051,6 +1053,47 @@ app.delete("/discounts", async function(req, res) {
         console.error("delete /discounts", error);
         res.status(400).json({ message: "Ошибка удаления данных об акции!" });
     }
+});
+
+const isDateWithin15Minutes = (date) => {
+    let currentDate = new Date(Date.now());
+    let paramDate = new Date(date);
+    const diff = Math.abs(currentDate - paramDate);
+    return diff < 900000;
+};
+
+cron.schedule('*/15 * * * *', () => {
+    let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+    let updatedChats = currentChats.map((chat) => {
+        let isClear = false;
+        if (!chat.fixed) {
+            let array = [...chat.messages].reverse();
+            let adminLastMsg = array.find(msg => msg.senderId !== chat.messages[0].senderId);
+            if (adminLastMsg) {
+                isClear = !isDateWithin15Minutes(adminLastMsg.date);
+            }
+            if (isClear) {
+                return {
+                    ...chat,
+                    members: chat.members.map(memberId => {
+                        if (memberId === chat.messages[0].senderId) {
+                            return memberId;
+                        } else return null;
+                    }),
+                    messages: chat.messages.map(message => {
+                        return {
+                            ...message,
+                            recipientId: message.recipientId !== chat.messages[0].senderId ? null : message.recipientId,
+                            senderId: message.senderId !== chat.messages[0].senderId ? null : message.senderId
+                        };
+                    })
+                };
+            } else return chat;
+        }
+        else return chat;
+    });
+    fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
+    console.log('running a task every 1 minute');
 });
 
 async function startApp() {
