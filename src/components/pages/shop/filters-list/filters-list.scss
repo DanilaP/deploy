@@ -1,0 +1,18 @@
+.filters-view {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    .filters-title {
+        font-weight: 500;
+        font-size: 18px;
+    } 
+    .filters-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        .filter-wrapper {
+            display: flex;
+            column-gap: 5px;
+        }
+    } 
+}

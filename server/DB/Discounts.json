@@ -31,7 +31,7 @@
         "dateStart": "2024-09-01",
         "dateEnd": null,
         "categories": [],
-        "active": false,
+        "active": true,
         "deletedAt": false,
         "type": "discount"
     },
@@ -43,7 +43,7 @@
         "dateStart": "2024-09-01",
         "dateEnd": null,
         "categories": [],
-        "active": false,
+        "active": true,
         "deletedAt": false,
         "type": "promo"
     }

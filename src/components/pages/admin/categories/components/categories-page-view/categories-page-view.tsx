@@ -62,8 +62,6 @@ export default function CategoriesPageView({
 
     const { t } = useTranslation();
 
-    console.log(expandedItems);
-    
     return (
         <div 
             className="category-page"

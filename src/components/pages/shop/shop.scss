@@ -1,38 +1,68 @@
 .shop-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;   
-    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 250px calc(100% - 150px);
+    gap: 20px;
     margin-top: 10px;
     padding: 20px;
     
-    .shop-products-wrapper {
+    .shop-left-menu {
         display: flex;
         flex-direction: column;
+        grid-template-columns: 1fr;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid rgb(221, 221, 221);
+        background-color: var(--bg-color-block);
+        gap: 10px;
+        .MuiButtonBase-root {
+            width: 25px;
+            height: 25px;
+            padding: 0px;
+        }
+    }
+    .shop-products-wrapper {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
 
-        .shop-filters {
-            min-height: 50px;
-            box-sizing: border-box;
+        .categories-list {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
-
-            .MuiInputBase-input {
-                height: 3.5px;
-            }
-            
-            .filter-button {
-                height: 36.5px;
-            }
-
-            .MuiInputBase-root {
-                height: 36.5px;
+            .category-wrapper {
+                display: grid;
+                align-items: center;
+                justify-content: center;
+                justify-items: center;
+                padding: 10px;
+                min-width: 150px;
+                height: 150px;
+                background-color: var(--bg-color-block);
+                border: 1px solid rgb(221, 221, 221);
+                border-radius: 5px;
+                .category-title {
+                    color: rgb(70, 70, 70);
+                    font-size: 18px;
+                    font-weight: 500;
+                }
+                .category-image {
+                    width: 100px;
+                    height: 100px;
+                }
+                &:hover {
+                    cursor: pointer;
+                    border: 1px solid var(--default-color);
+                }
             }
         }
-
+        .products-count {
+            font-weight: 500;
+            font-size: 24px;
+        }
         .shop-content {
-            display: grid;
-            justify-content: space-between;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 50px;
             

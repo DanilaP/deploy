@@ -55,6 +55,12 @@ export const routes = [
         breadcrumb : t("breadcrumbs.shop")
     },
     {
+        path: '/shop/:id',
+        component: MainLayout,
+        children: ShopPage,
+        breadcrumb : t("breadcrumbs.shop")
+    },
+    {
         path: '/cart',
         component: MainLayout,
         children: CartPage,

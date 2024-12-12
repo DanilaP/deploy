@@ -3,12 +3,20 @@ import { IProduct } from "./products";
 import { createProduct, getProducts } from "./products-api";
 import { useProviders } from "../providers/use-providers";
 import { IProvider } from "../providers/providers";
+import { useCategories } from "../categories/use-categories";
+import { ICategory } from "../categories/categories";
+import lodash from "lodash";
 
-export const useProducts = () => {
+export const useProducts = (categoryId?: string) => {
 
     const [products, setProducts] = useState<IProduct[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
 
+    const { 
+        categories, 
+        findAllChildCategories,
+        handleFindCategory
+    } = useCategories();
     const { providers } = useProviders();
     
     const handleDeleteGood = (currentProduct: IProduct) => {
@@ -78,23 +86,45 @@ export const useProducts = () => {
         setFilteredProducts(products.filter(el => el.active === active));
     };
 
+    const handleFilterProductsByChildrenCategories = (products: IProduct[], currentCategory: ICategory | null) => {
+        if (currentCategory) {
+            const childrenCategories = [
+                ...findAllChildCategories(currentCategory),
+                currentCategory.id
+            ];
+            return products.filter((el: any) => {
+                const isCategoriesIntersect = lodash.intersection(childrenCategories, el.category).length !== 0;
+                return isCategoriesIntersect;
+            });
+        }
+        return products;
+    };
+
     useEffect(() => {
         const response = getProducts();
             response.then(res => {
                 if (res.data.products) {
-                    setProducts(res.data.products);
-                    setFilteredProducts(res.data.products);
+                    let updatedProducts = res.data.products;
+                    if (categoryId) {
+                        const findedCategory = handleFindCategory(categoryId, categories);  
+                        updatedProducts = handleFilterProductsByChildrenCategories(updatedProducts, findedCategory);
+                    }
+                    setProducts(updatedProducts);
+                    setFilteredProducts(updatedProducts);
                 }
             });
-    }, []);
+    }, [categories, categoryId]);
 
     return {
         products,
+        categories,
+        providers,
         filteredProducts,
         handleDeleteGood,
         handleUpdateGood,
         handleSearchProduct,
         handleSearchProductByProvider,
-        handleSearchProductsByActive
+        handleSearchProductsByActive,
+        handleFilterProductsByChildrenCategories
     };
 };

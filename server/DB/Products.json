@@ -15,7 +15,7 @@
     ],
     "price": 1000,
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": ["11"],
+    "category": ["10"],
     "additionalInfo": [
       {
         "id": 1,
@@ -114,7 +114,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": ["12"],
+    "category": ["11"],
     "additionalInfo": [
       {
         "id": 1,
@@ -196,7 +196,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video2.mp4",
-    "category": ["4"],
+    "category": ["13"],
     "additionalInfo": [
       {
         "id": 1,
@@ -279,7 +279,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": ["7"],
+    "category": ["11"],
     "additionalInfo": [
       {
         "id": 1,
@@ -353,7 +353,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video2.mp4",
-    "category": ["20"],
+    "category": ["8"],
     "additionalInfo": [
       {
         "id": 1,
@@ -501,7 +501,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": ["1"],
+    "category": ["9"],
     "additionalInfo": [
       {
         "id": 1,
@@ -575,7 +575,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": ["5"],
+    "category": ["16"],
     "additionalInfo": [
       {
         "id": 1,
@@ -649,7 +649,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": ["10"],
+    "category": ["17"],
     "additionalInfo": [
       {
         "id": 1,

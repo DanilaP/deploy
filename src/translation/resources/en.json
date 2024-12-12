@@ -134,6 +134,8 @@
         "no": "No",
         "verifyNotARobot": "Please, verify that you are not a robot",
         "statusSearch": "Search by status",
+        "noGoods": "No goods",
+        "foundGoods": "Found products",
         "answer": "Answer",
         "managingFeedbacks": "Managing feedbacks",
         "stock": "In stock",
