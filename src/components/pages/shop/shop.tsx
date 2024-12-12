@@ -10,6 +10,7 @@ import DiscounstList from './discounts-list/discounts-list';
 import FiltersList from './filters-list/filters-list';
 import MediaCard from './card/card';
 import './shop.scss';
+import { MenuItem, Select } from '@mui/material';
 
 export default function ShopPage () {
 
@@ -20,10 +21,11 @@ export default function ShopPage () {
     const [currentSubCategories, setCurrentSubCategories] = useState<ICategory[]>([]);
 
     const { 
-        filteredProducts, 
-        handleFilterProductsByChildrenCategories 
+        filteredProducts,
+        setFilteredProducts,
+        handleFilterProductsByChildrenCategories,
     } = useProducts(params.id);
-
+    
     const { categories, handleFindCategory } = useCategories();
     const { 
         discounts, 
@@ -81,17 +83,32 @@ export default function ShopPage () {
                         })
                     }
                 </div>
-                <div className="products-count">
-                    { filteredProducts.length !== 0 
-                        ? <span>{ t("text.foundGoods") }: { filteredProducts.length }</span>
-                        : <span>{ t("text.noGoods") }</span>
-                    }
+                
+                <div className="shop-content-menu">
+                    <div className="products-count">
+                        { filteredProducts.length !== 0 
+                            ? <span>{ t("text.foundGoods") }: { filteredProducts.length }</span>
+                            : <span>{ t("text.noGoods") }</span>
+                        }
+                    </div>
+                    <Select
+                        defaultValue={ "price" }
+                    >
+                        <MenuItem value={ "price" }>По цене</MenuItem>
+                        <MenuItem value={ "rating" }>По рейтингу</MenuItem>
+                    </Select>
                 </div>
                 <div className="shop-content">
                     {
-                        filteredProducts!.map((product: IProduct) => {
+                        filteredProducts.map((product: IProduct) => {
                             const bestDiscount = handleGetBestDiscountForProductById(product);
-                            return <MediaCard key={ product.id } product = { product } bestDiscount={ bestDiscount } />;
+                            return (
+                                <MediaCard 
+                                    key={ product.id } 
+                                    product = { product } 
+                                    bestDiscount={ bestDiscount } 
+                                />
+                            );
                         })
                     }
                 </div>

@@ -1,20 +1,23 @@
-.product-title-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    .default-price {
-        color: #1976d2;
-        font-weight: 300;
-        font-size: 36px;
-        text-align: right;
-    }
-    .discount-price {
-        text-align: right;
+.product-card {
+    width: calc(33.33% - 14px);
+    .product-title-wrapper {
         display: grid;
-        .previous-price {
-            color: gray;
-            font-size: 18px;
-            text-decoration: line-through;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        .default-price {
+            color: #1976d2;
+            font-weight: 300;
+            font-size: 36px;
+            text-align: right;
+        }
+        .discount-price {
+            text-align: right;
+            display: grid;
+            .previous-price {
+                color: gray;
+                font-size: 18px;
+                text-decoration: line-through;
+            }
         }
     }
 }

@@ -121,6 +121,7 @@ export const useProducts = (categoryId?: string) => {
         categories,
         providers,
         filteredProducts,
+        setFilteredProducts,
         handleDeleteGood,
         handleUpdateGood,
         handleSearchProduct,

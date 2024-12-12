@@ -17,14 +17,14 @@ export default function MediaCard(props: {
 
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const actualPrice = props.product.price - (props.product.price * props.bestDiscount / 100);
+    const actualPrice = Math.floor(props.product.price - (props.product.price * props.bestDiscount / 100));
 
     const showDetails = () => {
         navigate(`/shop/product/${ props.product.id }`);
     };
 
     return (
-        <Card sx={ { maxWidth: 345 } }>
+        <Card className='product-card'>
            <CardMedia style={ { display: "flex", justifyContent: "center" } } >
                 <img className='product-image' src = { props.product.images[0] } />
            </CardMedia>
