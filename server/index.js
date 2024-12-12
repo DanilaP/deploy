@@ -11,6 +11,7 @@ const path = require('path');
 const WebSocket = require('ws');
 const { error } = require('console');
 const cron = require('node-cron');
+const { Blob } = require('buffer');
 
 const generateAccessToken = (id) => {
     const payload = {
@@ -861,6 +862,32 @@ app.post("/admin/chat", async function(req, res) {
     }
 });
 
+app.post("/upload", async function (req, res) {
+    try {
+        if (req.files && Object.keys(req.files).length !== 0) {
+            const uploadedFiles = req.files.files;  
+            let files = [];
+            uploadedFiles.map((file) => {
+                file.mv(`./staticFiles/chatfiles/${ Date.now() + file.size + file.name  }`, function (err) {
+                    if (err) {
+                        console.log(err);
+                    } 
+                });
+                files = [...files, {
+                    url: `http://localhost:5000/chatfiles/${ Date.now() + file.size + file.name }`,
+                    name: file.name,
+                    size: file.size
+                }];
+            });
+            res.status(200).json({ message: "Файлы успешно загружены", files: files });
+        } 
+    }
+    catch (error) {
+        res.status(400).json({ message: "Ошибка загрузки файлов", files: [] });
+        console.error(error);
+    }
+});
+
 //Chat websocket
 const wss = new WebSocket.Server({ server });
 let clients = [];
@@ -882,6 +909,8 @@ wss.on('connection', (ws) => {
                 return false;
             });
 
+            
+            
             if (isChatExists.length > 0) {
                 const newChats = currentChats.map((chat) => {
                     if (isChatExists[0].id === chat.id) {

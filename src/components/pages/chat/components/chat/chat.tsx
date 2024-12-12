@@ -11,6 +11,7 @@ import EmojiPicker from '../../../../partials/emoji-picker/emoji-picker';
 import { FiPaperclip } from "react-icons/fi";
 import CustomModal from '../../../../components-ui/custom-modal/custom-modal';
 import FileListViewer from './file-list-viewer/file-list-viewer';
+import $api from '../../../../../configs/axiosconfig/axios';
 
 export default function Chat (props: { 
     close: () => void, 
@@ -51,7 +52,20 @@ export default function Chat (props: {
         }
     };
 
-    const sendMessage = () => {
+    const uploadFiles = async () => {
+        if (userFiles && userFiles?.length > 0) {
+            const formData = new FormData();
+            userFiles?.forEach(file => {
+                formData.append('files', file);
+            });
+
+            const files = await $api.post('/upload', formData);
+            return files.data.files;
+
+        } else return [];
+    };
+
+    const sendMessage = async () => {
         let enableChat = true;
         if (chat && userStore.user?.role !== "Администратор" && chat.messages.length >= 15) {
             const last15Messages = chat?.messages.slice(-15);
@@ -62,16 +76,20 @@ export default function Chat (props: {
             }
         }
         
-        if (enableChat && userMessage !== "") {
+        if (enableChat && userMessage !== "") { 
+            const files = await uploadFiles();
             const date = transformDateToString(Date.now());
             const messageData = {
                 date: date,
                 senderToken: sessionStorage.getItem("token"),
                 recipientId: chat?.members.filter((memberId: number) => memberId !== Number(userStore.user?.id))[0],
                 message: userMessage,
-                files: userFiles
+                files: files
             };
-            socket?.send(JSON.stringify(messageData));
+            console.log(messageData);
+            //socket?.send(JSON.stringify(messageData));
+            setUserMessage("");
+            setUserFiles([]);
         }
     };
 
@@ -140,9 +158,13 @@ export default function Chat (props: {
                     closeModal = { () => setUserFiles(null) }
                     title = "Загрузка файлов"
                     typeOfActions='default'
-                    actionConfirmed={ () => console.log("файлы успешно отправлены") }
+                    actionConfirmed={ sendMessage }
                 >
-                    <FileListViewer setUserMessage = { setUserMessage } deleteFile={ deleteFile } fileList={ userFiles } />
+                    <FileListViewer 
+                        setUserMessage = { setUserMessage } 
+                        deleteFile={ deleteFile } 
+                        fileList={ userFiles } 
+                    />
                 </CustomModal>
             }
         </div>
