@@ -8,12 +8,17 @@ import Typography from '@mui/material/Typography';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { IProduct } from '../../../../models/products/products';
+import "./card.scss";
 
-export default function MediaCard(props: { product: IProduct }) {
+export default function MediaCard(props: { 
+    product: IProduct, 
+    bestDiscount: number 
+}) {
 
     const navigate = useNavigate();
     const { t } = useTranslation();
-    
+    const actualPrice = props.product.price - (props.product.price * props.bestDiscount / 100);
+
     const showDetails = () => {
         navigate(`/shop/product/${ props.product.id }`);
     };
@@ -24,8 +29,26 @@ export default function MediaCard(props: { product: IProduct }) {
                 <img className='product-image' src = { props.product.images[0] } />
            </CardMedia>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography className='product-title-wrapper' gutterBottom variant="h5" component="div">
                     {  props.product.name }
+                    {
+                        props.bestDiscount !== 0
+                            ? 
+                            <div className='discount-price'>
+                                <span className='previous-price'>
+                                    { props.product.price }р
+                                </span>
+                                <span className='default-price'>
+                                    { actualPrice }р
+                                </span>
+                            </div>
+                            : 
+                            <span className='default-price'>
+                                {
+                                    props.product.price + "р"
+                                }
+                            </span>
+                    }
                 </Typography>
                 <Typography gutterBottom component="div">
                     {  props.product.description }

@@ -18,7 +18,7 @@ export default function MainLayout({ children }: IMainLayoutProps) {
         <div className="main-layout">
             <div className="main-menu">
                 <Button
-                    variant="outlined"
+                    variant="contained"
                     className="catalog-button"
                     onClick={ handleNavigateToCatalog }
                 >

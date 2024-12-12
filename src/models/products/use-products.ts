@@ -17,6 +17,7 @@ export const useProducts = (categoryId?: string) => {
         findAllChildCategories,
         handleFindCategory
     } = useCategories();
+    
     const { providers } = useProviders();
     
     const handleDeleteGood = (currentProduct: IProduct) => {

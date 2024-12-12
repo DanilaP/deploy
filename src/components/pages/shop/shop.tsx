@@ -25,7 +25,11 @@ export default function ShopPage () {
     } = useProducts(params.id);
 
     const { categories, handleFindCategory } = useCategories();
-    const { discounts } = useDiscounts();
+    const { 
+        discounts, 
+        handleGetCountOfProductsForDiscount,
+        handleGetBestDiscountForProductById
+    } = useDiscounts();
 
     const handleGoToSubCategory = (category: ICategory) => {
         navigate(`/shop/${category.id}`);
@@ -49,6 +53,7 @@ export default function ShopPage () {
             <div className="shop-left-menu">
                 <DiscounstList
                     discounts={ discounts }
+                    handleGetCountOfProductsForDiscount={ handleGetCountOfProductsForDiscount }
                 />
                 <FiltersList />
             </div>
@@ -85,7 +90,8 @@ export default function ShopPage () {
                 <div className="shop-content">
                     {
                         filteredProducts!.map((product: IProduct) => {
-                            return <MediaCard key={ product.id } product = { product } />;
+                            const bestDiscount = handleGetBestDiscountForProductById(product);
+                            return <MediaCard key={ product.id } product = { product } bestDiscount={ bestDiscount } />;
                         })
                     }
                 </div>

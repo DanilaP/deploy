@@ -5,10 +5,12 @@ import { useTranslation } from "react-i18next";
 
 interface IDiscounstListProps {
     discounts: IDiscount[],
+    handleGetCountOfProductsForDiscount: (discount: IDiscount) => number
 }
 
 export default function DiscounstList({
     discounts,
+    handleGetCountOfProductsForDiscount
 }: IDiscounstListProps) {
 
     const { t } = useTranslation();
@@ -26,7 +28,7 @@ export default function DiscounstList({
                                         <Checkbox />
                                     </div>
                                     <div className="discount-wrapper-title">
-                                        { el.name }
+                                        { el.name } ({ handleGetCountOfProductsForDiscount(el) })
                                     </div>
                                 </div>
                             );
@@ -45,7 +47,7 @@ export default function DiscounstList({
                                         <Checkbox />
                                     </div>
                                     <div className="discount-wrapper-title">
-                                        { el.name }
+                                        { el.name } ({ handleGetCountOfProductsForDiscount(el) })
                                     </div>
                                 </div>
                             );
