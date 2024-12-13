@@ -9,6 +9,7 @@ import { IDiscount } from '../../../models/discounts/discounts';
 import { useWarehouse } from '../../../models/warehouse/use-warehouse';
 import { IFilters } from './filters-list/filters-list';
 import ShopPageView from './shop-page-view/shop-page-view';
+import { IProduct } from '../../../models/products/products';
 
 export default function ShopPage () {
 
@@ -17,11 +18,15 @@ export default function ShopPage () {
     const navigate = useNavigate();
     
     const [currentSubCategories, setCurrentSubCategories] = useState<ICategory[]>([]);
-    const [filters, setFilters] = useState<IFilters>({
-        inStock: false
-    });
     const [selectedDiscount, setSelectedDiscount] = useState<IDiscount | null>(null);
-
+    const [filters, setFilters] = useState<IFilters>({
+        inStock: false,
+        price: {
+            min: 0,
+            max: null
+        }
+    });
+    
     const {
         products,
         filteredProducts,
@@ -69,13 +74,28 @@ export default function ShopPage () {
         setFilteredProducts(() => sortedProducts);
     };
 
+    const handleIsProductPriceBetweenMinMaxFilters = (product: IProduct) => {
+        let isBetweenMinMaxPrice = true;
+        const currentPrice = 
+            product.price - product.price * handleGetBestDiscountForProductById(product) / 100;
+        if (filters.price.max) {
+            isBetweenMinMaxPrice = isBetweenMinMaxPrice && currentPrice <= filters.price.max;
+        }
+        if (filters.price.min) {
+            isBetweenMinMaxPrice = isBetweenMinMaxPrice && currentPrice >= filters.price.min;
+        }
+        return isBetweenMinMaxPrice;
+    };
+
     useEffect(() => {
         const filteredProductsList = products.filter(product => {
+            const isCurrentPriceAvailable = 
+                handleIsProductPriceBetweenMinMaxFilters(product);
             const isInStock = filters.inStock ? handleCheckProductInStock(product) : true;
             const byDiscount = selectedDiscount 
                 ? handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount(product.category, selectedDiscount.categories)
                 : true;
-            return isInStock && byDiscount;
+            return isInStock && byDiscount && isCurrentPriceAvailable;
         });
         setFilteredProducts(filteredProductsList);
     },  [filters, selectedDiscount, products]);

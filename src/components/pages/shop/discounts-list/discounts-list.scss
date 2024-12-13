@@ -1,6 +1,6 @@
 .discounts-view {
     display: grid;
-    gap: 10px;
+    gap: 20px;
     .default-discounts, .promo-discounts {
         display: grid;
         grid-template-columns: 1fr;
@@ -8,6 +8,10 @@
         .discount-title {
             font-weight: 500;
             font-size: 18px;
+            .title-helper-text {
+                color: gray;
+                font-size: 14px;
+            }
         }
         .discount-wrapper {
             font-weight: normal;

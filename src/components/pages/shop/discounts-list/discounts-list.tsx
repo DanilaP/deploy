@@ -34,7 +34,10 @@ export default function DiscounstList({
     return (
         <div className="discounts-view">
             <div className="default-discounts">
-                <div className="discount-title">{ t("text.discounts") }</div>
+                <div className="discount-title">
+                    { t("text.discounts") } 
+                    <span className="title-helper-text"> ({ t("text.allGoods") })</span>
+                </div>
                 {
                     discounts.map(el => {
                         if (el.type === "discount" && el.active) {

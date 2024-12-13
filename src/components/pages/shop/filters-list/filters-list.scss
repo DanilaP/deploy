@@ -9,10 +9,22 @@
     .filters-list {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 15px;
         .filter-wrapper {
             display: flex;
             column-gap: 5px;
+        }
+        .price-filter {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            .MuiInputBase-input {
+                padding: 6px;
+            }
+            .price-filter-title {
+                font-weight: 500;
+                font-size: 18px;
+            }
         }
     } 
 }

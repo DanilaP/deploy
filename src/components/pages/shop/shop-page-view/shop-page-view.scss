@@ -12,7 +12,7 @@
         border-radius: 5px;
         border: 1px solid rgb(221, 221, 221);
         background-color: var(--bg-color-block);
-        gap: 10px;
+        gap: 20px;
         .MuiButtonBase-root {
             width: 25px;
             height: 25px;
@@ -29,31 +29,6 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            .category-wrapper {
-                display: grid;
-                align-items: center;
-                justify-content: center;
-                justify-items: center;
-                padding: 10px;
-                min-width: 150px;
-                height: 150px;
-                background-color: var(--bg-color-block);
-                border: 1px solid rgb(221, 221, 221);
-                border-radius: 5px;
-                .category-title {
-                    color: var(--text-color);
-                    font-size: 18px;
-                    font-weight: 500;
-                }
-                .category-image {
-                    width: 100px;
-                    height: 100px;
-                }
-                &:hover {
-                    cursor: pointer;
-                    border: 1px solid var(--default-color);
-                }
-            }
         }
         .shop-content-menu {
             display: grid;

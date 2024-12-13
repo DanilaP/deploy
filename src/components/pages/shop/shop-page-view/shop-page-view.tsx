@@ -7,6 +7,7 @@ import DiscounstList from "../discounts-list/discounts-list";
 import FiltersList, { IFilters } from "../filters-list/filters-list";
 import MediaCard from "../card/card";
 import "./shop-page-view.scss";
+import CategoryCard from "../category-card/category-card";
 
 interface IShopPageViewProps {
     discounts: IDiscount[],
@@ -58,22 +59,14 @@ export default function ShopPageView({
                 <div className="categories-list">
                     {
                         currentSubCategories.map(category => {
-                            const countOfProductsInCategory = handleFilterProductsByChildrenCategories(filteredProducts, category);
+                            const productsInCategory = handleFilterProductsByChildrenCategories(filteredProducts, category);
                             return (
-                                <div 
-                                    key={ category.id } 
-                                    className="category-wrapper"
-                                    onClick={ () => handleGoToSubCategory(category) }
-                                >
-                                    <div className="category-title">
-                                        { category.title } ({ countOfProductsInCategory.length })
-                                    </div>
-                                    <img
-                                        src={ category.image } 
-                                        alt={ category.description } 
-                                        className="category-image" 
-                                    />
-                                </div>
+                                <CategoryCard
+                                    key={ category.id }
+                                    category={ category }
+                                    productsInCategory={ productsInCategory }
+                                    handleGoToSubCategory={ handleGoToSubCategory }
+                                />
                             );
                         })
                     }
