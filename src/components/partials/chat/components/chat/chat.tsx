@@ -7,7 +7,7 @@ import { Button, TextField } from '@mui/material';
 import MessageList from './message-list/message-list';
 import { isDateWithin15Minutes, transformDateToString } from './chat-helpers/helpers';
 import { MdEmojiEmotions } from "react-icons/md";
-import EmojiPicker from '../../../../partials/emoji-picker/emoji-picker';
+import EmojiPicker from '../../../emoji-picker/emoji-picker';
 import { FiPaperclip } from "react-icons/fi";
 import CustomModal from '../../../../components-ui/custom-modal/custom-modal';
 import FileListViewer from './file-list-viewer/file-list-viewer';

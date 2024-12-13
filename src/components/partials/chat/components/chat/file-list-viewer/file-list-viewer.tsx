@@ -2,7 +2,7 @@ import './file-list-viewer.scss';
 import { FaFile } from "react-icons/fa";
 import { MdDelete, MdEmojiEmotions } from "react-icons/md";
 import { TextField } from '@mui/material';
-import EmojiPicker from '../../../../../partials/emoji-picker/emoji-picker';
+import EmojiPicker from '../../../../emoji-picker/emoji-picker';
 import { useState } from 'react';
 import { t } from 'i18next';
 

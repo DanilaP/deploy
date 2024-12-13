@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { IChat } from '../../../../interfaces/interfaces';
 import { useStore } from '../../../../stores';
 import { t } from 'i18next';
-import Chat from '../../chat/components/chat/chat';
+import Chat from '../../../partials/chat/components/chat/chat';
 import AdminChats from './components/admin-chats.tsx/admin-chats';
 import FreeChats from './components/free-chats.tsx/free-chats';
 
