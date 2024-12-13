@@ -161,6 +161,8 @@ export default function Chat (props: {
                     actionConfirmed={ sendMessage }
                 >
                     <FileListViewer 
+                        addEmojiToMessage = { addEmojiToMessage }
+                        currentUserMessage= { userMessage }
                         setUserMessage = { setUserMessage } 
                         deleteFile={ deleteFile } 
                         fileList={ userFiles } 

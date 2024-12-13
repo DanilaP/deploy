@@ -4,6 +4,7 @@
     row-gap: 10px;
     padding-top: 10px;
     box-sizing: border-box;
+    position: relative;
 
     .file-list {
         display: flex;
@@ -32,5 +33,25 @@
                 }
             }
         }
+    }
+
+    .settings {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .emoji-wrapper {
+            position: absolute;
+            bottom: 60px;
+            left: 0px;
+            z-index: 1;
+        } 
+    }
+
+    .emoji-icon {
+        font-size: 45px;
+        cursor: pointer;
+        color: grey;
+        background-color: var(--bg-color);
     }
 }
