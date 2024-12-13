@@ -113,6 +113,19 @@
             "size": 6354
           }
         ]
+      },
+      {
+        "senderId": 1732604379612,
+        "recipientId": 1727098679785,
+        "date": "2024/12/13 11:31",
+        "text": "",
+        "files": [
+          {
+            "url": "http://localhost:5000/chatfiles/1734078804473sample-city-park-400x300.jpg",
+            "name": "sample-city-park-400x300.jpg",
+            "size": 95896
+          }
+        ]
       }
     ]
   },

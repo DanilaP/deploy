@@ -43,16 +43,19 @@ export default function MessageList (props: { messages: IMessage[], user: IUser,
                                         }) 
                                     }
                                 </div>
-                                <div className="text">
-                                    <div className="image-wrapper">
-                                        <img className='image' src = {
-                                            message.senderId === Number(props.user.id) 
-                                                ? props.user.avatar
-                                                : props.opponentInfo.avatar
-                                        } />
+                                {   
+                                    (message.text !== "") &&
+                                    <div className="text">
+                                        <div className="image-wrapper">
+                                            <img className='image' src = {
+                                                message.senderId === Number(props.user.id) 
+                                                    ? props.user.avatar
+                                                    : props.opponentInfo.avatar
+                                            } />
+                                        </div>
+                                        <div>{ message.text }</div>
                                     </div>
-                                    <div>{ message.text }</div>
-                                </div>
+                                }
                                 <div className="date">{ message.date }</div>
                         </div>
                     );

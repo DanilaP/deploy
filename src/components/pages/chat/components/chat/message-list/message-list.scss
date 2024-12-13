@@ -14,12 +14,13 @@
         .file {
             display: flex;
             width: 50%;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
             cursor: pointer;
 
             .name {
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
 
                 &:hover {
                     color: var(--default-color);
