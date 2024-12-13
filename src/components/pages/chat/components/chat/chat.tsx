@@ -155,7 +155,7 @@ export default function Chat (props: {
                 <CustomModal
                     isDisplay = { userFiles?.length > 0 }
                     closeModal = { () => setUserFiles(null) }
-                    title = "Загрузка файлов"
+                    title = { t("text.uploadFiles") }
                     typeOfActions='default'
                     actionConfirmed={ sendMessage }
                 >

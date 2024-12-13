@@ -4,6 +4,7 @@ import { MdDelete, MdEmojiEmotions } from "react-icons/md";
 import { TextField } from '@mui/material';
 import EmojiPicker from '../../../../../partials/emoji-picker/emoji-picker';
 import { useState } from 'react';
+import { t } from 'i18next';
 
 export default function FileListViewer (props: { 
     fileList: File[], 
@@ -44,7 +45,7 @@ export default function FileListViewer (props: {
                     fullWidth
                     value={ props.currentUserMessage } 
                     onChange={ (e) => props.setUserMessage(e.target.value) } 
-                    placeholder='Введите сообщение'>
+                    placeholder={ t("text.yourMessage") }>
                 </TextField>
                 <MdEmojiEmotions onClick={ openEmoji } className='emoji-icon' />
             </div>
