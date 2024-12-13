@@ -42,6 +42,9 @@ export default function FileListViewer (props: {
                     { emojiOpen && <EmojiPicker updateInputString={ props.addEmojiToMessage } /> }
                 </div>
                 <TextField
+                    maxRows={ 1 }
+                    multiline
+                    onClick={ () => setEmojiOpen(false) }
                     fullWidth
                     value={ props.currentUserMessage } 
                     onChange={ (e) => props.setUserMessage(e.target.value) } 

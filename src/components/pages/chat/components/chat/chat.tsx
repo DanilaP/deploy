@@ -89,6 +89,7 @@ export default function Chat (props: {
             socket?.send(JSON.stringify(messageData));
             setUserMessage("");
             setUserFiles([]);
+            setEmojiOpen(false);
         }
     };
 
@@ -124,7 +125,10 @@ export default function Chat (props: {
                 }
             </div>
             <div className="chat-footer">
-                <TextField 
+                <TextField
+                    maxRows={ 1 }
+                    multiline
+                    onClick={ () => setEmojiOpen(false) } 
                     value={ userMessage }
                     fullWidth 
                     onChange={ (e) => setUserMessage(e.target.value) } 
