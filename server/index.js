@@ -865,7 +865,7 @@ app.post("/admin/chat", async function(req, res) {
 app.post("/upload", async function (req, res) {
     try {
         if (req.files && Object.keys(req.files).length !== 0) {
-            const uploadedFiles = req.files.files;  
+            const uploadedFiles = req.files.files.length > 0 ? req.files.files : [req.files.files];
             let files = [];
             uploadedFiles.map((file) => {
                 file.mv(`./staticFiles/chatfiles/${ Date.now() + file.size + file.name  }`, function (err) {
@@ -909,8 +909,6 @@ wss.on('connection', (ws) => {
                 return false;
             });
 
-            
-            
             if (isChatExists.length > 0) {
                 const newChats = currentChats.map((chat) => {
                     if (isChatExists[0].id === chat.id) {
@@ -921,6 +919,7 @@ wss.on('connection', (ws) => {
                                 recipientId,
                                 date: newMessageData.date,
                                 text: newMessageData.message,
+                                files: newMessageData.files
                             } ]
                         };
                     } else return chat;
@@ -936,6 +935,7 @@ wss.on('connection', (ws) => {
                         recipientId: null,
                         date: newMessageData.date,
                         text: newMessageData.message,
+                        files: newMessageData.files
                     }]
                 } ];
                 fs.writeFileSync('DB/Chats.json', JSON.stringify(currentChats, null, 2));
@@ -951,6 +951,7 @@ wss.on('connection', (ws) => {
                                 recipientId: recipientId,
                                 date: newMessageData.date,
                                 text: newMessageData.message,
+                                files: newMessageData.files
                             }]
                         }));
                     } else {
@@ -961,6 +962,7 @@ wss.on('connection', (ws) => {
                                 recipientId: null,
                                 date: newMessageData.date,
                                 text: newMessageData.message,
+                                files: newMessageData.files
                             }]
                         }));
                     }

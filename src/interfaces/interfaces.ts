@@ -24,7 +24,7 @@ export interface IMessage {
     recipientId: number,
     date: string,
     text: string,
-    files?: string[]
+    files?: { url: string, size: number, name: string }[]
 }
 export interface IChat {
     id: number,

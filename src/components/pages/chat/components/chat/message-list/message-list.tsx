@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { IMessage } from '../../../../../../interfaces/interfaces';
 import './message-list.scss';
 import { IUser } from '../../../../../../models/user/user';
+import { FaFile } from "react-icons/fa";
 
 export default function MessageList (props: { messages: IMessage[], user: IUser, opponentInfo: {
     id: number,
@@ -22,6 +23,26 @@ export default function MessageList (props: { messages: IMessage[], user: IUser,
                         <div 
                             key={ message.text + index } 
                             className={ message.senderId === Number(props.user.id) ? "message user-msg" : "message opponent-msg" }>
+                                <div className="files">
+                                    {
+                                        message?.files?.map((file) => {
+                                            return (
+                                                <div key={ file.url } className="file">
+                                                    <div className="image">
+                                                        <FaFile className='icon' />
+                                                    </div>
+                                                    <a 
+                                                        rel="noreferrer" 
+                                                        target="_blank" 
+                                                        href = { file.url } 
+                                                        className="name">
+                                                        { file.name }
+                                                    </a>
+                                                </div>  
+                                            );
+                                        }) 
+                                    }
+                                </div>
                                 <div className="text">
                                     <div className="image-wrapper">
                                         <img className='image' src = {

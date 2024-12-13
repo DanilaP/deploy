@@ -10,6 +10,24 @@
     border-radius: 5px;
     border: 1px solid rgba(128, 128, 128, 0.247);
 
+    .files {
+        .file {
+            display: flex;
+            width: 50%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            cursor: pointer;
+
+            .name {
+
+                &:hover {
+                    color: var(--default-color);
+                }
+            }
+        }
+    }
+
     .date {
         font-size: 11px;
         font-weight: 600;

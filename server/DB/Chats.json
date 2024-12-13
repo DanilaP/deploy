@@ -82,6 +82,37 @@
         "recipientId": 1732604379612,
         "date": "2024/12/12 10:56",
         "text": "test msg admin 🖐🤩"
+      },
+      {
+        "senderId": 1727098679785,
+        "recipientId": 1732604379612,
+        "date": "2024/12/13 10:26",
+        "text": "test file",
+        "files": [
+          {
+            "url": "http://localhost:5000/chatfiles/1734074818770test_excel.xlsx",
+            "name": "test_excel.xlsx",
+            "size": 6354
+          }
+        ]
+      },
+      {
+        "senderId": 1727098679785,
+        "recipientId": 1732604379612,
+        "date": "2024/12/13 10:27",
+        "text": "test 2 files🖐",
+        "files": [
+          {
+            "url": "http://localhost:5000/chatfiles/1734074832763test_word.docx",
+            "name": "test_word.docx",
+            "size": 0
+          },
+          {
+            "url": "http://localhost:5000/chatfiles/1734074839118test_excel.xlsx",
+            "name": "test_excel.xlsx",
+            "size": 6354
+          }
+        ]
       }
     ]
   },

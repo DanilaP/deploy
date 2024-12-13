@@ -76,7 +76,7 @@ export default function Chat (props: {
             }
         }
         
-        if (enableChat && userMessage !== "") { 
+        if (enableChat && (userMessage !== "" || userFiles?.length !== 0)) { 
             const files = await uploadFiles();
             const date = transformDateToString(Date.now());
             const messageData = {
@@ -86,8 +86,7 @@ export default function Chat (props: {
                 message: userMessage,
                 files: files
             };
-            console.log(messageData);
-            //socket?.send(JSON.stringify(messageData));
+            socket?.send(JSON.stringify(messageData));
             setUserMessage("");
             setUserFiles([]);
         }
