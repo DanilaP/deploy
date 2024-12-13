@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useTranslation } from '../../../../../translation/i18n';
+import { useTranslation } from '../../../../translation/i18n';
 import { Button, Rating, TextField } from '@mui/material';
 import { MdOutlineFavorite, MdTextsms } from "react-icons/md";
-import { getAverageEvaluation } from '../../../../../helpers/product-page-helpers';
+import { getAverageEvaluation } from '../../../../helpers/product-page-helpers';
 import { useNavigate } from 'react-router';
 import './product-page-info.scss';
-import $api from '../../../../../configs/axiosconfig/axios';
-import { IProduct } from '../../../../../models/products/products';
+import $api from '../../../../configs/axiosconfig/axios';
+import { IProduct } from '../../../../models/products/products';
 
 export default function ProductInfo (props: {
     product: IProduct,

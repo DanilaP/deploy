@@ -8,7 +8,7 @@ import ProfilePage from "./components/pages/profile/profile.tsx";
 import RolesPage from "./components/pages/admin/roles/roles.tsx";
 import PermissionsPage from "./components/pages/admin/permissions/permissions.tsx";
 import { GoodsPage } from "./components/pages/admin/goods/goods.tsx";
-import ProductPage from "./components/pages/shop/product-page/product-page.tsx";
+import ProductPage from "./components/pages/product-page/product-page.tsx";
 import ProductReviews from "./components/pages/shop/product-reviews-page/product-reviews-page.tsx";
 import CheckoutPage from "./components/pages/checkout-page/checkout-page.tsx";
 import { CategoriesPage } from "./components/pages/admin/categories/categories.tsx";
