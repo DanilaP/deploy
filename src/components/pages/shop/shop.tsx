@@ -6,11 +6,13 @@ import { useProducts } from '../../../models/products/use-products';
 import { useCategories } from '../../../models/categories/use-categories';
 import { ICategory } from '../../../models/categories/categories';
 import { useDiscounts } from '../../../models/discounts/use-discounts';
+import { MenuItem, Select } from '@mui/material';
+import { IDiscount } from '../../../models/discounts/discounts';
 import DiscounstList from './discounts-list/discounts-list';
-import FiltersList from './filters-list/filters-list';
+import FiltersList, { IFilters } from './filters-list/filters-list';
 import MediaCard from './card/card';
 import './shop.scss';
-import { MenuItem, Select } from '@mui/material';
+import { useWarehouse } from '../../../models/warehouse/use-warehouse';
 
 export default function ShopPage () {
 
@@ -19,23 +21,69 @@ export default function ShopPage () {
     const navigate = useNavigate();
     
     const [currentSubCategories, setCurrentSubCategories] = useState<ICategory[]>([]);
+    const [filters, setFilters] = useState<IFilters>({
+        inStock: true
+    });
+    const [selectedDiscount, setSelectedDiscount] = useState<IDiscount | null>(null);
 
-    const { 
+    const {
+        products,
         filteredProducts,
         setFilteredProducts,
         handleFilterProductsByChildrenCategories,
+        handleGetSortedProductsByRating,
     } = useProducts(params.id);
-    
-    const { categories, handleFindCategory } = useCategories();
+    const { 
+        categories, 
+        handleFindCategory 
+    } = useCategories();
     const { 
         discounts, 
         handleGetCountOfProductsForDiscount,
-        handleGetBestDiscountForProductById
+        handleGetBestDiscountForProductById,
+        handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount
     } = useDiscounts();
+    const {
+        warehouses,
+        handleCheckProductInStock
+    } = useWarehouse();
 
     const handleGoToSubCategory = (category: ICategory) => {
         navigate(`/shop/${category.id}`);
     };
+
+    const handleUpdateFilters = (filters: IFilters) => {
+        setFilters(filters);
+    };
+
+    const handleSortProductList = (fieldName: string) => {
+        let sortedProducts = filteredProducts;
+        if (fieldName === "price") {
+            sortedProducts = [...filteredProducts.sort((prev, current) => {
+                const prevBestPrice = 
+                    prev.price - prev.price * handleGetBestDiscountForProductById(prev) / 100;
+                const prevNextPrice = 
+                    current.price - current.price * handleGetBestDiscountForProductById(current) / 100;
+                if (prevBestPrice < prevNextPrice) return -1;
+                return 1;
+            })];
+        }
+        if (fieldName === "rating") {
+            sortedProducts = handleGetSortedProductsByRating();
+        }
+        setFilteredProducts(() => sortedProducts);
+    };
+
+    useEffect(() => {
+        const filteredProductsList = products.filter(product => {
+            const isInStock = filters.inStock ? handleCheckProductInStock(product) : true;
+            const byDiscount = selectedDiscount 
+                ? handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount(product.category, selectedDiscount.categories)
+                : true;
+            return isInStock && byDiscount;
+        });
+        setFilteredProducts(filteredProductsList);
+    },  [filters, selectedDiscount]);
 
     useEffect(() => {
         const findedCategory: ICategory | null = handleFindCategory(params.id || "", categories);
@@ -55,9 +103,14 @@ export default function ShopPage () {
             <div className="shop-left-menu">
                 <DiscounstList
                     discounts={ discounts }
+                    selectedDiscount={ selectedDiscount }
                     handleGetCountOfProductsForDiscount={ handleGetCountOfProductsForDiscount }
+                    handleUpdateSelectedDiscount={ setSelectedDiscount }
                 />
-                <FiltersList />
+                <FiltersList
+                    filters={ filters }
+                    handleUpdateFilters={ handleUpdateFilters }
+                />
             </div>
             <div className="shop-products-wrapper">
                 <div className="categories-list">
@@ -73,7 +126,7 @@ export default function ShopPage () {
                                     <div className="category-title">
                                         { category.title } ({ countOfProductsInCategory.length })
                                     </div>
-                                    <img 
+                                    <img
                                         src={ category.image } 
                                         alt={ category.description } 
                                         className="category-image" 
@@ -93,9 +146,10 @@ export default function ShopPage () {
                     </div>
                     <Select
                         defaultValue={ "price" }
+                        onChange={ (e) => handleSortProductList(e.target.value) }
                     >
-                        <MenuItem value={ "price" }>По цене</MenuItem>
-                        <MenuItem value={ "rating" }>По рейтингу</MenuItem>
+                        <MenuItem value={ "price" }>{ t("text.filtersList.price") }</MenuItem>
+                        <MenuItem value={ "rating" }>{ t("text.filtersList.rating") }</MenuItem>
                     </Select>
                 </div>
                 <div className="shop-content">
@@ -103,10 +157,10 @@ export default function ShopPage () {
                         filteredProducts.map((product: IProduct) => {
                             const bestDiscount = handleGetBestDiscountForProductById(product);
                             return (
-                                <MediaCard 
-                                    key={ product.id } 
-                                    product = { product } 
-                                    bestDiscount={ bestDiscount } 
+                                <MediaCard
+                                    key={ product.id }
+                                    product={ product }
+                                    bestDiscount={ bestDiscount }
                                 />
                             );
                         })

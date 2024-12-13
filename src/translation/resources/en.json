@@ -132,6 +132,8 @@
         "description": "Description",
         "feedbackAnswer": "Feedback answer",
         "no": "No",
+        "siteSearch": "Search on the site",
+        "catalog": "Catalog",
         "verifyNotARobot": "Please, verify that you are not a robot",
         "statusSearch": "Search by status",
         "noGoods": "No goods",
@@ -217,6 +219,10 @@
                 "in-transit": "In transit",
                 "cancelled": "Cancelled"
             }
+        },
+        "filtersList": {
+            "price": "By price",
+            "rating": "By rating"
         },
         "checkout": {
             "free": "Free",

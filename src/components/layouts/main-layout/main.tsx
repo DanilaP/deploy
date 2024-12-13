@@ -1,6 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import "./main.scss";
 import { useNavigate } from "react-router";
+import { IoMdSearch } from "react-icons/io";
+import { useTranslation } from "react-i18next";
 
 interface IMainLayoutProps {
     children: React.ReactElement | null
@@ -8,6 +10,7 @@ interface IMainLayoutProps {
 
 export default function MainLayout({ children }: IMainLayoutProps) {
 
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     const handleNavigateToCatalog = () => {
@@ -22,11 +25,16 @@ export default function MainLayout({ children }: IMainLayoutProps) {
                     className="catalog-button"
                     onClick={ handleNavigateToCatalog }
                 >
-                    Каталог
+                    { t("text.catalog") }
                 </Button>
                 <TextField
                     className="search-input"
-                    placeholder="Поиск по сайту"
+                    placeholder={ t("text.siteSearch") }
+                    InputProps={ {
+                        endAdornment: (
+                            <IoMdSearch fontSize={ 25 } />
+                        ),
+                    } }
                 />
             </div>
             <div className="main-children">

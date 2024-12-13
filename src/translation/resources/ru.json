@@ -123,6 +123,8 @@
         "images": "Изображения",
         "approveDeletingGood": "Подтвердить удаление товара",
         "myOrders": "Мои заказы",
+        "siteSearch": "Поиску по сайту",
+        "catalog": "Каталог",
         "variations": "Вариации",
         "good": "Товар",
         "noGoods": "Товаров не найдено",
@@ -191,6 +193,10 @@
             "delete": "Удалить",
             "cancel": "Оставить",
             "orderData": "Данные заказа"
+        },
+        "filtersList": {
+            "price": "По цене",
+            "rating": "По рейтингу"
         },
         "checkout": {
             "insertRecipientData": "Добавьте данные получателя",

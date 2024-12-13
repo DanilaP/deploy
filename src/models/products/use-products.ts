@@ -6,6 +6,7 @@ import { IProvider } from "../providers/providers";
 import { useCategories } from "../categories/use-categories";
 import { ICategory } from "../categories/categories";
 import lodash from "lodash";
+import { getAverageEvaluation } from "../../helpers/product-page-helpers";
 
 export const useProducts = (categoryId?: string) => {
 
@@ -101,6 +102,16 @@ export const useProducts = (categoryId?: string) => {
         return products;
     };
 
+    const handleGetSortedProductsByRating = () => {
+        const sortedProducts = [...filteredProducts.sort((prev, current) => {
+            const prevEvaulation = getAverageEvaluation(prev.reviews || []);
+            const nextEvaulation = getAverageEvaluation(current.reviews || []);
+            if (prevEvaulation < nextEvaulation) return -1;
+            return 1;
+        })];
+        return sortedProducts;
+    };
+
     useEffect(() => {
         const response = getProducts();
             response.then(res => {
@@ -127,6 +138,7 @@ export const useProducts = (categoryId?: string) => {
         handleSearchProduct,
         handleSearchProductByProvider,
         handleSearchProductsByActive,
-        handleFilterProductsByChildrenCategories
+        handleFilterProductsByChildrenCategories,
+        handleGetSortedProductsByRating
     };
 };

@@ -5,15 +5,31 @@ import { useTranslation } from "react-i18next";
 
 interface IDiscounstListProps {
     discounts: IDiscount[],
-    handleGetCountOfProductsForDiscount: (discount: IDiscount) => number
+    selectedDiscount: IDiscount | null,
+    handleGetCountOfProductsForDiscount: (discount: IDiscount) => number,
+    handleUpdateSelectedDiscount: (discount: IDiscount | null) => void,
 }
 
 export default function DiscounstList({
     discounts,
-    handleGetCountOfProductsForDiscount
+    selectedDiscount,
+    handleGetCountOfProductsForDiscount,
+    handleUpdateSelectedDiscount
 }: IDiscounstListProps) {
 
     const { t } = useTranslation();
+
+    const handleOnChangeCheckbox = (discount: IDiscount) => {
+        if (selectedDiscount && selectedDiscount.id === discount.id) {
+            handleUpdateSelectedDiscount(null);
+        }
+        if (selectedDiscount && selectedDiscount.id !== discount.id) {
+            handleUpdateSelectedDiscount(discount);
+        }
+        if (!selectedDiscount) {
+            handleUpdateSelectedDiscount(discount);
+        }
+    };
 
     return (
         <div className="discounts-view">
@@ -25,7 +41,10 @@ export default function DiscounstList({
                             return (
                                 <div key={ el.id } className="discount-wrapper">
                                     <div className="discount-select">
-                                        <Checkbox />
+                                        <Checkbox
+                                            checked={ selectedDiscount?.id === el.id }
+                                            onChange={ () => handleOnChangeCheckbox(el) }
+                                        />
                                     </div>
                                     <div className="discount-wrapper-title">
                                         { el.name } ({ handleGetCountOfProductsForDiscount(el) })
@@ -44,7 +63,10 @@ export default function DiscounstList({
                             return (
                                 <div key={ el.id } className="discount-wrapper">
                                     <div className="discount-select">
-                                        <Checkbox />
+                                        <Checkbox
+                                            checked={ selectedDiscount?.id === el.id }
+                                            onChange={ () => handleOnChangeCheckbox(el) }
+                                        />
                                     </div>
                                     <div className="discount-wrapper-title">
                                         { el.name } ({ handleGetCountOfProductsForDiscount(el) })

@@ -32,6 +32,7 @@ export const useDiscounts = () => {
         productCategories: string[],
         categoriesForDiscount: string[]
     ) => {
+        if (categoriesForDiscount.length === 0) return true;
         let fullCategoriesForDiscount: string[] = [];
         categoriesForDiscount.forEach(el => {
             const foundCategory = handleFindCategory(el, categories);
@@ -117,6 +118,7 @@ export const useDiscounts = () => {
         discountTypesForSelect,
         handleGetCountOfProductsForDiscount,
         handleGetBestDiscountForProductById,
+        handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount,
         handleCreateDiscount,
         handleUpdateDiscount,
         handleDeleteDiscount
