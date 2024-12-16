@@ -1,5 +1,6 @@
 import { MenuItem, Select } from "@mui/material";
 import "./additional-info-filters.scss";
+import { useTranslation } from "react-i18next";
 
 interface IAdditionalInfoFiltersProps {
     additionalInfoFilterOptions: Record<string, {
@@ -7,14 +8,18 @@ interface IAdditionalInfoFiltersProps {
         value: any;
     }[]>,
     additionalInfoValues: Record<string, string>,
-    handleUpdateAdditionalInfoValues: (systemKey: string, value: string) => void
+    handleUpdateAdditionalInfoValues: (systemKey: string, value: string) => void,
+    handleClearAdditionalInfoFilters: () => void
 }
 
 export default function AdditionalInfoFilters({
     additionalInfoFilterOptions,
     additionalInfoValues,
-    handleUpdateAdditionalInfoValues
+    handleUpdateAdditionalInfoValues,
+    handleClearAdditionalInfoFilters
 }: IAdditionalInfoFiltersProps) {
+
+    const { t } = useTranslation();
 
     return (
         <div className="characteristics-wrapper">
@@ -48,6 +53,12 @@ export default function AdditionalInfoFilters({
                         );
                     })
                 }
+            </div>
+            <div 
+                className="characteristics-filter-clear"
+                onClick={ handleClearAdditionalInfoFilters }
+            >
+                { t("text.clear") }
             </div>
         </div>
     );

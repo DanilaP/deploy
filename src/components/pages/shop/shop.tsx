@@ -99,7 +99,15 @@ export default function ShopPage () {
         });
     };
 
+    const handleClearAdditionalInfoFilters = () => {
+        setAdditionalInfoValues({});
+    };
+
     useEffect(() => {
+        let allowedProductsByAdditionalInfo: IProduct[] | null = null;
+        if (Object.keys(additionalInfoValues).length !== 0) {
+            allowedProductsByAdditionalInfo = handleGetFilteredProductsByAdditionalInfo(additionalInfoValues);
+        }
         const filteredProductsList = products.filter(product => {
             const isCurrentPriceAvailable = 
                 handleIsProductPriceBetweenMinMaxFilters(product);
@@ -107,15 +115,14 @@ export default function ShopPage () {
             const byDiscount = selectedDiscount 
                 ? handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount(product.category, selectedDiscount.categories)
                 : true;
-            return isInStock && byDiscount && isCurrentPriceAvailable;
+            const allowedByAdditionalInfo = 
+                allowedProductsByAdditionalInfo
+                    ? allowedProductsByAdditionalInfo.find(el => el.id === product.id)
+                    : true;
+            return isInStock && byDiscount && isCurrentPriceAvailable && allowedByAdditionalInfo;
         });
         setFilteredProducts(filteredProductsList);
-    },  [filters, selectedDiscount, products]);
-
-    useEffect(() => {
-        const filteredProductsList = handleGetFilteredProductsByAdditionalInfo(additionalInfoValues);
-        setFilteredProducts(filteredProductsList);
-    }, [additionalInfoValues]);
+    },  [products, filters, selectedDiscount, additionalInfoValues]);
 
     useEffect(() => {
         const findedCategory: ICategory | null = handleFindCategory(params.id || "", categories);
@@ -124,7 +131,7 @@ export default function ShopPage () {
         } else {
             setCurrentSubCategories(categories);
         }
-        setAdditionalInfoValues({});
+        handleClearAdditionalInfoFilters();
     }, [params.id, categories]);
 
     useEffect(() => {
@@ -148,6 +155,7 @@ export default function ShopPage () {
             handleGetBestDiscountForProductById={ handleGetBestDiscountForProductById }
             handleGetFiltersOptionsByAdditionalInfo={ handleGetFiltersOptionsByAdditionalInfo }
             handleUpdateAdditionalInfoValues={ handleUpdateAdditionalInfoValues }
+            handleClearAdditionalInfoFilters={ handleClearAdditionalInfoFilters }
         />
     );
 }

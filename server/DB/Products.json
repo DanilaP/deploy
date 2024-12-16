@@ -777,7 +777,7 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": ["17"],
+    "category": ["23"],
     "additionalInfo": [
       {
         "id": 1,

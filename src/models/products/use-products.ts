@@ -115,7 +115,7 @@ export const useProducts = (categoryId?: string) => {
     };
 
     const handleGetFiltersOptionsByAdditionalInfo = () => {
-        return products.reduce((prev: any, product: IProduct) => {
+        return filteredProducts.reduce((prev: any, product: IProduct) => {
             product.additionalInfo.forEach(additionalInfo => {
                 const optionValue = {
                     title: additionalInfo.name,
@@ -152,7 +152,7 @@ export const useProducts = (categoryId?: string) => {
         let filteredProductsList: IProduct[] = [];
         Object.keys(additionalInfoValues).map((systemKey: string) => {
             const value = additionalInfoValues[systemKey];
-            filteredProductsList = products.filter(product => {
+            filteredProductsList = filteredProducts.filter(product => {
                 const findedAdditionalInfo = product.additionalInfo.find(el => el.systemKey === systemKey);
                 return value === findedAdditionalInfo?.description;
             });

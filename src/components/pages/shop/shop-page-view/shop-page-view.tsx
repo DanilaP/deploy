@@ -25,7 +25,8 @@ interface IShopPageViewProps {
     handleSortProductList: (field: string) => void,
     handleGetBestDiscountForProductById: (product: IProduct) => number,
     handleGetFiltersOptionsByAdditionalInfo: () => Record<string, { title: string, value: any }[]>
-    handleUpdateAdditionalInfoValues: (systemKey: string, value: string) => void
+    handleUpdateAdditionalInfoValues: (systemKey: string, value: string) => void,
+    handleClearAdditionalInfoFilters: () => void
 }
 
 export default function ShopPageView({
@@ -43,7 +44,8 @@ export default function ShopPageView({
     handleSortProductList,
     handleGetBestDiscountForProductById,
     handleGetFiltersOptionsByAdditionalInfo,
-    handleUpdateAdditionalInfoValues
+    handleUpdateAdditionalInfoValues,
+    handleClearAdditionalInfoFilters
 }: IShopPageViewProps) {
     
     const { t } = useTranslation();
@@ -68,6 +70,7 @@ export default function ShopPageView({
                     additionalInfoFilterOptions={ additionalInfoFilterOptions }
                     additionalInfoValues={ additionalInfoValues }
                     handleUpdateAdditionalInfoValues={ handleUpdateAdditionalInfoValues }
+                    handleClearAdditionalInfoFilters={ handleClearAdditionalInfoFilters }
                 />
                 <div className="categories-list">
                     {
