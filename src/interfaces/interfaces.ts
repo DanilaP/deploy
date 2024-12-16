@@ -42,3 +42,5 @@ export interface ICartProduct {
     variation: string;
     productInfo: IProduct;
 }
+
+export type IAdditionalInfoFilterOptions = Record<string, { title: string, value: string}[]>;

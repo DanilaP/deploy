@@ -7,8 +7,8 @@ import { useCategories } from "../categories/use-categories";
 import { ICategory } from "../categories/categories";
 import { getAverageEvaluation } from "../../helpers/product-page-helpers";
 import { useDiscounts } from "../discounts/use-discounts";
-import lodash from "lodash";
 import { IDiscount } from "../discounts/discounts";
+import lodash from "lodash";
 
 export const useProducts = (categoryId?: string) => {
 

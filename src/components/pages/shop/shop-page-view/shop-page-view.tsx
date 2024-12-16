@@ -9,6 +9,7 @@ import MediaCard from "../card/card";
 import "./shop-page-view.scss";
 import CategoryCard from "../category-card/category-card";
 import AdditionalInfoFilters from "../additional-info-filters/additional-info-filters";
+import { IAdditionalInfoFilterOptions } from "../../../../interfaces/interfaces";
 
 interface IShopPageViewProps {
     discounts: IDiscount[],
@@ -17,6 +18,7 @@ interface IShopPageViewProps {
     currentSubCategories: ICategory[],
     filteredProducts: IProduct[],
     additionalInfoValues: Record<string, string>,
+    additionalInfoFilterOptions: IAdditionalInfoFilterOptions,
     handleGoToSubCategory: (category: ICategory) => void,
     handleGetCountOfProductsForDiscount: (discount: IDiscount) => number,
     setSelectedDiscount: (discount: IDiscount | null) => void,
@@ -24,7 +26,6 @@ interface IShopPageViewProps {
     handleFilterProductsByChildrenCategories: (filteredProducts: IProduct[], category: ICategory) => IProduct[],
     handleSortProductList: (field: string) => void,
     handleGetBestDiscountForProductById: (product: IProduct) => number,
-    handleGetFiltersOptionsByAdditionalInfo: () => Record<string, { title: string, value: any }[]>
     handleUpdateAdditionalInfoValues: (systemKey: string, value: string) => void,
     handleClearAdditionalInfoFilters: () => void
 }
@@ -36,6 +37,7 @@ export default function ShopPageView({
     currentSubCategories,
     filteredProducts,
     additionalInfoValues,
+    additionalInfoFilterOptions,
     handleGoToSubCategory,
     handleGetCountOfProductsForDiscount,
     setSelectedDiscount,
@@ -43,13 +45,11 @@ export default function ShopPageView({
     handleFilterProductsByChildrenCategories,
     handleSortProductList,
     handleGetBestDiscountForProductById,
-    handleGetFiltersOptionsByAdditionalInfo,
     handleUpdateAdditionalInfoValues,
     handleClearAdditionalInfoFilters
 }: IShopPageViewProps) {
     
     const { t } = useTranslation();
-    const additionalInfoFilterOptions = handleGetFiltersOptionsByAdditionalInfo();
 
     return (
         <div className='shop-wrapper'>

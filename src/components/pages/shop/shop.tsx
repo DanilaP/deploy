@@ -10,6 +10,7 @@ import { useWarehouse } from '../../../models/warehouse/use-warehouse';
 import { IFilters } from './filters-list/filters-list';
 import { IProduct } from '../../../models/products/products';
 import ShopPageView from './shop-page-view/shop-page-view';
+import { IAdditionalInfoFilterOptions } from '../../../interfaces/interfaces';
 
 export default function ShopPage () {
 
@@ -26,11 +27,13 @@ export default function ShopPage () {
             max: null
         }
     });
-    const [additionalInfoValues, setAdditionalInfoValues] = useState<Record<string, any>>({});
-    
+    const [additionalInfoValues, setAdditionalInfoValues] = useState<Record<string, string>>({});
+    const [additionalInfoFilterOptions, setAdditionalInfoFilterOptions] = useState<IAdditionalInfoFilterOptions>({});
+    const [currentFilteredProductList, setCurrentFilteredProductList] = useState<IProduct[]>([]);
+
     const {
         products,
-        filteredProducts,
+        filteredProducts: productsInCurrentCategory,
         setFilteredProducts,
         handleFilterProductsByChildrenCategories,
         handleGetSortedProductsByRating,
@@ -60,9 +63,9 @@ export default function ShopPage () {
     };
 
     const handleSortProductList = (fieldName: string) => {
-        let sortedProducts = filteredProducts;
+        let sortedProducts = productsInCurrentCategory;
         if (fieldName === "price") {
-            sortedProducts = [...filteredProducts.sort((prev, current) => {
+            sortedProducts = [...productsInCurrentCategory.sort((prev, current) => {
                 const prevBestPrice = 
                     prev.price - prev.price * handleGetBestDiscountForProductById(prev) / 100;
                 const prevNextPrice = 
@@ -121,7 +124,7 @@ export default function ShopPage () {
                     : true;
             return isInStock && byDiscount && isCurrentPriceAvailable && allowedByAdditionalInfo;
         });
-        setFilteredProducts(filteredProductsList);
+        setCurrentFilteredProductList(filteredProductsList);
     },  [products, filters, selectedDiscount, additionalInfoValues]);
 
     useEffect(() => {
@@ -132,7 +135,8 @@ export default function ShopPage () {
             setCurrentSubCategories(categories);
         }
         handleClearAdditionalInfoFilters();
-    }, [params.id, categories]);
+        setAdditionalInfoFilterOptions(handleGetFiltersOptionsByAdditionalInfo());
+    }, [params.id, categories, products]);
 
     useEffect(() => {
         document.title = t("titles.shopPage");
@@ -144,8 +148,9 @@ export default function ShopPage () {
             selectedDiscount={ selectedDiscount }
             filters={ filters }
             currentSubCategories={ currentSubCategories }
-            filteredProducts={ filteredProducts }
+            filteredProducts={ currentFilteredProductList }
             additionalInfoValues={ additionalInfoValues }
+            additionalInfoFilterOptions={ additionalInfoFilterOptions }
             handleGoToSubCategory={ handleGoToSubCategory }
             handleGetCountOfProductsForDiscount={ handleGetCountOfProductsForDiscount }
             setSelectedDiscount={ setSelectedDiscount }
@@ -153,7 +158,6 @@ export default function ShopPage () {
             handleFilterProductsByChildrenCategories={ handleFilterProductsByChildrenCategories }
             handleSortProductList={ handleSortProductList }
             handleGetBestDiscountForProductById={ handleGetBestDiscountForProductById }
-            handleGetFiltersOptionsByAdditionalInfo={ handleGetFiltersOptionsByAdditionalInfo }
             handleUpdateAdditionalInfoValues={ handleUpdateAdditionalInfoValues }
             handleClearAdditionalInfoFilters={ handleClearAdditionalInfoFilters }
         />
