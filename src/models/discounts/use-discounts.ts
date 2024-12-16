@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { IDiscount } from "./discounts";
 import { IProduct } from "../products/products";
-import { useProducts } from "../products/use-products.js";
 import { createDiscount, deleteDiscount, getDiscounts, updateDiscount } from "./discounts-api.js";
 import { useCategories } from "../categories/use-categories.js";
 import lodash from "lodash";
@@ -14,7 +13,6 @@ export const useDiscounts = () => {
         { id: "discount", label: "Скидка" }
     ];
 
-    const { products } = useProducts();
     const { 
         categories, 
         findAllChildCategories,
@@ -44,18 +42,6 @@ export const useDiscounts = () => {
             }
         });
         return lodash.intersection(fullCategoriesForDiscount, productCategories).length !== 0;
-    };
-
-    const handleGetCountOfProductsForDiscount = (discount: IDiscount) => {
-        if (discount.categories.length === 0) return products.length;
-        return products.reduce((prev: number, product: IProduct) => {
-            if (
-                handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount(product.category, discount.categories)
-            ) {
-                return prev + 1;
-            }
-            return prev;
-        }, 0);
     };
 
     const handleGetBestDiscountForProductById = (product: IProduct) => {
@@ -116,7 +102,6 @@ export const useDiscounts = () => {
     return {
         discounts,
         discountTypesForSelect,
-        handleGetCountOfProductsForDiscount,
         handleGetBestDiscountForProductById,
         handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount,
         handleCreateDiscount,

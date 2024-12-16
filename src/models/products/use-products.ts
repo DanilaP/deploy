@@ -5,8 +5,10 @@ import { useProviders } from "../providers/use-providers";
 import { IProvider } from "../providers/providers";
 import { useCategories } from "../categories/use-categories";
 import { ICategory } from "../categories/categories";
-import lodash from "lodash";
 import { getAverageEvaluation } from "../../helpers/product-page-helpers";
+import { useDiscounts } from "../discounts/use-discounts";
+import lodash from "lodash";
+import { IDiscount } from "../discounts/discounts";
 
 export const useProducts = (categoryId?: string) => {
 
@@ -18,7 +20,7 @@ export const useProducts = (categoryId?: string) => {
         findAllChildCategories,
         handleFindCategory
     } = useCategories();
-    
+    const { handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount } = useDiscounts();
     const { providers } = useProviders();
     
     const handleDeleteGood = (currentProduct: IProduct) => {
@@ -112,6 +114,52 @@ export const useProducts = (categoryId?: string) => {
         return sortedProducts;
     };
 
+    const handleGetFiltersOptionsByAdditionalInfo = () => {
+        return products.reduce((prev: any, product: IProduct) => {
+            product.additionalInfo.forEach(additionalInfo => {
+                const optionValue = {
+                    title: additionalInfo.name,
+                    value: additionalInfo.description
+                };
+                if (prev[additionalInfo.systemKey]) {
+                    const findedOption = prev[additionalInfo.systemKey].find(el => el.value === optionValue.value);
+                    if (!findedOption) {
+                        prev[additionalInfo.systemKey] = [...prev[additionalInfo.systemKey], optionValue];
+                    }
+                }
+                else {
+                    prev[additionalInfo.systemKey] = [optionValue];
+                }
+                return prev;
+            });
+            return prev;
+        }, {});
+    };
+
+    const handleGetCountOfProductsForDiscount = (discount: IDiscount) => {
+        if (discount.categories.length === 0) return products.length;
+        return products.reduce((prev: number, product: IProduct) => {
+            if (
+                handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount(product.category, discount.categories)
+            ) {
+                return prev + 1;
+            }
+            return prev;
+        }, 0);
+    };
+
+    const handleGetFilteredProductsByAdditionalInfo = (additionalInfoValues: Record<string, string>) => {
+        let filteredProductsList: IProduct[] = [];
+        Object.keys(additionalInfoValues).map((systemKey: string) => {
+            const value = additionalInfoValues[systemKey];
+            filteredProductsList = products.filter(product => {
+                const findedAdditionalInfo = product.additionalInfo.find(el => el.systemKey === systemKey);
+                return value === findedAdditionalInfo?.description;
+            });
+        });
+        return filteredProductsList;
+    };
+
     useEffect(() => {
         const response = getProducts();
             response.then(res => {
@@ -139,6 +187,9 @@ export const useProducts = (categoryId?: string) => {
         handleSearchProductByProvider,
         handleSearchProductsByActive,
         handleFilterProductsByChildrenCategories,
-        handleGetSortedProductsByRating
+        handleGetSortedProductsByRating,
+        handleGetCountOfProductsForDiscount,
+        handleGetFiltersOptionsByAdditionalInfo,
+        handleGetFilteredProductsByAdditionalInfo
     };
 };

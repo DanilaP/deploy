@@ -8,8 +8,8 @@ import { useDiscounts } from '../../../models/discounts/use-discounts';
 import { IDiscount } from '../../../models/discounts/discounts';
 import { useWarehouse } from '../../../models/warehouse/use-warehouse';
 import { IFilters } from './filters-list/filters-list';
-import ShopPageView from './shop-page-view/shop-page-view';
 import { IProduct } from '../../../models/products/products';
+import ShopPageView from './shop-page-view/shop-page-view';
 
 export default function ShopPage () {
 
@@ -26,6 +26,7 @@ export default function ShopPage () {
             max: null
         }
     });
+    const [additionalInfoValues, setAdditionalInfoValues] = useState<Record<string, any>>({});
     
     const {
         products,
@@ -33,14 +34,16 @@ export default function ShopPage () {
         setFilteredProducts,
         handleFilterProductsByChildrenCategories,
         handleGetSortedProductsByRating,
+        handleGetFiltersOptionsByAdditionalInfo,
+        handleGetCountOfProductsForDiscount,
+        handleGetFilteredProductsByAdditionalInfo
     } = useProducts(params.id);
     const { 
         categories, 
         handleFindCategory 
     } = useCategories();
     const { 
-        discounts, 
-        handleGetCountOfProductsForDiscount,
+        discounts,
         handleGetBestDiscountForProductById,
         handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount
     } = useDiscounts();
@@ -73,7 +76,7 @@ export default function ShopPage () {
         }
         setFilteredProducts(() => sortedProducts);
     };
-
+    
     const handleIsProductPriceBetweenMinMaxFilters = (product: IProduct) => {
         let isBetweenMinMaxPrice = true;
         const currentPrice = 
@@ -85,6 +88,15 @@ export default function ShopPage () {
             isBetweenMinMaxPrice = isBetweenMinMaxPrice && currentPrice >= filters.price.min;
         }
         return isBetweenMinMaxPrice;
+    };
+
+    const handleUpdateAdditionalInfoValues = (systemKey: string, value: string) => {
+        setAdditionalInfoValues(prev => {
+            return {
+                ...prev,
+                [systemKey]: value
+            };
+        });
     };
 
     useEffect(() => {
@@ -101,18 +113,24 @@ export default function ShopPage () {
     },  [filters, selectedDiscount, products]);
 
     useEffect(() => {
+        const filteredProductsList = handleGetFilteredProductsByAdditionalInfo(additionalInfoValues);
+        setFilteredProducts(filteredProductsList);
+    }, [additionalInfoValues]);
+
+    useEffect(() => {
         const findedCategory: ICategory | null = handleFindCategory(params.id || "", categories);
         if (findedCategory) {
             setCurrentSubCategories(findedCategory.categories || []);
         } else {
             setCurrentSubCategories(categories);
         }
+        setAdditionalInfoValues({});
     }, [params.id, categories]);
 
     useEffect(() => {
         document.title = t("titles.shopPage");
     }, []);
-
+    
     return (
         <ShopPageView
             discounts={ discounts }
@@ -120,6 +138,7 @@ export default function ShopPage () {
             filters={ filters }
             currentSubCategories={ currentSubCategories }
             filteredProducts={ filteredProducts }
+            additionalInfoValues={ additionalInfoValues }
             handleGoToSubCategory={ handleGoToSubCategory }
             handleGetCountOfProductsForDiscount={ handleGetCountOfProductsForDiscount }
             setSelectedDiscount={ setSelectedDiscount }
@@ -127,6 +146,8 @@ export default function ShopPage () {
             handleFilterProductsByChildrenCategories={ handleFilterProductsByChildrenCategories }
             handleSortProductList={ handleSortProductList }
             handleGetBestDiscountForProductById={ handleGetBestDiscountForProductById }
+            handleGetFiltersOptionsByAdditionalInfo={ handleGetFiltersOptionsByAdditionalInfo }
+            handleUpdateAdditionalInfoValues={ handleUpdateAdditionalInfoValues }
         />
     );
 }

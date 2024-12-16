@@ -8,6 +8,7 @@ import FiltersList, { IFilters } from "../filters-list/filters-list";
 import MediaCard from "../card/card";
 import "./shop-page-view.scss";
 import CategoryCard from "../category-card/category-card";
+import AdditionalInfoFilters from "../additional-info-filters/additional-info-filters";
 
 interface IShopPageViewProps {
     discounts: IDiscount[],
@@ -15,13 +16,16 @@ interface IShopPageViewProps {
     filters: IFilters,
     currentSubCategories: ICategory[],
     filteredProducts: IProduct[],
+    additionalInfoValues: Record<string, string>,
     handleGoToSubCategory: (category: ICategory) => void,
     handleGetCountOfProductsForDiscount: (discount: IDiscount) => number,
     setSelectedDiscount: (discount: IDiscount | null) => void,
     handleUpdateFilters: (filters: IFilters) => void,
     handleFilterProductsByChildrenCategories: (filteredProducts: IProduct[], category: ICategory) => IProduct[],
     handleSortProductList: (field: string) => void,
-    handleGetBestDiscountForProductById: (product: IProduct) => number
+    handleGetBestDiscountForProductById: (product: IProduct) => number,
+    handleGetFiltersOptionsByAdditionalInfo: () => Record<string, { title: string, value: any }[]>
+    handleUpdateAdditionalInfoValues: (systemKey: string, value: string) => void
 }
 
 export default function ShopPageView({
@@ -30,16 +34,20 @@ export default function ShopPageView({
     filters,
     currentSubCategories,
     filteredProducts,
+    additionalInfoValues,
     handleGoToSubCategory,
     handleGetCountOfProductsForDiscount,
     setSelectedDiscount,
     handleUpdateFilters,
     handleFilterProductsByChildrenCategories,
     handleSortProductList,
-    handleGetBestDiscountForProductById
+    handleGetBestDiscountForProductById,
+    handleGetFiltersOptionsByAdditionalInfo,
+    handleUpdateAdditionalInfoValues
 }: IShopPageViewProps) {
     
     const { t } = useTranslation();
+    const additionalInfoFilterOptions = handleGetFiltersOptionsByAdditionalInfo();
 
     return (
         <div className='shop-wrapper'>
@@ -56,6 +64,11 @@ export default function ShopPageView({
                 />
             </div>
             <div className="shop-products-wrapper">
+                <AdditionalInfoFilters
+                    additionalInfoFilterOptions={ additionalInfoFilterOptions }
+                    additionalInfoValues={ additionalInfoValues }
+                    handleUpdateAdditionalInfoValues={ handleUpdateAdditionalInfoValues }
+                />
                 <div className="categories-list">
                     {
                         currentSubCategories.map(category => {
@@ -71,7 +84,6 @@ export default function ShopPageView({
                         })
                     }
                 </div>
-                
                 <div className="shop-content-menu">
                     <div className="products-count">
                         { filteredProducts.length !== 0 
