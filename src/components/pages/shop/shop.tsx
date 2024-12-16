@@ -9,8 +9,8 @@ import { IDiscount } from '../../../models/discounts/discounts';
 import { useWarehouse } from '../../../models/warehouse/use-warehouse';
 import { IFilters } from './filters-list/filters-list';
 import { IProduct } from '../../../models/products/products';
-import ShopPageView from './shop-page-view/shop-page-view';
 import { IAdditionalInfoFilterOptions } from '../../../interfaces/interfaces';
+import ShopPageView from './shop-page-view/shop-page-view';
 
 export default function ShopPage () {
 
@@ -33,13 +33,12 @@ export default function ShopPage () {
 
     const {
         products,
-        filteredProducts: productsInCurrentCategory,
-        setFilteredProducts,
         handleFilterProductsByChildrenCategories,
         handleGetSortedProductsByRating,
         handleGetFiltersOptionsByAdditionalInfo,
         handleGetCountOfProductsForDiscount,
-        handleGetFilteredProductsByAdditionalInfo
+        handleGetFilteredProductsByAdditionalInfo,
+        handleGetSortedProductsByCurrentPrice
     } = useProducts(params.id);
     const { 
         categories, 
@@ -63,21 +62,14 @@ export default function ShopPage () {
     };
 
     const handleSortProductList = (fieldName: string) => {
-        let sortedProducts = productsInCurrentCategory;
+        let sortedProducts: IProduct[] = [];
         if (fieldName === "price") {
-            sortedProducts = [...productsInCurrentCategory.sort((prev, current) => {
-                const prevBestPrice = 
-                    prev.price - prev.price * handleGetBestDiscountForProductById(prev) / 100;
-                const prevNextPrice = 
-                    current.price - current.price * handleGetBestDiscountForProductById(current) / 100;
-                if (prevBestPrice < prevNextPrice) return -1;
-                return 1;
-            })];
+            sortedProducts = handleGetSortedProductsByCurrentPrice();
         }
         if (fieldName === "rating") {
             sortedProducts = handleGetSortedProductsByRating();
         }
-        setFilteredProducts(() => sortedProducts);
+        setCurrentFilteredProductList(() => [...sortedProducts]);
     };
     
     const handleIsProductPriceBetweenMinMaxFilters = (product: IProduct) => {

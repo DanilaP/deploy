@@ -20,7 +20,10 @@ export const useProducts = (categoryId?: string) => {
         findAllChildCategories,
         handleFindCategory
     } = useCategories();
-    const { handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount } = useDiscounts();
+    const { 
+        handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount,
+        handleGetBestDiscountForProductById
+    } = useDiscounts();
     const { providers } = useProviders();
     
     const handleDeleteGood = (currentProduct: IProduct) => {
@@ -105,12 +108,24 @@ export const useProducts = (categoryId?: string) => {
     };
 
     const handleGetSortedProductsByRating = () => {
-        const sortedProducts = [...filteredProducts.sort((prev, current) => {
+        const sortedProducts: IProduct[] = filteredProducts.sort((prev, current) => {
             const prevEvaulation = getAverageEvaluation(prev.reviews || []);
             const nextEvaulation = getAverageEvaluation(current.reviews || []);
             if (prevEvaulation < nextEvaulation) return -1;
             return 1;
-        })];
+        });
+        return sortedProducts;
+    };
+
+    const handleGetSortedProductsByCurrentPrice = () => {
+        const sortedProducts: IProduct[] = filteredProducts.sort((prev, current) => {
+            const prevBestPrice = 
+                prev.price - prev.price * handleGetBestDiscountForProductById(prev) / 100;
+            const prevNextPrice = 
+                current.price - current.price * handleGetBestDiscountForProductById(current) / 100;
+            if (prevBestPrice < prevNextPrice) return -1;
+            return 1;
+        });
         return sortedProducts;
     };
 
@@ -190,6 +205,7 @@ export const useProducts = (categoryId?: string) => {
         handleGetSortedProductsByRating,
         handleGetCountOfProductsForDiscount,
         handleGetFiltersOptionsByAdditionalInfo,
-        handleGetFilteredProductsByAdditionalInfo
+        handleGetFilteredProductsByAdditionalInfo,
+        handleGetSortedProductsByCurrentPrice
     };
 };
