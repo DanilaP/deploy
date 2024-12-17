@@ -107,8 +107,8 @@ export const useProducts = (categoryId?: string) => {
         return products;
     };
 
-    const handleGetSortedProductsByRating = () => {
-        const sortedProducts: IProduct[] = filteredProducts.sort((prev, current) => {
+    const handleGetSortedProductsByRating = (productList: IProduct[]) => {
+        const sortedProducts: IProduct[] = productList.sort((prev, current) => {
             const prevEvaulation = getAverageEvaluation(prev.reviews || []);
             const nextEvaulation = getAverageEvaluation(current.reviews || []);
             if (prevEvaulation < nextEvaulation) return -1;
@@ -117,8 +117,8 @@ export const useProducts = (categoryId?: string) => {
         return sortedProducts;
     };
 
-    const handleGetSortedProductsByCurrentPrice = () => {
-        const sortedProducts: IProduct[] = filteredProducts.sort((prev, current) => {
+    const handleGetSortedProductsByCurrentPrice = (productList: IProduct[]) => {
+        const sortedProducts: IProduct[] = productList.sort((prev, current) => {
             const prevBestPrice = 
                 prev.price - prev.price * handleGetBestDiscountForProductById(prev) / 100;
             const prevNextPrice = 

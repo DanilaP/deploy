@@ -64,10 +64,10 @@ export default function ShopPage () {
     const handleSortProductList = (fieldName: string) => {
         let sortedProducts: IProduct[] = [];
         if (fieldName === "price") {
-            sortedProducts = handleGetSortedProductsByCurrentPrice();
+            sortedProducts = handleGetSortedProductsByCurrentPrice(currentFilteredProductList);
         }
         if (fieldName === "rating") {
-            sortedProducts = handleGetSortedProductsByRating();
+            sortedProducts = handleGetSortedProductsByRating(currentFilteredProductList);
         }
         setCurrentFilteredProductList(() => [...sortedProducts]);
     };
