@@ -9,7 +9,8 @@ const jwt = require('jsonwebtoken');
 const jwt_decode = require('jwt-decode');
 const path = require('path');
 const WebSocket = require('ws');
-const { error } = require('console');
+const { error, log } = require('console');
+const e = require('cors');
 
 const generateAccessToken = (id) => {
     const payload = {
@@ -1037,6 +1038,124 @@ app.delete("/discounts", async function(req, res) {
     catch(error) {
         console.error("delete /discounts", error);
         res.status(400).json({ message: "Ошибка удаления данных об акции!" });
+    }
+});
+
+// statistic
+
+app.get("/statistic/orders", async function(req, res) {
+    try {
+        let { dateFrom, dateTo, userId } = req.query;
+        const minDate = new Date(dateFrom);
+        const maxDate = new Date(dateTo);
+    
+        let ordersList = JSON.parse(fs.readFileSync('DB/Orders.json', 'utf8'));
+        let productList = JSON.parse(fs.readFileSync('DB/Products.json', 'utf8'));
+        let deliveryTimeAmount = 0;
+        const inithialStatistic = {
+            countOfOrders: 0,
+            deliveredCount: 0,
+            inTransitCount: 0,
+            paymentsInfo: {},
+            courierCount: 0,
+            pickupCount: 0,
+            averageTimeOfDeliveryHours: 0,
+            averageAmountOfOrder: 0,
+            amountPriceOfOrders: 0,
+            productsStats: {},
+        };
+        const statisticInfo = ordersList.reduce((statistic, order, index) => {
+            const orderCreationDate = new Date(order.createdAt);
+            if (userId !== "null" && Number(userId) !== order.userId) { 
+                return statistic;
+            }
+            if (orderCreationDate > maxDate || orderCreationDate < minDate) {
+                return statistic;
+            }
+            statistic.countOfOrders = statistic.countOfOrders + 1;
+            statistic.amountPriceOfOrders = statistic.amountPriceOfOrders + order.orderPrice;
+            if (order.orderStatus === "delivered") {
+                statistic.deliveredCount = statistic.deliveredCount + 1;
+                
+                const createdDate = new Date(order.createdAt).getTime();
+                const deliveredDate = new Date(order.deliveredAt).getTime();
+                deliveryTimeAmount = deliveryTimeAmount + deliveredDate - createdDate;
+            }
+            if (order.orderStatus === "in-transit") {
+                statistic.inTransitCount = statistic.inTransitCount + 1;
+            }
+            if (order.deliveryMethod === "courier") {
+                statistic.courierCount = statistic.courierCount + 1;
+            }
+            if (order.deliveryMethod === "pickup") {
+                statistic.pickupCount = statistic.pickupCount + 1;
+            }
+            if (statistic.paymentsInfo[order.paymentMethod]) {
+                statistic.paymentsInfo[order.paymentMethod].count 
+                    = statistic.paymentsInfo[order.paymentMethod].count + 1;
+                statistic.paymentsInfo[order.paymentMethod].amount 
+                    = statistic.paymentsInfo[order.paymentMethod].amount + order.orderPrice;
+            } else {
+                statistic.paymentsInfo[order.paymentMethod] = { 
+                    count: 1, 
+                    type: order.paymentMethod,
+                    amount: order.orderPrice
+                };
+            }
+
+            order.products.forEach((productInfo) => {
+                const productStats = statistic.productsStats[productInfo.id];
+                const findedProduct = productList.find(el => el.id === productInfo.id);
+                const findedVariation = findedProduct?.variations.find(el => el.name === productInfo.variation);
+
+                if (productStats) {
+                    productStats.count = productStats.count + productInfo.number;
+                    productStats.amount = 
+                        productStats.amount + productInfo.number * findedVariation.price;
+                    productStats.ordersCount = productStats.ordersCount + 1;
+                } else {
+                    statistic.productsStats[productInfo.id] = {
+                        count: productInfo.number,
+                        amount: productInfo.number * findedVariation.price,
+                        ordersCount: 1,
+                        name: findedProduct.name,
+                        images: findedProduct.images
+                    };
+                }
+            });
+            if (index === ordersList.length - 1) {
+                productList.forEach(product => {
+                    if (!statistic.productsStats[product.id]) {
+                        statistic.productsStats[product.id] = {
+                            count: 0,
+                            amount: 0,
+                            name: product.name,
+                            images: product.images,
+                            ordersCount: 0
+                        };
+                    }
+                });
+            }
+            statistic.averageTimeOfDeliveryHours = Math.floor(deliveryTimeAmount / statistic.deliveredCount / 3600000);
+            statistic.averageAmountOfOrder = Math.floor(statistic.amountPriceOfOrders / statistic.countOfOrders);
+            return statistic;
+        }, inithialStatistic);
+        res.status(200).json({ message: "Статистика по товарам получена", statistic: statisticInfo });
+    }
+    catch(error) {
+        console.error("get /statistic/products", error);
+        res.status(400).json({ message: "Ошибка получния статистики о товарах!" });
+    }
+});
+
+app.get("/statistic/places", async function(req, res) {
+    try {
+        let ordersList = JSON.parse(fs.readFileSync('DB/Orders.json', 'utf8'));
+        res.status(200).json({ message: "Статистика по местам доставки получены", statistic: ordersList });
+    }
+    catch(error) {
+        console.error("get /statistic/places", error);
+        res.status(400).json({ message: "Ошибка получения статистики о местах доставки!" });
     }
 });
 
