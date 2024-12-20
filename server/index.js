@@ -1119,7 +1119,8 @@ app.get("/statistic/orders", async function(req, res) {
                         amount: productInfo.number * findedVariation.price,
                         ordersCount: 1,
                         name: findedProduct.name,
-                        images: findedProduct.images
+                        images: findedProduct.images,
+                        categories: findedProduct.category
                     };
                 }
             });
@@ -1131,7 +1132,8 @@ app.get("/statistic/orders", async function(req, res) {
                             amount: 0,
                             name: product.name,
                             images: product.images,
-                            ordersCount: 0
+                            ordersCount: 0,
+                            categories: product.category
                         };
                     }
                 });

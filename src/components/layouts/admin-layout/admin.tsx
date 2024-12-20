@@ -13,6 +13,7 @@ import './admin.scss';
 import usePermissions from "../../../helpers/permissions-helpers.ts";
 import { TbTruckDelivery } from "react-icons/tb";
 import { RiDiscountPercentLine } from 'react-icons/ri';
+import { IoMdStats } from 'react-icons/io';
 
 interface AdminLayoutProps {
     children: React.ReactElement | null
@@ -103,6 +104,11 @@ export default function AdminLayout (props: AdminLayoutProps) {
                     {   
                         <MenuItem onClick={ () => navigate("/admin/discounts") }>
                             <RiDiscountPercentLine className='icon' />{ !isMenuTextExists ? t("text.discounts") : null }
+                        </MenuItem>
+                    }
+                    {   
+                        <MenuItem onClick={ () => navigate("/admin/statistic") }>
+                            <IoMdStats className='icon' />{ !isMenuTextExists ? t("text.statistic") : null }
                         </MenuItem>
                     }
                 </div>

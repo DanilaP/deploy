@@ -1,0 +1,48 @@
+.statistic-page-view {
+    display: grid;
+    gap: 20px;
+    .statistic-page-title {
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        font-size: 24px;
+        .date-settings {
+            font-size: 16px;
+            display: flex;
+            align-items: flex-end;
+            column-gap: 5px;
+            .MuiInputBase-input {
+                padding: 2px 0px 2px 0px;
+            }
+        }
+        .user-selection {
+            font-size: 16px;
+            display: flex;
+            align-items: flex-end;
+            .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.MuiInputBase-formControl.MuiInputBase-adornedEnd.MuiAutocomplete-inputRoot.css-1n04w30-MuiInputBase-root-MuiOutlinedInput-root {
+                min-width: 250px;
+                padding: 0px;
+                border: 0px;
+            }
+            .MuiInputBase-input {
+                padding: 2px 0px 2px 0px;
+            }
+        }
+    }
+    .statistic-page-types {
+        display: flex;
+        column-gap: 10px;
+        font-size: 18px;
+        .statistic-type {
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .selected-statistic-type {
+            cursor: pointer;
+            border-bottom: 2px solid var(--default-color);
+        }
+    }
+    .statistic-page-current-data {
+        border-radius: 5px;
+    }
+}

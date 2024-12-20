@@ -1,0 +1,50 @@
+.payment-methods-statistic {
+    display: flex;
+    column-gap: 25px;
+    .payment-methods-chart-container {
+        background-color: var(--bg-color-block);
+        padding: 10px 10px 10px 0;
+        border-radius: 10px;
+        color: var(--text-color);
+        border: 1px solid rgba(128, 128, 128, 0.247);
+        box-sizing: border-box;
+    }
+    .payments-methods-more-info {
+        display: grid;
+        gap: 10px;
+        .block {
+            min-width: 150px;
+            min-height: 150px;
+            border: 1px solid rgba(128, 128, 128, 0.247);
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            background-color: var(--bg-color-block);
+            display: grid;
+            .name {
+                font-size: 20px;
+                font-weight: 600;
+            }
+        }
+        .payment-methods-info {
+            display: flex;
+            gap: 5px;
+        }
+        .payment-methods-common {
+            .name {
+                font-size: 22px;
+            }
+            .value {
+                font-size: 17px;
+                .total-value {
+                    font-size: 28px;
+                }
+            }
+        }
+    }
+}
+.recharts-default-legend {
+    .recharts-legend-item-text::after {
+        opacity: 0;
+    }
+}
