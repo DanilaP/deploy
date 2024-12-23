@@ -121,11 +121,11 @@ export const useFeedbacks = (userId: string | null) => {
             });
     };
 
-    const handleSearchPrevFeedbacksForFeedback = (feedback: IFeedBack) => {
+    const handleSearchChildrenFeedbacksForFeedback = (feedback: IFeedBack) => {
         let findedFeedbacks: IFeedBack[] = [];
         const findedFeedback = userFeedBacks.find(el => el.parentFeedbackId === feedback.id);
         if (findedFeedback) {
-            findedFeedbacks = [...findedFeedbacks, findedFeedback, ...handleSearchPrevFeedbacksForFeedback(findedFeedback)];
+            findedFeedbacks = [...findedFeedbacks, findedFeedback, ...handleSearchChildrenFeedbacksForFeedback(findedFeedback)];
         }
         return findedFeedbacks;
     };
@@ -178,6 +178,6 @@ export const useFeedbacks = (userId: string | null) => {
         handleSearchFeedbacksByAllFields,
         handleDeleteFeedbackById,
         handleSearchNextFeedbacksForFeedback,
-        handleSearchPrevFeedbacksForFeedback
+        handleSearchChildrenFeedbacksForFeedback
     };
 };

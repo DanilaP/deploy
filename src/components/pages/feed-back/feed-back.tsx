@@ -22,7 +22,7 @@ export default function FeedBackPage() {
         handleUpdateFeedbackData,
         handleDeleteFeedbackById,
         handleSearchNextFeedbacksForFeedback,
-        handleSearchPrevFeedbacksForFeedback
+        handleSearchChildrenFeedbacksForFeedback
     } = useFeedbacks(userId ? userId : null);
 
     const [currentFeedback, setCurrentFeedback] = useState<IFeedBack | null>(null);
@@ -96,6 +96,10 @@ export default function FeedBackPage() {
                 return { ...prev, manage: true };
             });
         }
+    };
+
+    const handleCheckIsChildrenExistsForFeedback = (feedbackId: number) => {
+        return Boolean(userFeedBacks.find(el => el.parentFeedbackId === feedbackId));
     };
 
     const handleCloseDeleteFeedbackModal = () => {
@@ -183,6 +187,7 @@ export default function FeedBackPage() {
                 handleOpenEditFeedbackModal={ handleOpenEditFeedbackModal }
                 handleOpenDeleteFeedbackModal={ handleOpenDeleteFeedbackModal }
                 handleOpenRedoFeedbackModal={ handleOpenRedoFeedbackModal }
+                handleCheckIsChildrenExistsForFeedback={ handleCheckIsChildrenExistsForFeedback }
             />
             <CustomModal
                 isDisplay={ modals.moreInfo }
@@ -196,7 +201,7 @@ export default function FeedBackPage() {
             >
                 <FeedbackMoreInfo
                     feedback={ currentFeedback }
-                    handleSearchPrevFeedbacksForFeedback={ handleSearchPrevFeedbacksForFeedback }
+                    handleSearchChildrenFeedbacksForFeedback={ handleSearchChildrenFeedbacksForFeedback }
                     handleSearchNextFeedbacksForFeedback={ handleSearchNextFeedbacksForFeedback }
                     handleSwapCurrentFeedback={ handleSwapCurrentFeedback }
                 />

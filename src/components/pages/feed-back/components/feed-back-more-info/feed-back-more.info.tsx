@@ -6,14 +6,14 @@ import { IFeedBack } from "../../../../../models/feedbacks/feedbacks";
 interface IFeedbackMoreInfoProps {
     feedback: IFeedBack | null,
     handleSearchNextFeedbacksForFeedback: (feedback: IFeedBack) => IFeedBack[],
-    handleSearchPrevFeedbacksForFeedback: (feedback: IFeedBack) => IFeedBack[],
+    handleSearchChildrenFeedbacksForFeedback: (feedback: IFeedBack) => IFeedBack[],
     handleSwapCurrentFeedback: (feedback: IFeedBack) => void,
 }
 
 export default function FeedbackMoreInfo({
     feedback,
     handleSearchNextFeedbacksForFeedback,
-    handleSearchPrevFeedbacksForFeedback,
+    handleSearchChildrenFeedbacksForFeedback,
     handleSwapCurrentFeedback
 }: IFeedbackMoreInfoProps) {
 
@@ -24,9 +24,9 @@ export default function FeedbackMoreInfo({
             : [];
     const nextFeedbacks = 
         feedback 
-            ? [...handleSearchPrevFeedbacksForFeedback(feedback)]
+            ? [...handleSearchChildrenFeedbacksForFeedback(feedback)]
             : [];       
-
+ 
     return (
         <div className="call-back-more-info">
             <div className="name">

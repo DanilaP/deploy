@@ -30,12 +30,5 @@
                 color: orange;
             }
         }
-        .MuiDataGrid-row {
-            cursor: pointer;
-            background-color: var(--bg-color-block);
-            &:hover {
-                background-color: var(--hover-color);
-            }
-        }
     }
 }
