@@ -26,6 +26,7 @@
             align-items: flex-end;
             .MuiInputBase-input {
                 padding: 2px 0px 2px 0px;
+                width: 200px;
             }
         }
     }
@@ -45,10 +46,4 @@
     .statistic-page-current-data {
         border-radius: 5px;
     }
-}
-.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.MuiInputBase-formControl.MuiInputBase-adornedEnd.MuiAutocomplete-inputRoot {
-    min-width: 250px;
-    padding: 0px;
-    border: 0px;
-    height: 40px;
 }
