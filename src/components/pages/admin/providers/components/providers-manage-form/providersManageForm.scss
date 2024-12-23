@@ -3,21 +3,6 @@
     flex-direction: column;
     margin-top: 10px;
     row-gap: 10px;
-    .MuiInputBase-input {
-        border: none !important;
-        padding: 0px;
-    }
-    .MuiInputBase-root {
-        padding: 6px;
-    }
-    .MuiFormHelperText-root {
-        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-        font-size: 12px;
-        padding-left: 0px;
-        margin-left: 0px;
-        font-weight: normal;
-        letter-spacing: normal;
-    }
     .label {
         font-weight: 500;
     }
@@ -35,9 +20,6 @@
         display: flex;
         column-gap: 5px;
         align-items: center;
-        .MuiButtonBase-root {
-            padding: 0px;
-        }
     }
     .field-column {
         display: grid;
