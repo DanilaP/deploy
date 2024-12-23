@@ -60,9 +60,9 @@ export default function FeedBackForm({
             firstName: feedbackForRedo?.firstName || "",
             secondName: feedbackForRedo?.secondName || "",
             email: feedbackForRedo?.email || "",
-            parentFeedBackId: feedbackForRedo.id
+            parentFeedbackId: feedbackForRedo.id
         };
-        return { parentFeedBackId: null };
+        return { parentFeedbackId: null };
     };
 
     const {
@@ -89,7 +89,7 @@ export default function FeedBackForm({
     };
 
     const handleGetSubmitButtonDisabled = () => {
-        if (isEdit) {
+        if (isEdit || feedbackForRedo) {
             return !isValid || !isCaptchaPassed;
         } else {
             return submitCount !== 0 && (!isValid || !isCaptchaPassed);
