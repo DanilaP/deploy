@@ -1,9 +1,8 @@
 .call-back-page-view {
     display: grid;
     row-gap: 10px;
-    .MuiInputBase-input {
-        padding: 7px;
-        border: none !important;
+    .MuiInputBase-root {
+        height: 36.5px;
     }
     .call-back-page-title {
         font-size: 24px;
@@ -20,14 +19,6 @@
         row-gap: 10px;
         .callback-data-table {
             color: var(--text-color);
-            .MuiDataGrid-columnHeader {
-                outline: none;
-                background-color: var(--bg-color-block);
-            }
-            .MuiToolbar-root {
-                background-color: var(--bg-color-block);
-                color: var(--text-color);
-            }
             .MuiDataGrid-cell {
                 text-align: center;
                 outline: none;

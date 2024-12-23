@@ -127,7 +127,7 @@ export default function InvoiceProductsTable (props: { invoiceInfo: IInvoice, co
                 <Button 
                     disabled = { props.completed } 
                     onClick={ addRow } 
-                    variant='outlined'
+                    variant='contained'
                 >
                     Добавить
                 </Button>
