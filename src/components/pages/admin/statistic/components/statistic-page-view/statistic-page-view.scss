@@ -2,15 +2,20 @@
     display: grid;
     gap: 20px;
     .statistic-page-title {
-        display: flex;
-        align-items: center;
+        display: grid;
+        grid-template-columns: calc(100% - 260px) 250px;
+        align-items: flex-end;
         column-gap: 10px;
-        font-size: 24px;
         .date-settings {
             font-size: 16px;
             display: flex;
             align-items: flex-end;
             column-gap: 5px;
+            .page-title {
+                display: flex;
+                align-items: flex-end;
+                font-size: 24px;
+            }
             .MuiInputBase-input {
                 padding: 2px 0px 2px 0px;
             }
@@ -19,11 +24,6 @@
             font-size: 16px;
             display: flex;
             align-items: flex-end;
-            .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.MuiInputBase-formControl.MuiInputBase-adornedEnd.MuiAutocomplete-inputRoot.css-1n04w30-MuiInputBase-root-MuiOutlinedInput-root {
-                min-width: 250px;
-                padding: 0px;
-                border: 0px;
-            }
             .MuiInputBase-input {
                 padding: 2px 0px 2px 0px;
             }
@@ -45,4 +45,10 @@
     .statistic-page-current-data {
         border-radius: 5px;
     }
+}
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.MuiInputBase-formControl.MuiInputBase-adornedEnd.MuiAutocomplete-inputRoot {
+    min-width: 250px;
+    padding: 0px;
+    border: 0px;
+    height: 40px;
 }

@@ -46,7 +46,6 @@ export default function StatisticPageView({
     return (
         <div className="statistic-page-view" id="testpdf">
             <div className="statistic-page-title">
-                { t("text.statistic") }
                 <div className="date-settings">
                     <span>{ t("text.from") }</span> 
                     <TextField 
