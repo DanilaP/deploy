@@ -1,11 +1,8 @@
 .payment-form-wrapper {
-  .payment-error {
-    color: #b71c1c !important;
-  }
   .card-wrapper {
     border: 2px solid transparent;
-    padding: 0 !important;
-    margin: 0 !important;
+    padding: 0;
+    margin: 0;
     .card-content-wrapper {
       display: flex;
       justify-content: space-between;

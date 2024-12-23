@@ -16,8 +16,12 @@
         input[type="date"]::-webkit-calendar-picker-indicator {
             filter: invert(.5);
         }
-    }
 
+        .MuiInputBase-root {
+            height: 50px;
+        }
+    }
+    
     .buttons {
         display: flex;
         gap: 10px;

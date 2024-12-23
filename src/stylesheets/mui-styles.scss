@@ -1,11 +1,73 @@
 #root {
-    
+
+    //Input
     .MuiInputBase-root {
         color: var(--text-color);
     }
+    .home-page-main .MuiInputBase-input {
+        height: 3.5px;
+        border: 0px;
+        color: var(--text-color);
+    }
+
+    //Table
+    .MuiPaper-root {
+        background-color: var(--bg-color-block);
+        border: 1px solid rgba(128, 128, 128, 0.247);
+
+        .MuiTableCell-root {
+            color: var(--text-color);
+        }
+
+        th, td {
+            color: var(--text-color);
+        }
+
+        span, input, svg {
+            color: var(--text-color);
+            border-color: var(--text-color);
+        }
+    }
+    
+    //DataGrid
+    .MuiDataGrid-root {
+        .MuiDataGrid-columnHeader {
+            color: var(--text-color);
+            background-color: var(--bg-color-block);
+        }
+    
+        .MuiDataGrid-container--top {
+            background-color: var(--bg-color-block);
+        }   
+    
+        .MuiDataGrid-row {
+            background-color: var(--bg-color-block);
+            color: var(--text-color);
+        }
+        
+        .MuiToolbar-root {
+            background-color: var(--bg-color-block);
+            color: var(--text-color);
+    
+            .MuiSvgIcon-root {
+                color: var(--text-color);
+            }
+        }
+    }
+    
+    //Disabled buttons and inputs
     .css-1abvrni-MuiButtonBase-root-MuiButton-root.Mui-disabled {
         background-color: var(bg-color-block);
         color: grey;
+    }
+    .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled {
+        -webkit-text-fill-color: var(--text-color);
+    }
+    .css-fd2qku-MuiAutocomplete-root {
+        display: flex;
+    }
+    .css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled {
+        -webkit-text-fill-color: var(--text-color);
     }
 
     input, fieldset {
@@ -19,17 +81,31 @@
         }
     }
     
+    //Mui errors
     .Mui-error .MuiOutlinedInput-notchedOutline {
         border-color: #d32f2f;
     }
-    .Mui-error .MuiOutlinedInput-notchedOutline {
-        border-color: #d32f2f;
+
+    .MuiFormHelperText-root {
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        padding-left: 0px;
+        margin-left: 0px;
+        font-weight: normal;
+        letter-spacing: normal;
     }
-    .Mui-error .MuiOutlinedInput-notchedOutline {
-        border-color: #d32f2f;
-    }
+    
+    //Icons
     .icon {
         font-size: 25px;
+    }
+    
+    .MuiSvgIcon-root {
+        color: var(--text-color);
+    }
+
+    .css-xrmkj5-MuiInputBase-root-MuiOutlinedInput-root {
+        height: 75px;
     }
 }
 

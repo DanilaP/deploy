@@ -1,5 +1,8 @@
 .category-page {
     height: 100%;
+    .MuiInputBase-root {
+        height: 36.5px;
+    }
     .category-page-title {
         font-size: 24px;
         border-radius: 5px;
@@ -11,10 +14,6 @@
         .categore-page-actions {
             display: flex;
             justify-content: right;
-        }
-        .MuiInputBase-input {
-            border: none !important;
-            padding: 5px 10px 5px 10px;
         }
     }
     .category-page-content {
