@@ -99,6 +99,12 @@
         border-color: #d32f2f;
     }
 
+    // Mui checkbox 
+    .MuiCheckbox-root {
+        width: 25px;
+        height: 25px;
+    }
+
     .MuiFormHelperText-root {
         font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
         font-size: 12px;
