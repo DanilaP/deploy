@@ -66,6 +66,12 @@
         }
     }
 }
+.MuiFormControl-root {
+    width: 100%;
+}
+.MuiFormControl-root.MuiTextField-root {
+    width: 100%;
+}
 .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-multiline {
-    width: 600px;
+    width: 100%;
 }
