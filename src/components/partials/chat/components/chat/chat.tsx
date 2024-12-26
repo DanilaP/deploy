@@ -75,6 +75,16 @@ export default function Chat (props: {
         }
     };
 
+    const changeMessageReaction = (message: IMessage) => {
+        $api.post("/chats/messages/reaction", { messageId: message.id, chat: chat })
+        .then((res) => {
+            setChat(res.data.chat);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    };
+
     const sendMessage = async () => {
         let enableChat = true;
         if (chat && userStore.user?.role !== "Администратор" && chat.messages.length >= 15) {
@@ -134,6 +144,7 @@ export default function Chat (props: {
                         messages={ chat.messages } 
                         user={ userStore.user } 
                         changeMessageStatus = { changeMessageStatus }
+                        changeMessageReaction={ changeMessageReaction }
                     />
                     : null
             }

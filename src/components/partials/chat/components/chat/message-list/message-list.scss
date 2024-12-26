@@ -36,6 +36,7 @@
         display: flex;
         justify-content: flex-end;
         gap: 5px;
+        position: relative;
 
         .status {
             .status-icon {
@@ -45,6 +46,28 @@
             .checked {
                 color: var(--default-color);
             }
+        }
+
+        .reaction {
+            position: absolute;
+            left: 0px;
+            display: none;
+
+            .reaction-icon {
+                font-size: 15px;
+
+                &:hover {
+                    color: var(--default-color);
+                }
+            }
+
+            .visible {
+                color: var(--default-color);
+            }
+        }
+
+        .active-reaction {
+            display: block;
         }
     }
     
@@ -64,6 +87,14 @@
         display: flex;
         gap: 10px;
         align-items: center;
+    }
+
+    &:hover {
+        .date {
+            .reaction {
+                display: block;
+            }
+        }
     }
 }
 

@@ -5,6 +5,7 @@ import { IUser } from '../../../../../../models/user/user';
 import { FaFile } from "react-icons/fa";
 import { IoCheckmarkOutline } from "react-icons/io5";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import { BiSolidLike } from "react-icons/bi";
 
 export default function MessageList (props: { 
     messages: IMessage[], 
@@ -13,7 +14,8 @@ export default function MessageList (props: {
         id: number,
         avatar: string
     },
-    changeMessageStatus: (messageBlock: Element) => void
+    changeMessageStatus: (messageBlock: Element) => void,
+    changeMessageReaction: (message: IMessage) => void
 }) {
     
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -38,7 +40,7 @@ export default function MessageList (props: {
                 observer.observe(div);
             });
         }
-      }, [props.messages]);
+    }, [props.messages]);
 
     return (
         <div ref = { containerRef } className="chat-content">
@@ -91,6 +93,20 @@ export default function MessageList (props: {
                                                 :  <IoCheckmarkOutline className='status-icon' /> 
                                         }
                                     </div>
+                                    {
+                                        (message.senderId !== Number(props.user.id)) &&
+                                        <div className={
+                                            message.reactions !== "" ? "active-reaction reaction" : "reaction"
+                                        }>
+                                            <BiSolidLike 
+                                                onClick={ () => props.changeMessageReaction(message) }
+                                                className={ message.reactions !== "" 
+                                                    ? 'visible reaction-icon'
+                                                    : 'reaction-icon'
+                                                }
+                                            />
+                                        </div>
+                                    }
                                 </div>
                         </div>
                     );
