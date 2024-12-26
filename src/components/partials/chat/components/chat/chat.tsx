@@ -66,10 +66,13 @@ export default function Chat (props: {
     };
 
     const changeMessageStatus = (messageBlock: Element) => {
-        $api.post("/chats/messages", { messageId: messageBlock.id, chat: chat })
-        .catch((error) => {
-            console.error(error);
-        });
+        const message = chat?.messages.find((message: IMessage) => message.id === Number(messageBlock.id));
+        if (!message?.checked) {
+            $api.post("/chats/messages", { messageId: messageBlock.id, chat: chat })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
     };
 
     const sendMessage = async () => {

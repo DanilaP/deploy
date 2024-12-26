@@ -154,26 +154,6 @@
           }
         ],
         "checked": "true"
-      },
-      {
-        "id": 10,
-        "senderId": 1732604379612,
-        "recipientId": 1727098679785,
-        "date": "2024/12/26 09:59",
-        "text": "test message",
-        "files": [],
-        "reactions": "",
-        "checked": false
-      },
-      {
-        "id": 1735198184632,
-        "senderId": 1732604379612,
-        "recipientId": 1727098679785,
-        "date": "2024/12/26 10:29",
-        "text": "test ",
-        "files": [],
-        "reactions": "",
-        "checked": false
       }
     ]
   },

@@ -892,13 +892,21 @@ app.post("/chats/messages", async function(req, res) {
     try {
         console.log(req.body);
         const currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
-        const updatedChats = currentChats.map((message) => {
-            if (message.id === Number(req.body.messageId)) {
+        const updatedChats = currentChats.map((chat) => {
+            if (chat.id === req.body.chat.id) {
                 return {
-                    ...message,
-                    checked: true
+                    ...chat,
+                    messages: chat.messages.map(message => {
+                        if (message.id === Number(req.body.messageId)) {
+                            return {
+                                ...message,
+                                checked: true
+                            };
+                        } else return message;
+                    })
                 };
-            } else return message;
+            }
+            else return chat;
         });
         fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
         res.status(200).json({ message: "Статус сообщения успешно изменён" });

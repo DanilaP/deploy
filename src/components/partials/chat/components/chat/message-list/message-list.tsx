@@ -86,8 +86,8 @@ export default function MessageList (props: {
                                     { message.date }
                                     <div className="status">
                                         { 
-                                            message.checked 
-                                                ? <IoCheckmarkDoneOutline className='checked status-icon' /> 
+                                            (message.checked || message.senderId !== Number(props.user.id)) 
+                                                ?  <IoCheckmarkDoneOutline className='checked status-icon' /> 
                                                 :  <IoCheckmarkOutline className='status-icon' /> 
                                         }
                                     </div>
