@@ -890,7 +890,6 @@ app.post("/upload", async function (req, res) {
 
 app.post("/chats/messages", async function(req, res) {
     try {
-        console.log(req.body);
         const currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
         const updatedChats = currentChats.map((chat) => {
             if (chat.id === req.body.chat.id) {
@@ -913,6 +912,36 @@ app.post("/chats/messages", async function(req, res) {
     }
     catch (error) {
         res.status(400).json({ message: "Ошибка смены статуса сообщения!" });
+        console.error(error);
+    }
+});
+
+app.post("/chats/messages/reaction", async function(req, res) {
+    try {
+        const currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        let userChat = null;
+        const updatedChats = currentChats.map((chat) => {
+            if (chat.id === req.body.chat.id) {
+                userChat = {
+                    ...chat,
+                    messages: chat.messages.map(message => {
+                        if (message.id === Number(req.body.messageId)) {
+                            return {
+                                ...message,
+                                reactions: message.reactions === "" ? "reaction" : ""
+                            };
+                        } else return message;
+                    })
+                };
+                return userChat;
+            }
+            else return chat;
+        });
+        fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
+        res.status(200).json({ message: "Реакция на сообщение успешно изменена", chat: userChat });
+    }
+    catch (error) {
+        res.status(400).json({ message: "Ошибка смены реакции на сообщение!" });
         console.error(error);
     }
 });

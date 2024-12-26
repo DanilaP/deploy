@@ -13,7 +13,8 @@
         "recipientId": null,
         "date": "2024/11/27 09:10",
         "text": "user message",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 2,
@@ -21,7 +22,8 @@
         "recipientId": null,
         "date": "2024/11/27 09:10",
         "text": "another user message",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 3,
@@ -29,7 +31,8 @@
         "recipientId": 1732528796810,
         "date": "2024/11/27 09:11",
         "text": "admin message",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 4,
@@ -37,7 +40,8 @@
         "recipientId": 1732528796810,
         "date": "2024/11/28 11:17",
         "text": "another admin message",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 5,
@@ -45,7 +49,8 @@
         "recipientId": 1732528796810,
         "date": "2024/11/28 11:21",
         "text": "waiting answer...",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       }
     ]
   },
@@ -71,7 +76,8 @@
         "recipientId": 1727098679785,
         "date": "2024/11/28 08:53",
         "text": "tester 1 chat message 2",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 3,
@@ -79,7 +85,8 @@
         "recipientId": 1727098679785,
         "date": "2024/11/28 08:55",
         "text": "3 message",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 4,
@@ -87,7 +94,8 @@
         "recipientId": 1727098679785,
         "date": "2024/11/28 11:12",
         "text": "test ",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 5,
@@ -95,7 +103,8 @@
         "recipientId": 1732604379612,
         "date": "2024/11/28 11:23",
         "text": "admin message",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 6,
@@ -103,7 +112,8 @@
         "recipientId": 1732604379612,
         "date": "2024/12/12 10:56",
         "text": "test msg admin 🖐🤩",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 7,
@@ -118,7 +128,8 @@
             "size": 6354
           }
         ],
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 8,
@@ -138,7 +149,8 @@
             "size": 6354
           }
         ],
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 9,
@@ -153,7 +165,8 @@
             "size": 95896
           }
         ],
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       }
     ]
   },
@@ -171,7 +184,8 @@
         "recipientId": null,
         "date": "2024/11/28 11:03",
         "text": "test from chat tester 3",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 2,
@@ -179,7 +193,8 @@
         "recipientId": 1732780938181,
         "date": "2024/12/11 13:24",
         "text": "test 123😀😄😆 123",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       },
       {
         "id": 3,
@@ -187,7 +202,8 @@
         "recipientId": 1732780938181,
         "date": "2024/12/11 13:24",
         "text": "test 123😀😄😆 123",
-        "checked": "true"
+        "checked": "true",
+        "reactions": ""
       }
     ]
   }
