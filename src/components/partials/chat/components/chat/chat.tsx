@@ -65,6 +65,13 @@ export default function Chat (props: {
         } else return [];
     };
 
+    const changeMessageStatus = (messageBlock: Element) => {
+        $api.post("/chats/messages", { messageId: messageBlock.id, chat: chat })
+        .catch((error) => {
+            console.error(error);
+        });
+    };
+
     const sendMessage = async () => {
         let enableChat = true;
         if (chat && userStore.user?.role !== "Администратор" && chat.messages.length >= 15) {
@@ -117,13 +124,16 @@ export default function Chat (props: {
             <div className="chat-header">
                 <div onClick={ props.close } className="close-button">x</div>
             </div>
-            <div className="chat-content">
-                {
-                    (chat && userStore.user) 
-                        ? <MessageList opponentInfo = { props.opponentInfo } messages={ chat.messages } user={ userStore.user } />
-                        : null
-                }
-            </div>
+            {
+                (chat && userStore.user) 
+                    ? <MessageList 
+                        opponentInfo = { props.opponentInfo } 
+                        messages={ chat.messages } 
+                        user={ userStore.user } 
+                        changeMessageStatus = { changeMessageStatus }
+                    />
+                    : null
+            }
             <div className="chat-footer">
                 <TextField
                     maxRows={ 1 }

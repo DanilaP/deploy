@@ -35,6 +35,17 @@
         height: 15px;
         display: flex;
         justify-content: flex-end;
+        gap: 5px;
+
+        .status {
+            .status-icon {
+                font-size: 15px;
+            }
+
+            .checked {
+                color: var(--default-color);
+            }
+        }
     }
     
     .image-wrapper {

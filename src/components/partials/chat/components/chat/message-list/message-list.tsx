@@ -3,24 +3,50 @@ import { IMessage } from '../../../../../../interfaces/interfaces';
 import './message-list.scss';
 import { IUser } from '../../../../../../models/user/user';
 import { FaFile } from "react-icons/fa";
+import { IoCheckmarkOutline } from "react-icons/io5";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
-export default function MessageList (props: { messages: IMessage[], user: IUser, opponentInfo: {
-    id: number,
-    avatar: string
-} }) {
+export default function MessageList (props: { 
+    messages: IMessage[], 
+    user: IUser, 
+    opponentInfo: {
+        id: number,
+        avatar: string
+    },
+    changeMessageStatus: (messageBlock: Element) => void
+}) {
     
     const scrollRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
     }, [props.messages]);
-    
+
+    useEffect(() => {
+        if (containerRef) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        props.changeMessageStatus(entry.target);
+                    }
+                });
+            });
+        
+            const messageDivs = containerRef?.current?.querySelectorAll('.opponent-msg');
+            messageDivs!.forEach(div => {
+                observer.observe(div);
+            });
+        }
+      }, [props.messages]);
+
     return (
-        <>
+        <div ref = { containerRef } className="chat-content">
             {
                 props.messages.map((message: IMessage, index: number) => {
                     return (
-                        <div 
+                        <div
+                            id = { String(message.id) } 
                             key={ message.text + index } 
                             className={ message.senderId === Number(props.user.id) ? "message user-msg" : "message opponent-msg" }>
                                 <div className="files">
@@ -56,12 +82,21 @@ export default function MessageList (props: { messages: IMessage[], user: IUser,
                                         <div>{ message.text }</div>
                                     </div>
                                 }
-                                <div className="date">{ message.date }</div>
+                                <div className="date">
+                                    { message.date }
+                                    <div className="status">
+                                        { 
+                                            message.checked 
+                                                ? <IoCheckmarkDoneOutline className='checked status-icon' /> 
+                                                :  <IoCheckmarkOutline className='status-icon' /> 
+                                        }
+                                    </div>
+                                </div>
                         </div>
                     );
                 })
             }
             <div ref = { scrollRef }></div>
-        </>
+        </div>
     );
 }
