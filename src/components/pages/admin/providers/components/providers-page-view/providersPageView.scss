@@ -10,7 +10,7 @@
         display: grid;
         grid-template-columns: calc(100% - 250px) 250px;
         .MuiFormControl-root.MuiTextField-root {
-            width: max-content !important;
+            width: max-content;
         }
         .search {
             display: flex;
