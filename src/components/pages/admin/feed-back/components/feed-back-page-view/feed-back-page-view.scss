@@ -10,6 +10,9 @@
     .call-back-search {
         display: flex;
         column-gap: 5px;
+        .MuiFormControl-root.MuiFormControl-root {
+            width: max-content;
+        }
         .call-back-status-filter {
             width: 200px;
         }
