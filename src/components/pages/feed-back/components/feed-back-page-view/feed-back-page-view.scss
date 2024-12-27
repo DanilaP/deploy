@@ -31,6 +31,9 @@
                 align-items: center;
                 justify-content: center;
                 justify-items: center;
+                .MuiButtonBase-root {
+                    padding: 3px;
+                }
                 .mui-icon-button {
                     color: var(--text-color);
                     &:hover {

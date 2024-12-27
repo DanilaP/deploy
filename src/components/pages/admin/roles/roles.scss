@@ -6,7 +6,9 @@
     .MuiInputBase-root {
         height: 36.5px;
     }
-    
+    .MuiFormControl-root.MuiTextField-root {
+        width: max-content;
+    }
     .roles-content {
         display: flex;
         box-sizing: border-box;
