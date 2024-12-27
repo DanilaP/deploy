@@ -9,6 +9,9 @@
     .actions {
         display: grid;
         grid-template-columns: calc(100% - 250px) 250px;
+        .MuiFormControl-root.MuiTextField-root {
+            width: max-content !important;
+        }
         .search {
             display: flex;
             column-gap: 5px;

@@ -25,6 +25,10 @@
             gap: 20px;
             flex-wrap: wrap;
             
+            .MuiFormControl-root.MuiTextField-root {
+                width: max-content;
+            }
+
             .check-stock {
                 display: flex;
                 align-items: center;
