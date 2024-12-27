@@ -2,9 +2,6 @@
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-    .MuiFormControl-root.MuiFormControl-root {
-        width: 250px;
-    }
     .MuiInputBase-root {
         height: 36.5px;
     }
@@ -17,6 +14,9 @@
         .filters {
             display: flex;
             column-gap: 5px;
+            .MuiFormControl-root.MuiFormControl-root {
+                width: 250px;
+            }
             .product-active-filter {
                 width: 200px;
                 height: 36px;
