@@ -6,6 +6,9 @@
         grid-template-columns: calc(100% - 260px) 250px;
         align-items: flex-end;
         column-gap: 10px;
+        .MuiFormControl-root {
+            width: max-content !important;
+        }
         .date-settings {
             font-size: 16px;
             display: flex;
@@ -24,6 +27,7 @@
             font-size: 16px;
             display: flex;
             align-items: flex-end;
+            justify-content: flex-end;
             .MuiInputBase-input {
                 padding: 2px 0px 2px 0px;
                 width: 200px;
