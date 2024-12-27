@@ -11,6 +11,9 @@
         display: grid;
         grid-template-columns: calc(100% - 250px) 250px;
         margin-top: 10px;
+        .MuiFormControl-root {
+            width: max-content;
+        }
         .categore-page-actions {
             display: flex;
             justify-content: right;
