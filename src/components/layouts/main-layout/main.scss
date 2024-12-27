@@ -9,6 +9,9 @@
         display: flex;
         column-gap: 20px;
         align-items: center;
+        .MuiFormControl-root {
+            width: max-content;
+        }
         .catalog-button {
             min-width: 150px;
         }
