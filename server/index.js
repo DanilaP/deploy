@@ -12,6 +12,7 @@ const WebSocket = require('ws');
 const { error } = require('console');
 const cron = require('node-cron');
 const { Blob } = require('buffer');
+const { Buffer } = require('buffer');
 
 const generateAccessToken = (id) => {
     const payload = {
@@ -868,14 +869,17 @@ app.post("/upload", async function (req, res) {
             const uploadedFiles = req.files.files.length > 0 ? req.files.files : [req.files.files];
             let files = [];
             uploadedFiles.map((file) => {
-                file.mv(`./staticFiles/chatfiles/${ Date.now() + file.size + file.name  }`, function (err) {
+                let fileName = Buffer.from(file.name, 'latin1').toString('utf8');
+                let currentDate = Date.now();
+                const uniqueFileStats = `${ currentDate + file.size + fileName }`;
+                file.mv(`./staticFiles/chatfiles/${ uniqueFileStats  }`, function (err) {
                     if (err) {
                         console.log(err);
                     } 
                 });
                 files = [...files, {
-                    url: `http://localhost:5000/chatfiles/${ Date.now() + file.size + file.name }`,
-                    name: file.name,
+                    url: `http://localhost:5000/chatfiles/${ uniqueFileStats }`,
+                    name: fileName,
                     size: file.size
                 }];
             });
