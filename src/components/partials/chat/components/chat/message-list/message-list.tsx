@@ -23,7 +23,7 @@ export default function MessageList (props: {
 
     useEffect(() => {
         scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [props.messages]);
+    }, [props.messages.length]);
 
     useEffect(() => {
         if (containerRef) {
