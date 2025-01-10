@@ -1,11 +1,13 @@
 import { Button, FormControl, FormLabel, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { validateRequiredField } from "../../../../../../helpers/validators/validators-helper";
+import { validateRequiredField } from "../../../../../helpers/validators/validators-helper";
+import { IFeedBack } from "../../../../../models/feedbacks/feedbacks";
 import { useEffect } from "react";
-import { IFeedBack } from "../../../../../../models/feedbacks/feedbacks";
-import FileAttachment from "../../../../../partials/file-attachment/file-attachment";
+import FileAttachment from "../../../../partials/file-attachment/file-attachment";
+import FeedbackShortInfo from "../feed-back-short-info/feed-back-short-info";
 import "./feed-back-answer-form.scss";
+import formatDate from "../../../../../helpers/utils/format-date";
 
 export interface IFeedbackAnswerData {
     answer: string
@@ -13,27 +15,29 @@ export interface IFeedbackAnswerData {
 
 interface IFeedBackAnswerFormProps {
     currentFeedback: IFeedBack | null,
-    handleCloseFeedbackAsnwerModal: () => void,
+    currentFeedbackHistory: IFeedBack[],
     handleUpdateCurrentFeedback: (feedbackData: IFeedBack) => void,
-    handleUpdateUnsavedDataExists: (isDirty: boolean) => void
+    handleSwapCurrentFeedback: (feedback: IFeedBack) => void,
 }
 export default function FeedBackAnswerForm({
     currentFeedback,
-    handleCloseFeedbackAsnwerModal,
+    currentFeedbackHistory,
     handleUpdateCurrentFeedback,
-    handleUpdateUnsavedDataExists
+    handleSwapCurrentFeedback
 }: IFeedBackAnswerFormProps) {
-
+    
     const {
         register,
         handleSubmit,
-        formState: { errors , submitCount, isValid, isDirty },
+        setValue,
+        reset,
+        formState: { errors , submitCount, isValid },
     } = useForm<IFeedbackAnswerData>({
         defaultValues: {
             answer: currentFeedback?.moderatorAnswer || ""
         }
     });
-
+    
     const { t } = useTranslation();
 
     const handleSendAnswerForFeedback = (data: IFeedbackAnswerData) => {
@@ -48,15 +52,31 @@ export default function FeedBackAnswerForm({
         }
     };
 
+    const handleSortFeedbacksListByDate = (feedbacks: IFeedBack[]) => {
+        return feedbacks.sort((prev: IFeedBack, next: IFeedBack) => {
+            const prevDate = new Date(prev.createdAt);
+            const nextDate = new Date(next.createdAt);
+            if (prevDate < nextDate) return 1;
+            return -1;
+        });
+    };
+
     useEffect(() => {
-        handleUpdateUnsavedDataExists(isDirty);
-    }, [isDirty]);
+        if (!currentFeedback?.moderatorAnswer) {
+            setValue("answer", "");
+        } else {
+            reset();
+            setValue("answer", currentFeedback?.moderatorAnswer);
+        }
+    }, [currentFeedback?.moderatorAnswer]);
 
     return (
         <>
             <div className="current-call-back-data">
-                <div className="name">{ currentFeedback?.firstName } { currentFeedback?.secondName } { currentFeedback?.phoneNumber }</div>
-                <div className="type">{ currentFeedback?.typeOfBid }</div>
+                <div className="name">
+                    { currentFeedback?.firstName } { currentFeedback?.secondName } { currentFeedback?.phoneNumber }
+                </div>
+                <div className="type">{ t(`typesOfFeedbacks.${currentFeedback?.typeOfBid || ""}`) }</div>
                 <div className="description">{ currentFeedback?.description }</div>
                 <div className="attachments">
                     <div className="files">
@@ -71,12 +91,13 @@ export default function FeedBackAnswerForm({
                             })
                         }
                     </div>
-                    <div className="date">{ currentFeedback?.createdAt }</div>
                 </div>
             </div>
             <form className="call-back-answer-form" onSubmit={ handleSubmit(handleSendAnswerForFeedback) }>
                 <FormControl>
-                    <FormLabel className="label">{ t("text.answer") }</FormLabel>
+                    <FormLabel className="label">
+                        { t("text.answer") } 
+                    </FormLabel>
                     <TextField
                         disabled={ Boolean(currentFeedback?.moderatorAnswer) }
                         multiline
@@ -90,17 +111,32 @@ export default function FeedBackAnswerForm({
                         }) }
                     />
                 </FormControl>
-                <div className="answer-date">{ currentFeedback?.dateOfAnswer }</div>
                 <div className="form-actions">
                     <Button 
                         type="submit" 
                         variant="contained"
                         disabled={ submitCount !== 0 && !isValid || Boolean(currentFeedback?.moderatorAnswer) }
                     >{ t("text.sendAnswer") }</Button>
-                    <Button 
-                        variant="contained" 
-                        onClick={ handleCloseFeedbackAsnwerModal }
-                    >{ t("text.close") }</Button>
+                </div>
+                <div className="answer-history">
+                    <div className="answer-history-title">
+                        { t("text.historyOfAnswers") }
+                    </div>
+                    <div className="answer-history-content">
+                        {
+                            handleSortFeedbacksListByDate(currentFeedbackHistory).map(feedback => {
+                                const isSelected = currentFeedback?.id === feedback.id;
+                                return (
+                                    <FeedbackShortInfo
+                                        key={ feedback.id }
+                                        isSelected={ isSelected }
+                                        feedback={ feedback }
+                                        handleSwapCurrentFeedback={ handleSwapCurrentFeedback }
+                                    />
+                                );
+                            })
+                        }
+                    </div>
                 </div>
             </form>
         </>

@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "systemKey": "complaint"
+    },
+    {
+        "id": 2,
+        "systemKey": "other"
+    },
+    {
+        "id": 3,
+        "systemKey": "review"
+    }
+]

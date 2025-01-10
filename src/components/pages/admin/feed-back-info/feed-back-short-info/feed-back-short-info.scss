@@ -1,0 +1,21 @@
+.feed-back-short-info {
+    display: grid;
+    row-gap: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--bg-color-block);
+    border: 2px solid transparent;
+    cursor: pointer;
+    &:hover {
+        background-color: var(--hover-color);
+    }
+    .short-info-title {
+        font-weight: 500;
+    }
+    .short-info-description {
+
+    }
+}
+.selected {
+    border: 2px solid var(--default-color);
+}

@@ -2,18 +2,21 @@ import { Autocomplete, Button, FormControl, FormLabel, TextField } from "@mui/ma
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { validateEmail, validatePhone, validateRequiredField } from "../../../../../helpers/validators/validators-helper";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { IAttachment } from "../../../../../interfaces/interfaces";
 import { convertFileListToAttachmentsFormatBlobArray } from "../../../../../helpers/convert-file-list-to-blob-array";
-import { IFeedBack } from "../../../../../models/feedbacks/feedbacks";
+import { IFeedBack, IFeedbackType } from "../../../../../models/feedbacks/feedbacks";
 import FileAttachment from "../../../../partials/file-attachment/file-attachment";
 import InputMask from 'react-input-mask';
 import InputFile from "../../../../components-ui/custom-file-nput/file-input";
 import "./feed-back-form.scss";
+import ReCaptcha from "../../../../partials/re-captcha/re-captcha";
 
 interface IFeedBackFormProps {
     mode: "create" | "edit" | null,
     currentFeedback: IFeedBack | null,
+    feedbackForRedo: IFeedBack | null,
+    feedbackTypes: IFeedbackType[],
     handleCloseCreatingNewFeedback: () => void,
     handleSaveNewFeedback: (feedback: IFeedFormData) => void,
     handleUpdateUnsavedDataExist: (unsavedDataExists: boolean) => void
@@ -27,12 +30,15 @@ export interface IFeedFormData {
     phoneNumber: string,
     description: string,
     typeOfBid: string,
-    attachments: IAttachment[]
+    attachments: IAttachment[],
+    parentFeedbackId: number | null
 }
 
 export default function FeedBackForm({
     mode,
     currentFeedback,
+    feedbackForRedo,
+    feedbackTypes,
     handleCloseCreatingNewFeedback,
     handleSaveNewFeedback,
     handleUpdateUnsavedDataExist,
@@ -41,31 +47,70 @@ export default function FeedBackForm({
 
     const isEdit = mode === "edit";
 
+    const [isCaptchaPassed, setIsCaptchaPassed] = useState<boolean>(false);
+
+    const { t } = useTranslation();
+
+    const handleGetInithialValuesForForm = () => {
+        if (isEdit && currentFeedback) return {
+            ...currentFeedback,
+            typeOfBid: t(`typesOfFeedbacks.${currentFeedback?.typeOfBid}`)
+        };
+        if (feedbackForRedo) return {
+            firstName: feedbackForRedo?.firstName || "",
+            secondName: feedbackForRedo?.secondName || "",
+            email: feedbackForRedo?.email || "",
+            parentFeedbackId: feedbackForRedo.id
+        };
+        return { parentFeedbackId: null };
+    };
+
     const {
         register,
         handleSubmit,
         watch,
+        getValues,
         control,
         formState: { errors , submitCount, isValid, isDirty },
     } = useForm<IFeedFormData>({
-        defaultValues: 
-            isEdit && currentFeedback ? currentFeedback : {}
+        defaultValues: handleGetInithialValuesForForm()
     });
 
-    const { t } = useTranslation();
-
     const handleCreateNewFeedback = (data: IFeedFormData) => {
+        const finalData: IFeedFormData = {
+            ...data,
+            typeOfBid: feedbackTypes.find(el => t(`typesOfFeedbacks.${el.systemKey}`) === data.typeOfBid)?.systemKey || ""
+        };
         if (isEdit) {
-            handleEditCurrentFeedback(data);
+            handleEditCurrentFeedback(finalData);
         } else {
-            handleSaveNewFeedback(data);
+            handleSaveNewFeedback(finalData);
         }
+    };
+
+    const handleGetSubmitButtonDisabled = () => {
+        if (isEdit || feedbackForRedo) {
+            return !isValid || !isCaptchaPassed;
+        } else {
+            return submitCount !== 0 && (!isValid || !isCaptchaPassed);
+        }
+    };
+
+    const handleValidatePhone = (value: string) => {
+        const clearedValueLength = getValues("phoneNumber").trim().length;
+        if (clearedValueLength === 2) return true;
+        if (!validatePhone(value)) return t("errors.phoneNumber");
+        return true;
     };
 
     const handleValidateEmailField = (value: string) => {
         if (value.length === 0) return t("errors.requiredField");
         if (!validateEmail(value)) return t("errors.email");
         return true;
+    };
+    
+    const handleSuccessfulPassing = (key: string | null) => {
+        setIsCaptchaPassed(key ? true : false);
     };
     
     useEffect(() => {
@@ -91,9 +136,7 @@ export default function FeedBackForm({
                     error={ Boolean(errors.secondName) }
                     helperText={ String(errors.secondName?.message || "") }
                     placeholder={ t("text.yourSecondName") }
-                    { ...register("secondName", { 
-                        validate: (value) => validateRequiredField(value) ? true : t("errors.requiredField")
-                    }) }
+                    { ...register("secondName") }
                 />
             </FormControl>
             <FormControl>
@@ -145,14 +188,12 @@ export default function FeedBackForm({
                 <Controller
                     name="typeOfBid"
                     control={ control }
-                    defaultValue="Отзыв"
                     rules={ { required: t("errors.requiredField") } }
+                    defaultValue={ t(`typesOfFeedbacks.${feedbackTypes[0]?.systemKey}`) }
                     render={ ({ field }) => (
                         <Autocomplete
                             { ...field }
-                            options={ [
-                                "Жалоба", "Отзыв", "Другое"
-                            ] }
+                            options={ feedbackTypes.map(el => t(`typesOfFeedbacks.${el.systemKey}`)) }
                             onChange={ (_, value) => field.onChange(value) }
                             renderInput={ (params) => (
                                 <TextField
@@ -170,9 +211,9 @@ export default function FeedBackForm({
                 <FormLabel className="label">{ t("text.phoneNumber") }</FormLabel>
                 <InputMask
                     { ...register("phoneNumber", {
-                        validate: (value) => validatePhone(value) ? true : t("errors.phoneNumber")
+                        validate: (value) => handleValidatePhone(value)
                     }) }
-                    mask="+7 (999) 999-99-99"
+                    mask="+7 999 999 99 99"
                     maskChar=" "
                     alwaysShowMask={ true }
                 >
@@ -199,11 +240,17 @@ export default function FeedBackForm({
                     }) }
                 />
             </FormControl>
+            <FormControl>
+                <ReCaptcha
+                    title="text.verifyNotARobot"
+                    handleSuccessfulPassing={ handleSuccessfulPassing }
+                />
+            </FormControl>
             <div className="form-actions">
                 <Button 
                     type="submit" 
                     variant="contained"
-                    disabled={ submitCount !== 0 && !isValid }
+                    disabled={ handleGetSubmitButtonDisabled() }
                 >{ t("text.save") }</Button>
                 <Button 
                     variant="contained" 

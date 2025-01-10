@@ -4,15 +4,29 @@ import FeedbackAttachment from "../../../../partials/file-attachment/file-attach
 import { IFeedBack } from "../../../../../models/feedbacks/feedbacks";
 
 interface IFeedbackMoreInfoProps {
-    feedback: IFeedBack | null
+    feedback: IFeedBack | null,
+    handleSearchNextFeedbacksForFeedback: (feedback: IFeedBack) => IFeedBack[],
+    handleSearchChildrenFeedbacksForFeedback: (feedback: IFeedBack) => IFeedBack[],
+    handleSwapCurrentFeedback: (feedback: IFeedBack) => void,
 }
 
 export default function FeedbackMoreInfo({
-    feedback
+    feedback,
+    handleSearchNextFeedbacksForFeedback,
+    handleSearchChildrenFeedbacksForFeedback,
+    handleSwapCurrentFeedback
 }: IFeedbackMoreInfoProps) {
 
     const { t } = useTranslation();
-
+    const prevFeedbacks = 
+        feedback 
+            ? [...handleSearchNextFeedbacksForFeedback(feedback)]
+            : [];
+    const nextFeedbacks = 
+        feedback 
+            ? [...handleSearchChildrenFeedbacksForFeedback(feedback)]
+            : [];       
+ 
     return (
         <div className="call-back-more-info">
             <div className="name">
@@ -25,7 +39,7 @@ export default function FeedbackMoreInfo({
                 <b>{ t("text.description") }</b>: { feedback?.description }
             </div>
             <div className="type-of-bid">
-                <b>{ t("text.typeOfBid") }</b>: { feedback?.typeOfBid }
+                <b>{ t("text.typeOfBid") }</b>: { t(`typesOfFeedbacks.${feedback?.typeOfBid || ""}`) }
             </div>
             <div className="email">
                 <b>{ t("text.email") }</b>: { feedback?.email }
@@ -36,7 +50,7 @@ export default function FeedbackMoreInfo({
             <div className="attachments">
                 <b>{ t("text.attachments") }: </b>
                 {
-                    feedback?.attachments.map(attachment => (
+                    feedback?.attachments?.map(attachment => (
                         <FeedbackAttachment
                             key={ attachment.src }
                             attachment={ attachment }
@@ -58,6 +72,37 @@ export default function FeedbackMoreInfo({
                         ? <span className="solved"> { t("text.solved") }</span> 
                         : <span className="waiting"> { t("text.waiting") }</span>
                 }
+            </div>
+            <hr />
+            <div className="bid-history">
+                <div className="bid-history-content-prev">
+                    <span>{ t("text.prevOrders") }: </span>
+                    {
+                        prevFeedbacks.map(el => {
+                            return (
+                                <div 
+                                    className="history-bid-wrapper"
+                                    key={ el.id }
+                                    onClick={ () => handleSwapCurrentFeedback(el) }
+                                >{ t("text.currentOrder") } { el.id }</div>
+                            );
+                        })
+                    }
+                </div>
+                <div className="bid-history-content-next">
+                    <span>{ t("text.nextOrders") }: </span>
+                    {
+                        nextFeedbacks.map(el => {
+                            return (
+                                <div 
+                                    className="history-bid-wrapper"
+                                    key={ el.id }
+                                    onClick={ () => handleSwapCurrentFeedback(el) }
+                                >Заявка { el.id }</div>
+                            );
+                        })
+                    }
+                </div>
             </div>
         </div>
     );

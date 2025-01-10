@@ -20,3 +20,8 @@ export const updateFeedback = (newFeedback: IFeedBack) => {
     const response = $api.put("/feedbacks", newFeedback);
     return response;
 };
+
+export const getFeedbackTypes = () => {
+    const response = $api.get("/feedback-types");
+    return response;
+};

@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { IFeedFormData } from "../../components/pages/feed-back/components/feed-back-form/feed-back-form.js";
 import { GridColDef } from "@mui/x-data-grid";
 import { useTranslation } from "react-i18next";
-import { deleteFeedback, getFeedbacks } from "./feedbacks-api.js";
-import { IFeedBack } from "./feedbacks.js";
+import { deleteFeedback, getFeedbacks, getFeedbackTypes } from "./feedbacks-api.js";
+import { IFeedBack, IFeedbackType } from "./feedbacks.js";
 
 export const useFeedbacks = (userId: string | null) => {
 
     const [loading, setLoading] = useState<boolean>(true);
     const [userFeedBacks, setUserFeedbacks] = useState<IFeedBack[]>([]);
+    const [feedbackTypes, setFeedbackTypes] = useState<IFeedbackType[]>([]);
     const [userFeedbacksDataGrid, setUserFeedbacksDataGrid] = useState<{ columns: any[], rows: any[]} >({
         columns: [], rows: []
     });
@@ -19,11 +20,20 @@ export const useFeedbacks = (userId: string | null) => {
 
     const handleGetFeedbacksDataForDataGrid = (feedbacks: IFeedBack[]) => {
         const rows = feedbacks.map(el => {
-            const { id, firstName, secondName, createdAt, typeOfBid, phoneNumber, solved } = el;
-            return { id, firstName, secondName, typeOfBid, createdAt, phoneNumber, solved };
+            const translatedTypeOfBid = t(`typesOfFeedbacks.${el.typeOfBid}`);
+            const currentRow = {
+                id: el.id,
+                firstName: el.firstName,
+                secondName: el.secondName,
+                createdAt: el.createdAt,
+                typeOfBid: translatedTypeOfBid,
+                phoneNumber: el.phoneNumber,
+                solved: el.solved,
+            };
+            return currentRow;
         });
         const columns: GridColDef<(typeof rows)[number]>[] = [
-            { field: "id", headerName: "ID", minWidth: 50, headerAlign: "center" },
+            { field: "id", headerName: "№", minWidth: 50, headerAlign: "center" },
             { field: "firstName", headerName: t("text.firstName"), minWidth: 50, headerAlign: "center" },
             { field: "secondName", headerName: t("text.secondName"), minWidth: 50, headerAlign: "center" },
             { field: "createdAt", headerName: t("text.dateOfCreation"), flex: 1, headerAlign: "center" },
@@ -55,7 +65,7 @@ export const useFeedbacks = (userId: string | null) => {
                 solved: false,
                 moderatorAnswer: null,
                 createdAt: dateOfCreation,
-                dateOfAnswer: null
+                dateOfAnswer: null,
             };
             const updatedFeedbacks = [...userFeedBacks, newUserFeedback];
             setUserFeedbacks(updatedFeedbacks);
@@ -111,6 +121,24 @@ export const useFeedbacks = (userId: string | null) => {
             });
     };
 
+    const handleSearchChildrenFeedbacksForFeedback = (feedback: IFeedBack) => {
+        let findedFeedbacks: IFeedBack[] = [];
+        const findedFeedback = userFeedBacks.find(el => el.parentFeedbackId === feedback.id);
+        if (findedFeedback) {
+            findedFeedbacks = [...findedFeedbacks, findedFeedback, ...handleSearchChildrenFeedbacksForFeedback(findedFeedback)];
+        }
+        return findedFeedbacks;
+    };
+
+    const handleSearchNextFeedbacksForFeedback = (feedback: IFeedBack) => {
+        let findedFeedbacks: IFeedBack[] = [];
+        const parentFeedback = userFeedBacks.find(el => el.id === feedback.parentFeedbackId);
+        if (parentFeedback) {
+            findedFeedbacks = [...findedFeedbacks, parentFeedback, ...handleSearchNextFeedbacksForFeedback(parentFeedback)];
+        }
+        return findedFeedbacks;
+    };
+
     useEffect(() => {
         const userIdQuery = userId ? Number(userId) : null;
         getFeedbacks(userIdQuery)
@@ -129,15 +157,27 @@ export const useFeedbacks = (userId: string | null) => {
             });
     }, [userId]);
 
+    useEffect(() => {
+        getFeedbackTypes()
+            .then(res => {
+                if (res.data.types) {
+                    setFeedbackTypes(res.data.types);
+                }
+            });
+    }, []);
+
     return {
         loading,
         feedbacks: userFeedBacks,
         feedbacksDataGrid: userFeedbacksDataGrid,
         fitleredFeedbacksDataGrid: fitleredUserFeedbacksDataGrid,
+        feedbackTypes,
         handleCreateNewUserFeedBack,
         handleUpdateFeedbackData,
         handleFilterUserFeedbacksDataGridByStatus,
         handleSearchFeedbacksByAllFields,
-        handleDeleteFeedbackById
+        handleDeleteFeedbackById,
+        handleSearchNextFeedbacksForFeedback,
+        handleSearchChildrenFeedbacksForFeedback
     };
 };

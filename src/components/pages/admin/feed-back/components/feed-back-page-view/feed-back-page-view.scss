@@ -4,12 +4,15 @@
     .MuiInputBase-root {
         height: 36.5px;
     }
-    .call-back-title {
+    .call-back-page-title {
         font-size: 24px;
     }
     .call-back-search {
         display: flex;
         column-gap: 5px;
+        .MuiFormControl-root.MuiFormControl-root {
+            width: max-content;
+        }
         .call-back-status-filter {
             width: 200px;
         }
@@ -28,13 +31,6 @@
             }
             .waiting-status {
                 color: orange;
-            }
-        }
-        .MuiDataGrid-row {
-            cursor: pointer;
-            background-color: var(--bg-color-block);
-            &:hover {
-                background-color: var(--hover-color);
             }
         }
     }

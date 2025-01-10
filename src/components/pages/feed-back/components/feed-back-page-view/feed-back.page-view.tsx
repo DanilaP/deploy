@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { IconButton } from "@mui/material";
 import { ruRU } from '@mui/x-data-grid/locales';
 import { FiPlusCircle } from "react-icons/fi";
-import { FaRegEdit } from "react-icons/fa";
+import { FaRedo, FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { IFeedBack } from "../../../../../models/feedbacks/feedbacks";
 import "./feed-back-page-view.scss";
@@ -14,7 +14,9 @@ interface IFeedBackPageViewProps {
     handleOpenFeedbackMoreInfo: (feedbackId: number) => void,
     handleOpenEditFeedbackModal: (feedbackId: number) => void,
     handleOpenDeleteFeedbackModal: (feedbackId: number) => void,
-    handleOpenCreatingNewFeedback: () => void
+    handleOpenRedoFeedbackModal: (feedbackId: number) => void,
+    handleOpenCreatingNewFeedback: () => void,
+    handleCheckIsChildrenExistsForFeedback: (feedbackId: number) => boolean,
 }
 
 export default function FeedBackPageView({ 
@@ -23,16 +25,17 @@ export default function FeedBackPageView({
     handleOpenFeedbackMoreInfo,
     handleOpenEditFeedbackModal,
     handleOpenDeleteFeedbackModal,
-    handleOpenCreatingNewFeedback
+    handleOpenRedoFeedbackModal,
+    handleOpenCreatingNewFeedback,
+    handleCheckIsChildrenExistsForFeedback
 }: IFeedBackPageViewProps) {
 
     const { t } = useTranslation();
     
     const userEnhancedFeedbacksDataGrid = {
-        rows: [...userFeedbacksDataGrid.rows].sort((prev) => {
-            if (prev.solved) return 1;
-            if (!prev.solved) return -1;
-            return 0;
+        rows: [...userFeedbacksDataGrid.rows].sort((prev, next) => {
+            if (prev.createdAt < next.createdAt) return -1;
+            return 1;
         }),
         columns: [
             ...userFeedbacksDataGrid.columns,
@@ -83,39 +86,48 @@ export default function FeedBackPageView({
                                     renderCell: (params) => {
                                         const currentFeedbackInList = 
                                             userFeedbacksData.find(feedback => feedback.id === params.id);
+                                        const isAnyChidrenForFeedback = handleCheckIsChildrenExistsForFeedback(Number(params.id));
                                         return (
                                             <div className="callback-edit-icon">
                                                 {
-                                                    !currentFeedbackInList?.solved 
-                                                        ? 
-                                                        <IconButton 
-                                                            className="mui-icon-button"
-                                                            onClick={ (e) => {
-                                                                    e.stopPropagation();
-                                                                    handleOpenEditFeedbackModal(Number(params.id));
-                                                                } 
-                                                            }
-                                                        >
-                                                            <FaRegEdit fontSize={ 25 } />
-                                                        </IconButton> 
-                                                        : null
+                                                    !currentFeedbackInList?.solved ?
+                                                    <IconButton 
+                                                        className="mui-icon-button"
+                                                        onClick={ (e) => {
+                                                                e.stopPropagation();
+                                                                handleOpenEditFeedbackModal(Number(params.id));
+                                                            } 
+                                                        }
+                                                    >
+                                                        <FaRegEdit fontSize={ 25 } />
+                                                    </IconButton>
+                                                    : null
+                                                } 
+                                                {
+                                                    !currentFeedbackInList?.solved && !isAnyChidrenForFeedback &&
+                                                    <IconButton 
+                                                        className="mui-icon-button"
+                                                        onClick={ (e) => {
+                                                                e.stopPropagation();
+                                                                handleOpenDeleteFeedbackModal(Number(params.id));
+                                                            } 
+                                                        }
+                                                    >
+                                                        <MdDelete fontSize={ 25 } />
+                                                    </IconButton>
                                                 }
                                                 {
-                                                    !currentFeedbackInList?.solved 
-                                                        ? 
+                                                    !isAnyChidrenForFeedback ?
                                                         <IconButton 
                                                             className="mui-icon-button"
                                                             onClick={ (e) => {
-                                                                console.log(params.id);
-                                                                
                                                                     e.stopPropagation();
-                                                                    handleOpenDeleteFeedbackModal(Number(params.id));
+                                                                    handleOpenRedoFeedbackModal(Number(params.id));
                                                                 } 
                                                             }
                                                         >
-                                                            <MdDelete fontSize={ 25 } />
-                                                        </IconButton> 
-                                                        : null
+                                                            <FaRedo fontSize={ 20 } />
+                                                        </IconButton> : null
                                                 }
                                             </div>
                                         );

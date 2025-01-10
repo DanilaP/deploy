@@ -23,7 +23,7 @@ export default function AdminFeedbackPageView({
 
     return (
         <div className="call-back-page-view">
-            <div className="call-back-title">
+            <div className="call-back-page-title">
                 { t("text.managingFeedbacks") }
             </div>
             <div className="call-back-search">

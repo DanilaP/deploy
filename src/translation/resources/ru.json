@@ -125,6 +125,8 @@
         "myOrders": "Мои заказы",
         "variations": "Вариации",
         "good": "Товар",
+        "prevOrders": "Предыдущие заявки",
+        "nextOrders": "Следующие заявки",
         "promoSum": "Сумма промокода",
         "discountValue": "Размер скидки (%)",
         "video": "Видео",
@@ -141,6 +143,8 @@
         "feedbackForm": "Форма обратной связи",
         "feedback": "Обратная связь",
         "addCategory": "Добавить категорию",
+        "historyOfAnswers": "Связанные заявки",
+        "verifyNotARobot": "Пожалуйста, подтвердите что Вы не робот",
         "yourActiveFeedbacks": "Ваши активные заявки обратной связи",
         "youHaveNoFeedbacksYet": "Вы пока не оставляли заявки с обратной связью",
         "dateOfCreation": "Дата добавления",
@@ -374,6 +378,11 @@
     "discountTypes": {
         "promo": "Промокод",
         "discount": "Скидка"
+    },
+    "typesOfFeedbacks": {
+        "complaint": "Жалоба",
+        "other": "Другое",
+        "review": "Отзыв"
     },
     "symbols": {
         "rub": "\u20BD"

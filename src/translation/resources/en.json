@@ -103,6 +103,8 @@
         "changePassword": "Change password",
         "myOrders": "My orders",
         "createGroup": "Create group",
+        "prevOrders": "Previous orders",
+        "nextOrders": "Next orders",
         "createCategory": "Create category",
         "deleteGroup": "Delete group",
         "addCategory": "Add category",
@@ -132,6 +134,7 @@
         "description": "Description",
         "feedbackAnswer": "Feedback answer",
         "no": "No",
+        "verifyNotARobot": "Please, verify that you are not a robot",
         "statusSearch": "Search by status",
         "answer": "Answer",
         "managingFeedbacks": "Managing feedbacks",
@@ -149,6 +152,7 @@
         "sendReview": "Send review",
         "variations": "Variations",
         "yourName": "Your name",
+        "historyOfAnswers": "History of answers",
         "yourPhone": "Your phone",
         "typeOfBid": "Type of bid",
         "yourSecondName": "Your second name",
@@ -363,6 +367,11 @@
         "CreatingNewProviders": "Creating new providers",
         "ManagingProviders": "Managing providers",
         "WathingProviders": "Watching providers"
+    },
+    "typesOfFeedbacks": {
+        "complaint": "Complaint",
+        "other": "Other",
+        "review": "Review"
     },
     "discountTypes": {
         "promo": "Promocode",

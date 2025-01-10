@@ -1085,7 +1085,7 @@ app.put("/feedbacks", async function(req, res) {
         res.status(200).json({ message: "Данные о заявке с обратной связью обновлены", feedbacks: req.body });
     }
     catch(error) {
-        console.error("post /feedbacks", error);
+        console.error("put /feedbacks", error);
         res.status(400).json({ message: "Ошибка обновления данных о заявке с обратной связью!" });
     }
 });
@@ -1096,12 +1096,25 @@ app.delete("/feedbacks", async function(req, res) {
         res.status(200).json({ message: "Данные о заявке с обратной связью удалены", feedbackId: feedbackId });
     }
     catch(error) {
-        console.error("post /feedbacks", error);
+        console.error("delete /feedbacks", error);
         res.status(400).json({ message: "Ошибка удаления данных о заявке с обратной связью!" });
     }
 
 });
 
+// feeback types
+
+app.get("/feedback-types", async function(req, res) {
+    try {
+        let typesList = JSON.parse(fs.readFileSync('DB/FeedbacksTypes.json', 'utf8'));
+        res.status(200).json({ message: "Данные о типах заявки получены", types: typesList });
+    }
+    catch(error) {
+        console.error("get /feedback-types", error);
+        res.status(400).json({ message: "Ошибка получения данных о типах заявки" });
+    }
+
+});
 
 //Invoices
 app.get("/invoices", async function(req, res) {

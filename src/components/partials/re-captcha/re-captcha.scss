@@ -1,0 +1,9 @@
+.re-captcha-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+    .re-captcha-title {
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-weight: 500;
+    }
+}

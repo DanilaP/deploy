@@ -13,5 +13,11 @@ export interface IFeedBack {
     moderatorAnswer: string | null,
     createdAt: string,
     dateOfAnswer: string | null,
-    attachments: IAttachment[]
+    attachments: IAttachment[],
+    parentFeedbackId?: number | null
+}
+
+export interface IFeedbackType {
+    id: number,
+    systemKey: string
 }

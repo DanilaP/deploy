@@ -4,7 +4,6 @@ import SignUp from "./components/pages/auth/sign-up/sign-up.tsx";
 import AboutPage from "./components/pages/about/about.tsx";
 import ShopPage from "./components/pages/shop/shop.tsx";
 import CartPage from "./components/pages/cart-page/cart-page.tsx";
-import UsersList from "./components/pages/admin/users/users-list/users-list.tsx";
 import ProfilePage from "./components/pages/profile/profile.tsx";
 import RolesPage from "./components/pages/admin/roles/roles.tsx";
 import PermissionsPage from "./components/pages/admin/permissions/permissions.tsx";
@@ -27,6 +26,7 @@ import AuthLayout from "./components/layouts/auth-layout/auth.tsx";
 import Users from "./components/pages/admin/users/users.tsx";
 import ProductAccounting from "./components/pages/admin/product-accounting/product-accounting.tsx";
 import DiscountsPage from "./components/pages/admin/discounts/discounts.tsx";
+import { FeedBackInfoPage } from "./components/pages/admin/feed-back-info/feed-back-info.tsx";
 
 export const routes = [
     {
@@ -224,5 +224,11 @@ export const adminRoutes = [
         component: AdminLayout,
         children: DiscountsPage,
         breadcrumb : t("breadcrumbs.discounts")
+    },
+    {
+        path: "/admin/feedback/:id",
+        component: AdminLayout,
+        children: FeedBackInfoPage,
+        breadcrumb : t("breadcrumbs.feedback")
     },
 ];
