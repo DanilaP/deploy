@@ -18,7 +18,8 @@ export interface IProduct {
 export interface IAdditionalInfo {
     id: number,
     name: string,
-    description: string
+    description: string,
+    systemKey: string
 }
 export interface IVariation {
     name: string,

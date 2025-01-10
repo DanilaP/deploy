@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDiscounts } from "../../../../models/discounts/use-discounts";
 import { useCategories } from "../../../../models/categories/use-categories";
 import { IDiscount } from "../../../../models/discounts/discounts";
+import { useProducts } from "../../../../models/products/use-products";
 import DiscountsPageView from "./components/discounts-page-view/discounts-page-view";
 
 export default function DiscountsPage() {
@@ -9,12 +10,13 @@ export default function DiscountsPage() {
     const { 
         discounts,
         discountTypesForSelect,
-        handleGetCountOfProductsForDiscount,
         handleCreateDiscount,
         handleDeleteDiscount,
         handleUpdateDiscount
     } = useDiscounts();
-
+    const {
+        handleGetCountOfProductsForDiscount
+    } = useProducts();
     const {
         categoriesForSelect
     } = useCategories();

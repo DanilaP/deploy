@@ -106,6 +106,7 @@
         "stillNotReg": "Еще не зарегестрированы?",
         "filters": "Настроить фильтры",
         "find": "Найти",
+        "allGoods": "Все товары",
         "categories": "Категории",
         "fullDescription": "Полное описание",
         "no": "Нет",
@@ -123,8 +124,12 @@
         "images": "Изображения",
         "approveDeletingGood": "Подтвердить удаление товара",
         "myOrders": "Мои заказы",
+        "siteSearch": "Поиску по сайту",
+        "catalog": "Каталог",
         "variations": "Вариации",
         "good": "Товар",
+        "noGoods": "Товаров не найдено",
+        "foundGoods": "Найдено товаров",
         "prevOrders": "Предыдущие заявки",
         "nextOrders": "Следующие заявки",
         "promoSum": "Сумма промокода",
@@ -141,6 +146,8 @@
         "editCategory": "Редактировать категорию",
         "createCategory": "Создать категорию",
         "feedbackForm": "Форма обратной связи",
+        "filterByPrice": "Фильтры по цене",
+        "clear": "Очистить",
         "feedback": "Обратная связь",
         "addCategory": "Добавить категорию",
         "historyOfAnswers": "Связанные заявки",
@@ -165,6 +172,7 @@
         "image": "Изображение",
         "all": "Все",
         "from": "от",
+        "to": "до",
         "cart": {
             "more": "Подробнее о товаре",
             "productChoose": "Выберите товары, чтобы перейти к оформлению",
@@ -191,6 +199,10 @@
             "delete": "Удалить",
             "cancel": "Оставить",
             "orderData": "Данные заказа"
+        },
+        "filtersList": {
+            "price": "По цене",
+            "rating": "По рейтингу"
         },
         "checkout": {
             "insertRecipientData": "Добавьте данные получателя",

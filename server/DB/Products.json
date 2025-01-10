@@ -13,39 +13,45 @@
       "http://localhost:5000/products/product3.jpg",
       "http://localhost:5000/products/product4.jpg"
     ],
-    "price": 1000,
+    "price": 13534,
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": ["11"],
+    "category": ["10"],
     "additionalInfo": [
       {
         "id": 1,
+        "systemKey": "frame",
         "name": "Корпус",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминиевый корпус"
       },
       {
         "id": 2,
+        "systemKey": "color",
         "name": "Цвет",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Красный"
       },
       {
         "id": 3,
+        "systemKey": "size",
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
         "id": 4,
+        "systemKey": "material",
         "name": "Материал",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминий"
       },
       {
         "id": 5,
+        "systemKey": "motherboard",
         "name": "Материнская плата",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Материнская плата 1"
       },
       {
         "id": 6,
+        "systemKey": "videocard",
         "name": "Видеокарта",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Видеокарта 1"
       }
     ],
     "provider": 1,
@@ -103,7 +109,7 @@
     "partNumber": "100002",
     "active": true,
     "published": true,
-    "price": 1000,
+    "price": 4563,
     "name": "Product 2",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -114,37 +120,43 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": ["12"],
+    "category": ["11"],
     "additionalInfo": [
       {
         "id": 1,
+        "systemKey": "frame",
         "name": "Корпус",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминиевый корпус"
       },
       {
         "id": 2,
+        "systemKey": "color",
         "name": "Цвет",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Красный"
       },
       {
         "id": 3,
+        "systemKey": "size",
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
         "id": 4,
+        "systemKey": "material",
         "name": "Материал",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминий"
       },
       {
         "id": 5,
+        "systemKey": "motherboard",
         "name": "Материнская плата",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Материнская плата 2"
       },
       {
         "id": 6,
+        "systemKey": "videocard",
         "name": "Видеокарта",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Видеокарта 1"
       }
     ],
     "provider": 1,
@@ -185,7 +197,7 @@
     "partNumber": "100003",
     "active": true,
     "published": true,
-    "price": 1000,
+    "price": 5424,
     "name": "Product 3",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -196,37 +208,43 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video2.mp4",
-    "category": ["4"],
+    "category": ["13"],
     "additionalInfo": [
       {
         "id": 1,
+        "systemKey": "frame",
         "name": "Корпус",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминиевый корпус"
       },
       {
         "id": 2,
+        "systemKey": "color",
         "name": "Цвет",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Красный"
       },
       {
         "id": 3,
+        "systemKey": "size",
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
         "id": 4,
+        "systemKey": "material",
         "name": "Материал",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминий"
       },
       {
         "id": 5,
+        "systemKey": "motherboard",
         "name": "Материнская плата",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Материнская плата 3"
       },
       {
         "id": 6,
+        "systemKey": "videocard",
         "name": "Видеокарта",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Видеокарта 1"
       }
     ],
     "provider": 1,
@@ -268,7 +286,7 @@
     "partNumber": "100004",
     "active": true,
     "published": true,
-    "price": 1000,
+    "price": 2343,
     "name": "Product 4",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -279,37 +297,43 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": ["7"],
+    "category": ["11"],
     "additionalInfo": [
       {
         "id": 1,
+        "systemKey": "frame",
         "name": "Корпус",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминиевый корпус"
       },
       {
         "id": 2,
+        "systemKey": "color",
         "name": "Цвет",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Красный"
       },
       {
         "id": 3,
+        "systemKey": "size",
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
         "id": 4,
+        "systemKey": "material",
         "name": "Материал",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминий"
       },
       {
         "id": 5,
+        "systemKey": "motherboard",
         "name": "Материнская плата",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Материнская плата 4"
       },
       {
         "id": 6,
+        "systemKey": "videocard",
         "name": "Видеокарта",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Видеокарта 1"
       }
     ],
     "provider": 3,
@@ -342,7 +366,7 @@
     "partNumber": "100006",
     "active": true,
     "published": true,
-    "price": 1000,
+    "price": 7674,
     "name": "Product 5",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -353,37 +377,43 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video2.mp4",
-    "category": ["20"],
+    "category": ["8"],
     "additionalInfo": [
       {
         "id": 1,
+        "systemKey": "frame",
         "name": "Корпус",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминиевый корпус"
       },
       {
         "id": 2,
+        "systemKey": "color",
         "name": "Цвет",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Красный"
       },
       {
         "id": 3,
+        "systemKey": "size",
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
         "id": 4,
+        "systemKey": "material",
         "name": "Материал",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминий"
       },
       {
         "id": 5,
+        "systemKey": "motherboard",
         "name": "Материнская плата",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Материнская плата 5"
       },
       {
         "id": 6,
+        "systemKey": "videocard",
         "name": "Видеокарта",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Видеокарта 1"
       }
     ],
     "provider": 3,
@@ -416,7 +446,7 @@
     "partNumber": "100007",
     "active": true,
     "published": true,
-    "price": 1000,
+    "price": 7335,
     "name": "Product 6",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -431,33 +461,39 @@
     "additionalInfo": [
       {
         "id": 1,
+        "systemKey": "frame",
         "name": "Корпус",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминиевый корпус"
       },
       {
         "id": 2,
+        "systemKey": "color",
         "name": "Цвет",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Красный"
       },
       {
         "id": 3,
+        "systemKey": "size",
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
         "id": 4,
+        "systemKey": "material",
         "name": "Материал",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминий"
       },
       {
         "id": 5,
+        "systemKey": "motherboard",
         "name": "Материнская плата",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Материнская плата 6"
       },
       {
         "id": 6,
+        "systemKey": "videocard",
         "name": "Видеокарта",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Видеокарта 1"
       }
     ],
     "provider": 3,
@@ -490,7 +526,7 @@
     "partNumber": "100008",
     "active": true,
     "published": true,
-    "price": 1000,
+    "price": 3455,
     "name": "Product 7",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -501,37 +537,43 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": ["1"],
+    "category": ["9"],
     "additionalInfo": [
       {
         "id": 1,
+        "systemKey": "frame",
         "name": "Корпус",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминиевый корпус"
       },
       {
         "id": 2,
+        "systemKey": "color",
         "name": "Цвет",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Красный"
       },
       {
         "id": 3,
+        "systemKey": "size",
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
         "id": 4,
+        "systemKey": "material",
         "name": "Материал",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминий"
       },
       {
         "id": 5,
+        "systemKey": "motherboard",
         "name": "Материнская плата",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Материнская плата 7"
       },
       {
         "id": 6,
+        "systemKey": "videocard",
         "name": "Видеокарта",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Видеокарта 1"
       }
     ],
     "provider": 3,
@@ -564,7 +606,7 @@
     "partNumber": "100009",
     "active": true,
     "published": true,
-    "price": 1000,
+    "price": 4562,
     "name": "Product 8",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -575,37 +617,43 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video3.mp4",
-    "category": ["5"],
+    "category": ["16"],
     "additionalInfo": [
       {
         "id": 1,
+        "systemKey": "frame",
         "name": "Корпус",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминиевый корпус"
       },
       {
         "id": 2,
+        "systemKey": "color",
         "name": "Цвет",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Синий"
       },
       {
         "id": 3,
+        "systemKey": "size",
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
         "id": 4,
+        "systemKey": "material",
         "name": "Материал",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминий"
       },
       {
         "id": 5,
+        "systemKey": "motherboard",
         "name": "Материнская плата",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Материнская плата 8"
       },
       {
         "id": 6,
+        "systemKey": "videocard",
         "name": "Видеокарта",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Видеокарта 10"
       }
     ],
     "provider": 3,
@@ -638,7 +686,7 @@
     "partNumber": "100010",
     "active": true,
     "published": true,
-    "price": 1000,
+    "price": 45645,
     "name": "Product 9",
     "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
@@ -649,37 +697,117 @@
       "http://localhost:5000/products/product4.jpg"
     ],
     "video": "http://localhost:5000/video/video1.mp4",
-    "category": ["10"],
+    "category": ["17"],
     "additionalInfo": [
       {
         "id": 1,
+        "systemKey": "frame",
         "name": "Корпус",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминиевый корпус"
       },
       {
         "id": 2,
+        "systemKey": "color",
         "name": "Цвет",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Красный"
       },
       {
         "id": 3,
+        "systemKey": "size",
         "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
       },
       {
         "id": 4,
+        "systemKey": "material",
         "name": "Материал",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Алюминий"
       },
       {
         "id": 5,
+        "systemKey": "motherboard",
         "name": "Материнская плата",
-        "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+        "description": "Материнская плата 8"
       },
       {
         "id": 6,
+        "systemKey": "videocard",
         "name": "Видеокарта",
+        "description": "Видеокарта 1"
+      }
+    ],
+    "provider": 3,
+    "reviews": [],
+    "variations": [
+      {
+        "name": "Base",
+        "title": "Базовая",
+        "stock": 7,
+        "price": 9000,
+        "images": [
+          "http://localhost:5000/products/product4.jpg"
+        ],
+        "video": "http://localhost:5000/video/video2.mp4"
+      },
+      {
+        "name": "Full",
+        "title": "Полная",
+        "stock": 3,
+        "price": 27000,
+        "images": [
+          "http://localhost:5000/products/product6.jpg"
+        ],
+        "video": "http://localhost:5000/video/video3.mp4"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "partNumber": "100011",
+    "active": true,
+    "published": true,
+    "price": 20000,
+    "name": "Product 10",
+    "fullDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio quo nisi praesentium pariatur corporis inventore minima quae blanditiis aliquid dicta ex sunt ipsam iste veniam, officia tempore. Earum, laudantium rem! Vel mollitia incidunt, ullam quibusdam reiciendis doloremque iure sit veniam nesciunt impedit hic repellat amet adipisci, sint eligendi voluptas numquam, odio voluptatum repudiandae a perspiciatis cumque? Iste maiores quas inventore, nostrum exercitationem amet totam quam expedita quos fuga perferendis deserunt beatae ex. Itaque non accusamus, dicta eligendi, doloribus soluta asperiores tempore nostrum suscipit odit tempora amet animi labore dolores nemo accusantium?",
+    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam quis distinctio quos odit. Asperiores, est!",
+    "images": [
+      "http://localhost:5000/products/product9.jpg",
+      "http://localhost:5000/products/product5.jpg",
+      "http://localhost:5000/products/product3.jpg",
+      "http://localhost:5000/products/product4.jpg"
+    ],
+    "video": "http://localhost:5000/video/video1.mp4",
+    "category": ["23"],
+    "additionalInfo": [
+      {
+        "id": 1,
+        "systemKey": "frame",
+        "name": "Корпус",
+        "description": "Алюминиевый корпус"
+      },
+      {
+        "id": 2,
+        "systemKey": "color",
+        "name": "Цвет",
+        "description": "Красный"
+      },
+      {
+        "id": 3,
+        "systemKey": "size",
+        "name": "Размер",
         "description": "A aliquam sapiente cum quibusdam! Illo qui alias deserunt odio"
+      },
+      {
+        "id": 4,
+        "systemKey": "material",
+        "name": "Материал",
+        "description": "Алюминий"
+      },
+      {
+        "id": 5,
+        "systemKey": "motherboard",
+        "name": "Материнская плата",
+        "description": "Материнская плата 8"
       }
     ],
     "provider": 3,

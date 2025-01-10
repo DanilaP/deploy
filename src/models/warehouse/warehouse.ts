@@ -5,7 +5,7 @@ export interface IWarehouse {
     products: {
         productId: number,
         variation: string,
-        number: number,
+        amount: number,
         productInfo: any
     }[]
 }

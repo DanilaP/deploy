@@ -133,9 +133,14 @@
         "sendAnswer": "Send answer",
         "description": "Description",
         "feedbackAnswer": "Feedback answer",
+        "allGoods": "All goods",
         "no": "No",
+        "siteSearch": "Search on the site",
+        "catalog": "Catalog",
         "verifyNotARobot": "Please, verify that you are not a robot",
         "statusSearch": "Search by status",
+        "noGoods": "No goods",
+        "foundGoods": "Found products",
         "answer": "Answer",
         "managingFeedbacks": "Managing feedbacks",
         "stock": "In stock",
@@ -151,7 +156,9 @@
         "yourReview": "Your review",
         "sendReview": "Send review",
         "variations": "Variations",
+        "clear": "Clear",
         "yourName": "Your name",
+        "filterByPrice": "Filter by price",
         "historyOfAnswers": "History of answers",
         "yourPhone": "Your phone",
         "typeOfBid": "Type of bid",
@@ -185,7 +192,8 @@
         "invalidEmail": "Invalid email",
         "confirmAccount": "Confirm your account",
         "all": "All",
-        "from": "от",
+        "from": "from",
+        "to": "to",
         "cart": {
             "productChoose": "Select products to proceed to checkout",
             "preDeliverInfo": "Available delivery methods and times can be selected when placing an order",
@@ -217,6 +225,10 @@
                 "in-transit": "In transit",
                 "cancelled": "Cancelled"
             }
+        },
+        "filtersList": {
+            "price": "By price",
+            "rating": "By rating"
         },
         "checkout": {
             "free": "Free",

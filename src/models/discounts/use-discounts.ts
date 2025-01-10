@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { IDiscount } from "./discounts";
 import { IProduct } from "../products/products";
-import { useProducts } from "../products/use-products.js";
 import { createDiscount, deleteDiscount, getDiscounts, updateDiscount } from "./discounts-api.js";
+import { useCategories } from "../categories/use-categories.js";
+import lodash from "lodash";
 
 export const useDiscounts = () => {
 
@@ -12,7 +13,11 @@ export const useDiscounts = () => {
         { id: "discount", label: "Скидка" }
     ];
 
-    const { products } = useProducts();
+    const { 
+        categories, 
+        findAllChildCategories,
+        handleFindCategory
+    } = useCategories();
 
     const fetchDiscountsData = async () => {
         const response = await getDiscounts();
@@ -25,38 +30,31 @@ export const useDiscounts = () => {
         productCategories: string[],
         categoriesForDiscount: string[]
     ) => {
-        let status = false;
-        productCategories.forEach(el => {
-            if (categoriesForDiscount?.includes(el) || categoriesForDiscount.length === 0) {
-                status = true;
-                return;
+        if (categoriesForDiscount.length === 0) return true;
+        let fullCategoriesForDiscount: string[] = [];
+        categoriesForDiscount.forEach(el => {
+            const foundCategory = handleFindCategory(el, categories);
+            if (foundCategory) {
+                fullCategoriesForDiscount = [
+                    ...fullCategoriesForDiscount,
+                    ...findAllChildCategories(foundCategory)
+                ];
             }
         });
-        return status;
-    };
-
-    const handleGetCountOfProductsForDiscount = (discount: IDiscount) => {
-        if (discount.categories === null) return products.length;
-        return products.reduce((prev: number, product: IProduct) => {
-            if (
-                handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount(product.category, discount.categories)
-            ) {
-                return prev + 1;
-            }
-            return prev;
-        }, 0);
+        return lodash.intersection(fullCategoriesForDiscount, productCategories).length !== 0;
     };
 
     const handleGetBestDiscountForProductById = (product: IProduct) => {
         let allowedPercentage: number[] = [];
         discounts.filter(el => el.type === "discount").forEach((discount) => {
             if (
-                handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount(product.category, discount.categories)
+                handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount(product.category, discount.categories) ||
+                discount.categories.length === 0
             ) {
                 allowedPercentage = [...allowedPercentage, discount.value];
             }
         });
-        return Math.max(...allowedPercentage);
+        return allowedPercentage.length !== 0 ? Math.max(...allowedPercentage) : 0;
     };
 
     const handleCreateDiscount = (discount: IDiscount) => {
@@ -104,8 +102,8 @@ export const useDiscounts = () => {
     return {
         discounts,
         discountTypesForSelect,
-        handleGetCountOfProductsForDiscount,
         handleGetBestDiscountForProductById,
+        handleCheckProductsCategoriesAreCrossWithCategoriesForDiscount,
         handleCreateDiscount,
         handleUpdateDiscount,
         handleDeleteDiscount

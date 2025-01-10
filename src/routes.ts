@@ -8,7 +8,7 @@ import ProfilePage from "./components/pages/profile/profile.tsx";
 import RolesPage from "./components/pages/admin/roles/roles.tsx";
 import PermissionsPage from "./components/pages/admin/permissions/permissions.tsx";
 import { GoodsPage } from "./components/pages/admin/goods/goods.tsx";
-import ProductPage from "./components/pages/shop/product-page/product-page.tsx";
+import ProductPage from "./components/pages/product-page/product-page.tsx";
 import ProductReviews from "./components/pages/shop/product-reviews-page/product-reviews-page.tsx";
 import CheckoutPage from "./components/pages/checkout-page/checkout-page.tsx";
 import { CategoriesPage } from "./components/pages/admin/categories/categories.tsx";
@@ -27,6 +27,7 @@ import Users from "./components/pages/admin/users/users.tsx";
 import ProductAccounting from "./components/pages/admin/product-accounting/product-accounting.tsx";
 import DiscountsPage from "./components/pages/admin/discounts/discounts.tsx";
 import { FeedBackInfoPage } from "./components/pages/admin/feed-back-info/feed-back-info.tsx";
+import MainLayout from "./components/layouts/main-layout/main.tsx";
 
 export const routes = [
     {
@@ -49,14 +50,20 @@ export const routes = [
     },
     {
         path: '/shop',
-        component: ShopPage,
-        children: null,
+        component: MainLayout,
+        children: ShopPage,
+        breadcrumb : t("breadcrumbs.shop")
+    },
+    {
+        path: '/shop/:id',
+        component: MainLayout,
+        children: ShopPage,
         breadcrumb : t("breadcrumbs.shop")
     },
     {
         path: '/cart',
-        component: CartPage,
-        children: null,
+        component: MainLayout,
+        children: CartPage,
         breadcrumb : t("breadcrumbs.cart")
     },
     {
@@ -104,8 +111,8 @@ export const routes = [
     },
     {
         path: '/orders',
-        component: OrdersPage,
-        children: null,
+        component: MainLayout,
+        children: OrdersPage,
         breadcrumb : t("breadcrumbs.orders")
     },
     {
@@ -116,32 +123,32 @@ export const routes = [
     },
     {
         path: '/profile',
-        component: ProfilePage,
-        children: null,
+        component: MainLayout,
+        children: ProfilePage,
         breadcrumb : t("breadcrumbs.profile")
     },
     {
         path: "/shop/product/:id",
-        component: ProductPage,
-        children: null,
+        component: MainLayout,
+        children: ProductPage,
         breadcrumb : t("breadcrumbs.shopProduct")
     },
     {
         path: "/shop/product/:id/reviews",
-        component: ProductReviews,
-        children: null,
+        component: MainLayout,
+        children: ProductReviews,
         breadcrumb : t("breadcrumbs.productReviews")
     },
     {
         path: "/favorites",
-        component: Favorites,
-        children: null,
+        component: MainLayout,
+        children: Favorites,
         breadcrumb : t("breadcrumbs.favorites")
     },
     {
         path: "/feedback",
-        component: FeedBackPage,
-        children: null,
+        component: MainLayout,
+        children: FeedBackPage,
         breadcrumb : t("breadcrumbs.feedback")
     },
     {

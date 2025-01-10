@@ -1,0 +1,24 @@
+.characteristics-wrapper {
+    background-color: var(--bg-color-block);
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.247);
+    display: grid;
+    grid-template-columns: calc(100% - 75px) 75px;
+    .characteristics-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        .MuiSelect-select {
+            max-width: 180px;
+            padding: 5px 35px 5px 5px;
+        }
+    }
+    .characteristics-filter-clear {
+        color: var(--default-color);
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+}

@@ -185,6 +185,44 @@ export const useCategories = () => {
         return findedCategories;
     };
 
+    const handleFindCategory = (
+        categoryId: string, 
+        categoryList: ICategory[]
+    ): ICategory | null => {
+        let findedCategory = null;
+        categoryList.forEach((item: ICategory) => {
+            if (item.id === categoryId) {
+                findedCategory = item;
+                return;
+            }
+            else if (item.categories) {
+                const category: ICategory | null = handleFindCategory(categoryId, item.categories);
+                if (category) {
+                    findedCategory = category;
+                }
+                return;
+            }
+        });
+        return findedCategory;
+    };
+
+    const findAllChildCategories = (currentCategory: ICategory) => {
+        let childCategories: string[] = [];
+        if (!currentCategory.categories) {
+            return [currentCategory.id];
+        }
+        for (const category of currentCategory.categories) {
+            childCategories = [...childCategories, category.id];
+            if (category.categories) {
+                category.categories.forEach(el => {
+                    childCategories = [...childCategories, ...findAllChildCategories(el)];
+                });
+            }
+        }
+        return childCategories;
+    };
+    
+    
     useEffect(() => {
         getCategories().then(res => {
             if (res.data) {
@@ -200,7 +238,9 @@ export const useCategories = () => {
         filteredCategories,
         categoriesForSelect,
         setCategories,
+        findAllChildCategories,
         setFilteredCategories,
+        handleFindCategory,
         handleDeleteCategory, 
         handleFindCategoryAndAddIntoNewCategory, 
         handleFilterCategoriesByIncludingString,
