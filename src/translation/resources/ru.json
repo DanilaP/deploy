@@ -125,6 +125,8 @@
         "myOrders": "Мои заказы",
         "variations": "Вариации",
         "good": "Товар",
+        "prevOrders": "Предыдущие заявки",
+        "nextOrders": "Следующие заявки",
         "promoSum": "Сумма промокода",
         "discountValue": "Размер скидки (%)",
         "video": "Видео",

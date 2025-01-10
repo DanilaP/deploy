@@ -103,6 +103,8 @@
         "changePassword": "Change password",
         "myOrders": "My orders",
         "createGroup": "Create group",
+        "prevOrders": "Previous orders",
+        "nextOrders": "Next orders",
         "createCategory": "Create category",
         "deleteGroup": "Delete group",
         "addCategory": "Add category",
