@@ -9,8 +9,12 @@ const jwt = require('jsonwebtoken');
 const jwt_decode = require('jwt-decode');
 const path = require('path');
 const WebSocket = require('ws');
+
 const { error, log } = require('console');
 const e = require('cors');
+const cron = require('node-cron');
+const { Blob } = require('buffer');
+const { Buffer } = require('buffer');
 
 const generateAccessToken = (id) => {
     const payload = {
@@ -750,9 +754,35 @@ app.delete("/providers", async function(req, res) {
     }
 });
 
-
-
 //Chat endpoints
+app.post("/chat/pin", async function(req, res) {
+    try {
+        let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        let currentUsers = JSON.parse(fs.readFileSync('DB/Users.json', 'utf8'));
+        let updatedChats = currentChats.map((chat) => {
+            if (chat.id === req.body.id) {
+                return {
+                    ...chat,
+                    fixed: chat.fixed ? false : true
+                };
+            }
+            else return chat;
+        });
+        let detailedChatsInfo = updatedChats.map(chat => {
+            return {
+                ...chat,
+                members: currentUsers.filter(user => chat.members.includes(user.id))
+            };
+        });
+        fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
+        res.status(200).json({ message: "Успешное закрепление чата", chats: detailedChatsInfo });
+    }
+    catch (error) {
+        res.status(400).json({ message: "Ошибка при закреплении чата" });
+        console.error(error);
+    }
+});
+
 app.get("/chats", async function(req, res) {
     try {
         const token = req.headers.authorization;
@@ -814,7 +844,8 @@ app.post("/admin/chat", async function(req, res) {
                     messages: chat.messages.map((message) => {
                         return {
                             ...message,
-                            recipientId: userId
+                            recipientId: message.recipientId === null ? userId : message.recipientId,
+                            senderId: message.senderId === null ? userId : message.senderId
                         };
                     })
                 };
@@ -831,6 +862,93 @@ app.post("/admin/chat", async function(req, res) {
     catch (error) {
         res.status(400).json({ message: "Ошибка закрепления админа за чатом" });
         console.error("post /admin/chat", error);
+    }
+});
+
+app.post("/upload", async function (req, res) {
+    try {
+        if (req.files && Object.keys(req.files).length !== 0) {
+            const uploadedFiles = req.files.files.length > 0 ? req.files.files : [req.files.files];
+            let files = [];
+            uploadedFiles.map((file) => {
+                let fileName = Buffer.from(file.name, 'latin1').toString('utf8');
+                let currentDate = Date.now();
+                const uniqueFileStats = `${ currentDate + file.size + fileName }`;
+                file.mv(`./staticFiles/chatfiles/${ uniqueFileStats  }`, function (err) {
+                    if (err) {
+                        console.log(err);
+                    } 
+                });
+                files = [...files, {
+                    url: `http://localhost:5000/chatfiles/${ uniqueFileStats }`,
+                    name: fileName,
+                    size: file.size
+                }];
+            });
+            res.status(200).json({ message: "Файлы успешно загружены", files: files });
+        } 
+    }
+    catch (error) {
+        res.status(400).json({ message: "Ошибка загрузки файлов", files: [] });
+        console.error(error);
+    }
+});
+
+app.post("/chats/messages", async function(req, res) {
+    try {
+        const currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        const updatedChats = currentChats.map((chat) => {
+            if (chat.id === req.body.chat.id) {
+                return {
+                    ...chat,
+                    messages: chat.messages.map(message => {
+                        if (message.id === Number(req.body.messageId)) {
+                            return {
+                                ...message,
+                                checked: true
+                            };
+                        } else return message;
+                    })
+                };
+            }
+            else return chat;
+        });
+        fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
+        res.status(200).json({ message: "Статус сообщения успешно изменён" });
+    }
+    catch (error) {
+        res.status(400).json({ message: "Ошибка смены статуса сообщения!" });
+        console.error(error);
+    }
+});
+
+app.post("/chats/messages/reaction", async function(req, res) {
+    try {
+        const currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        let userChat = null;
+        const updatedChats = currentChats.map((chat) => {
+            if (chat.id === req.body.chat.id) {
+                userChat = {
+                    ...chat,
+                    messages: chat.messages.map(message => {
+                        if (message.id === Number(req.body.messageId)) {
+                            return {
+                                ...message,
+                                reactions: message.reactions === "" ? "reaction" : ""
+                            };
+                        } else return message;
+                    })
+                };
+                return userChat;
+            }
+            else return chat;
+        });
+        fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
+        res.status(200).json({ message: "Реакция на сообщение успешно изменена", chat: userChat });
+    }
+    catch (error) {
+        res.status(400).json({ message: "Ошибка смены реакции на сообщение!" });
+        console.error(error);
     }
 });
 
@@ -861,10 +979,14 @@ wss.on('connection', (ws) => {
                         return {
                             ...chat,
                             messages: [ ...chat.messages, {
+                                id: Date.now(),
                                 senderId,
                                 recipientId,
                                 date: newMessageData.date,
                                 text: newMessageData.message,
+                                files: newMessageData.files,
+                                reactions: "",
+                                checked: false
                             } ]
                         };
                     } else return chat;
@@ -876,10 +998,14 @@ wss.on('connection', (ws) => {
                     id: Date.now(),
                     members: [senderId, null],
                     messages: [{
+                        id: Date.now(),
                         senderId,
                         recipientId: null,
                         date: newMessageData.date,
                         text: newMessageData.message,
+                        files: newMessageData.files,
+                        reactions: "",
+                        checked: false
                     }]
                 } ];
                 fs.writeFileSync('DB/Chats.json', JSON.stringify(currentChats, null, 2));
@@ -891,20 +1017,28 @@ wss.on('connection', (ws) => {
                         client.userws.send(JSON.stringify({
                             ...isChatExists[0],
                             messages: [...isChatExists[0].messages, {
+                                id: Date.now(),
                                 senderId: senderId,
                                 recipientId: recipientId,
                                 date: newMessageData.date,
                                 text: newMessageData.message,
+                                files: newMessageData.files,
+                                reactions: "",
+                                checked: false
                             }]
                         }));
                     } else {
                         client.userws.send(JSON.stringify({
                             ...currentChats[currentChats.length - 1],
                             messages: [{
+                                id: Date.now(),
                                 senderId: senderId,
                                 recipientId: null,
                                 date: newMessageData.date,
                                 text: newMessageData.message,
+                                files: newMessageData.files,
+                                reactions: "",
+                                checked: false
                             }]
                         }));
                     }
@@ -1159,6 +1293,46 @@ app.get("/statistic/places", async function(req, res) {
         console.error("get /statistic/places", error);
         res.status(400).json({ message: "Ошибка получения статистики о местах доставки!" });
     }
+});
+
+const isDateWithin15Minutes = (date) => {
+    let currentDate = new Date(Date.now());
+    let paramDate = new Date(date);
+    const diff = Math.abs(currentDate - paramDate);
+    return diff < 900000;
+};
+
+cron.schedule('*/15 * * * *', () => {
+    let currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+    let updatedChats = currentChats.map((chat) => {
+        let isClear = false;
+        if (!chat.fixed) {
+            let array = [...chat.messages].reverse();
+            let adminLastMsg = array.find(msg => msg.senderId !== chat.messages[0].senderId);
+            if (adminLastMsg) {
+                isClear = !isDateWithin15Minutes(adminLastMsg.date);
+            }
+            if (isClear) {
+                return {
+                    ...chat,
+                    members: chat.members.map(memberId => {
+                        if (memberId === chat.messages[0].senderId) {
+                            return memberId;
+                        } else return null;
+                    }),
+                    messages: chat.messages.map(message => {
+                        return {
+                            ...message,
+                            recipientId: message.recipientId !== chat.messages[0].senderId ? null : message.recipientId,
+                            senderId: message.senderId !== chat.messages[0].senderId ? null : message.senderId
+                        };
+                    })
+                };
+            } else return chat;
+        }
+        else return chat;
+    });
+    fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
 });
 
 async function startApp() {

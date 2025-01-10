@@ -1,0 +1,107 @@
+.message {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    flex-direction: column;
+    padding: 10px;
+    width: 75%;
+    height: max-content;
+    background-color: var(--bg-color);
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.247);
+
+    .files {
+        .file {
+            display: flex;
+            width: 50%;
+            cursor: pointer;
+
+            .name {
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                &:hover {
+                    color: var(--default-color);
+                }
+            }
+        }
+    }
+
+    .date {
+        font-size: 11px;
+        font-weight: 600;
+        height: 15px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 5px;
+        position: relative;
+
+        .status {
+            .status-icon {
+                font-size: 15px;
+            }
+
+            .checked {
+                color: var(--default-color);
+            }
+        }
+
+        .reaction {
+            position: absolute;
+            left: 0px;
+            display: none;
+
+            .reaction-icon {
+                font-size: 15px;
+
+                &:hover {
+                    color: var(--default-color);
+                }
+            }
+
+            .visible {
+                color: var(--default-color);
+            }
+        }
+
+        .active-reaction {
+            display: block;
+        }
+    }
+    
+    .image-wrapper {
+        display: flex;
+        align-items: flex-start;
+        height: 100%;
+        
+        .image {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+    }
+
+    .text {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    &:hover {
+        .date {
+            .reaction {
+                display: block;
+            }
+        }
+    }
+}
+
+.user-msg {
+    margin-left: 25%;
+}
+
+.opponent-msg {
+    
+}

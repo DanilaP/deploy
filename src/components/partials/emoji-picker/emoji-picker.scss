@@ -1,0 +1,16 @@
+.emoji-picker {
+    width: 200px;
+    height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 5px;
+    background-color: var(--bg-color-block);
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.247);
+    overflow-y: scroll;
+
+    .emoji {
+        cursor: pointer;
+    }
+}
