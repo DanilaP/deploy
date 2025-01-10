@@ -12,6 +12,7 @@ const WebSocket = require('ws');
 const { error } = require('console');
 const cron = require('node-cron');
 const { Blob } = require('buffer');
+const { Buffer } = require('buffer');
 
 const generateAccessToken = (id) => {
     const payload = {
@@ -868,14 +869,17 @@ app.post("/upload", async function (req, res) {
             const uploadedFiles = req.files.files.length > 0 ? req.files.files : [req.files.files];
             let files = [];
             uploadedFiles.map((file) => {
-                file.mv(`./staticFiles/chatfiles/${ Date.now() + file.size + file.name  }`, function (err) {
+                let fileName = Buffer.from(file.name, 'latin1').toString('utf8');
+                let currentDate = Date.now();
+                const uniqueFileStats = `${ currentDate + file.size + fileName }`;
+                file.mv(`./staticFiles/chatfiles/${ uniqueFileStats  }`, function (err) {
                     if (err) {
                         console.log(err);
                     } 
                 });
                 files = [...files, {
-                    url: `http://localhost:5000/chatfiles/${ Date.now() + file.size + file.name }`,
-                    name: file.name,
+                    url: `http://localhost:5000/chatfiles/${ uniqueFileStats }`,
+                    name: fileName,
                     size: file.size
                 }];
             });
@@ -884,6 +888,64 @@ app.post("/upload", async function (req, res) {
     }
     catch (error) {
         res.status(400).json({ message: "Ошибка загрузки файлов", files: [] });
+        console.error(error);
+    }
+});
+
+app.post("/chats/messages", async function(req, res) {
+    try {
+        const currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        const updatedChats = currentChats.map((chat) => {
+            if (chat.id === req.body.chat.id) {
+                return {
+                    ...chat,
+                    messages: chat.messages.map(message => {
+                        if (message.id === Number(req.body.messageId)) {
+                            return {
+                                ...message,
+                                checked: true
+                            };
+                        } else return message;
+                    })
+                };
+            }
+            else return chat;
+        });
+        fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
+        res.status(200).json({ message: "Статус сообщения успешно изменён" });
+    }
+    catch (error) {
+        res.status(400).json({ message: "Ошибка смены статуса сообщения!" });
+        console.error(error);
+    }
+});
+
+app.post("/chats/messages/reaction", async function(req, res) {
+    try {
+        const currentChats = JSON.parse(fs.readFileSync('DB/Chats.json', 'utf8'));
+        let userChat = null;
+        const updatedChats = currentChats.map((chat) => {
+            if (chat.id === req.body.chat.id) {
+                userChat = {
+                    ...chat,
+                    messages: chat.messages.map(message => {
+                        if (message.id === Number(req.body.messageId)) {
+                            return {
+                                ...message,
+                                reactions: message.reactions === "" ? "reaction" : ""
+                            };
+                        } else return message;
+                    })
+                };
+                return userChat;
+            }
+            else return chat;
+        });
+        fs.writeFileSync('DB/Chats.json', JSON.stringify(updatedChats, null, 2));
+        res.status(200).json({ message: "Реакция на сообщение успешно изменена", chat: userChat });
+    }
+    catch (error) {
+        res.status(400).json({ message: "Ошибка смены реакции на сообщение!" });
         console.error(error);
     }
 });
@@ -915,11 +977,14 @@ wss.on('connection', (ws) => {
                         return {
                             ...chat,
                             messages: [ ...chat.messages, {
+                                id: Date.now(),
                                 senderId,
                                 recipientId,
                                 date: newMessageData.date,
                                 text: newMessageData.message,
-                                files: newMessageData.files
+                                files: newMessageData.files,
+                                reactions: "",
+                                checked: false
                             } ]
                         };
                     } else return chat;
@@ -931,11 +996,14 @@ wss.on('connection', (ws) => {
                     id: Date.now(),
                     members: [senderId, null],
                     messages: [{
+                        id: Date.now(),
                         senderId,
                         recipientId: null,
                         date: newMessageData.date,
                         text: newMessageData.message,
-                        files: newMessageData.files
+                        files: newMessageData.files,
+                        reactions: "",
+                        checked: false
                     }]
                 } ];
                 fs.writeFileSync('DB/Chats.json', JSON.stringify(currentChats, null, 2));
@@ -947,22 +1015,28 @@ wss.on('connection', (ws) => {
                         client.userws.send(JSON.stringify({
                             ...isChatExists[0],
                             messages: [...isChatExists[0].messages, {
+                                id: Date.now(),
                                 senderId: senderId,
                                 recipientId: recipientId,
                                 date: newMessageData.date,
                                 text: newMessageData.message,
-                                files: newMessageData.files
+                                files: newMessageData.files,
+                                reactions: "",
+                                checked: false
                             }]
                         }));
                     } else {
                         client.userws.send(JSON.stringify({
                             ...currentChats[currentChats.length - 1],
                             messages: [{
+                                id: Date.now(),
                                 senderId: senderId,
                                 recipientId: null,
                                 date: newMessageData.date,
                                 text: newMessageData.message,
-                                files: newMessageData.files
+                                files: newMessageData.files,
+                                reactions: "",
+                                checked: false
                             }]
                         }));
                     }
