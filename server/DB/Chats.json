@@ -8,34 +8,49 @@
     ],
     "messages": [
       {
+        "id": 1,
         "senderId": 1732528796810,
         "recipientId": null,
         "date": "2024/11/27 09:10",
-        "text": "user message"
+        "text": "user message",
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 2,
         "senderId": 1732528796810,
         "recipientId": null,
         "date": "2024/11/27 09:10",
-        "text": "another user message"
+        "text": "another user message",
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 3,
         "senderId": null,
         "recipientId": 1732528796810,
         "date": "2024/11/27 09:11",
-        "text": "admin message"
+        "text": "admin message",
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 4,
         "senderId": null,
         "recipientId": 1732528796810,
         "date": "2024/11/28 11:17",
-        "text": "another admin message"
+        "text": "another admin message",
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 5,
         "senderId": null,
         "recipientId": 1732528796810,
         "date": "2024/11/28 11:21",
-        "text": "waiting answer..."
+        "text": "waiting answer...",
+        "checked": "true",
+        "reactions": ""
       }
     ]
   },
@@ -48,42 +63,61 @@
     ],
     "messages": [
       {
+        "id": 1,
         "senderId": 1732604379612,
         "recipientId": 1727098679785,
         "date": "2024/11/28 08:53",
-        "text": "tester 1 chat"
+        "text": "tester 1 chat",
+        "checked": "true",
+        "reactions": "reaction"
       },
       {
+        "id": 2,
         "senderId": 1732604379612,
         "recipientId": 1727098679785,
         "date": "2024/11/28 08:53",
-        "text": "tester 1 chat message 2"
+        "text": "tester 1 chat message 2",
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 3,
         "senderId": 1732604379612,
         "recipientId": 1727098679785,
         "date": "2024/11/28 08:55",
-        "text": "3 message"
+        "text": "3 message",
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 4,
         "senderId": 1732604379612,
         "recipientId": 1727098679785,
         "date": "2024/11/28 11:12",
-        "text": "test "
+        "text": "test ",
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 5,
         "senderId": 1727098679785,
         "recipientId": 1732604379612,
         "date": "2024/11/28 11:23",
-        "text": "admin message"
+        "text": "admin message",
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 6,
         "senderId": 1727098679785,
         "recipientId": 1732604379612,
         "date": "2024/12/12 10:56",
-        "text": "test msg admin 🖐🤩"
+        "text": "test msg admin 🖐🤩",
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 7,
         "senderId": 1727098679785,
         "recipientId": 1732604379612,
         "date": "2024/12/13 10:26",
@@ -94,9 +128,12 @@
             "name": "test_excel.xlsx",
             "size": 6354
           }
-        ]
+        ],
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 8,
         "senderId": 1727098679785,
         "recipientId": 1732604379612,
         "date": "2024/12/13 10:27",
@@ -112,9 +149,12 @@
             "name": "test_excel.xlsx",
             "size": 6354
           }
-        ]
+        ],
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 9,
         "senderId": 1732604379612,
         "recipientId": 1727098679785,
         "date": "2024/12/13 11:31",
@@ -125,7 +165,9 @@
             "name": "sample-city-park-400x300.jpg",
             "size": 95896
           }
-        ]
+        ],
+        "checked": "true",
+        "reactions": ""
       }
     ]
   },
@@ -138,22 +180,31 @@
     ],
     "messages": [
       {
+        "id": 1,
         "senderId": 1732780938181,
         "recipientId": null,
         "date": "2024/11/28 11:03",
-        "text": "test from chat tester 3"
+        "text": "test from chat tester 3",
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 2,
         "senderId": null,
         "recipientId": 1732780938181,
         "date": "2024/12/11 13:24",
-        "text": "test 123😀😄😆 123"
+        "text": "test 123😀😄😆 123",
+        "checked": "true",
+        "reactions": ""
       },
       {
+        "id": 3,
         "senderId": null,
         "recipientId": 1732780938181,
         "date": "2024/12/11 13:24",
-        "text": "test 123😀😄😆 123"
+        "text": "test 123😀😄😆 123",
+        "checked": "true",
+        "reactions": ""
       }
     ]
   }

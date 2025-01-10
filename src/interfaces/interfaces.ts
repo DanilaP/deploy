@@ -20,11 +20,14 @@ export interface ISelect {
     label: string
 }
 export interface IMessage {
+    id: number,
     senderId: number,
     recipientId: number,
     date: string,
     text: string,
-    files?: { url: string, size: number, name: string }[]
+    files?: { url: string, size: number, name: string }[],
+    reactions?: string,
+    checked: boolean
 }
 export interface IChat {
     id: number,
