@@ -23,10 +23,12 @@ export interface IMessage {
     senderId: number,
     recipientId: number,
     date: string,
-    text: string
+    text: string,
+    files?: { url: string, size: number, name: string }[]
 }
 export interface IChat {
     id: number,
+    fixed: boolean,
     members: number[],
     messages: IMessage[]
 }
