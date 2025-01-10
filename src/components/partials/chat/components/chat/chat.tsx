@@ -65,6 +65,26 @@ export default function Chat (props: {
         } else return [];
     };
 
+    const changeMessageStatus = (messageBlock: Element) => {
+        const message = chat?.messages.find((message: IMessage) => message.id === Number(messageBlock.id));
+        if (!message?.checked) {
+            $api.post("/chats/messages", { messageId: messageBlock.id, chat: chat })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
+    };
+
+    const changeMessageReaction = (message: IMessage) => {
+        $api.post("/chats/messages/reaction", { messageId: message.id, chat: chat })
+        .then((res) => {
+            setChat(res.data.chat);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    };
+
     const sendMessage = async () => {
         let enableChat = true;
         if (chat && userStore.user?.role !== "Администратор" && chat.messages.length >= 15) {
@@ -117,13 +137,17 @@ export default function Chat (props: {
             <div className="chat-header">
                 <div onClick={ props.close } className="close-button">x</div>
             </div>
-            <div className="chat-content">
-                {
-                    (chat && userStore.user) 
-                        ? <MessageList opponentInfo = { props.opponentInfo } messages={ chat.messages } user={ userStore.user } />
-                        : null
-                }
-            </div>
+            {
+                (chat && userStore.user) 
+                    ? <MessageList 
+                        opponentInfo = { props.opponentInfo } 
+                        messages={ chat.messages } 
+                        user={ userStore.user } 
+                        changeMessageStatus = { changeMessageStatus }
+                        changeMessageReaction={ changeMessageReaction }
+                    />
+                    : null
+            }
             <div className="chat-footer">
                 <TextField
                     maxRows={ 1 }
