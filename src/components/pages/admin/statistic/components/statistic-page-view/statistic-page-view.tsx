@@ -61,8 +61,6 @@ export default function StatisticPageView({
                             handleUpdateDateSettings({ ...dateSettings, dateTo: e.target.value });
                         } }
                     />
-                </div>
-                <div className="user-selection">
                     <Autocomplete
                         options={ usersDataForSelect }
                         onChange={ (_, value) => handleUpdateSelectedUserForStatistic(value) }

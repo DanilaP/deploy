@@ -19,9 +19,6 @@
                 align-items: flex-end;
                 font-size: 24px;
             }
-            .MuiInputBase-input {
-                padding: 2px 0px 2px 0px;
-            }
         }
         .user-selection {
             font-size: 16px;
@@ -50,4 +47,8 @@
     .statistic-page-current-data {
         border-radius: 5px;
     }
+}
+#root .date-settings .MuiAutocomplete-inputRoot {
+    height: 40px;
+    min-width: 220px;
 }

@@ -128,11 +128,11 @@ export default function OrdersStatisticView({
                     }
                     return columnData;
                 }) }
-                pageSizeOptions={ [7] }
+                pageSizeOptions={ [6] }
                 initialState={ {
                     pagination: {
                             paginationModel: {
-                            pageSize: 7,
+                            pageSize: 6,
                         },
                     },
                 } }
