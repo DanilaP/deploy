@@ -76,7 +76,7 @@ export default function FeedbackMoreInfo({
             <hr />
             <div className="bid-history">
                 <div className="bid-history-content-prev">
-                    <span>Предыдущие заявки: </span>
+                    <span>{ t("text.prevOrders") }: </span>
                     {
                         prevFeedbacks.map(el => {
                             return (
@@ -84,13 +84,13 @@ export default function FeedbackMoreInfo({
                                     className="history-bid-wrapper"
                                     key={ el.id }
                                     onClick={ () => handleSwapCurrentFeedback(el) }
-                                >Заявка { el.id }</div>
+                                >{ t("text.currentOrder") } { el.id }</div>
                             );
                         })
                     }
                 </div>
                 <div className="bid-history-content-next">
-                    <span>Следующие заявки: </span>
+                    <span>{ t("text.nextOrders") }: </span>
                     {
                         nextFeedbacks.map(el => {
                             return (

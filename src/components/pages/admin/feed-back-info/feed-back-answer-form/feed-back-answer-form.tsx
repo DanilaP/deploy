@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import FileAttachment from "../../../../partials/file-attachment/file-attachment";
 import FeedbackShortInfo from "../feed-back-short-info/feed-back-short-info";
 import "./feed-back-answer-form.scss";
+import formatDate from "../../../../../helpers/utils/format-date";
 
 export interface IFeedbackAnswerData {
     answer: string
@@ -95,7 +96,7 @@ export default function FeedBackAnswerForm({
             <form className="call-back-answer-form" onSubmit={ handleSubmit(handleSendAnswerForFeedback) }>
                 <FormControl>
                     <FormLabel className="label">
-                        { t("text.answer") } <span className="answer-date">{ currentFeedback?.dateOfAnswer }</span>
+                        { t("text.answer") } 
                     </FormLabel>
                     <TextField
                         disabled={ Boolean(currentFeedback?.moderatorAnswer) }
@@ -123,7 +124,7 @@ export default function FeedBackAnswerForm({
                     </div>
                     <div className="answer-history-content">
                         {
-                           handleSortFeedbacksListByDate(currentFeedbackHistory).map(feedback => {
+                            handleSortFeedbacksListByDate(currentFeedbackHistory).map(feedback => {
                                 const isSelected = currentFeedback?.id === feedback.id;
                                 return (
                                     <FeedbackShortInfo
