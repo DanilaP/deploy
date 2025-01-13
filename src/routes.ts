@@ -28,6 +28,7 @@ import ProductAccounting from "./components/pages/admin/product-accounting/produ
 import DiscountsPage from "./components/pages/admin/discounts/discounts.tsx";
 import { FeedBackInfoPage } from "./components/pages/admin/feed-back-info/feed-back-info.tsx";
 import MainLayout from "./components/layouts/main-layout/main.tsx";
+import StatisticPage from "./components/pages/admin/statistic/statistic.tsx";
 
 export const routes = [
     {
@@ -237,5 +238,11 @@ export const adminRoutes = [
         component: AdminLayout,
         children: FeedBackInfoPage,
         breadcrumb : t("breadcrumbs.feedback")
+    },
+    {
+        path: "/admin/statistic",
+        component: AdminLayout,
+        children: StatisticPage,
+        breadcrumb : t("breadcrumbs.statistic")
     },
 ];

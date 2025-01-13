@@ -1,0 +1,54 @@
+.statistic-page-view {
+    display: grid;
+    gap: 20px;
+    .statistic-page-title {
+        display: grid;
+        grid-template-columns: calc(100% - 260px) 250px;
+        align-items: flex-end;
+        column-gap: 10px;
+        .MuiFormControl-root {
+            width: max-content;
+        }
+        .date-settings {
+            font-size: 16px;
+            display: flex;
+            align-items: flex-end;
+            column-gap: 5px;
+            .page-title {
+                display: flex;
+                align-items: flex-end;
+                font-size: 24px;
+            }
+        }
+        .user-selection {
+            font-size: 16px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            .MuiInputBase-input {
+                padding: 2px 0px 2px 0px;
+                width: 200px;
+            }
+        }
+    }
+    .statistic-page-types {
+        display: flex;
+        column-gap: 10px;
+        font-size: 18px;
+        .statistic-type {
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .selected-statistic-type {
+            cursor: pointer;
+            border-bottom: 2px solid var(--default-color);
+        }
+    }
+    .statistic-page-current-data {
+        border-radius: 5px;
+    }
+}
+#root .date-settings .MuiAutocomplete-inputRoot {
+    height: 40px;
+    min-width: 220px;
+}

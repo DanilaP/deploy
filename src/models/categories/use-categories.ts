@@ -221,8 +221,7 @@ export const useCategories = () => {
         }
         return childCategories;
     };
-    
-    
+
     useEffect(() => {
         getCategories().then(res => {
             if (res.data) {
@@ -248,6 +247,6 @@ export const useCategories = () => {
         handleUpdateCategory,
         handleCheckIsCategoryExist,
         handleMoveCategoryIntoNewCategory,
-        handleMoveCategoryAsRoot
+        handleMoveCategoryAsRoot,
     };
 };

@@ -1,0 +1,80 @@
+.orders-statistic-view {
+    display: grid;
+    grid-template-columns: calc(100% - 320px) 310px;
+    column-gap: 10px;
+    .orders-statistic-main {
+        grid-row: 1;
+        grid-column: 2;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        height: min-content;
+        .block {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            display: grid;
+            justify-items: center;
+            grid-template-rows: 1fr 1fr;
+            align-items: center;
+            color: var(--text-color);
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: var(--bg-color-block);
+            border: 1px solid var(--border-color);
+            .title {
+                font-size: 18px;
+                text-align: center;
+            }
+            .common-icon {
+                font-size: 25px;
+                margin-left: 5px;
+                margin-top: 15px;
+            }
+            .value {
+                text-align: center;
+                font-size: 26px;
+                font-weight: 500;
+            }
+        }
+    }
+    .MuiDataGrid-cell.MuiDataGrid-cell.MuiDataGrid-cell {
+        outline: none;
+    }
+    .MuiDataGrid-cell.MuiDataGrid-cell--textLeft {
+        border-top: 1px solid var(--border-color);
+        text-align: center;
+        
+    }
+    .MuiDataGrid-columnHeader {
+        background-color: var(--bg-color-block);
+    }
+    .MuiDataGrid-row.MuiDataGrid-row {
+        cursor: pointer;
+        background-color: var(--bg-color-block);
+        &:hover {
+            background-color: var(--hover-color);
+        }
+    }
+    .MuiDataGrid-root {
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        height: min-content;
+        border-radius: 10px;
+    }
+    .MuiToolbar-root {
+        color: var(--text-color);
+        background-color: var(--bg-color-block);
+    }
+    .product-photo-column {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .product-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+        }
+    }
+}

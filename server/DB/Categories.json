@@ -13,13 +13,13 @@
                 "categories": [
                     { 
                         "id": "10",
-                        "title": "111111",
+                        "title": "Ультрабуки",
                         "image": "http://localhost:5000/avatar.jpg",
                         "description": "Описание 1"
                     },
                     { 
                         "id": "11", 
-                        "title": "222222",
+                        "title": "Ноутбуки для офиса",
                         "image": "http://localhost:5000/avatar.jpg",
                         "description": "Описание 1"
                     }
@@ -33,13 +33,13 @@
                 "categories": [
                     { 
                         "id": "12", 
-                        "title": "333333",
+                        "title": "Моноблоки",
                         "image": "http://localhost:5000/avatar.jpg",
                         "description": "Описание 1"
                     },
                     { 
                         "id": "13", 
-                        "title": "444444",
+                        "title": "Готовые сборки ПК",
                         "image": "http://localhost:5000/avatar.jpg",
                         "description": "Описание 1"
                     }
@@ -73,13 +73,13 @@
         "categories": [
             { 
                 "id": "8", 
-                "title": "Широкая диагональ",
+                "title": "ТВ с широкой диагональю",
                 "image": "http://localhost:5000/avatar.jpg",
                 "description": "Описание 1"
             },
             { 
                 "id": "9", 
-                "title": "Стандартная диагональ",
+                "title": "ТВ со стандартной диагональю",
                 "image": "http://localhost:5000/avatar.jpg",
                 "description": "Описание 1"
             }

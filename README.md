@@ -135,3 +135,4 @@ If you are developing a production application, we recommend updating the config
   - moving categories with Drag And Drop
   - create new fields for each category
 - Add products warehouse page
+- Create statistic page for admin panel
