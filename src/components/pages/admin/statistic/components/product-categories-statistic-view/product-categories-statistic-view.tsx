@@ -50,7 +50,7 @@ export default function ProductCategoriesSalesStatisticView({
             <div className="product-categories-graphic-data">
                 <div className="product-categories-amount-sales">
                     <div className="stats-title">
-                        Топ-5 самых продаваемых категорий товаров по сумме продаж
+                        { t("text.top5CategoriesByCountOfSales") }
                     </div>
                     <ResponsiveContainer 
                         className="chart-block"
@@ -78,7 +78,7 @@ export default function ProductCategoriesSalesStatisticView({
                 </div>
                 <div className="product-categories-count-sales">
                     <div className="stats-title">
-                        Топ-5 самых продаваемых категорий товаров по количеству продаж
+                        { t("text.top5CategoriesByAmountOfSales") }
                     </div>
                     <ResponsiveContainer
                         className="chart-block"
@@ -108,7 +108,7 @@ export default function ProductCategoriesSalesStatisticView({
             </div>
             <div className="product-categories-list-data">
                 <div className="stats-title">
-                    Список категорий в которых есть продажи
+                    { t("text.categoriesWithSales") }
                 </div>
                 <div className="product-categories-list-content">
                     {
