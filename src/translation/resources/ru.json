@@ -157,6 +157,7 @@
         "disableDiscount": "Отключить акцию",
         "approveDisablingDiscount": "Подтвердите отключение акции",
         "partNumber": "Артикул",
+        "staticPageGenerator": "Генератор страниц",
         "editCategory": "Редактировать категорию",
         "createCategory": "Создать категорию",
         "hours": "ч.",
@@ -442,7 +443,8 @@
         "orders": "Заказы",
         "order": "Заказ",
         "discounts": "Акции",
-        "statistic": "Статистика"
+        "statistic": "Статистика",
+        "staticPageGenerator": "Генератор статических страниц"
     },
     "errors": {
         "requiredField": "Это обязательное поле",

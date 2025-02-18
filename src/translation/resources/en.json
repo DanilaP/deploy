@@ -102,6 +102,7 @@
         "categories": "Categories",
         "changePassword": "Change password",
         "myOrders": "My orders",
+        "staticPageGenerator": "Page generator",
         "createGroup": "Create group",
         "prevOrders": "Previous orders",
         "nextOrders": "Next orders",
@@ -434,7 +435,8 @@
         "orders": "Orders",
         "order": "Order",
         "discounts": "Discounts",
-        "statistic": "Statistic"
+        "statistic": "Statistic",
+        "staticPageGenerator": "Static page generator"
     },
     "errors": {
         "requiredField": "This field is requiered",

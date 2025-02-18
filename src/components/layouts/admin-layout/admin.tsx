@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from '../../../translation/i18n.ts';
 import { useNavigate } from 'react-router';
 import { MenuItem } from '@mui/material';
-import { MdSupervisedUserCircle } from "react-icons/md";
+import { MdOutlineWysiwyg, MdSupervisedUserCircle } from "react-icons/md";
 import { FaFileInvoiceDollar, FaUsersCog, FaWarehouse } from "react-icons/fa";
 import { MdOutlineSecurity } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
@@ -109,6 +109,11 @@ export default function AdminLayout (props: AdminLayoutProps) {
                     {   
                         <MenuItem onClick={ () => navigate("/admin/statistic") }>
                             <IoMdStats className='icon' />{ !isMenuTextExists ? t("text.statistic") : null }
+                        </MenuItem>
+                    }
+                    {   
+                        <MenuItem onClick={ () => navigate("/admin/static-page-generator") }>
+                            <MdOutlineWysiwyg className='icon' />{ !isMenuTextExists ? t("text.staticPageGenerator") : null }
                         </MenuItem>
                     }
                 </div>

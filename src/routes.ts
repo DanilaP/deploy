@@ -29,6 +29,7 @@ import DiscountsPage from "./components/pages/admin/discounts/discounts.tsx";
 import { FeedBackInfoPage } from "./components/pages/admin/feed-back-info/feed-back-info.tsx";
 import MainLayout from "./components/layouts/main-layout/main.tsx";
 import StatisticPage from "./components/pages/admin/statistic/statistic.tsx";
+import StaticPageGeneratorPage from "./components/pages/admin/static-page-generator/static-page-generator.tsx";
 
 export const routes = [
     {
@@ -244,5 +245,11 @@ export const adminRoutes = [
         component: AdminLayout,
         children: StatisticPage,
         breadcrumb : t("breadcrumbs.statistic")
+    },
+    {
+        path: "/admin/static-page-generator",
+        component: AdminLayout,
+        children: StaticPageGeneratorPage,
+        breadcrumb : t("breadcrumbs.staticPageGenerator")
     },
 ];

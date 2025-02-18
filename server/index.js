@@ -1295,6 +1295,30 @@ app.get("/statistic/places", async function(req, res) {
     }
 });
 
+app.get("/static-pages", async function(req, res) {
+    try {
+        const pageList = JSON.parse(fs.readFileSync('DB/StaticPages.json', 'utf8'));
+        res.status(200).json({ message: "Статические страницы получены", pages: pageList });
+    }
+    catch(error) {
+        console.error("get /static-pages", error);
+        res.status(400).json({ message: "Ошибка получения статических страниц!" });
+    }
+});
+
+app.get("/static-page", async function(req, res) {
+    try {
+        const { id } = req.query;
+        const pageList = JSON.parse(fs.readFileSync('DB/StaticPages.json', 'utf8'));
+        const findedStaticPage = pageList.find(el => el.id === Number(id));
+        res.status(200).json({ message: "Статическая страница получена", page: findedStaticPage || null });
+    }
+    catch(error) {
+        console.error("get /static-page", error);
+        res.status(400).json({ message: "Ошибка получения статической страницы!" });
+    }
+});
+
 const isDateWithin15Minutes = (date) => {
     let currentDate = new Date(Date.now());
     let paramDate = new Date(date);

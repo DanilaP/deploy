@@ -1,0 +1,30 @@
+.jodit-wysiwyg-editor {
+    display: grid;
+    gap: 20px;
+    &-title {
+        font-size: 24px;
+    }
+    &-header {
+        display: grid;
+        grid-template-columns: 1fr 200px;
+        &-main {
+            display: flex;
+            gap: 10px;
+        }
+        &-actions {
+            display: flex;
+            justify-content: right;
+        }
+        .MuiFormControl-root {
+            width: 300px;
+            height: 40px;
+        }
+    }
+    &-preview {
+        min-height: 300px;
+        background-color: var(--bg-color-block);
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+    }
+}
