@@ -1,0 +1,1 @@
+"<p><strong>Hello world page</strong></p>"

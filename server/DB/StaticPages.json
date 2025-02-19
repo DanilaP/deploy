@@ -14,5 +14,21 @@
     "description": "Это страница, созданная каким-то администратором",
     "menuTitle": "Статическая страница 2",
     "isPublished": false
+  },
+  {
+    "id": 1739963056491,
+    "content": "/static-1739963056491.txt",
+    "title": "3",
+    "description": "3",
+    "menuTitle": "3",
+    "isPublished": false
+  },
+  {
+    "id": 1739963266910,
+    "content": "/static-1739963266910.txt",
+    "title": "Hello world",
+    "description": "Hello world",
+    "menuTitle": "Hello world",
+    "isPublished": false
   }
 ]

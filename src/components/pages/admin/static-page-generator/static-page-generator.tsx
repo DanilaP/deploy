@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { INewStaticPageInfo, IStaticPageInfo } from "../../../../models/static-page-generator/static-page-generator";
 import StaticPageGeneratorPageView from "./components/static-page-generator-view/static-page-generator-view";
-import { getStaticPagesInfo, saveStaticPageInfo } from "../../../../models/static-page-generator/static-page-generator-api";
+import { createStaticPage, getStaticPagesInfo, saveStaticPageInfo } from "../../../../models/static-page-generator/static-page-generator-api";
 
 export default function StaticPageGeneratorPage() {
 
@@ -40,7 +40,11 @@ export default function StaticPageGeneratorPage() {
     };
 
     const handleCreateStaticPageInfo = (newStaticPage: INewStaticPageInfo) => {
-        console.log(newStaticPage);
+        createStaticPage(newStaticPage).then(res => {
+            if (res.data.pages) {
+                setCurrentStaticPages(res.data.pages);
+            }
+        });
     };
 
     useEffect(() => {

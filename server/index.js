@@ -1375,16 +1375,22 @@ app.post("/static-page", async function(req, res) {
         const { content, title, description, menuTitle, isPublished } = req.body;
         const pageList = JSON.parse(fs.readFileSync('DB/StaticPages.json', 'utf8'));
         const newStaticPage = {
-            id: Math.floor(Math.random()*1000),
+            id: Date.now(),
             content,
             title,
             description,
             menuTitle,
             isPublished
         };
+        fs.writeFileSync(`staticFiles/static-pages/static-${newStaticPage.id}.txt`, JSON.stringify(newStaticPage.content));
+        const updatedPageList = [
+            ...pageList,
+            { ...newStaticPage, content: `/static-${newStaticPage.id}.txt` }
+        ];
+        fs.writeFileSync('DB/StaticPages.json', JSON.stringify(updatedPageList, null, 2));
         res.status(200).json({
             message: "Статическая страница успешно создана", 
-            pages: pageList
+            pages: updatedPageList
         });
     }
     catch(error) {

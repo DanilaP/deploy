@@ -1,13 +1,12 @@
 import { useState, useMemo, useEffect } from "react";
-import { Autocomplete, Button, IconButton, TextField } from "@mui/material";
+import { Autocomplete, Button, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { getStaticPageInfo } from "../../../../../../models/static-page-generator/static-page-generator-api";
 import { INewStaticPageInfo, IStaticPageInfo } from "../../../../../../models/static-page-generator/static-page-generator";
 import { CUSTOM_JODIT_TRANSLATIONS } from "./custom.i18n.translations";
-import { MdOutlineClose } from "react-icons/md";
 import JoditEditor from "jodit-react";
+import JoditPreviewPage from "../jodit-preview-page/jodit-preview-page";
 import "./jodit-wysiwyg-editor.scss";
-
 
 export default function JeditWysiwygEditor({
     currentStaticPages,
@@ -128,23 +127,13 @@ export default function JeditWysiwygEditor({
                 ? <JoditEditor
                     value={ content }
                     config={ config }
-                    tabIndex={ 1 }
                     onChange={ handleOnChange }
                 />
                 :
-                <>
-                    <div 
-                        dangerouslySetInnerHTML={ { __html: content } }
-                        className="jodit-wysiwyg jodit-editor-preview"
-                    >
-                    </div>
-                    <IconButton
-                        className="jodit-editor-preview-close"
-                        onClick={ () => setIsPreviewOpen(false) }
-                    >
-                        <MdOutlineClose  fontSize={ 25 } />
-                    </IconButton>
-                </>
+                <JoditPreviewPage
+                    content={ content }
+                    handleClosePreview={ () => setIsPreviewOpen(false) }
+                />
             }
         </div>
     );
