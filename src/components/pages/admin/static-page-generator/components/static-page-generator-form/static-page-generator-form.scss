@@ -1,0 +1,19 @@
+.static-page-manage-form {
+    margin-top: 10px;
+    display: grid;
+    gap: 10px;
+    .static-page-form-field {
+        display: grid;
+        gap: 5px;
+    }
+    .static-page-checkbox-field {
+        display: grid;
+        grid-template-columns: 25px 1fr;
+        gap: 5px;
+    }
+    .form-actions {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+    }
+}

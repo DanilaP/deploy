@@ -1298,7 +1298,14 @@ app.get("/statistic/places", async function(req, res) {
 app.get("/static-pages", async function(req, res) {
     try {
         const pageList = JSON.parse(fs.readFileSync('DB/StaticPages.json', 'utf8'));
-        res.status(200).json({ message: "Статические страницы получены", pages: pageList });
+        const pageWithJoinedContent = pageList.map(page => {
+            const pageContent = JSON.parse(fs.readFileSync(`staticFiles/static-pages/${page.content}`, 'utf8'));
+            return {
+                ...page,
+                content: pageContent
+            };
+        });
+        res.status(200).json({ message: "Статические страницы получены", pages: pageWithJoinedContent });
     }
     catch(error) {
         console.error("get /static-pages", error);
@@ -1311,11 +1318,78 @@ app.get("/static-page", async function(req, res) {
         const { id } = req.query;
         const pageList = JSON.parse(fs.readFileSync('DB/StaticPages.json', 'utf8'));
         const findedStaticPage = pageList.find(el => el.id === Number(id));
-        res.status(200).json({ message: "Статическая страница получена", page: findedStaticPage || null });
+        if (findedStaticPage) {
+            const pageContent = JSON.parse(fs.readFileSync(`staticFiles/static-pages/${findedStaticPage.content}`, 'utf8'));
+            res.status(200).json({ 
+                message: "Статическая страница получена", 
+                page: {
+                    ...findedStaticPage,
+                    content: pageContent
+                }
+            });
+        } else {
+            res.status(200).json({ 
+                message: "Статическая страница получена", 
+                page: null 
+            });
+        }
     }
     catch(error) {
         console.error("get /static-page", error);
         res.status(400).json({ message: "Ошибка получения статической страницы!" });
+    }
+});
+
+app.put("/static-page", async function(req, res) {
+    try {
+        const { id } = req.query;
+        const pageList = JSON.parse(fs.readFileSync('DB/StaticPages.json', 'utf8'));
+        const findedPage = pageList.find(el => el.id === Number(id)); 
+        fs.writeFileSync(`staticFiles/static-pages${findedPage.content}`, JSON.stringify(req.body.content));
+        const updatedPageList = pageList.map(el => {
+            if (el.id === Number(id)) {
+                return {
+                    ...el,
+                    title: req.body.title,
+                    menuTitle: req.body.menuTitle,
+                    description: req.body.description,
+                    isPublished: req.body.isPublished
+                };
+            }
+            return el;
+        });
+        fs.writeFileSync('DB/StaticPages.json', JSON.stringify(updatedPageList, null, 2));
+        res.status(200).json({
+            message: "Статическая страница успешно обновлена", 
+            pages: updatedPageList 
+        });
+    }
+    catch(error) {
+        console.error("put /static-page", error);
+        res.status(400).json({ message: "Ошибка обновления статической страницы!" });
+    }
+});
+
+app.post("/static-page", async function(req, res) {
+    try {
+        const { content, title, description, menuTitle, isPublished } = req.body;
+        const pageList = JSON.parse(fs.readFileSync('DB/StaticPages.json', 'utf8'));
+        const newStaticPage = {
+            id: Math.floor(Math.random()*1000),
+            content,
+            title,
+            description,
+            menuTitle,
+            isPublished
+        };
+        res.status(200).json({
+            message: "Статическая страница успешно создана", 
+            pages: pageList
+        });
+    }
+    catch(error) {
+        console.error("post /static-page", error);
+        res.status(400).json({ message: "Ошибка создания статической страницы!" });
     }
 });
 

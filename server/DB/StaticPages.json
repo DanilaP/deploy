@@ -1,18 +1,18 @@
 [
-    {
-        "id": 1,
-        "content": "<p>vcbfbcvb<span style='color: rgb(74, 134, 232);'>cvb</span>cvb</p>",
-        "title": "Статическая страница 1",
-        "description": "Это страница, созданная каким-то администратором",
-        "menuTitle": "Статическая страница 1",
-        "isPublished": false
-    },
-    {
-        "id": 2,
-        "content": "<p>vcbfbcvb<span style='color: rgb(1, 1, 232);'>cvb</span>cvb</p>",
-        "title": "Статическая страница 2",
-        "description": "Это страница, созданная каким-то администратором",
-        "menuTitle": "Статическая страница 2",
-        "isPublished": false
-    }
+  {
+    "id": 1,
+    "content": "/static-1.txt",
+    "title": "Статическая страница 1",
+    "description": "Это страница, созданная каким-то администратором",
+    "menuTitle": "Статическая страница 1",
+    "isPublished": false
+  },
+  {
+    "id": 2,
+    "content": "/static-2.txt",
+    "title": "Статическая страница 2",
+    "description": "Это страница, созданная каким-то администратором",
+    "menuTitle": "Статическая страница 2",
+    "isPublished": false
+  }
 ]
