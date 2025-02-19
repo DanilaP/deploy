@@ -136,3 +136,4 @@ If you are developing a production application, we recommend updating the config
   - create new fields for each category
 - Add products warehouse page
 - Create statistic page for admin panel
+- Create static page generator for admin
