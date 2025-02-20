@@ -5,7 +5,7 @@
     "title": "Статическая страница 1",
     "description": "Это страница, созданная каким-то администратором",
     "menuTitle": "Статическая страница 1",
-    "isPublished": false
+    "isPublished": true
   },
   {
     "id": 2,

@@ -30,6 +30,7 @@ import { FeedBackInfoPage } from "./components/pages/admin/feed-back-info/feed-b
 import MainLayout from "./components/layouts/main-layout/main.tsx";
 import StatisticPage from "./components/pages/admin/statistic/statistic.tsx";
 import StaticPageGeneratorPage from "./components/pages/admin/static-page-generator/static-page-generator.tsx";
+import StaticPage from "./components/pages/static/static-id.tsx";
 
 export const routes = [
     {
@@ -152,6 +153,12 @@ export const routes = [
         component: MainLayout,
         children: FeedBackPage,
         breadcrumb : t("breadcrumbs.feedback")
+    },
+    {
+        path: "/static/:id",
+        component: MainLayout,
+        children: StaticPage,
+        breadcrumb : t("breadcrumbs.staticPage")
     },
     {
         path: '*',

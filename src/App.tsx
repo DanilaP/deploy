@@ -108,28 +108,28 @@ function App() {
     return (
         <>
             <div className='home-page-main'>
-                    { userStore.user && userStore.user.favorites ? (
-                        <div className="header">
-                            <Link to='/cart'><FaShoppingBag className='icon' />{ !isMobile ? t('titles.cart') : null }</Link><br/>
-                            <Link to='/shop'><FaShoppingCart className='icon' />{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
-                            <Link to='/profile'><MdPersonPin className='icon' />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
-                            <Link to='/favorites'>
-                                <MdFavoriteBorder className='icon' />
-                                { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
-                            </Link><br/>
-                            <Link to='/feedback'><MdPhoneCallback className='icon' />{ !isMobile ? t('text.feedback') : null }</Link><br/>
-                            <Link to='/orders'><RiArchiveLine className='icon' />{ !isMobile ? t('breadcrumbs.orders') : null }</Link><br/>
-                            { (checkPermissions() && userStore.user?.isVerified) ?
-                            (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
-                            <div className="change-theme">
-                                <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
-                                <Switch onChange = { changeTheme } defaultChecked/>
-                            </div>
-                        </div> ) : null
-                    }
-                    {
-                        userStore.user ? <BreadCrumbs /> : null
-                    }
+                { userStore.user && userStore.user.favorites ? (
+                    <div className="header">
+                        <Link to='/cart'><FaShoppingBag className='icon' />{ !isMobile ? t('titles.cart') : null }</Link><br/>
+                        <Link to='/shop'><FaShoppingCart className='icon' />{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
+                        <Link to='/profile'><MdPersonPin className='icon' />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
+                        <Link to='/favorites'>
+                            <MdFavoriteBorder className='icon' />
+                            { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
+                        </Link><br/>
+                        <Link to='/feedback'><MdPhoneCallback className='icon' />{ !isMobile ? t('text.feedback') : null }</Link><br/>
+                        <Link to='/orders'><RiArchiveLine className='icon' />{ !isMobile ? t('breadcrumbs.orders') : null }</Link><br/>
+                        { (checkPermissions() && userStore.user?.isVerified) ?
+                        (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
+                        <div className="change-theme">
+                            <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
+                            <Switch onChange = { changeTheme } defaultChecked/>
+                        </div>
+                    </div> ) : null
+                }
+                {
+                    userStore.user ? <BreadCrumbs /> : null
+                }
                 <div className="content">
                     { isLoading &&
                         <Routes>
