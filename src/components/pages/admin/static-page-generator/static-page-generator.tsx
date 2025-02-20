@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { INewStaticPageInfo, IStaticPageInfo } from "../../../../models/static-page-generator/static-page-generator";
-import StaticPageGeneratorPageView from "./components/static-page-generator-view/static-page-generator-view";
 import { createStaticPage, getStaticPagesInfo, saveStaticPageInfo } from "../../../../models/static-page-generator/static-page-generator-api";
+import StaticPageGeneratorPageView from "./components/static-page-generator-view/static-page-generator-view";
 
 export default function StaticPageGeneratorPage() {
 
