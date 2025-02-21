@@ -43,6 +43,7 @@ export async function createServer(
                     port: hmrPort,
                 },
             },
+            ssr: true,
             appType: 'custom',
         });
         // use vite's connect instance as middleware
