@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IStaticPageInfo } from "../../../../models/static-page-generator/static-page-generator";
 import "./static-page-view.scss";
 
@@ -10,10 +10,17 @@ interface IStaticPageViewProps {
 }
 
 export default function StaticPageView({ staticPage }: IStaticPageViewProps) {
+
+    const [joditNeeded, setJoditNeeded] = useState<boolean>(false);
+
+    useEffect(() => {
+        setJoditNeeded(true);
+    }, []);
+
     return (
         <div className="static-page-view">
             <div className="static-page-view-hidden-editor">
-                <JoditEditor />
+                { joditNeeded && <JoditEditor /> }
             </div>
             <div 
                 dangerouslySetInnerHTML={ { __html: staticPage.content } }

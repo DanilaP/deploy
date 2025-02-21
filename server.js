@@ -72,15 +72,28 @@ export async function createServer(
                 render = (await import('./dist/server/entry-server.js')).render;
             }
 
+            // Фетч данных для маршрута SSR
+            let result = null;
+            if (url.includes('/static/')) {
+                const response = await fetch(`http://localhost:5000/static-page?id=${1}`);
+                const data = await response.json();
+                result = data.page;
+            }
+            const data = `<script>window.__SSR_DATA__=${JSON.stringify(
+                result
+            )}</script>`;
+
             const context = {};
-            const appHtml = render(url, context);
+            const appHtml = render(url, context, result);
 
             if (context.url) {
                 // Somewhere a `<Redirect>` was rendered
                 return res.redirect(301, context.url);
             }
 
-            const html = template.replace(`<!--app-html-->`, appHtml);
+            const html = template
+                .replace(`<!--app-html-->`, appHtml)
+                .replace(`<!--ssr-data-->`, data);
 
             res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
         } catch (e) {

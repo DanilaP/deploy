@@ -40,7 +40,8 @@
     "recharts": "^2.15.0",
     "sass": "^1.69.5",
     "swiper": "^11.1.14",
-    "use-react-router-breadcrumbs": "^4.0.1"
+    "use-react-router-breadcrumbs": "^4.0.1",
+    "vite-plugin-sass": "^0.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

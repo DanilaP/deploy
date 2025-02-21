@@ -3437,6 +3437,11 @@ victory-vendor@^36.6.8:
     d3-time "^3.0.0"
     d3-timer "^3.0.1"
 
+vite-plugin-sass@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/vite-plugin-sass/-/vite-plugin-sass-0.1.0.tgz"
+  integrity sha512-gLwvs3ozfDAOZCqs+PepkTd4078m8tfq50IlmTW/OphlWsW95uP7lQ5A3NezfUfTZDTCOA4nFlYnOWRpsKYOqw==
+
 vite@^4.4.5:
   version "4.5.0"
   resolved "https://registry.npmjs.org/vite/-/vite-4.5.0.tgz"
