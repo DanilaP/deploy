@@ -1,8 +1,10 @@
-// @ts-check
+// @ts-ignore
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
+import SSR_FETCH_ROUTES from './ssr-fetch-routes.js';
+import { matchPath } from 'react-router-dom';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -68,17 +70,51 @@ export async function createServer(
                 render = (await vite.ssrLoadModule('/src/entry-server.tsx')).render;
             } else {
                 template = indexProd;
-                // @ts-ignore
                 render = (await import('./dist/server/entry-server.js')).render;
             }
 
+            const activeRoute = SSR_FETCH_ROUTES.reduce((prev, route) => {
+                const matchedRoute = matchPath(route.path, url);
+                if (matchedRoute) {
+                    return {
+                        ...route,
+                        ...matchedRoute
+                    };
+                }
+                return prev;
+            }, {});
+
+            
             let result = null;
-            if (url.includes('/static/')) {
+            /*if (url.includes('/static/')) {
                 const splitedUrl = url.split("/");
                 const id = splitedUrl[splitedUrl.length - 1];
                 const response = await fetch(`http://localhost:5000/static-page?id=${id}`); 
                 const data = await response.json();
                 result = data.page;
+            }*/
+
+            if (activeRoute.fetchList) {
+                let fetchUrls = activeRoute.params 
+                    ? activeRoute.fetchList(activeRoute.params)
+                    : activeRoute.fetchList(activeRoute);
+                const fetchRouteData = async () => {
+                    const result = {};
+                    for (const key of Object.keys(fetchUrls)) {
+                        try {
+                            const response = await fetch(`http://localhost:5000${fetchUrls[key]}`);
+                            const data = await response.json();
+                            result[key] = data;
+                        } catch (error) {
+                            console.error(`Ошибка при получении данных для ${key}:`, error);
+                        }
+                    }
+                    return result;
+                };
+                result = {
+                    url: url,
+                    ssrData: await fetchRouteData()
+                };
             }
             const data = `<script>window.__SSR_DATA__=${JSON.stringify(
                 result

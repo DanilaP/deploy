@@ -86,3 +86,8 @@ export interface IProductCategoriesStatisticInfo {
         image: string
     }
 }
+
+export type IPrefetchedData<T> = {
+    url: string,
+    ssrData: T
+} | null

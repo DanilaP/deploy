@@ -154,12 +154,12 @@ export const routes = [
         children: FeedBackPage,
         breadcrumb : t("breadcrumbs.feedback")
     },
-    /*{
+    {
         path: "/static/:id",
         component: MainLayout,
         children: StaticPage,
         breadcrumb : t("breadcrumbs.staticPage")
-    },*/
+    },
     {
         path: '*',
         component: NotFoundComponent,
