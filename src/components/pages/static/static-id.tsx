@@ -9,3 +9,4 @@ export default function StaticPage({ data }: { data: IStaticPageInfo }) {
         );
     }
 }
+

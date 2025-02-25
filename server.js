@@ -43,7 +43,6 @@ export async function createServer(
                     port: hmrPort,
                 },
             },
-            ssr: true,
             appType: 'custom',
         });
         // use vite's connect instance as middleware
@@ -73,10 +72,11 @@ export async function createServer(
                 render = (await import('./dist/server/entry-server.js')).render;
             }
 
-            // Фетч данных для маршрута SSR
             let result = null;
             if (url.includes('/static/')) {
-                const response = await fetch(`http://localhost:5000/static-page?id=${1}`);
+                const splitedUrl = url.split("/");
+                const id = splitedUrl[splitedUrl.length - 1];
+                const response = await fetch(`http://localhost:5000/static-page?id=${id}`); 
                 const data = await response.json();
                 result = data.page;
             }
