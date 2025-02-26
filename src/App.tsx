@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from './translation/i18n';
 import { Route, Routes, Link, Navigate, useNavigate, matchPath } from 'react-router-dom';
 import { Switch } from '@mui/material';
@@ -19,6 +19,7 @@ import $api from './configs/axiosconfig/axios';
 import './stylesheets/application.scss';
 import './stylesheets/themes/dark.scss';
 import './stylesheets/themes/white.scss';
+import Loader from './components/partials/loader/loader.tsx';
 
 function App({ data }: { data: { url: string, ssrData: any } | null }) {
 
@@ -110,8 +111,6 @@ function App({ data }: { data: { url: string, ssrData: any } | null }) {
             <div className='home-page-main'>
                 { userStore.user && userStore.user.favorites ? (
                     <div className="header">
-                        <Link to='/static/1'>{ t("text.static1") }</Link><br/>
-                        <Link to='/static/2'>{ t("text.static2") }</Link><br/>
                         <Link to='/cart'><FaShoppingBag className='icon' />{ !isMobile ? t('titles.cart') : null }</Link><br/>
                         <Link to='/shop'><FaShoppingCart className='icon' />{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
                         <Link to='/profile'><MdPersonPin className='icon' />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
@@ -123,11 +122,13 @@ function App({ data }: { data: { url: string, ssrData: any } | null }) {
                         <Link to='/orders'><RiArchiveLine className='icon' />{ !isMobile ? t('breadcrumbs.orders') : null }</Link><br/>
                         { (checkPermissions() && userStore.user?.isVerified) ?
                         (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
+                        <Link to='/static/1'>Статика 1</Link><br/>
+                        <Link to='/static/2'>Статика 2</Link><br/>
                         <div className="change-theme">
                             <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
                             <Switch onChange = { changeTheme } defaultChecked/>
                         </div>
-                    </div> ) : null
+                    </div> ) : <Loader />
                 }
                 { /*userStore.user ? <BreadCrumbs /> : null*/ }
                 <div className="content">
