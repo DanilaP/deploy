@@ -158,7 +158,12 @@ export const routes = [
         path: "/static/:id",
         component: MainLayout,
         children: StaticPage,
-        breadcrumb : t("breadcrumbs.staticPage")
+        breadcrumb : t("breadcrumbs.staticPage"),
+        fetchList: (params) => {
+            return {
+                content: `/static-page?id=${params.id}`,
+            };
+        },
     },
     {
         path: '*',
