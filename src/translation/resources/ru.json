@@ -449,7 +449,8 @@
         "order": "Заказ",
         "discounts": "Акции",
         "statistic": "Статистика",
-        "staticPageGenerator": "Генератор статических страниц"
+        "staticPageGenerator": "Генератор статических страниц",
+        "staticPage": "Статическая страница"
     },
     "errors": {
         "requiredField": "Это обязательное поле",

@@ -1318,7 +1318,7 @@ app.get("/static-page", async function(req, res) {
         const { id } = req.query;
         const pageList = JSON.parse(fs.readFileSync('DB/StaticPages.json', 'utf8'));
         const findedStaticPage = pageList.find(el => el.id === Number(id));
-        if (findedStaticPage) {
+        if (findedStaticPage && findedStaticPage.isPublished) {
             const pageContent = JSON.parse(fs.readFileSync(`staticFiles/static-pages/${findedStaticPage.content}`, 'utf8'));
             res.status(200).json({ 
                 message: "Статическая страница получена", 
@@ -1329,7 +1329,7 @@ app.get("/static-page", async function(req, res) {
             });
         } else {
             res.status(200).json({ 
-                message: "Статическая страница получена", 
+                message: "Статическая страница недоступна", 
                 page: null 
             });
         }

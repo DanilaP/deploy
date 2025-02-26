@@ -122,15 +122,13 @@ function App({ data }: { data: { url: string, ssrData: any } | null }) {
                         <Link to='/orders'><RiArchiveLine className='icon' />{ !isMobile ? t('breadcrumbs.orders') : null }</Link><br/>
                         { (checkPermissions() && userStore.user?.isVerified) ?
                         (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
-                        <Link to='/static/1'>Статика 1</Link><br/>
-                        <Link to='/static/2'>Статика 2</Link><br/>
                         <div className="change-theme">
                             <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
                             <Switch onChange = { changeTheme } defaultChecked/>
                         </div>
                     </div> ) : <Loader />
                 }
-                { /*userStore.user ? <BreadCrumbs /> : null*/ }
+                { userStore.user ? <BreadCrumbs /> : null }
                 <div className="content">
                     <Routes>
                         {

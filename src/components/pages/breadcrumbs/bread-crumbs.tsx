@@ -8,7 +8,9 @@ import { useEffect, useState } from 'react';
 export default function BreadCrumbs () {
 
     const location = useLocation();
-    const breadcrumbs = useBreadcrumbs<any[]>([...adminRoutes, ...routes]);
+    const breadcrumbs = useBreadcrumbs<any[]>([...adminRoutes, ...routes].map(el => {
+        return { path: el.path, breadcrumb: el.breadcrumb };
+    }));
     const [fixedBreadCrumbs, setFixedBreadCrumbs] = useState<any>([]);
 
     useEffect(() => {

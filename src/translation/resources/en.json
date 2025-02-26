@@ -441,7 +441,8 @@
         "order": "Order",
         "discounts": "Discounts",
         "statistic": "Statistic",
-        "staticPageGenerator": "Static page generator"
+        "staticPageGenerator": "Static page generator",
+        "staticPage": "Static page"
     },
     "errors": {
         "requiredField": "This field is requiered",
