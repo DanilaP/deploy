@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { IStaticPageInfo } from "../../../models/static-page-generator/static-page-generator";
 import { getStaticPagesInfo } from "../../../models/static-page-generator/static-page-generator-api";
 import { Link } from "react-router-dom";
+import Header from "../../partials/header/header";
+import BreadCrumbs from "../../pages/breadcrumbs/bread-crumbs";
 
 interface IMainLayoutProps {
     children: React.ReactElement | null
@@ -35,6 +37,8 @@ export default function MainLayout({ children }: IMainLayoutProps) {
 
     return (
         <div className="main-layout">
+            <Header />
+            { userStore.user ? <BreadCrumbs /> : null }
             <div className="main-menu">
                 {
                     userStore.user ?

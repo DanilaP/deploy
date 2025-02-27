@@ -14,6 +14,9 @@ import usePermissions from "../../../helpers/permissions-helpers.ts";
 import { TbTruckDelivery } from "react-icons/tb";
 import { RiDiscountPercentLine } from 'react-icons/ri';
 import { IoMdStats } from 'react-icons/io';
+import Header from '../../partials/header/header.tsx';
+import BreadCrumbs from '../../pages/breadcrumbs/bread-crumbs.tsx';
+import { useStore } from '../../../stores/index.ts';
 
 interface AdminLayoutProps {
     children: React.ReactElement | null
@@ -27,7 +30,8 @@ export default function AdminLayout (props: AdminLayoutProps) {
 
     const { checkConcretePermissions } = usePermissions();
     const permissionsExists = checkConcretePermissions();
-
+    const { userStore } = useStore();
+    
     useEffect(() => {
         document.title = t("titles.adminPage");
     });
@@ -44,6 +48,8 @@ export default function AdminLayout (props: AdminLayoutProps) {
 
     return (
         <div className='admin-page-main'>
+            <Header />
+            { userStore.user ? <BreadCrumbs /> : null }
             <div className='admin-wrapper'>
                 <div className="admin-menu">
                     {

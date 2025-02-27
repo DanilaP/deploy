@@ -86,10 +86,6 @@ export async function createServer(
                 }
             }, {});
 
-            if (!activeRoute.ssr) {
-                return res.send(template);
-            }
-
             let result = null;
             if (activeRoute.fetchList) {
                 let fetchUrls = activeRoute.fetchList(activeRoute.params);

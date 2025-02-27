@@ -1,48 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from './translation/i18n';
-import { Route, Routes, Link, Navigate, useNavigate, matchPath } from 'react-router-dom';
-import { Switch } from '@mui/material';
-import { FaShoppingCart, FaShoppingBag } from "react-icons/fa";
-import { MdPersonPin } from "react-icons/md";
-import { MdSupervisorAccount } from "react-icons/md";
+import { Route, Routes, Navigate, useNavigate, matchPath } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { MdPhoneCallback } from "react-icons/md";
-import { RiArchiveLine } from "react-icons/ri";
 import { adminRoutes, routes } from './routes.js';
 import { useStore } from './stores';
-import { MdFavoriteBorder } from "react-icons/md";
 import usePermissions from './helpers/permissions-helpers.ts';
-import BreadCrumbs from './components/pages/breadcrumbs/bread-crumbs.tsx';
 import ChatWrapper from './components/partials/chat/chat-wrapper.tsx';
 import Notification from './components/partials/notification/notification.tsx';
 import $api from './configs/axiosconfig/axios';
 import './stylesheets/application.scss';
 import './stylesheets/themes/dark.scss';
 import './stylesheets/themes/white.scss';
-import Loader from './components/partials/loader/loader.tsx';
 
 function App({ data }: { data: { url: string, ssrData: any } | null }) {
 
-    const [theme, setTheme] = useState("white-theme");
-    const [isMobile, setIsMobile] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const navigate = useNavigate();
-
-    const { t } = useTranslation();
 
     const { userStore } = useStore();
     const { checkPermissions } = usePermissions();
 
-    const changeTheme = () => {
-        const newTheme = theme === "white-theme" ? "dark-theme" : "white-theme";
-        document.body.className = newTheme;
-        setTheme(newTheme);
-    };
-
-    useEffect(() => {
-        const theme = localStorage.getItem("theme");
-        document.body.className = theme ? theme : "white-theme";
-    }, []);
 
     useEffect(() => {
         $api.get("/profile")
@@ -66,18 +42,6 @@ function App({ data }: { data: { url: string, ssrData: any } | null }) {
         .catch((error) => {
             console.error(error);
         });
-    }, []);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 1335);
-        };
-
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
     }, []);
 
     useEffect(() => {
@@ -109,26 +73,6 @@ function App({ data }: { data: { url: string, ssrData: any } | null }) {
     return (
         <>
             <div className='home-page-main'>
-                { userStore.user && userStore.user.favorites ? (
-                    <div className="header">
-                        <Link to='/cart'><FaShoppingBag className='icon' />{ !isMobile ? t('titles.cart') : null }</Link><br/>
-                        <Link to='/shop'><FaShoppingCart className='icon' />{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
-                        <Link to='/profile'><MdPersonPin className='icon' />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
-                        <Link to='/favorites'>
-                            <MdFavoriteBorder className='icon' />
-                            { !isMobile ? t('breadcrumbs.favorites') : null }
-                        </Link><br/>
-                        <Link to='/feedback'><MdPhoneCallback className='icon' />{ !isMobile ? t('text.feedback') : null }</Link><br/>
-                        <Link to='/orders'><RiArchiveLine className='icon' />{ !isMobile ? t('breadcrumbs.orders') : null }</Link><br/>
-                        { (checkPermissions() && userStore.user?.isVerified) ?
-                        (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
-                        <div className="change-theme">
-                            <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
-                            <Switch onChange = { changeTheme } defaultChecked/>
-                        </div>
-                    </div> ) : <Loader />
-                }
-                { userStore.user ? <BreadCrumbs /> : null }
                 <div className="content">
                     <Routes>
                         {
