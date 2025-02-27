@@ -88,7 +88,9 @@ export async function createServer(
             }, {});
 
             if (!activeRoute.ssr) {
-                const skipHydration = `<script>window.__HYDRATION__=${JSON.stringify({ skipHydration: true })}</script>`;
+                const skipHydration = `<script>window.__HYDRATION__=${
+                    JSON.stringify({ skipHydration: true })
+                }</script>`;
                 const html = template
                     .replace(`<!--app-html-->`, '')
                     .replace(`<!--is-ssr-->`, skipHydration);
