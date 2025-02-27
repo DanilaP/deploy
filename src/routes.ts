@@ -55,13 +55,15 @@ export const routes = [
         path: '/shop',
         component: MainLayout,
         children: ShopPage,
-        breadcrumb : t("breadcrumbs.shop")
+        breadcrumb : t("breadcrumbs.shop"),
+        ssr: true
     },
     {
         path: '/shop/:id',
         component: MainLayout,
         children: ShopPage,
-        breadcrumb : t("breadcrumbs.shop")
+        breadcrumb : t("breadcrumbs.shop"),
+        ssr: true
     },
     {
         path: '/cart',
@@ -164,6 +166,7 @@ export const routes = [
                 content: `/static-page?id=${params.id}`,
             };
         },
+        ssr: true
     },
     {
         path: '*',
