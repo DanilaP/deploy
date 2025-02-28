@@ -70,13 +70,13 @@ function App({ data }: { data: { url: string, ssrData: any } | null }) {
         }
     }, [userStore.user]);
 
-    /*useEffect(() => {
+    useEffect(() => {
         const allStylesPackage = document.getElementById("all_style_package");
         if (allStylesPackage) {
             const head = document.getElementsByTagName("head")[0];
             head.removeChild(allStylesPackage);
         }
-    }, []);*/
+    }, []);
 
     return (
         <>
