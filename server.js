@@ -10,6 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const isTest = process.env.VITEST;
 
+
 export async function createServer(
     root = process.cwd(),
     isProd = process.env.NODE_ENV === 'production',
@@ -89,6 +90,16 @@ export async function createServer(
                 }
             }, {});
 
+            if (!activeRoute.ssr) {
+                const skipHydration = `<script>window.__HYDRATION__=${
+                    JSON.stringify({ skipHydration: true })
+                }</script>`;
+                const html = template
+                    .replace(`<!--app-html-->`, '')
+                    .replace(`<!--is-ssr-->`, skipHydration);
+                return res.status(200).send(html);
+            }
+            
             let result = null;
             if (activeRoute.fetchList) {
                 let fetchUrls = activeRoute.fetchList(activeRoute.params);
