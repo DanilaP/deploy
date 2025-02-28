@@ -13,6 +13,7 @@ export default defineConfig({
     modules: false, // Отключаем CSS-модули, если они не нужны
   },
   build: {
-    cssCodeSplit: true, // Разделение CSS на отдельные файлы
+    outDir: 'dist/client',
+    ssr: 'src/entry-server.tsx',
   },
 });
