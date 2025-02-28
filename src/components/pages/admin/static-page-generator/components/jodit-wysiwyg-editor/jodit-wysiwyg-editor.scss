@@ -1,0 +1,41 @@
+.jodit-wysiwyg-editor {
+    display: grid;
+    gap: 20px;
+    &-title {
+        font-size: 24px;
+    }
+    &-header {
+        display: grid;
+        grid-template-columns: 1fr 200px;
+        &-main {
+            display: flex;
+            gap: 10px;
+        }
+        &-actions {
+            display: flex;
+            justify-content: right;
+        }
+        .MuiFormControl-root {
+            width: 300px;
+            height: 40px;
+        }
+    }
+    .jodit-editor-preview {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        overflow-y: scroll;
+        min-height: 300px;
+        background-color: var(--bg-color-block);
+        padding: 2.5px;
+        padding-right: 100px;
+    }
+    .jodit-editor-preview-close {
+        z-index: 100;
+        position: fixed;
+        right: 10px;
+        top: 10px;
+    }
+}

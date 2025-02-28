@@ -1,7 +1,6 @@
 .admin-page-main {
     display: flex;
     flex-direction: column;
-    gap: 20px;
 
     .admin-wrapper {
         display: grid;
@@ -13,7 +12,7 @@
         flex-direction: column;
         background-color: var(--bg-color-block);
         gap: 5px;
-        min-height: calc(100dvh - 100px);
+        min-height: calc(100dvh - 60px);
         min-width: 250px;
         border-right: 1px solid rgba(128, 128, 128, 0.247);
         padding: 20px;

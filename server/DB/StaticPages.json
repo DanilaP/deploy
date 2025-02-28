@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "content": "/static-1.txt",
+    "title": "Статическая страница 1",
+    "description": "Это страница, созданная каким-то администратором",
+    "menuTitle": "Статика 1",
+    "isPublished": true
+  },
+  {
+    "id": 2,
+    "content": "/static-2.txt",
+    "title": "Статическая страница 2",
+    "description": "Это страница, созданная каким-то администратором",
+    "menuTitle": "Статика 2",
+    "isPublished": false
+  },
+  {
+    "id": 1739963056491,
+    "content": "/static-1739963056491.txt",
+    "title": "18.2.0",
+    "description": "18.2.0",
+    "menuTitle": "18.2.0",
+    "isPublished": false
+  },
+  {
+    "id": 1739963266910,
+    "content": "/static-1739963266910.txt",
+    "title": "Hello world",
+    "description": "Hello world",
+    "menuTitle": "Hello world",
+    "isPublished": false
+  }
+]

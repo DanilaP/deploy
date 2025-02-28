@@ -32,6 +32,7 @@
         }
         .shop-content-menu {
             display: grid;
+            align-items: center;
             grid-template-columns: calc(100% - 125px) 125px;
             border: 1px solid rgba(128, 128, 128, 0.247);
             background-color: var(--bg-color-block);

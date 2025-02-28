@@ -58,6 +58,11 @@
         "save": "Save",
         "search": "Search",
         "cancel": "Cancel",
+        "menuTitle": "Menu title",
+        "managingStaticPages": "Managing static pages",
+        "previewPage": "Preview page",
+        "title": "Title",
+        "manageStaticPageInfo": "Manage static page info",
         "publish": "Publish",
         "active": "Active",
         "inactive": "Inactive",
@@ -102,6 +107,7 @@
         "categories": "Categories",
         "changePassword": "Change password",
         "myOrders": "My orders",
+        "staticPageGenerator": "Page generator",
         "createGroup": "Create group",
         "prevOrders": "Previous orders",
         "nextOrders": "Next orders",
@@ -434,7 +440,9 @@
         "orders": "Orders",
         "order": "Order",
         "discounts": "Discounts",
-        "statistic": "Statistic"
+        "statistic": "Statistic",
+        "staticPageGenerator": "Static page generator",
+        "staticPage": "Static page"
     },
     "errors": {
         "requiredField": "This field is requiered",

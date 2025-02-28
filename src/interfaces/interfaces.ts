@@ -17,7 +17,7 @@ export interface IAddress {
 
 export interface ISelect {
     id: string,
-    label: string
+    label: string,
 }
 export interface IMessage {
     id: number,
@@ -86,3 +86,8 @@ export interface IProductCategoriesStatisticInfo {
         image: string
     }
 }
+
+export type IPrefetchedData<T> = {
+    url: string,
+    ssrData: T
+} | null

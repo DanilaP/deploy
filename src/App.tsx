@@ -1,47 +1,24 @@
-import { useEffect, useState } from 'react';
-import { useTranslation } from './translation/i18n';
-import { Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
-import { Switch } from '@mui/material';
-import $api from './configs/axiosconfig/axios';
-import { FaShoppingCart, FaShoppingBag } from "react-icons/fa";
-import { MdPersonPin } from "react-icons/md";
-import { MdSupervisorAccount } from "react-icons/md";
+import React, { useEffect, useState } from 'react';
+import { Route, Routes, Navigate, useNavigate, matchPath } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import { adminRoutes, routes } from './routes.js';
+import { useStore } from './stores';
+import usePermissions from './helpers/permissions-helpers.ts';
+import ChatWrapper from './components/partials/chat/chat-wrapper.tsx';
+import Notification from './components/partials/notification/notification.tsx';
+import $api from './configs/axiosconfig/axios';
 import './stylesheets/application.scss';
 import './stylesheets/themes/dark.scss';
 import './stylesheets/themes/white.scss';
-import { adminRoutes, routes } from './routes';
-import { useStore } from './stores';
-import usePermissions from './helpers/permissions-helpers.ts';
-import BreadCrumbs from './components/pages/breadcrumbs/bread-crumbs.tsx';
-import cartApi from "./api/cart.ts";
-import { MdFavoriteBorder } from "react-icons/md";
-import ChatWrapper from './components/partials/chat/chat-wrapper.tsx';
-import Notification from './components/partials/notification/notification.tsx';
-import { MdPhoneCallback } from "react-icons/md";
-import { RiArchiveLine } from "react-icons/ri";
 
-function App() {
-    const [theme, setTheme] = useState("white-theme");
-    const [isMobile, setIsMobile] = useState<boolean>(false);
+function App({ data }: { data: { url: string, ssrData: any } | null }) {
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const navigate = useNavigate();
-
-    const { t } = useTranslation();
 
     const { userStore } = useStore();
     const { checkPermissions } = usePermissions();
 
-    const changeTheme = () => {
-        const newTheme = theme === "white-theme" ? "dark-theme" : "white-theme";
-        document.body.className = newTheme;
-        setTheme(newTheme);
-    };
-
-    useEffect(() => {
-        const theme = localStorage.getItem("theme");
-        document.body.className = theme ? theme : "white-theme";
-    }, []);
 
     useEffect(() => {
         $api.get("/profile")
@@ -65,18 +42,6 @@ function App() {
         .catch((error) => {
             console.error(error);
         });
-    }, []);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 1335);
-        };
-
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
     }, []);
 
     useEffect(() => {
@@ -105,55 +70,46 @@ function App() {
         }
     }, [userStore.user]);
 
+    /*useEffect(() => {
+        const allStylesPackage = document.getElementById("all_style_package");
+        if (allStylesPackage) {
+            const head = document.getElementsByTagName("head")[0];
+            head.removeChild(allStylesPackage);
+        }
+    }, []);*/
+
     return (
         <>
             <div className='home-page-main'>
-                    { userStore.user && userStore.user.favorites ? (
-                        <div className="header">
-                            <Link to='/cart'><FaShoppingBag className='icon' />{ !isMobile ? t('titles.cart') : null }</Link><br/>
-                            <Link to='/shop'><FaShoppingCart className='icon' />{ !isMobile ? t('titles.shopPage') : null }</Link><br/>
-                            <Link to='/profile'><MdPersonPin className='icon' />{ !isMobile ? t('titles.profilePage') : null }</Link><br/>
-                            <Link to='/favorites'>
-                                <MdFavoriteBorder className='icon' />
-                                { `(${ userStore.user.favorites?.length }) ` }{ !isMobile ? t('breadcrumbs.favorites') : null }
-                            </Link><br/>
-                            <Link to='/feedback'><MdPhoneCallback className='icon' />{ !isMobile ? t('text.feedback') : null }</Link><br/>
-                            <Link to='/orders'><RiArchiveLine className='icon' />{ !isMobile ? t('breadcrumbs.orders') : null }</Link><br/>
-                            { (checkPermissions() && userStore.user?.isVerified) ?
-                            (<Link to='/admin'><MdSupervisorAccount className='icon' />{ !isMobile ? t('titles.adminPage') : null }</Link>) : null }<br/>
-                            <div className="change-theme">
-                                <p>{ theme === "white-theme" ? "Светлая тема" : "Темная тема" }</p>
-                                <Switch onChange = { changeTheme } defaultChecked/>
-                            </div>
-                        </div> ) : null
-                    }
-                    {
-                        userStore.user ? <BreadCrumbs /> : null
-                    }
                 <div className="content">
-                    { isLoading &&
-                        <Routes>
-                            {
-                                routes.map(({ path, component: Component, children: Children }) => (
+                    <Routes>
+                        {
+                            routes.map(({ path, component: Component, children: Children }) => {
+                                const isDataFetched = data && matchPath(path, data.url);
+                                return (
                                     <Route
                                         key={ path }
                                         path={ path }
-                                        element={ <Component>{ Children && <Children /> }</Component> }
+                                        element={ 
+                                            <Component>
+                                                { Children && <Children data={ isDataFetched ? data : null } /> }
+                                            </Component> 
+                                        }
                                     />
-                                ))
-                            }
-                            { (checkPermissions() && userStore.user?.isVerified) &&
-                                adminRoutes.map(({ path,  component: Component, children: Children }) => (
-                                    <Route
-                                        key={ path }
-                                        path={ path }
-                                        element={ userStore.user
-                                            ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> }
-                                    />
-                                ))
-                            }
-                        </Routes>
-                    }
+                                );
+                            })
+                        }
+                        { (checkPermissions() && userStore.user?.isVerified) &&
+                            adminRoutes.map(({ path,  component: Component, children: Children }) => (
+                                <Route
+                                    key={ path }
+                                    path={ path }
+                                    element={ userStore.user
+                                        ? <Component>{ Children && <Children /> }</Component> : <Navigate to={ "/auth/signIn" } /> }
+                                />
+                            ))
+                        }
+                    </Routes>
                 </div>
                 { (isLoading && userStore.user && !checkPermissions()) ? <ChatWrapper /> : null }
                 {

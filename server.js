@@ -1,12 +1,15 @@
-// @ts-check
+// @ts-ignore
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
+import { matchPath } from 'react-router-dom';
+
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const isTest = process.env.VITEST;
+
 
 export async function createServer(
     root = process.cwd(),
@@ -58,6 +61,9 @@ export async function createServer(
 
     app.use('*', async (req, res) => {
         try {
+
+            //const styles = fs.readFileSync(resolve('dist/client/assets/index-DfFs9k6x.css'), 'utf-8');
+
             const url = req.originalUrl;
 
             let template, render;
@@ -68,19 +74,69 @@ export async function createServer(
                 render = (await vite.ssrLoadModule('/src/entry-server.tsx')).render;
             } else {
                 template = indexProd;
-                // @ts-ignore
                 render = (await import('./dist/server/entry-server.js')).render;
             }
 
+            const { routes } = await vite.ssrLoadModule('./src/routes.ts');
+            let activeRoute = {};
+            routes.forEach(route => {
+                const matchedRoute = matchPath(route.path, url);
+                if (matchedRoute && route.path !== "*") {
+                    activeRoute = {
+                        ...route,
+                        ...matchedRoute
+                    };
+                    return;
+                }
+            }, {});
+
+            if (!activeRoute.ssr) {
+                const skipHydration = `<script>window.__HYDRATION__=${
+                    JSON.stringify({ skipHydration: true })
+                }</script>`;
+                const html = template
+                    .replace(`<!--app-html-->`, '')
+                    .replace(`<!--is-ssr-->`, skipHydration);
+                return res.status(200).send(html);
+            }
+            
+            let result = null;
+            if (activeRoute.fetchList) {
+                let fetchUrls = activeRoute.fetchList(activeRoute.params);
+                const fetchRouteData = async () => {
+                    const result = {};
+                    for (const key of Object.keys(fetchUrls)) {
+                        try {
+                            const response = await fetch(`http://localhost:5000${fetchUrls[key]}`);
+                            const data = await response.json();
+                            result[key] = data;
+                        } catch (error) {
+                            console.error(`Ошибка при получении данных для ${key}:`, error);
+                        }
+                    }
+                    return result;
+                };
+                result = {
+                    url: url,
+                    ssrData: await fetchRouteData()
+                };
+            }
+            const data = `<script>window.__SSR_DATA__=${JSON.stringify(
+                result
+            )}</script>`;
+
             const context = {};
-            const appHtml = render(url, context);
+            const appHtml = render(url, context, result);
 
             if (context.url) {
                 // Somewhere a `<Redirect>` was rendered
                 return res.redirect(301, context.url);
             }
 
-            const html = template.replace(`<!--app-html-->`, appHtml);
+            const html = template
+                .replace(`<!--app-html-->`, appHtml)
+                .replace(`<!--ssr-data-->`, data);
+                //.replace(`<!--styles-->`, `<style id = "all_style_package">${ styles }</style>`);
 
             res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
         } catch (e) {

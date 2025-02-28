@@ -133,7 +133,7 @@ export default function ShopPage () {
     useEffect(() => {
         document.title = t("titles.shopPage");
     }, []);
-    
+
     return (
         <ShopPageView
             discounts={ discounts }

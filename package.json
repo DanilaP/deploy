@@ -8,7 +8,7 @@
     "dev-no-ssr": "vite",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build --outDir dist/client",
-    "build:server": "vite build --ssr src/entry-server.jsx --outDir dist/server",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -21,6 +21,8 @@
     "@mui/x-tree-view": "^7.22.1",
     "axios": "^1.7.7",
     "i18next": "^23.7.6",
+    "jodit": "^4.5.16",
+    "jodit-react": "^5.2.14",
     "lodash": "^4.17.21",
     "mobx": "^6.13.5",
     "mobx-react-devtools": "^6.1.1",
@@ -38,7 +40,8 @@
     "recharts": "^2.15.0",
     "sass": "^1.69.5",
     "swiper": "^11.1.14",
-    "use-react-router-breadcrumbs": "^4.0.1"
+    "use-react-router-breadcrumbs": "^4.0.1",
+    "vite-plugin-sass": "^0.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -53,7 +56,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "express": "^4.18.2",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "typescript": "^5.7.3",
+    "vite": "^6.1.1"
   }
 }

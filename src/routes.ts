@@ -29,6 +29,8 @@ import DiscountsPage from "./components/pages/admin/discounts/discounts.tsx";
 import { FeedBackInfoPage } from "./components/pages/admin/feed-back-info/feed-back-info.tsx";
 import MainLayout from "./components/layouts/main-layout/main.tsx";
 import StatisticPage from "./components/pages/admin/statistic/statistic.tsx";
+import StaticPageGeneratorPage from "./components/pages/admin/static-page-generator/static-page-generator.tsx";
+import StaticPage from "./components/pages/static/static-id.tsx";
 
 export const routes = [
     {
@@ -41,25 +43,29 @@ export const routes = [
         path: '/auth/signin',
         component: AuthLayout,
         children: SignIn,
-        breadcrumb : ''
+        breadcrumb : '',
+        ssr: true
     },
     {
         path: '/auth/signup',
         component: AuthLayout,
         children: SignUp,
-        breadcrumb : ''
+        breadcrumb : '',
+        ssr: true
     },
     {
         path: '/shop',
         component: MainLayout,
         children: ShopPage,
-        breadcrumb : t("breadcrumbs.shop")
+        breadcrumb : t("breadcrumbs.shop"),
+        ssr: true
     },
     {
         path: '/shop/:id',
         component: MainLayout,
         children: ShopPage,
-        breadcrumb : t("breadcrumbs.shop")
+        breadcrumb : t("breadcrumbs.shop"),
+        ssr: true
     },
     {
         path: '/cart',
@@ -153,6 +159,18 @@ export const routes = [
         breadcrumb : t("breadcrumbs.feedback")
     },
     {
+        path: "/static/:id",
+        component: MainLayout,
+        children: StaticPage,
+        breadcrumb : t("breadcrumbs.staticPage"),
+        fetchList: (params) => {
+            return {
+                content: `/static-page?id=${params.id}`,
+            };
+        },
+        ssr: true
+    },
+    {
         path: '*',
         component: NotFoundComponent,
         children: null,
@@ -244,5 +262,11 @@ export const adminRoutes = [
         component: AdminLayout,
         children: StatisticPage,
         breadcrumb : t("breadcrumbs.statistic")
+    },
+    {
+        path: "/admin/static-page-generator",
+        component: AdminLayout,
+        children: StaticPageGeneratorPage,
+        breadcrumb : t("breadcrumbs.staticPageGenerator")
     },
 ];
