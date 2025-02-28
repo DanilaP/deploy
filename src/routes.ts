@@ -43,13 +43,15 @@ export const routes = [
         path: '/auth/signin',
         component: AuthLayout,
         children: SignIn,
-        breadcrumb : ''
+        breadcrumb : '',
+        ssr: true
     },
     {
         path: '/auth/signup',
         component: AuthLayout,
         children: SignUp,
-        breadcrumb : ''
+        breadcrumb : '',
+        ssr: true
     },
     {
         path: '/shop',

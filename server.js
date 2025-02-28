@@ -62,7 +62,7 @@ export async function createServer(
     app.use('*', async (req, res) => {
         try {
 
-            const styles = fs.readFileSync(resolve('dist/client/assets/index-DfFs9k6x.css'), 'utf-8');
+            //const styles = fs.readFileSync(resolve('dist/client/assets/index-DfFs9k6x.css'), 'utf-8');
 
             const url = req.originalUrl;
 
@@ -135,8 +135,8 @@ export async function createServer(
 
             const html = template
                 .replace(`<!--app-html-->`, appHtml)
-                .replace(`<!--ssr-data-->`, data)
-                .replace(`<!--styles-->`, `<style id = "all_style_package">${ styles }</style>`);
+                .replace(`<!--ssr-data-->`, data);
+                //.replace(`<!--styles-->`, `<style id = "all_style_package">${ styles }</style>`);
 
             res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
         } catch (e) {
