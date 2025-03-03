@@ -11,9 +11,5 @@ export default defineConfig({
   },
   css: {
     modules: false, // Отключаем CSS-модули, если они не нужны
-  },
-  build: {
-    outDir: 'dist/client',
-    ssr: 'src/entry-server.tsx',
-  },
+  }
 });
